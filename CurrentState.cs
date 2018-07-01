@@ -1301,6 +1301,75 @@ namespace MissionPlanner
 
         public float speedup { get; set; }
 
+        // for OGURA sensors
+#if false
+        [DisplayText("Outer Temp (deg C)")]
+        public float temp_outer { get; set; }
+        [DisplayText("Inner Temp (deg C)")]
+        public float temp_inner { get; set; }
+        [DisplayText("Motor 1 Temp (deg C)")]
+        public float temp_motor1 { get; set; }
+        [DisplayText("Motor 1 Voltage (V)")]
+        public float voltage_motor1 { get; set; }
+        [DisplayText("Motor 2 Temp (deg C)")]
+        public float temp_motor2 { get; set; }
+        [DisplayText("Motor 2 Voltage (V)")]
+        public float voltage_motor2 { get; set; }
+        [DisplayText("Motor 3 Temp (deg C)")]
+        public float temp_motor3 { get; set; }
+        [DisplayText("Motor 3 Voltage (V)")]
+        public float voltage_motor3 { get; set; }
+        [DisplayText("Motor 4 Temp (deg C)")]
+        public float temp_motor4 { get; set; }
+        [DisplayText("Motor 4 Voltage (V)")]
+        public float voltage_motor4 { get; set; }
+        [DisplayText("CO Concentration (ppm)")]
+        public float gas_co_concentration { get; set; }
+        [DisplayText("CO Sensor Voltage (V)")]
+        public float gas_co_voltage { get; set; }
+        [DisplayText("H2S Concentration (ppm)")]
+        public float gas_h2s_concentration { get; set; }
+        [DisplayText("H2S Sensor Voltage (V)")]
+        public float gas_h2s_voltage { get; set; }
+        [DisplayText("Inflammable Concentration (ppm)")]
+        public float gas_inflammable_concentration { get; set; }
+        [DisplayText("Inflammable Sensor Voltage (V)")]
+        public float gas_inflammable_voltage { get; set; }
+#else
+        [DisplayText("外気温 (℃)")]
+        public float temp_outer { get; set; }
+        [DisplayText("内気温 (℃)")]
+        public float temp_inner { get; set; }
+        [DisplayText("モーター1温度 (℃)")]
+        public float temp_motor1 { get; set; }
+        [DisplayText("モーター1電圧 (V)")]
+        public float voltage_motor1 { get; set; }
+        [DisplayText("モーター2温度 (℃)")]
+        public float temp_motor2 { get; set; }
+        [DisplayText("モーター2電圧 (V)")]
+        public float voltage_motor2 { get; set; }
+        [DisplayText("モーター3温度 (℃)")]
+        public float temp_motor3 { get; set; }
+        [DisplayText("モーター3電圧 (V)")]
+        public float voltage_motor3 { get; set; }
+        [DisplayText("モーター4温度 (℃)")]
+        public float temp_motor4 { get; set; }
+        [DisplayText("モーター4電圧 (V)")]
+        public float voltage_motor4 { get; set; }
+        [DisplayText("CO濃度 (ppm)")]
+        public float gas_co_concentration { get; set; }
+        [DisplayText("CO電圧 (V)")]
+        public float gas_co_voltage { get; set; }
+        [DisplayText("H2S濃度 (ppm)")]
+        public float gas_h2s_concentration { get; set; }
+        [DisplayText("H2S電圧 (V)")]
+        public float gas_h2s_voltage { get; set; }
+        [DisplayText("可燃性ガス濃度 (ppm)")]
+        public float gas_inflammable_concentration { get; set; }
+        [DisplayText("可燃性ガス電圧 (V)")]
+        public float gas_inflammable_voltage { get; set; }
+#endif
+
         // HIL
         public int hilch1;// { get; set; }
         public int hilch2;// { get; set; }
@@ -1854,6 +1923,43 @@ namespace MissionPlanner
 
                         sonarrange = sonar.distance;
                         sonarvoltage = sonar.voltage;
+                    }
+
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.OGR_SENSOR_TEMP);
+                    if (mavLinkMessage != null)
+                    {
+                        var temp = mavLinkMessage.ToStructure<MAVLink.mavlink_ogr_sensor_temp_t>();
+
+                        temp_outer = temp.outer_temp;
+                        temp_inner = temp.inner_temp;
+                    }
+
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.OGR_SENSOR_TEMP_MOTOR);
+                    if (mavLinkMessage != null)
+                    {
+                        var motor = mavLinkMessage.ToStructure<MAVLink.mavlink_ogr_sensor_temp_motor_t>();
+
+                        temp_motor1 = motor.motor1_temp;
+                        temp_motor2 = motor.motor2_temp;
+                        temp_motor3 = motor.motor3_temp;
+                        temp_motor4 = motor.motor4_temp;
+                        voltage_motor1 = motor.motor1_voltage;
+                        voltage_motor2 = motor.motor2_voltage;
+                        voltage_motor3 = motor.motor3_voltage;
+                        voltage_motor4 = motor.motor4_voltage;
+                    }
+
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.OGR_SENSOR_GAS);
+                    if (mavLinkMessage != null)
+                    {
+                        var gas = mavLinkMessage.ToStructure<MAVLink.mavlink_ogr_sensor_gas_t>();
+
+                        gas_co_concentration = gas.co_concentration;
+                        gas_h2s_concentration = gas.co_concentration;
+                        gas_inflammable_concentration = gas.inflammable_concentration;
+                        gas_co_voltage = gas.co_voltage;
+                        gas_h2s_voltage = gas.h2s_voltage;
+                        gas_inflammable_voltage = gas.inflammable_voltage;
                     }
 
                     mavLinkMessage = MAV.getPacket((uint) MAVLink.MAVLINK_MSG_ID.POWER_STATUS);

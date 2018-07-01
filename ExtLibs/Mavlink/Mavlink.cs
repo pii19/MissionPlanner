@@ -257,8 +257,11 @@ public partial class MAVLink
 		new message_info(11020, "AOA_SSA", 205, 16, 16, typeof( mavlink_aoa_ssa_t )),
 		new message_info(42000, "ICAROUS_HEARTBEAT", 227, 1, 1, typeof( mavlink_icarous_heartbeat_t )),
 		new message_info(42001, "ICAROUS_KINEMATIC_BANDS", 239, 46, 46, typeof( mavlink_icarous_kinematic_bands_t )),
+        new message_info(33000, "OGR_SENSOR_TEMP", 14, 8, 8, typeof( mavlink_ogr_sensor_temp_t )),
+        new message_info(33001, "OGR_SENSOR_TEMP_MOTOR", 142, 32, 32, typeof( mavlink_ogr_sensor_temp_motor_t )),
+        new message_info(33010, "OGR_SENSOR_GAS", 7, 24, 24, typeof( mavlink_ogr_sensor_gas_t )),
 
-	};
+    };
 
     public const byte MAVLINK_VERSION = 2;
 
@@ -512,10 +515,12 @@ VISION_POSITION_DELTA = 11011,
 AOA_SSA = 11020,
 ICAROUS_HEARTBEAT = 42000,
 ICAROUS_KINEMATIC_BANDS = 42001,
+OGR_SENSOR_TEMP = 33000,
+OGR_SENSOR_TEMP_MOTOR = 33001,
+OGR_SENSOR_GAS = 33010,
+    }
 
-    }  
-	    
-    
+
     ///<summary>  </summary>
     public enum ACCELCAL_VEHICLE_POS: int /*default*/
     {
@@ -7867,4 +7872,55 @@ ICAROUS_KINEMATIC_BANDS = 42001,
     
     };
 
+    // for OGURA sensors
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 8)]
+    ///<summary> OGURA temperature sensor reporting </summary>
+    public struct mavlink_ogr_sensor_temp_t
+    {
+        /// <summary> outer temperature in celsius </summary>
+        public float outer_temp;
+        /// <summary> inner temperature in celsius </summary>
+        public float inner_temp;
+    };
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 32)]
+    ///<summary> OGURA temperature sensor reporting </summary>
+    public struct mavlink_ogr_sensor_temp_motor_t
+    {
+        /// <summary> motor 1 temperature in celsius </summary>
+        public float motor1_temp;
+        /// <summary> motor 1 sensor raw in voltage </summary>
+        public float motor1_voltage;
+        /// <summary> motor 2 temperature in celsius </summary>
+        public float motor2_temp;
+        /// <summary> motor 2 sensor raw in voltage </summary>
+        public float motor2_voltage;
+        /// <summary> motor 3 temperature in celsius </summary>
+        public float motor3_temp;
+        /// <summary> motor 3 sensor raw in voltage </summary>
+        public float motor3_voltage;
+        /// <summary> motor 4 temperature in celsius </summary>
+        public float motor4_temp;
+        /// <summary> motor 4 sensor raw in voltage </summary>
+        public float motor4_voltage;
+    };
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 24)]
+    ///<summary> OGURA gas sensor reporting </summary>
+    public struct mavlink_ogr_sensor_gas_t
+    {
+        /// <summary> CO concentration in ppm </summary>
+        public float co_concentration;
+        /// <summary> CO sensor raw in voltage </summary>
+        public float co_voltage;
+        /// <summary> H2S concentration in ppm </summary>
+        public float h2s_concentration;
+        /// <summary> H2S sensor raw in voltage </summary>
+        public float h2s_voltage;
+        /// <summary> inflammable concentration in ppm </summary>
+        public float inflammable_concentration;
+        /// <summary> inflammable sensor raw in voltage </summary>
+        public float inflammable_voltage;
+
+    };
 }
