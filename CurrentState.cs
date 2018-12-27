@@ -1369,6 +1369,28 @@ namespace MissionPlanner
         [DisplayText("可燃性ガス電圧 (V)")]
         public float gas_inflammable_voltage { get; set; }
 #endif
+        // for W-JFoP sensors
+        [DisplayText("気温 (℃)")]
+        public float wjf_temp { get; set; }
+        [DisplayText("湿度 (%)")]
+        public float wjf_humi { get; set; }
+        [DisplayText("ADC1 (V)")]
+        public float wjf_adc1 { get; set; }
+        [DisplayText("ADC2 (V)")]
+        public float wjf_adc2 { get; set; }
+        [DisplayText("ADC3 (V)")]
+        public float wjf_adc3 { get; set; }
+        [DisplayText("ADC4 (V)")]
+        public float wjf_adc4 { get; set; }
+        [DisplayText("水温 (℃)")]
+        public float wjf_soil_temp { get; set; }
+        [DisplayText("土壌pH (pH)")]
+        public float wjf_soil_ph { get; set; }
+        [DisplayText("土壌EC (mS/cm)")]
+        public float wjf_soil_ec { get; set; }
+        [DisplayText("土壌EC位相 (rad)")]
+        public float wjf_soil_ec_phase { get; set; }
+
 
         // HIL
         public int hilch1;// { get; set; }
@@ -1960,6 +1982,37 @@ namespace MissionPlanner
                         gas_co_voltage = gas.co_voltage;
                         gas_h2s_voltage = gas.h2s_voltage;
                         gas_inflammable_voltage = gas.inflammable_voltage;
+                    }
+
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.WJF_SENSOR_TEMPHUMI);
+                    if (mavLinkMessage != null)
+                    {
+                        var temphumi = mavLinkMessage.ToStructure<MAVLink.mavlink_wjf_sensor_temphumi_t>();
+
+                        wjf_temp = temphumi.temp;
+                        wjf_humi = temphumi.humi;
+                    }
+
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.WJF_SENSOR_ADC);
+                    if (mavLinkMessage != null)
+                    {
+                        var adc = mavLinkMessage.ToStructure<MAVLink.mavlink_wjf_sensor_adc_t>();
+
+                        wjf_adc1 = adc.adc1_voltage;
+                        wjf_adc2 = adc.adc2_voltage;
+                        wjf_adc3 = adc.adc3_voltage;
+                        wjf_adc4 = adc.adc4_voltage;
+                    }
+
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.WJF_SENSOR_SOIL);
+                    if (mavLinkMessage != null)
+                    {
+                        var soil = mavLinkMessage.ToStructure<MAVLink.mavlink_wjf_sensor_soil_t>();
+
+                        wjf_soil_temp = soil.temp;
+                        wjf_soil_ph = soil.ph;
+                        wjf_soil_ec = soil.ec;
+                        wjf_soil_ec_phase = soil.ec_phase;
                     }
 
                     mavLinkMessage = MAV.getPacket((uint) MAVLink.MAVLINK_MSG_ID.POWER_STATUS);

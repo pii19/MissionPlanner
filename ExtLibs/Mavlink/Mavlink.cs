@@ -260,6 +260,9 @@ public partial class MAVLink
         new message_info(33000, "OGR_SENSOR_TEMP", 14, 8, 8, typeof( mavlink_ogr_sensor_temp_t )),
         new message_info(33001, "OGR_SENSOR_TEMP_MOTOR", 142, 32, 32, typeof( mavlink_ogr_sensor_temp_motor_t )),
         new message_info(33010, "OGR_SENSOR_GAS", 7, 24, 24, typeof( mavlink_ogr_sensor_gas_t )),
+        new message_info(33100, "WJF_SENSOR_TEMPHUMI", 205, 8, 8, typeof( mavlink_wjf_sensor_temphumi_t )),
+        new message_info(33101, "WJF_SENSOR_ADC", 28, 16, 16, typeof( mavlink_wjf_sensor_adc_t )),
+        new message_info(33102, "WJF_SENSOR_SOIL", 206, 16, 16, typeof( mavlink_wjf_sensor_soil_t )),
 
     };
 
@@ -518,6 +521,9 @@ ICAROUS_KINEMATIC_BANDS = 42001,
 OGR_SENSOR_TEMP = 33000,
 OGR_SENSOR_TEMP_MOTOR = 33001,
 OGR_SENSOR_GAS = 33010,
+WJF_SENSOR_TEMPHUMI = 33100,
+WJF_SENSOR_ADC = 33101,
+WJF_SENSOR_SOIL = 33102,
     }
 
 
@@ -7923,4 +7929,44 @@ OGR_SENSOR_GAS = 33010,
         public float inflammable_voltage;
 
     };
+
+    // for W-JFoP sensors
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 8)]
+    ///<summary> W-JFoP temperature and humidity sensor reporting </summary>
+    public struct mavlink_wjf_sensor_temphumi_t
+    {
+        /// <summary> temperature in celsius </summary>
+        public float temp;
+        /// <summary> relative humidity value </summary>
+        public float humi;
+    };
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 16)]
+    ///<summary> W-JFoP ADC sensor reporting </summary>
+    public struct mavlink_wjf_sensor_adc_t
+    {
+        /// <summary> adc 1 sensor raw in voltage </summary>
+        public float adc1_voltage;
+        /// <summary> adc 2 sensor raw in voltage </summary>
+        public float adc2_voltage;
+        /// <summary> adc 3 sensor raw in voltage </summary>
+        public float adc3_voltage;
+        /// <summary> adc 4 sensor raw in voltage </summary>
+        public float adc4_voltage;
+    };
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 16)]
+    ///<summary> W-JFoP soil sensor reporting </summary>
+    public struct mavlink_wjf_sensor_soil_t
+    {
+        /// <summary> temperature in celsius </summary>
+        public float temp;
+        /// <summary> potential of hydrogen </summary>
+        public float ph;
+        /// <summary> electrical conductivity </summary>
+        public float ec;
+        /// <summary> electrical conductivity phase </summary>
+        public float ec_phase;
+    };
+
 }
