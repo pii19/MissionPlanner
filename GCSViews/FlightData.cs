@@ -27,6 +27,7 @@ using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using MissionPlanner.Maps;
 using System.Threading.Tasks;
+using Microsoft.Scripting.Utils;
 
 // written by michael oborne
 
@@ -1030,19 +1031,35 @@ namespace MissionPlanner.GCSViews
                     switch (MainV2.comPort.MAV.cs.mode.ToUpper())
                     {
                         case "LOITER":
+                        case "HOLD":
                             mode_jp = "GPSモード";
                             break;
                         case "ALTHOLD":
                             mode_jp = "高度維持モード";
                             break;
                         case "STABILIZE":
+                        case "MANUAL":
                             mode_jp = "マニュアルモード";
                             break;
                         case "AUTO":
-                            mode_jp = "自動飛行モード";
+                            if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                            {
+                                mode_jp = "自動飛行モード";
+                            }
+                            else
+                            {
+                                mode_jp = "自動走行モード";
+                            }
                             break;
                         case "ZIGZAG":
-                            mode_jp = "2点間飛行モード";
+                            if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                            {
+                                mode_jp = "2点間飛行モード";
+                            }
+                            else
+                            {
+                                mode_jp = "2点間走行モード";
+                            }
                             break;
                         case "RTL":
                             mode_jp = "帰還モード";
@@ -1073,13 +1090,24 @@ namespace MissionPlanner.GCSViews
                     }
 
                     // @eams update arming display
-                    if (MainV2.comPort.MAV.cs.armed)
+                    if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     {
-                        mode_jp = "プロペラ回転中";
+                        if (MainV2.comPort.MAV.cs.armed)
+                        {
+                            mode_jp = "プロペラ回転中";
+                        }
+                        else
+                        {
+                            mode_jp = "プロペラ停止中";
+                        }
+                    }
+                    else if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduRover)
+                    {
+                        mode_jp = "刈り刃停止中";
                     }
                     else
                     {
-                        mode_jp = "プロペラ停止中";
+                        mode_jp = "";
                     }
                     if (labelArm.InvokeRequired)
                     {
@@ -1143,13 +1171,23 @@ namespace MissionPlanner.GCSViews
                         {
                             if (curwpno >= firstwpno + 1 && curwpno <= endwpno)
                             {
-                                // force servo to close
-                                float servohigh = Settings.Instance.GetFloat("grid_dosetservo_PWMH");
-                                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
-                                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_normal);
+                                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                                {
+                                    // force servo to close
+                                    float servohigh = Settings.Instance.GetFloat("grid_dosetservo_PWMH");
+                                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
+                                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_normal);
 
-                                var rtl_alt = (float)MainV2.comPort.MAV.param["RTL_ALT"] / 100;
-                                if (MainV2.comPort.MAV.cs.alt >= rtl_alt * 0.95)
+                                    var rtl_alt = (float)MainV2.comPort.MAV.param["RTL_ALT"] / 100;
+                                    if (MainV2.comPort.MAV.cs.alt >= rtl_alt * 0.95)
+                                    {
+                                        resume_pos.Lat = MainV2.comPort.MAV.cs.lat;
+                                        resume_pos.Lng = MainV2.comPort.MAV.cs.lng;
+                                        resume_pos.Alt = MainV2.comPort.MAV.cs.alt;
+                                        resume_flag = 1;
+                                    }
+                                }
+                                else
                                 {
                                     resume_pos.Lat = MainV2.comPort.MAV.cs.lat;
                                     resume_pos.Lng = MainV2.comPort.MAV.cs.lng;
@@ -1159,6 +1197,14 @@ namespace MissionPlanner.GCSViews
 
                                 lastwpno = curwpno;
 //                            last_failsafe = MainV2.comPort.MAV.cs.failsafe;
+                            }
+                        }
+                        else if (resume_flag == 1)
+                        {
+                            // check reaching to home
+                            if (MainV2.comPort.MAV.cs.DistToHome < 0.5)
+                            {
+                                MainV2.comPort.doARM(false);
                             }
                         }
                     }
@@ -1568,7 +1614,16 @@ namespace MissionPlanner.GCSViews
                             if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
                             {
 #if true    // @eams change
-                                addpolygonmarker("自動飛行再開ポイント", MainV2.comPort.MAV.GuidedMode.y,
+                                string disp = "";
+                                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                                {
+                                    disp = "自動飛行再開ポイント";
+                                }
+                                else
+                                {
+                                    disp = "自動走行再開ポイント";
+                                }
+                                addpolygonmarker(disp, MainV2.comPort.MAV.GuidedMode.y,
                                     MainV2.comPort.MAV.GuidedMode.x, (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue,
                                     routes);
 #else
@@ -4669,6 +4724,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         private void setQuickViewRowsCols(string cols, string rows)
         {
+            tableLayoutPanelQuick.SuspendLayout();
             tableLayoutPanelQuick.ColumnCount = Math.Max(1, int.Parse(cols));
             tableLayoutPanelQuick.RowCount = Math.Max(1, int.Parse(rows));
 
@@ -4678,11 +4734,36 @@ if (a is CheckBox && ((CheckBox)a).Checked)
             int total = tableLayoutPanelQuick.ColumnCount * tableLayoutPanelQuick.RowCount;
 
             // clean up extra
-            while (tableLayoutPanelQuick.Controls.Count > total)
-                tableLayoutPanelQuick.Controls.RemoveAt(tableLayoutPanelQuick.Controls.Count - 1);
+            var ctls = tableLayoutPanelQuick.Controls.Select(a => (Control)a).ToList();
+            // remove those in row/cols outside our selection
+            ctls.Select(a =>
+            {
+                try
+                {
+                    if (a == null)
+                        return default(TableLayoutPanelCellPosition);
+                    var pos = tableLayoutPanelQuick.GetPositionFromControl((Control)a);
+                    if (pos.Column >= tableLayoutPanelQuick.ColumnCount)
+                    {
+                        tableLayoutPanelQuick.Controls.Remove((Control)a);
+                    }
+                    else if (pos.Row >= tableLayoutPanelQuick.RowCount)
+                    {
+                        tableLayoutPanelQuick.Controls.Remove((Control)a);
+                    }
+
+                    return pos;
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    return default(TableLayoutPanelCellPosition);
+                }
+            }).ToList();
+
 
             // add extra
-            while (total != tableLayoutPanelQuick.Controls.Count)
+            while (total > tableLayoutPanelQuick.Controls.Count)
             {
                 var QV = new QuickView()
                 {
@@ -4696,6 +4777,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
                 tableLayoutPanelQuick.Controls.Add(QV);
                 QV.GetFontSize();
+                //QV.Invalidate();
             }
 
             for (int i = 0; i < tableLayoutPanelQuick.ColumnCount; i++)
@@ -4712,6 +4794,10 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                 tableLayoutPanelQuick.RowStyles[j].SizeType = SizeType.Percent;
                 tableLayoutPanelQuick.RowStyles[j].Height = 100.0f / tableLayoutPanelQuick.RowCount;
             }
+
+            tableLayoutPanelQuick.Controls.ForEach(a => ((Control)a).Invalidate());
+
+            tableLayoutPanelQuick.ResumeLayout(true);
         }
 
         Random random = new Random();
@@ -4963,22 +5049,25 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "MISSION_START"),
                         param1, 0, param3, 0, 0, 0, 0);
 #endif
-                    // set SERVO7_FUNCTION auto @eams
-                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
-
-                    // get parameters
-                    int grid_type = Settings.Instance.GetInt32("grid_type");
-
-                    // servo operation in mode2
-                    if (grid_type == 2)
+                    if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     {
-                        for (int a = curwpno; a >= 0; a--)
+                        // set SERVO7_FUNCTION auto @eams
+                        MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
+
+                        // get parameters
+                        int grid_type = Settings.Instance.GetInt32("grid_type");
+
+                        // servo operation in mode2
+                        if (grid_type == 2)
                         {
-                            if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                            for (int a = curwpno; a >= 0; a--)
                             {
-                                var servo = cmds[a].p2;
-                                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
-                                break;
+                                if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                                {
+                                    var servo = cmds[a].p2;
+                                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -5004,7 +5093,14 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 //                ButtonStop.BackColor = Color.DodgerBlue;
                 ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop;
                 ButtonStop.BackgroundImage.Tag = "stop";
-                toolTip1.SetToolTip(ButtonStop, "自動飛行停止");
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                {
+                    toolTip1.SetToolTip(ButtonStop, "自動飛行停止");
+                }
+                else
+                {
+                    toolTip1.SetToolTip(ButtonStop, "自動走行停止");
+                }
             }
             else
             {
@@ -5012,7 +5108,14 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 //                ButtonStop.BackColor = Color.DarkOrchid;
                 ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart;
                 ButtonStop.BackgroundImage.Tag = "restart";
-                toolTip1.SetToolTip(ButtonStop, "自動飛行再開");
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                {
+                    toolTip1.SetToolTip(ButtonStop, "自動飛行再開");
+                }
+                else
+                {
+                    toolTip1.SetToolTip(ButtonStop, "自動走行再開");
+                }
             }
 
         }
@@ -5152,8 +5255,6 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
                 int lastwpno = int.Parse(lastwp);
 #endif
-                resume_flag = 2;
-
                 // get parameters
                 int grid_type = Settings.Instance.GetInt32("grid_type");
 #if false
@@ -5174,9 +5275,11 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                 gotohere.lng = resume_pos.Lng;
                 MainV2.comPort.setGuidedModeWP(gotohere);
 
-                MainV2.comPort.setMode("GUIDED");
+                //MainV2.comPort.setMode("GUIDED");
                 await Task.Delay(1000);
                 Application.DoEvents();
+
+                resume_flag = 2;
 #if false
                 // force redraw map
                 await Task.Delay(MainV2.update_wp_delay+200);
@@ -5206,21 +5309,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                 // set SERVO7_FUNCTION auto @eams
                 MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
 #endif
-                // take off
                 int timeout = 0;
-                while (MainV2.comPort.MAV.cs.alt < (lastwpdata.alt * 0.95))
-                {
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, lastwpdata.alt);
-                    await Task.Delay(100);
-                    Application.DoEvents();
-                    timeout++;
-
-                    if (timeout > 400)
-                    {
-                        CustomMessageBox.Show(Strings.ERROR, Strings.ErrorNoResponce);
-                        return;
-                    }
-                }
 
                 // get wp data
                 List<Locationwp> cmds = new List<Locationwp>();
@@ -5241,17 +5330,35 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     cmds.Add(wpdata);
                 }
 #endif
-                // DO_SET_SERVO high (close)
-                float servohigh = 1000;
-                for (ushort a = 0; a < wpcount; a++)
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 {
-                    if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                    // take off
+                    while (MainV2.comPort.MAV.cs.alt < (lastwpdata.alt * 0.95))
                     {
-                        servohigh = cmds[a].p2;
-                        break;
+                        MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, lastwpdata.alt);
+                        await Task.Delay(100);
+                        Application.DoEvents();
+                        timeout++;
+
+                        if (timeout > 400)
+                        {
+                            CustomMessageBox.Show(Strings.ERROR, Strings.ErrorNoResponce);
+                            return;
+                        }
                     }
+
+                    // DO_SET_SERVO high (close)
+                    float servohigh = 1000;
+                    for (ushort a = 0; a < wpcount; a++)
+                    {
+                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                        {
+                            servohigh = cmds[a].p2;
+                            break;
+                        }
+                    }
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
                 }
-                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
 
                 // DO_CHANGE_SPEED
                 float grid_speed = 5;
@@ -5277,17 +5384,20 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                 }
                 await Task.Delay(grid_startup_delay * 1000);
 
-                // CONDTION_YAW
-                float grid_angle = 0;
-                for (ushort a = 0; a < wpcount; a++)
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 {
-                    if (cmds[a].id == (ushort)MAVLink.MAV_CMD.CONDITION_YAW)
+                    // CONDTION_YAW
+                    float grid_angle = 0;
+                    for (ushort a = 0; a < wpcount; a++)
                     {
-                        grid_angle = cmds[a].p1;
-                        break;
+                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.CONDITION_YAW)
+                        {
+                            grid_angle = cmds[a].p1;
+                            break;
+                        }
                     }
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
                 }
-                MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
 
                 // 1sec delay
                 await Task.Delay(1000);
@@ -5331,21 +5441,24 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     }
                 }
 
-                // servo operation in mode2
-                if (grid_type == 2)
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 {
-                    for (int a = lastwpno; a >= 0; a--)
+                    // servo operation in mode2
+                    if (grid_type == 2)
                     {
-                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                        for (int a = lastwpno; a >= 0; a--)
                         {
-                            var servo = cmds[a].p2;
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
-                            break;
+                            if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                            {
+                                var servo = cmds[a].p2;
+                                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
+                                break;
+                            }
                         }
                     }
                 }
 
-//                last_failsafe = false;
+                //last_failsafe = false;
                 lastwpno = 0;
             }
             catch (Exception ex)

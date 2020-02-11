@@ -938,7 +938,10 @@ namespace MissionPlanner.GCSViews
             // @eams add
             panel3.Visible = false;
             panel4.Visible = false;
-            panel5.Visible = false;
+            if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+            {
+                panel5.Visible = false;
+            }
 
             writeKML();
 

@@ -943,7 +943,10 @@ namespace MissionPlanner.Grid
         {
             if (CHK_copter_headinghold.Checked)
             {
-                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_YAW, Convert.ToInt32(TXT_headinghold.Text), 0, 0, 0, 0, 0, 0, gridobject);
+                if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                {
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_YAW, Convert.ToInt32(TXT_headinghold.Text), 0, 0, 0, 0, 0, 0, gridobject);
+                }
                 if (grid_type == 3 || grid_type == 4)   // @eams add
                 {
 #if false
@@ -1716,10 +1719,13 @@ namespace MissionPlanner.Grid
                             703, MainV2.servo7_func_auto, 0, 0, 0, 0, 0, gridobject);
 #endif
                         // @eams add
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
-                            (float)num_setservono.Value,
-                            (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
-                            gridobject);
+                        if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                        {
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                (float)num_setservono.Value,
+                                (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                gridobject);
+                        }
                     }
 
                     if (CHK_usespeed.Checked)
@@ -1882,11 +1888,14 @@ namespace MissionPlanner.Grid
                                             plla.Alt != lastplla.Alt)
                                             AddWP(plla.Lng, plla.Lat, plla.Alt);
 
-                                        // open
-                                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
-                                            (float)num_setservono.Value,
-                                            (float)num_setservolow.Value, 0, 0, 0, 0, 0,
-                                            gridobject);
+                                        if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                                        {
+                                            // open
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                                (float)num_setservono.Value,
+                                                (float)num_setservolow.Value, 0, 0, 0, 0, 0,
+                                                gridobject);
+                                        }
 
                                         if (grid_type == 3 || grid_type == 4)
                                         {
@@ -1922,10 +1931,13 @@ namespace MissionPlanner.Grid
                                                 gridobject);
 
                                         }
-                                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
-                                            (float)num_setservono.Value,
-                                            (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
-                                            gridobject);
+                                        if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                                        {
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                                (float)num_setservono.Value,
+                                                (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                                gridobject);
+                                        }
                                     }
                                 }
                             }

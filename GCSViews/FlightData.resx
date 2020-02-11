@@ -169,7 +169,7 @@
     <value>80</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>飛行モード</value>
+    <value>走行モード</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
@@ -262,16 +262,16 @@
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>273, 46</value>
+    <value>283, 46</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 18</value>
+    <value>68, 18</value>
   </data>
   <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>81</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>プロペラ状態</value>
+    <value>刈り刃状態</value>
   </data>
   <data name="&gt;&gt;label9.Name" xml:space="preserve">
     <value>label9</value>
@@ -3637,7 +3637,7 @@
     <value>77</value>
   </data>
   <data name="ButtonStart.ToolTip" xml:space="preserve">
-    <value>自動飛行開始</value>
+    <value>自動走行開始</value>
   </data>
   <data name="&gt;&gt;ButtonStart.Name" xml:space="preserve">
     <value>ButtonStart</value>
@@ -3673,7 +3673,7 @@
     <value>76</value>
   </data>
   <data name="ButtonStop.ToolTip" xml:space="preserve">
-    <value>自動飛行停止</value>
+    <value>自動走行停止</value>
   </data>
   <data name="&gt;&gt;ButtonStop.Name" xml:space="preserve">
     <value>ButtonStop</value>
@@ -3778,7 +3778,7 @@
     <value>zg1</value>
   </data>
   <data name="&gt;&gt;zg1.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.20018, Culture=neutral, PublicKeyToken=null</value>
+    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.34400, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zg1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -4291,7 +4291,7 @@
     <value>76</value>
   </data>
   <data name="label12.Text" xml:space="preserve">
-    <value>積算飛行時間：</value>
+    <value>積算走行時間：</value>
   </data>
   <data name="&gt;&gt;label12.Name" xml:space="preserve">
     <value>label12</value>

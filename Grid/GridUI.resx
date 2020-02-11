@@ -4084,6 +4084,9 @@ Control-O to load form file</value>
   <data name="BUT_altminus.Text" xml:space="preserve">
     <value>-</value>
   </data>
+  <data name="BUT_altminus.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;BUT_altminus.Name" xml:space="preserve">
     <value>BUT_altminus</value>
   </data>
@@ -4117,6 +4120,9 @@ Control-O to load form file</value>
   <data name="BUT_altplus.Text" xml:space="preserve">
     <value>+</value>
   </data>
+  <data name="BUT_altplus.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;BUT_altplus.Name" xml:space="preserve">
     <value>BUT_altplus</value>
   </data>
@@ -4146,6 +4152,9 @@ Control-O to load form file</value>
   </data>
   <data name="TXT_altitude.Text" xml:space="preserve">
     <value>0.0</value>
+  </data>
+  <data name="TXT_altitude.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;TXT_altitude.Name" xml:space="preserve">
     <value>TXT_altitude</value>
@@ -4182,6 +4191,9 @@ Control-O to load form file</value>
   </data>
   <data name="label48.Text" xml:space="preserve">
     <value>飛行高度</value>
+  </data>
+  <data name="label48.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;label48.Name" xml:space="preserve">
     <value>label48</value>
@@ -4313,7 +4325,7 @@ Control-O to load form file</value>
     <value>90</value>
   </data>
   <data name="label49.Text" xml:space="preserve">
-    <value>飛行速度</value>
+    <value>走行速度</value>
   </data>
   <data name="&gt;&gt;label49.Name" xml:space="preserve">
     <value>label49</value>
@@ -4765,11 +4777,8 @@ Control-O to load form file</value>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>984, 537</value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>飛行ルート設定</value>
+    <value>走行ルート設定</value>
   </data>
   <data name="&gt;&gt;timer1.Name" xml:space="preserve">
     <value>timer1</value>

@@ -4175,9 +4175,18 @@ namespace MissionPlanner
             }
             try
             {
+                string disp = "";
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                {
+                    disp = "自動飛行";
+                }
+                else
+                {
+                    disp = "自動走行";
+                }
                 if (MainV2.instance.FlightData.resume_flag == 0)
                 {
-                    if (CustomMessageBox.Show("機体に接続しミッションを書き込んでもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                    if (CustomMessageBox.Show("機体に接続しミッションを書き込んでもよろしいですか？", disp, MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
                     {
                         return;
                     }
@@ -4198,7 +4207,7 @@ namespace MissionPlanner
                 // change mode STABILIZE/Loiter
                 if (MainV2.comPort.MAV.cs.failsafe)
                 {
-                    if (CustomMessageBox.Show("フェイルセーフ中です。実行してもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                    if (CustomMessageBox.Show("フェイルセーフ中です。実行してもよろしいですか？", disp, MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
                     {
                         return;
                     }
@@ -4224,16 +4233,36 @@ namespace MissionPlanner
 //                if (MainV2.instance.FlightData.last_failsafe)
                 if (MainV2.instance.FlightData.resume_flag > 0)
                 {
-                    if (CustomMessageBox.Show("フェイルセーフからのレジューム飛行を行います。\n\n離陸してもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                    if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     {
-                        return;
+                        if (CustomMessageBox.Show("フェイルセーフからのレジューム飛行を行います。\n\n離陸してもよろしいですか？", disp, MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (CustomMessageBox.Show("フェイルセーフからのレジューム走行を行います。\n\n発進してもよろしいですか？", disp, MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                        {
+                            return;
+                        }
                     }
                 }
                 else
                 {
-                    if (CustomMessageBox.Show("正しいミッションが表示されていますか？ 周囲の安全を確認してください。\n\n離陸してよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                    if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     {
-                        return;
+                        if (CustomMessageBox.Show("正しいミッションが表示されていますか？ 周囲の安全を確認してください。\n\n離陸してよろしいですか？", disp, MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (CustomMessageBox.Show("正しいミッションが表示されていますか？ 周囲の安全を確認してください。\n\n発進してよろしいですか？", disp, MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                        {
+                            return;
+                        }
                     }
                 }
 
@@ -4249,16 +4278,19 @@ namespace MissionPlanner
                     CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR);
                 }
 
-                // set SERVO7_FUNCTION auto @eams
-                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 {
-                    CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
-                    return;
+                    // set SERVO7_FUNCTION auto @eams
+                    if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                    {
+                        CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+                        return;
+                    }
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
                 }
-                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
 
                 // branch resume on failsafe
-//                if (MainV2.instance.FlightData.last_failsafe)
+                //                if (MainV2.instance.FlightData.last_failsafe)
                 if (MainV2.instance.FlightData.resume_flag > 0)
                 {
                     MainV2.instance.FlightData.ResumeOnFailSafe();
@@ -4318,16 +4350,19 @@ namespace MissionPlanner
                     return;
                 }
 
-                // set SERVO7_FUNCTION normal @eams
-                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 {
-                    CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
-                    return;
+                    // set SERVO7_FUNCTION normal @eams
+                    if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                    {
+                        CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+                        return;
+                    }
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
                 }
-                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
 
                 // ignore failsafe resume process
-//                MainV2.instance.FlightData.resume_flag = true;
+                //                MainV2.instance.FlightData.resume_flag = true;
 
                 // set mode RTL
                 MainV2.comPort.setMode("RTL");
@@ -4374,16 +4409,27 @@ namespace MissionPlanner
 
             try
             {
-                // set SERVO7_FUNCTION normal @eams
-                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 {
-                    CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
-                    return;
+                    // set SERVO7_FUNCTION normal @eams
+                    if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                    {
+                        CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+                        return;
+                    }
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
                 }
-                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
 
-                // set mode Loiter
-                MainV2.comPort.setMode("Loiter");
+                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                {
+                    // set mode Loiter
+                    MainV2.comPort.setMode("Loiter");
+                }
+                else
+                {
+                    // set mode Hold
+                    MainV2.comPort.setMode("Hold");
+                }
 #if false
                 CurrentState cs = MainV2.comPort.MAV.cs;
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, (float)(cs.HomeLocation.Lat),

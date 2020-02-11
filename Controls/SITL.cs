@@ -89,7 +89,7 @@ namespace MissionPlanner.Controls
             if (!Directory.Exists(sitldirectory))
                 Directory.CreateDirectory(sitldirectory);
 
-            this.cmb_model.SelectedIndex = 9;
+            //this.cmb_model.SelectedIndex = 9;
         }
 
         public void Activate()
