@@ -4308,6 +4308,9 @@ namespace MissionPlanner
                 int time = Settings.Instance.GetInt32("atex_timer_time");
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_timer_ch, time, 0, 0, 0, 0, 0);
 
+                // polygonmode is disabled (w/flag)
+                MainV2.instance.FlightPlanner.clearPolygonMode();
+
                 // wait AUTO
                 //var act = new Action(() => System.Threading.Thread.Sleep(5000));
                 var act = new Action(() => {
@@ -4320,7 +4323,6 @@ namespace MissionPlanner
                 }
                 );
                 CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
-                MainV2.instance.FlightPlanner.clearPolygonMode();
 #if false
                 // arm the MAV
                 try
