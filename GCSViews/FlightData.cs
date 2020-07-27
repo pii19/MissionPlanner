@@ -5231,7 +5231,6 @@ namespace MissionPlanner.GCSViews
                 int impeller_no = Settings.Instance.GetInt32("impeller_no");
                 int impeller_pwm_on = Settings.Instance.GetInt32("impeller_pwm_on");
                 int impeller_pwm_off = Settings.Instance.GetInt32("impeller_pwm_off");
-                int grid_alt = Settings.Instance.GetInt32("grid_alt");
                 string rngfnd_type = "0";
                 try
                 {
@@ -5359,7 +5358,7 @@ namespace MissionPlanner.GCSViews
                     }
                     timeout++;
 
-                    if (timeout > grid_alt + 10)
+                    if (timeout > gotohere.alt + 10)
                     {
                         CustomMessageBox.Show("離陸コマンドタイムアウトエラー", Strings.ErrorNoResponce);
                         resume_flag = 1;

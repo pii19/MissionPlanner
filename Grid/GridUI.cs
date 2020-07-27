@@ -1455,7 +1455,34 @@ namespace MissionPlanner.Grid
 
         private void map_MouseUp(object sender, MouseEventArgs e)
         {
+            MouseDownEnd = map.FromLocalToLatLng(e.X, e.Y);
 
+            // Console.WriteLine("MainMap MU");
+
+            if (e.Button == MouseButtons.Right) // ignore right clicks
+            {
+                return;
+            }
+
+            if (isMouseDown) // mouse down on some other object and dragged to here.
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    isMouseDown = false;
+                }
+                if (!isMouseDraging)
+                {
+                    if (CurrentGMapMarker != null)
+                    {
+                        // Redraw polygon
+                        //AddDrawPolygon();
+                    }
+                }
+            }
+            isMouseDraging = false;
+            CurrentGMapMarker = null;
+            CurrentGMapMarkerIndex = 0;
+            CurrentGMapMarkerStartPos = null;
         }
 
         private void map_MouseDown(object sender, MouseEventArgs e)
