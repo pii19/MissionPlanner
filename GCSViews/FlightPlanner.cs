@@ -7568,6 +7568,36 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             polygonsoverlay.IsVisibile = chk_ndvigrid.Checked;
         }
+
+        public void addPolygonPointRC(double lat, double lng)
+        {
+            if (polygongridmode == false)
+            {
+                return;
+            }
+
+            List<PointLatLng> polygonPoints = new List<PointLatLng>();
+            if (drawnpolygonsoverlay.Polygons.Count == 0)
+            {
+                drawnpolygon.Points.Clear();
+                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+            }
+
+            drawnpolygon.Fill = Brushes.Transparent;
+
+            // remove full loop is exists
+            if (drawnpolygon.Points.Count > 1 &&
+                drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
+
+            drawnpolygon.Points.Add(new PointLatLng(lat, lng));
+
+            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), lng, lat, 0);
+
+            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+            MainMap.Invalidate();
+        }
     }
 
     public class GMapPolygonMesh : GMapPolygon

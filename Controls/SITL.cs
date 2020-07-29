@@ -89,7 +89,7 @@ namespace MissionPlanner.Controls
             if (!Directory.Exists(sitldirectory))
                 Directory.CreateDirectory(sitldirectory);
 
-            this.cmb_model.SelectedIndex = 9;
+            this.cmb_model.SelectedIndex = 0;
         }
 
         public void Activate()
@@ -148,9 +148,19 @@ namespace MissionPlanner.Controls
                 CustomMessageBox.Show(Strings.Invalid_home_location);
                 return;
             }
-            var exepath = CheckandGetSITLImage("APMrover2.elf");
+            var exepath = Path.Combine(sitldirectory, "APMrover2.exe"); // CheckandGetSITLImage("APMrover2.elf");
 
             StartSITL(exepath, "rover", BuildHomeLocation(markeroverlay.Markers[0].Position, (int)NUM_heading.Value), "", (int)num_simspeed.Value);
+
+            if (File.Exists(Path.Combine(Settings.GetUserDataDirectory(), "config", "sitl.py")))
+            {
+                Thread scriptthread = new Thread(run_selected_script)
+                {
+                    IsBackground = true,
+                    Name = "Script Thread (new)"
+                };
+                scriptthread.Start();
+            }
         }
 
         private void pictureBoxquad_Click(object sender, EventArgs e)

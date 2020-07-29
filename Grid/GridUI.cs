@@ -238,9 +238,9 @@ namespace MissionPlanner.Grid
                 {
                     panel7.Visible = false;
                 }
-
                 panelMode6.Visible = false;
                 panelMode6Easy.Visible = false;
+                panel10.Visible = false;
             }
             else if (grid_type == 6)
             {
@@ -258,6 +258,24 @@ namespace MissionPlanner.Grid
                 }
                 panel4.Visible = false;
                 panel7.Visible = false;
+                panel10.Visible = false;
+            }
+            else if (grid_type == 22)
+            {
+                panel1.Visible = false;
+                panel3.Visible = false;
+                panel9.Visible = false;
+                panel5.Visible = false;
+                if (grid_type == 5)
+                {
+                    panel7.Visible = false;
+                }
+
+                panelMode6.Visible = false;
+                panelMode6Easy.Visible = false;
+
+                label49.Text = "走行速度（m/s）";
+                label55.Text = "飛行開始ポイント";
             }
         }
 
@@ -291,6 +309,12 @@ namespace MissionPlanner.Grid
                 //TXT_GrandRes.Text= TXT_cmpixel.Text.TrimEnd(new[] { 'c', 'm', ' ' });
                 //double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
                 //TXT_PhotoEvery.Text = ((double)NUM_spacing.Value / flyspeedms).ToString("F1");
+            }
+
+            // @eams add for mode22
+            if (grid_type == 22)
+            {
+                //NUM_leadin.ValueChanged -= domainUpDown1_ValueChanged;
             }
 
             // @eams add
@@ -386,6 +410,7 @@ namespace MissionPlanner.Grid
             NUM_overshoot.Value = griddata.overshoot1;
             NUM_overshoot2.Value = griddata.overshoot2;
             NUM_leadin.Value = griddata.leadin;
+            TXT_leadin.Text = Decimal.Round(NUM_leadin.Value, 1, MidpointRounding.AwayFromZero).ToString("f1");   //@eams add
             //CMB_startfrom.Text = griddata.startfrom;
             CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), griddata.startfrom);
             num_overlap.Value = griddata.overlap;
@@ -500,6 +525,7 @@ namespace MissionPlanner.Grid
                 loadsetting("grid_overshoot1", NUM_overshoot);
                 loadsetting("grid_overshoot2", NUM_overshoot2);
                 loadsetting("grid_leadin", NUM_leadin);
+                TXT_leadin.Text = Decimal.Round(NUM_leadin.Value, 1, MidpointRounding.AwayFromZero).ToString("f1");   //@eams add
 #if true
                 var val = plugin.Host.config["grid_startfrom"].ToString();
                 CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), val);
@@ -796,6 +822,14 @@ namespace MissionPlanner.Grid
                             //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
                             (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
                             (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate, area_unit);
+                        break;
+                    case 22:
+                        grid = Utilities.Grid.CreateGrid22(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+                            (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
+                            (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
+                            //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
+                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate);
                         break;
                     default:
                         grid = Utilities.Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
@@ -1940,6 +1974,7 @@ namespace MissionPlanner.Grid
                     int i = 0;
                     bool startedtrigdist = false;
                     PointLatLngAlt lastplla = PointLatLngAlt.Zero;
+                    bool reverse = true;
                     foreach (var plla in grid)
                     {
                         // skip before start point
@@ -2191,6 +2226,20 @@ namespace MissionPlanner.Grid
                                             (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
                                             gridobject);
                                         }
+
+                                        if (grid_type == 22 && !addwp_lasttime)
+                                        {
+                                            if (reverse)
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 1, 0, 0, 0, 0, 0, 0, gridobject);
+                                                reverse = false;
+                                            }
+                                            else
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                                                reverse = true;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -2204,6 +2253,15 @@ namespace MissionPlanner.Grid
                     }
 
                     // end
+
+                    //最後の逆走防止
+                    if (grid_type == 22)
+                    {
+                        if (!reverse)
+                        {
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                        }
+                    }
 #if false
                     // @eams add set SERVO7_FUNCTION normal
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_PARAMETER,
@@ -2892,6 +2950,43 @@ namespace MissionPlanner.Grid
         private void BUT_shiftleft_Click(object sender, EventArgs e)
         {
             grid_shift(270);
+        }
+        #endregion
+
+        #region リードイン
+        private void BUT_leadin_MouseDown(object sender, MouseEventArgs e)
+        {
+            target = TXT_leadin;
+            MaximumValue = (double)NUM_leadin.Maximum;
+            MinimumValue = (double)NUM_leadin.Minimum;
+            CurrentValue += (sender == BUT_leadinplus) ? 0.1 : -0.1;
+            timer1.Interval = def_interval;
+            incrementValue = (sender == BUT_leadinplus) ? 0.1 : -0.1;
+            timer1.Start();
+        }
+
+        private void TXT_leadin_TextChanged(object sender, EventArgs e)
+        {
+            decimal d = NUM_leadin.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_leadin.Text))
+            {
+                if (decimal.TryParse(TXT_leadin.Text, out d))
+                {
+                    if (d > NUM_leadin.Maximum)
+                    {
+                        d = NUM_leadin.Maximum;
+                    }
+                    if (d < NUM_leadin.Minimum)
+                    {
+                        d = NUM_leadin.Minimum;
+                    }
+                }
+            }
+            TXT_leadin.TextChanged -= TXT_Sidelap_TextChanged;
+            TXT_leadin.Text = d.ToString("f1");
+            TXT_leadin.TextChanged += TXT_Sidelap_TextChanged;
+            NUM_leadin.Value = d;
+//            domainUpDown1_ValueChanged(sender, e);
         }
         #endregion
     }

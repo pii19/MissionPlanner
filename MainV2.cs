@@ -1035,7 +1035,7 @@ namespace MissionPlanner
             servo7_func_auto = Settings.Instance.GetInt32("servo7_func_auto");
             ignore_port = Settings.Instance.GetList("ignore_port").ToList();
             ekf_status_flags = Settings.Instance.GetInt32("ekf_status_flags");
-            update_wp_delay = Settings.Instance.GetInt32("dialog_delay");
+            update_wp_delay = Settings.Instance.GetInt32("update_wp_delay");
             grid_dosetservo_PWML = Settings.Instance.GetInt32("grid_dosetservo_PWML");
             grid_dosetservo_PWMH = Settings.Instance.GetInt32("grid_dosetservo_PWMH");
 
@@ -4219,16 +4219,16 @@ namespace MissionPlanner
                 {
 #endif
                 MainV2.comPort.setMode("Loiter");
-//                }
+                //}
 
                 // force redraw map
                 await Task.Delay(update_wp_delay+200);
-//                GCSViews.FlightData.mymap.Refresh();
+                //GCSViews.FlightData.mymap.Refresh();
                 GCSViews.FlightData.mymap.ZoomAndCenterMarkers("WPOverlay");
-//                GCSViews.FlightData.mymap.ZoomAndCenterMarkers("routes");
+                //GCSViews.FlightData.mymap.ZoomAndCenterMarkers("routes");
                 GCSViews.FlightData.mymap.Refresh();
 
-//                if (MainV2.instance.FlightData.last_failsafe)
+                //if (MainV2.instance.FlightData.last_failsafe)
                 if (MainV2.instance.FlightData.resume_flag > 0)
                 {
                     if (CustomMessageBox.Show("フェイルセーフからのレジューム飛行を行います。\n\n離陸してもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
@@ -4411,6 +4411,7 @@ namespace MissionPlanner
 
         // @eams add / update COM and failsafe display
         string detect_com = "";
+        static bool rc7_flag = false;
         private void timerCustom_Tick(Object sender, EventArgs e)
         {
             try
@@ -4445,6 +4446,7 @@ namespace MissionPlanner
                 // update flight start button state
                 //MainV2.instance.FlightData.ButtonStart_ChangeState(!(MainV2.comPort.MAV.cs.armed && MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO"));
                 MainV2.instance.FlightData.ButtonStart_ChangeState(!MainV2.comPort.MAV.cs.armed);
+                //MainV2.instance.FlightData.ButtonStart_ChangeState((int)MainV2.comPort.MAV.cs.DistToHome == 0);
 
                 // update resume clear button state
                 MainV2.instance.FlightData.ButtonResumeClear_ChangeState(MainV2.instance.FlightData.resume_flag > 0 && !MainV2.comPort.MAV.cs.armed);
@@ -4473,6 +4475,24 @@ namespace MissionPlanner
                 {
                     MainV2.instance.FlightData.LabelNextWPdist_ChangeDist(MainV2.comPort.MAV.cs.wp_dist);
                 }
+
+                // catch RC7 switch for polygon make
+                int point_trig_pwm = 2000;
+                if (Settings.Instance["point_trig_pwm"] != null)
+                    point_trig_pwm = Settings.Instance.GetInt32("point_trig_pwm");
+                if (MainV2.comPort.MAV.cs.ch7in >= point_trig_pwm)
+                {
+                    if (!rc7_flag)
+                    {
+                        MainV2.instance.FlightPlanner.addPolygonPointRC(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
+                        rc7_flag = true;
+                    }
+                }
+                else
+                {
+                    rc7_flag = false;
+                }
+
             }
             catch (Exception ex)
             {

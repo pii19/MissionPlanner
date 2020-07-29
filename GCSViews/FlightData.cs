@@ -333,6 +333,15 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
 
             LabelWPno_ChangeNumber(0);
+
+            int grid_type = Settings.Instance.GetInt32("grid_type");
+            if (grid_type == 22)
+            {
+                label12.Text = "積算走行飛行時間：";
+                label8.Text = "走行モード";
+                label9.Text = "モーター状態";
+                label12.Text = "積算走行飛行時間：";
+            }
         }
 
         protected override void OnInvalidated(InvalidateEventArgs e)
@@ -1017,6 +1026,7 @@ namespace MissionPlanner.GCSViews
 
                 try
                 {
+                    int grid_type = Settings.Instance.GetInt32("grid_type");
                     // @eams update mode display
                     string mode_jp = "";
                     string mode_jp_resume = "";
@@ -1040,16 +1050,36 @@ namespace MissionPlanner.GCSViews
                             mode_jp = "マニュアルモード";
                             break;
                         case "AUTO":
-                            mode_jp = "自動飛行モード";
+                            if (grid_type == 22)
+                            {
+                                mode_jp = "自動走行モード";
+                            }
+                            else
+                            {
+                                mode_jp = "自動飛行モード";
+                            }
                             break;
                         case "ZIGZAG":
-                            mode_jp = "2点間飛行モード";
+                            if (grid_type == 22)
+                            {
+                                mode_jp = "2点間走行モード";
+                            }
+                            else
+                            {
+                                mode_jp = "2点間飛行モード";
+                            }
                             break;
                         case "RTL":
                             mode_jp = "帰還モード";
                             break;
                         case "LAND":
                             mode_jp = "自動着陸モード";
+                            break;
+                        case "HOLD":
+                            mode_jp = "停止モード";
+                            break;
+                        case "MANUAL":
+                            mode_jp = "手動操作モード";
                             break;
                         default:
                             if (resume_flag >= 2)
@@ -1076,11 +1106,25 @@ namespace MissionPlanner.GCSViews
                     // @eams update arming display
                     if (MainV2.comPort.MAV.cs.armed)
                     {
-                        mode_jp = "プロペラ回転中";
+                        if (grid_type == 22)
+                        {
+                            mode_jp = "モーター回転中";
+                        }
+                        else
+                        {
+                            mode_jp = "プロペラ回転中";
+                        }
                     }
                     else
                     {
-                        mode_jp = "プロペラ停止中";
+                        if (grid_type == 22)
+                        {
+                            mode_jp = "モーター停止中";
+                        }
+                        else
+                        {
+                            mode_jp = "プロペラ停止中";
+                        }
                     }
                     if (labelArm.InvokeRequired)
                     {
@@ -1139,7 +1183,7 @@ namespace MissionPlanner.GCSViews
                     {
                         if (first_RTL)
                         {
-                            int grid_type = Settings.Instance.GetInt32("grid_type");
+                            //int grid_type = Settings.Instance.GetInt32("grid_type");
                             if (grid_type >= 2 && grid_type <= 4)
                             {
                                 // force close servo 7 and change function
@@ -5011,7 +5055,8 @@ namespace MissionPlanner.GCSViews
                     int grid_type = Settings.Instance.GetInt32("grid_type");
 
                     // set SERVO7_FUNCTION auto @eams
-                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
+                    if (grid_type <= 10)
+                        MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
 
                     // servo operation in mode2
                     if (grid_type == 2)
