@@ -430,6 +430,7 @@ namespace MissionPlanner
         public static int update_wp_delay = 0;
         public static int grid_dosetservo_PWML;
         public static int grid_dosetservo_PWMH;
+        public static int grid_type = 2;
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -642,7 +643,11 @@ namespace MissionPlanner
             }
 
             if (_connectionControl.TOOL_APMFirmware.Items.Count > 0)
-                _connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
+#if true   //@eams for atex
+                _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.ArduRover);
+#else
+            _connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
+#endif
 
             PopulateSerialportList();
             if (_connectionControl.CMB_serialport.Items.Count > 0)
@@ -1038,8 +1043,9 @@ namespace MissionPlanner
             update_wp_delay = Settings.Instance.GetInt32("update_wp_delay");
             grid_dosetservo_PWML = Settings.Instance.GetInt32("grid_dosetservo_PWML");
             grid_dosetservo_PWMH = Settings.Instance.GetInt32("grid_dosetservo_PWMH");
+            grid_type = Settings.Instance.GetInt32("grid_type");
 
-        Application.DoEvents();
+            Application.DoEvents();
 
             Comports.Add(comPort);
 
@@ -1580,10 +1586,15 @@ namespace MissionPlanner
                     comPort.getParamList();
 
                 // set SERVO7_FUNCTION normal @eams
-                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
-                // set SERVO7 value @eams
-                MainV2.comPort.setParam("SERVO7_MAX", (float)grid_dosetservo_PWML);
-                MainV2.comPort.setParam("SERVO7_MIN", (float)grid_dosetservo_PWMH);
+                if (grid_type <= 10)
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
+
+                if (grid_type >= 2 && grid_type <= 4)
+                {
+                    // set SERVO7 value @eams
+                    MainV2.comPort.setParam("SERVO7_MAX", (float)grid_dosetservo_PWML);
+                    MainV2.comPort.setParam("SERVO7_MIN", (float)grid_dosetservo_PWMH);
+                }
 
                 _connectionControl.UpdateSysIDS();
 
@@ -4189,12 +4200,17 @@ namespace MissionPlanner
                         return;
                     }
 
+                    if (grid_type == 22)
+                    {
+                        MainV2.comPort.setWPCurrent(0); // set nav to
+                    }
+
                     // connect MUAV
                     if (!MainV2.comPort.BaseStream.IsOpen)
                     {
                         Connect();
-                        //                    CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
-                        //                    return;
+                        //CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
+                        //return;
                     }
 
                     // write mission to UAV
@@ -4210,16 +4226,8 @@ namespace MissionPlanner
                         return;
                     }
                 }
-#if false
-                if (MainV2.instance.FlightData.last_failsafe)
-                {
-                    MainV2.comPort.setMode("GUIDED");
-                }
-                else
-                {
-#endif
-                MainV2.comPort.setMode("Loiter");
-                //}
+
+                MainV2.comPort.setMode("GUIDED");
 
                 // force redraw map
                 await Task.Delay(update_wp_delay+200);
@@ -4265,7 +4273,8 @@ namespace MissionPlanner
                     CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
                     return;
                 }
-                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
+                if (grid_type <= 10)
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
 
                 // branch resume on failsafe
 //                if (MainV2.instance.FlightData.last_failsafe)
@@ -4386,10 +4395,11 @@ namespace MissionPlanner
                     CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
                     return;
                 }
-                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
+                if (grid_type <= 10)
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
 
                 // set mode Loiter
-                MainV2.comPort.setMode("Loiter");
+                MainV2.comPort.setMode("GUIDED");
                 MainV2.instance.FlightData.ButtonStop_ChangeState(false);
             }
             catch

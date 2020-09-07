@@ -275,7 +275,18 @@ namespace MissionPlanner.Grid
                 panelMode6Easy.Visible = false;
 
                 label49.Text = "走行速度（m/s）";
-                label55.Text = "飛行開始ポイント";
+                label55.Text = "走行開始ポイント";
+                label53.Text = "走行距離：";
+                label54.Text = "走行時間：";
+                CHK_copter_headinghold.Visible = false;
+                TXT_headinghold.Visible = false;
+                BUT_headingholdplus.Visible = false;
+                BUT_headingholdminus.Visible = false;
+                CHK_copter_headingholdlock.Visible = false;
+                label48.Visible = false;
+                TXT_altitude.Visible = false;
+                BUT_altplus.Visible = false;
+                BUT_altminus.Visible = false;
             }
         }
 

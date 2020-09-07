@@ -90,6 +90,7 @@ namespace MissionPlanner.Controls
                 Directory.CreateDirectory(sitldirectory);
 
             this.cmb_model.SelectedIndex = 0;
+            //txt_cmdline.Text = "--model=rover-skid";
         }
 
         public void Activate()

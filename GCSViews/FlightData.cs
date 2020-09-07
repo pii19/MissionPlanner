@@ -337,10 +337,9 @@ namespace MissionPlanner.GCSViews
             int grid_type = Settings.Instance.GetInt32("grid_type");
             if (grid_type == 22)
             {
-                label12.Text = "積算走行飛行時間：";
+                label12.Text = "積算走行時間：";
                 label8.Text = "走行モード";
                 label9.Text = "モーター状態";
-                label12.Text = "積算走行飛行時間：";
             }
         }
 
