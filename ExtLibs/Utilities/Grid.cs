@@ -701,7 +701,7 @@ namespace MissionPlanner.Utilities
 
             addtomap(new utmpos(x, y, utmzone), "Base");
 
-#if false
+#if true
             //グリッドライン方向へポリゴンを縮小する @eams
             utmpos gravity = new utmpos(x, y, utmzone);
             for (int i = 0; i < utmpositions.Count(); i++)

@@ -4445,7 +4445,8 @@ namespace MissionPlanner
 
                 // update flight start button state
                 //MainV2.instance.FlightData.ButtonStart_ChangeState(!(MainV2.comPort.MAV.cs.armed && MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO"));
-                MainV2.instance.FlightData.ButtonStart_ChangeState(!MainV2.comPort.MAV.cs.armed);
+                MainV2.instance.FlightData.ButtonStart_ChangeState(true);
+                //MainV2.instance.FlightData.ButtonStart_ChangeState(!MainV2.comPort.MAV.cs.armed);
                 //MainV2.instance.FlightData.ButtonStart_ChangeState((int)MainV2.comPort.MAV.cs.DistToHome == 0);
 
                 // update resume clear button state
