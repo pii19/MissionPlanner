@@ -4200,11 +4200,6 @@ namespace MissionPlanner
                         return;
                     }
 
-                    if (grid_type == 22)
-                    {
-                        MainV2.comPort.setWPCurrent(0); // set nav to
-                    }
-
                     // connect MUAV
                     if (!MainV2.comPort.BaseStream.IsOpen)
                     {
@@ -4213,9 +4208,22 @@ namespace MissionPlanner
                         //return;
                     }
 
+                    if (grid_type == 22)
+                    {
+                        MainV2.instance.FlightPlanner.resetHome();  // reset home position
+                        if (MainV2.comPort.MAV.cs.armed)
+                        {
+                            MainV2.comPort.doARM(false);
+                        }
+                    }
+
                     // write mission to UAV
                     MainV2.instance.FlightPlanner.BUT_write_Click(this, null);
 
+                    if (grid_type == 22)
+                    {
+                        MainV2.comPort.setWPCurrent(0); // set nav to
+                    }
                 }
 
                 // change mode STABILIZE/Loiter

@@ -1939,10 +1939,13 @@ namespace MissionPlanner.Grid
                         }
                         else
                         {
-                            var wpno = plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0,
-                                (int)(30 * CurrentState.multiplierdist), gridobject);
+                            if (grid_type <= 10)
+                            {
+                                var wpno = plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0,
+                                    (int)(30 * CurrentState.multiplierdist), gridobject);
 
-                            wpsplitstart.Add(wpno);
+                                wpsplitstart.Add(wpno);
+                            }
                         }
 
                         if (grid_type >= 2 && grid_type <= 4)

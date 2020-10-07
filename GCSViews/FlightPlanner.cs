@@ -7182,6 +7182,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         // @eams add
         private void label4_Click(object sender, EventArgs e)
         {
+            resetHome();
+        }
+
+        // @eams add
+        public void resetHome()
+        {
             if (MainV2.comPort.MAV.cs.lat != 0)
             {
                 TXT_homealt.Text = (MainV2.comPort.MAV.cs.altasl).ToString("0");
