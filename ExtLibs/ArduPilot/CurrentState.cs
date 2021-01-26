@@ -180,7 +180,11 @@ namespace MissionPlanner
 
         private float _alt = 0;
 
+#if true    // @eams changed
+        [DisplayText("測位状態")]
+#else
         [DisplayText("Gps Status")]
+#endif
         public float gpsstatus { get; set; }
 
 #if true    // @eams changed

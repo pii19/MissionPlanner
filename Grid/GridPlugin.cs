@@ -93,8 +93,9 @@ namespace MissionPlanner.Grid
                     else
                     {
 #endif
-                        CustomMessageBox.Show("Please define a polygon.", "Error");
-//                    }
+                        //CustomMessageBox.Show("Please define a polygon.", "Error");
+                        CustomMessageBox.Show("ポリゴンを設定してください。", "Error");
+                    //}
                 }
             }
         }

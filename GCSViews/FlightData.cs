@@ -27,6 +27,7 @@ using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using MissionPlanner.Maps;
 using System.Threading.Tasks;
+using Microsoft.Scripting.Utils;
 
 // written by michael oborne
 
@@ -334,13 +335,12 @@ namespace MissionPlanner.GCSViews
 
             LabelWPno_ChangeNumber(0);
 
-            int grid_type = Settings.Instance.GetInt32("grid_type");
-            if (grid_type == 22)
-            {
-                label12.Text = "積算走行時間：";
-                label8.Text = "走行モード";
-                label9.Text = "モーター状態";
-            }
+            //int grid_type = Settings.Instance.GetInt32("grid_type");
+#if EAMS_UGV
+            label12.Text = "積算走行時間：";
+            label8.Text = "走行モード";
+            label9.Text = "制御状態";
+#endif
         }
 
         protected override void OnInvalidated(InvalidateEventArgs e)
@@ -1025,7 +1025,6 @@ namespace MissionPlanner.GCSViews
 
                 try
                 {
-                    int grid_type = Settings.Instance.GetInt32("grid_type");
                     // @eams update mode display
                     string mode_jp = "";
                     string mode_jp_resume = "";
@@ -1049,24 +1048,18 @@ namespace MissionPlanner.GCSViews
                             mode_jp = "マニュアルモード";
                             break;
                         case "AUTO":
-                            if (grid_type == 22)
-                            {
-                                mode_jp = "自動走行モード";
-                            }
-                            else
-                            {
-                                mode_jp = "自動飛行モード";
-                            }
+#if EAMS_UGV
+                            mode_jp = "自動走行モード";
+#else
+                            mode_jp = "自動飛行モード";
+#endif
                             break;
                         case "ZIGZAG":
-                            if (grid_type == 22)
-                            {
-                                mode_jp = "2点間走行モード";
-                            }
-                            else
-                            {
-                                mode_jp = "2点間飛行モード";
-                            }
+#if EAMS_UGV
+                            mode_jp = "2点間走行モード";
+#else
+                            mode_jp = "2点間飛行モード";
+#endif
                             break;
                         case "RTL":
                             mode_jp = "帰還モード";
@@ -1105,25 +1098,19 @@ namespace MissionPlanner.GCSViews
                     // @eams update arming display
                     if (MainV2.comPort.MAV.cs.armed)
                     {
-                        if (grid_type == 22)
-                        {
-                            mode_jp = "モーター回転中";
-                        }
-                        else
-                        {
-                            mode_jp = "プロペラ回転中";
-                        }
+#if EAMS_UGV
+                        mode_jp = "自律制御ユニット稼働中";
+#else
+                        mode_jp = "プロペラ回転中";
+#endif
                     }
                     else
                     {
-                        if (grid_type == 22)
-                        {
-                            mode_jp = "モーター停止中";
-                        }
-                        else
-                        {
-                            mode_jp = "プロペラ停止中";
-                        }
+#if EAMS_UGV
+                        mode_jp = "自律制御ユニット停止中";
+#else
+                        mode_jp = "プロペラ停止中";
+#endif
                     }
                     if (labelArm.InvokeRequired)
                     {
@@ -1182,7 +1169,7 @@ namespace MissionPlanner.GCSViews
                     {
                         if (first_RTL)
                         {
-                            //int grid_type = Settings.Instance.GetInt32("grid_type");
+                            int grid_type = Settings.Instance.GetInt32("grid_type");
                             if (grid_type >= 2 && grid_type <= 4)
                             {
                                 // force close servo 7 and change function
@@ -1643,7 +1630,11 @@ namespace MissionPlanner.GCSViews
 #if true    //@eams change
                             if (resume_flag > 0)
                             {
+#if EAMS_UGV
+                                addpolygonmarker("自動走行再開ポイント", resume_pos.Lng, resume_pos.Lat, (int)resume_pos.Alt, Color.Blue, routes);
+#else
                                 addpolygonmarker("自動飛行再開ポイント", resume_pos.Lng, resume_pos.Lat, (int)resume_pos.Alt, Color.Blue, routes);
+#endif
                             }
 #else
                             if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
@@ -4745,6 +4736,8 @@ namespace MissionPlanner.GCSViews
 
         private void setQuickViewRowsCols(string cols, string rows)
         {
+            tableLayoutPanelQuick.PerformLayout();
+            tableLayoutPanelQuick.SuspendLayout();
             tableLayoutPanelQuick.ColumnCount = Math.Max(1, int.Parse(cols));
             tableLayoutPanelQuick.RowCount = Math.Max(1, int.Parse(rows));
 
@@ -4754,8 +4747,32 @@ namespace MissionPlanner.GCSViews
             int total = tableLayoutPanelQuick.ColumnCount * tableLayoutPanelQuick.RowCount;
 
             // clean up extra
-            while (tableLayoutPanelQuick.Controls.Count > total)
-                tableLayoutPanelQuick.Controls.RemoveAt(tableLayoutPanelQuick.Controls.Count - 1);
+            var ctls = tableLayoutPanelQuick.Controls.Select(a => (Control)a).ToList();
+            // remove those in row/cols outside our selection
+            ctls.Select(a =>
+            {
+                try
+                {
+                    if (a == null)
+                        return default(TableLayoutPanelCellPosition);
+                    var pos = tableLayoutPanelQuick.GetPositionFromControl((Control)a);
+                    if (pos.Column >= tableLayoutPanelQuick.ColumnCount)
+                    {
+                        tableLayoutPanelQuick.Controls.Remove((Control)a);
+                    }
+                    else if (pos.Row >= tableLayoutPanelQuick.RowCount)
+                    {
+                        tableLayoutPanelQuick.Controls.Remove((Control)a);
+                    }
+
+                    return pos;
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    return default(TableLayoutPanelCellPosition);
+                }
+            }).ToList();
 
             // add extra
             while (total != tableLayoutPanelQuick.Controls.Count)
@@ -4781,6 +4798,7 @@ namespace MissionPlanner.GCSViews
                 tableLayoutPanelQuick.ColumnStyles[i].SizeType = SizeType.Percent;
                 tableLayoutPanelQuick.ColumnStyles[i].Width = 100.0f / tableLayoutPanelQuick.ColumnCount;
             }
+
             for (int j = 0; j < tableLayoutPanelQuick.RowCount; j++)
             {
                 if (tableLayoutPanelQuick.RowStyles.Count <= j)
@@ -4788,6 +4806,10 @@ namespace MissionPlanner.GCSViews
                 tableLayoutPanelQuick.RowStyles[j].SizeType = SizeType.Percent;
                 tableLayoutPanelQuick.RowStyles[j].Height = 100.0f / tableLayoutPanelQuick.RowCount;
             }
+
+            tableLayoutPanelQuick.Controls.ForEach(a => ((Control)a).Invalidate());
+
+            tableLayoutPanelQuick.ResumeLayout(true);
         }
 
         Random random = new Random();
@@ -4966,7 +4988,12 @@ namespace MissionPlanner.GCSViews
             Graphics g = Graphics.FromImage(canvas);
 
             //画像を取得
+#if EAMS_UGV
+            Bitmap img = global::MissionPlanner.Properties.Resources.btn_start_ugv;
+            toolTip1.SetToolTip(ButtonStart, "自動走行開始");
+#else
             Bitmap img = global::MissionPlanner.Properties.Resources.btn_start;
+#endif
 
             if (state)
             {
@@ -5088,15 +5115,25 @@ namespace MissionPlanner.GCSViews
         {
             if (state)
             {
+#if EAMS_UGV
+                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
+                toolTip1.SetToolTip(ButtonStop, "自動走行停止");
+#else
                 ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop;
-                ButtonStop.BackgroundImage.Tag = "stop";
                 toolTip1.SetToolTip(ButtonStop, "自動飛行停止");
+#endif
+                ButtonStop.BackgroundImage.Tag = "stop";
             }
             else
             {
+#if EAMS_UGV
+                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart_ugv;
+                toolTip1.SetToolTip(ButtonStop, "自動走行再開");
+#else
                 ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart;
-                ButtonStop.BackgroundImage.Tag = "restart";
                 toolTip1.SetToolTip(ButtonStop, "自動飛行再開");
+#endif
+                ButtonStop.BackgroundImage.Tag = "restart";
             }
 
         }
@@ -5136,9 +5173,14 @@ namespace MissionPlanner.GCSViews
         {
             if (state)
             {
+#if EAMS_UGV
+                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_ugv;
+                toolTip1.SetToolTip(ButtonReturn, "自動帰還");
+#else
                 ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return;
-                ButtonReturn.BackgroundImage.Tag = "return";
                 toolTip1.SetToolTip(ButtonReturn, "強制帰還");
+#endif
+                ButtonReturn.BackgroundImage.Tag = "return";
             }
             else
             {
@@ -5200,11 +5242,19 @@ namespace MissionPlanner.GCSViews
         {
             if (state)
             {
+#if EAMS_UGV
+                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_auto_ok_ugv;
+#else
                 LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_flight_ok;
+#endif
             }
             else
             {
+#if EAMS_UGV
+                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_auto_ng_ugv;
+#else
                 LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_flight_ng;
+#endif
             }
         }
 
@@ -5557,7 +5607,11 @@ namespace MissionPlanner.GCSViews
 
                     if (timeout > 60)
                     {
+#if EAMS_UGV
+                        CustomMessageBox.Show("自動走行再開コマンドタイムアウトエラー", Strings.ErrorNoResponce);
+#else
                         CustomMessageBox.Show("自動飛行再開コマンドタイムアウトエラー", Strings.ErrorNoResponce);
+#endif
                         resume_flag = 1;
                         return;
                     }

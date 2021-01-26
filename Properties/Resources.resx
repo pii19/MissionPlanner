@@ -1784,4 +1784,25 @@ Control-S - save grid file\par
   <data name="btn_return_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btn_return_stop.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="btn_auto_ng_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_auto_ng_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_auto_ok_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_auto_ok_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_restart_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_restart_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_return_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_return_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_start_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_start_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_status_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_status_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_stop_ugv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_stop_ugv.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

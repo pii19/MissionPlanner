@@ -343,6 +343,26 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_auto_ng_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_auto_ng_ugv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_auto_ok_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_auto_ok_ugv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap btn_cancel {
             get {
                 object obj = ResourceManager.GetObject("btn_cancel", resourceCulture);
@@ -403,6 +423,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_restart_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_restart_ugv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap btn_resume_clear {
             get {
                 object obj = ResourceManager.GetObject("btn_resume_clear", resourceCulture);
@@ -426,6 +456,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap btn_return_stop {
             get {
                 object obj = ResourceManager.GetObject("btn_return_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_return_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_return_ugv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -513,6 +553,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_start_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_start_ugv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap btn_status {
             get {
                 object obj = ResourceManager.GetObject("btn_status", resourceCulture);
@@ -523,9 +573,29 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_status_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_status_ugv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap btn_stop {
             get {
                 object obj = ResourceManager.GetObject("btn_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_stop_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_stop_ugv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -7502,7 +7502,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             catch (Exception)
             {
+#if EAMS_UGV
+                CustomMessageBox.Show(Strings.ERROR, "NDVI走行プラン自動生成でエラーが発生しました。");
+#else
                 CustomMessageBox.Show(Strings.ERROR, "NDVI飛行プラン自動生成でエラーが発生しました。");
+#endif
                 return;
             }
 #endif

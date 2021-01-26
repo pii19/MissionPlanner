@@ -260,34 +260,34 @@ namespace MissionPlanner.Grid
                 panel7.Visible = false;
                 panel10.Visible = false;
             }
-            else if (grid_type == 22)
+#if EAMS_UGV
+            this.Text = "走行ルート設定";
+            panel1.Visible = false;
+            panel3.Visible = false;
+            panel9.Visible = false;
+            panel5.Visible = false;
+            if (grid_type == 5)
             {
-                panel1.Visible = false;
-                panel3.Visible = false;
-                panel9.Visible = false;
-                panel5.Visible = false;
-                if (grid_type == 5)
-                {
-                    panel7.Visible = false;
-                }
-
-                panelMode6.Visible = false;
-                panelMode6Easy.Visible = false;
-
-                label49.Text = "走行速度（m/s）";
-                label55.Text = "走行開始ポイント";
-                label53.Text = "走行距離：";
-                label54.Text = "走行時間：";
-                CHK_copter_headinghold.Visible = false;
-                TXT_headinghold.Visible = false;
-                BUT_headingholdplus.Visible = false;
-                BUT_headingholdminus.Visible = false;
-                CHK_copter_headingholdlock.Visible = false;
-                label48.Visible = false;
-                TXT_altitude.Visible = false;
-                BUT_altplus.Visible = false;
-                BUT_altminus.Visible = false;
+                panel7.Visible = false;
             }
+
+            panelMode6.Visible = false;
+            panelMode6Easy.Visible = false;
+
+            label49.Text = "走行速度（m/s）";
+            label55.Text = "走行開始ポイント";
+            label53.Text = "走行距離：";
+            label54.Text = "走行時間：";
+            CHK_copter_headinghold.Visible = false;
+            TXT_headinghold.Visible = false;
+            BUT_headingholdplus.Visible = false;
+            BUT_headingholdminus.Visible = false;
+            CHK_copter_headingholdlock.Visible = false;
+            label48.Visible = false;
+            TXT_altitude.Visible = false;
+            BUT_altplus.Visible = false;
+            BUT_altminus.Visible = false;
+#endif
         }
 
         bool deleteLastLAND = false;    // @eams add
@@ -323,11 +323,9 @@ namespace MissionPlanner.Grid
             }
 
             // @eams add for mode22
-            if (grid_type == 22)
-            {
-                //NUM_leadin.ValueChanged -= domainUpDown1_ValueChanged;
-            }
-
+#if EAMS_UGV
+            //NUM_leadin.ValueChanged -= domainUpDown1_ValueChanged;
+#endif
             // @eams add
             int wpcount = plugin.Host.WPCount();
             if (wpcount > 0)
@@ -2240,8 +2238,8 @@ namespace MissionPlanner.Grid
                                             (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
                                             gridobject);
                                         }
-
-                                        if (grid_type == 22 && !addwp_lasttime)
+#if EAMS_UGV
+                                        if (!addwp_lasttime)
                                         {
                                             if (reverse)
                                             {
@@ -2254,6 +2252,7 @@ namespace MissionPlanner.Grid
                                                 reverse = true;
                                             }
                                         }
+#endif
                                     }
                                 }
                             }
@@ -2267,15 +2266,13 @@ namespace MissionPlanner.Grid
                     }
 
                     // end
-
+#if EAMS_UGV
                     //最後の逆走防止
-                    if (grid_type == 22)
+                    if (!reverse)
                     {
-                        if (!reverse)
-                        {
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 0, 0, 0, 0, 0, 0, 0, gridobject);
-                        }
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 0, 0, 0, 0, 0, 0, 0, gridobject);
                     }
+#endif
 #if false
                     // @eams add set SERVO7_FUNCTION normal
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_PARAMETER,

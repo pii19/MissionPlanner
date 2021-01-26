@@ -1035,6 +1035,10 @@ namespace MissionPlanner
             MenuArduPilot.Visible = false;
             MenuSimulation.Visible = false;
 #endif
+
+#if EAMS_UGV
+            this.MenuFlightData.Image = global::MissionPlanner.Properties.Resources.btn_status_ugv;
+#endif
             // @eams add
             servo7_func_normal = Settings.Instance.GetInt32("servo7_func_normal");
             servo7_func_auto = Settings.Instance.GetInt32("servo7_func_auto");
@@ -4195,7 +4199,11 @@ namespace MissionPlanner
             {
                 if (MainV2.instance.FlightData.resume_flag == 0)
                 {
+#if EAMS_UGV
+                    if (CustomMessageBox.Show("機体に接続しミッションを書き込んでもよろしいですか？", "自動走行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#else
                     if (CustomMessageBox.Show("機体に接続しミッションを書き込んでもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#endif
                     {
                         return;
                     }
@@ -4207,29 +4215,28 @@ namespace MissionPlanner
                         //CustomMessageBox.Show(Strings.PleaseConnect, Strings.ERROR);
                         //return;
                     }
-
-                    if (grid_type == 22)
+#if EAMS_UGV
+                    MainV2.instance.FlightPlanner.resetHome();  // reset home position
+                    if (MainV2.comPort.MAV.cs.armed)
                     {
-                        MainV2.instance.FlightPlanner.resetHome();  // reset home position
-                        if (MainV2.comPort.MAV.cs.armed)
-                        {
-                            MainV2.comPort.doARM(false);
-                        }
+                        MainV2.comPort.doARM(false);
                     }
-
+#endif
                     // write mission to UAV
                     MainV2.instance.FlightPlanner.BUT_write_Click(this, null);
-
-                    if (grid_type == 22)
-                    {
-                        MainV2.comPort.setWPCurrent(0); // set nav to
-                    }
+#if EAMS_UGV
+                    MainV2.comPort.setWPCurrent(0); // set nav to
+#endif
                 }
 
                 // change mode STABILIZE/Loiter
                 if (MainV2.comPort.MAV.cs.failsafe)
                 {
+#if EAMS_UGV
+                    if (CustomMessageBox.Show("フェイルセーフ中です。実行してもよろしいですか？", "自動走行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#else
                     if (CustomMessageBox.Show("フェイルセーフ中です。実行してもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#endif
                     {
                         return;
                     }
@@ -4247,14 +4254,22 @@ namespace MissionPlanner
                 //if (MainV2.instance.FlightData.last_failsafe)
                 if (MainV2.instance.FlightData.resume_flag > 0)
                 {
+#if EAMS_UGV
+                    if (CustomMessageBox.Show("フェイルセーフからのレジューム走行を行います。\n\n走行開始してもよろしいですか？", "自動走行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#else
                     if (CustomMessageBox.Show("フェイルセーフからのレジューム飛行を行います。\n\n離陸してもよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#endif
                     {
                         return;
                     }
                 }
                 else
                 {
+#if EAMS_UGV
+                    if (CustomMessageBox.Show("正しいミッションが表示されていますか？ 周囲の安全を確認してください。\n\n走行開始してよろしいですか？", "自動走行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#else
                     if (CustomMessageBox.Show("正しいミッションが表示されていますか？ 周囲の安全を確認してください。\n\n離陸してよろしいですか？", "自動飛行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+#endif
                     {
                         return;
                     }
