@@ -463,6 +463,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_return_stop_ugv {
+            get {
+                object obj = ResourceManager.GetObject("btn_return_stop_ugv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap btn_return_ugv {
             get {
                 object obj = ResourceManager.GetObject("btn_return_ugv", resourceCulture);

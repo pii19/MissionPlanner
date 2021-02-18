@@ -2804,7 +2804,7 @@ Please check the following
                         }
                         else
                         {
-                            MAVlist[req.target_system, req.target_component].wps[req.seq] = req;
+                            MAVlist[req.target_system, req.target_component].wps[req.seq] = (Locationwp)req;
                         }
 
                         //if (ans.target_system == req.target_system && ans.target_component == req.target_component)
@@ -2835,7 +2835,7 @@ Please check the following
                             }
                             else
                             {
-                                MAVlist[req.target_system, req.target_component].wps[req.seq] = req;
+                                MAVlist[req.target_system, req.target_component].wps[req.seq] = (Locationwp)req;
                             }
 
                             //if (ans.target_system == req.target_system && ans.target_component == req.target_component)
@@ -4130,7 +4130,7 @@ Please check the following
                 }
                 else
                 {
-                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] = wp;
+                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] = (Locationwp)wp;
                 }
 
                 //Console.WriteLine("WP # {7} cmd {8} p1 {0} p2 {1} p3 {2} p4 {3} x {4} y {5} z {6}", wp.param1, wp.param2, wp.param3, wp.param4, wp.x, wp.y, wp.z, wp.seq, wp.command);
@@ -4152,8 +4152,7 @@ Please check the following
                 }
                 else
                 {
-                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] =
-                        (mavlink_mission_item_t) (Locationwp) wp;
+                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] = wp;
                 }
 
                 //Console.WriteLine("WP INT # {7} cmd {8} p1 {0} p2 {1} p3 {2} p4 {3} x {4} y {5} z {6}", wp.param1, wp.param2, wp.param3, wp.param4, wp.x, wp.y, wp.z, wp.seq, wp.command);

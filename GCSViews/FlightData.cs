@@ -1167,6 +1167,7 @@ namespace MissionPlanner.GCSViews
 
                     if (MainV2.comPort.MAV.cs.mode.ToUpper() == "RTL")
                     {
+#if !EAMS_UGV
                         if (first_RTL)
                         {
                             int grid_type = Settings.Instance.GetInt32("grid_type");
@@ -1179,6 +1180,7 @@ namespace MissionPlanner.GCSViews
                             }
                             first_RTL = false;
                         }
+#endif
                         if (resume_flag == 0 || resume_flag == 3)
                         {
                             // search first & end waypoint no in current mission
@@ -1186,6 +1188,18 @@ namespace MissionPlanner.GCSViews
                             int endwpno = commands.FindLastIndex(x => x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) + 1;
                             if (curwpno > firstwpno && curwpno <= endwpno)
                             {
+#if EAMS_UGV
+                                if (first_RTL)
+                                {
+                                    // save resume point
+                                    resume_pos.Lat = MainV2.comPort.MAV.cs.lat;
+                                    resume_pos.Lng = MainV2.comPort.MAV.cs.lng;
+                                    resume_pos.Alt = MainV2.comPort.MAV.cs.alt;
+                                    resume_flag = 1;
+                                    lastwpno = curwpno;
+                                    first_RTL = false;
+                                }
+#else
                                 var rtl_alt = (float)MainV2.comPort.MAV.param["RTL_ALT"] / 100;
                                 string rngfnd_type = "0";
                                 try
@@ -1214,6 +1228,7 @@ namespace MissionPlanner.GCSViews
                                     resume_flag = 1;
                                     lastwpno = curwpno;
                                 }
+#endif
                             }
                         }
                     }
@@ -1224,7 +1239,11 @@ namespace MissionPlanner.GCSViews
 
                     if (resume_flag >= 2)
                     {
+#if EAMS_UGV
+                        if (curwpno >= commands.Count)
+#else
                         if (curwpno >= commands.Count && !MainV2.comPort.MAV.cs.armed)
+#endif
                         {
                             resume_flag = 0;
                         }
@@ -5079,11 +5098,10 @@ namespace MissionPlanner.GCSViews
 
                     // get parameters
                     int grid_type = Settings.Instance.GetInt32("grid_type");
-
+#if !EAMS_UGV
                     // set SERVO7_FUNCTION auto @eams
-                    if (grid_type <= 10)
-                        MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
-
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
+#endif
                     // servo operation in mode2
                     if (grid_type == 2)
                     {
@@ -5184,9 +5202,13 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
+#if EAMS_UGV
+                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_stop_ugv;
+#else
                 ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_stop;
-                ButtonReturn.BackgroundImage.Tag = "return_stop";
+#endif
                 toolTip1.SetToolTip(ButtonReturn, "帰還停止");
+                ButtonReturn.BackgroundImage.Tag = "return_stop";
             }
 
         }
@@ -5319,6 +5341,7 @@ namespace MissionPlanner.GCSViews
 #endif
                 resume_flag = 2;
 
+#if !EAMS_UGV
                 // get parameters
                 int grid_type = Settings.Instance.GetInt32("grid_type");
                 bool use_impeller = Settings.Instance.GetBoolean("use_impeller");
@@ -5334,7 +5357,13 @@ namespace MissionPlanner.GCSViews
                 {
                     rngfnd_type = MainV2.comPort.MAV.param["RNGFND_TYPE"].ToString();
                 }
-
+#else
+                double wp_rad = 0.0;
+                if (MainV2.comPort.MAV.param["WP_RADIUS"] != null)
+                {
+                    wp_rad = MainV2.comPort.MAV.param["WP_RADIUS"].Value;
+                }
+#endif
                 // get our target wp
                 var lastwpdata = MainV2.comPort.getWP((ushort)lastwpno);
 
@@ -5361,7 +5390,11 @@ namespace MissionPlanner.GCSViews
                 int takeoffwpno = cmds.FindIndex(x => (x.id == (ushort)MAVLink.MAV_CMD.TAKEOFF));
                 Locationwp gotohere = new Locationwp();
                 gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+#if EAMS_UGV
+                gotohere.alt = (float)resume_pos.Alt;
+#else
                 gotohere.alt = cmds[takeoffwpno].alt;
+#endif
                 gotohere.lat = resume_pos.Lat;
                 gotohere.lng = resume_pos.Lng;
                 MainV2.comPort.setGuidedModeWP(gotohere);
@@ -5431,6 +5464,7 @@ namespace MissionPlanner.GCSViews
 #endif
                 // take off
                 int timeout = 0;
+#if !EAMS_UGV
                 bool result_takeoff = false;
                 float alt = 0;
                 while (alt < (gotohere.alt * 0.95))
@@ -5466,6 +5500,7 @@ namespace MissionPlanner.GCSViews
                         return;
                     }
                 }
+#endif
 #if false
                 // DO_CHANGE_SPEED
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 0, grid_speed, 0, 0, 0, 0, 0);
@@ -5481,7 +5516,7 @@ namespace MissionPlanner.GCSViews
                     }
                 }
                 await Task.Delay(grid_startup_delay * 1000);
-
+#if !EAMS_UGV
                 // CONDTION_YAW for GUIDED
                 float grid_angle = 0;
                 for (ushort a = 0; a < wpcount; a++)
@@ -5505,13 +5540,16 @@ namespace MissionPlanner.GCSViews
                     }
                 }
                 await Task.Delay(grid_startup_delay * 1000);
-
+#endif
                 // check wp_dist value is not 0
                 timeout = 0;
                 do
                 {
                     if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided")
                     {
+#if EAMS_UGV
+                        MainV2.comPort.setGuidedModeWP(gotohere, true, false);
+#else
                         // re-set guided WP
                         if (rngfnd_type == "0")
                         {
@@ -5521,6 +5559,7 @@ namespace MissionPlanner.GCSViews
                         {
                             MainV2.comPort.setGuidedModeWP(gotohere, true, true);
                         }
+#endif
                     }
                     else
                     {
@@ -5543,7 +5582,11 @@ namespace MissionPlanner.GCSViews
 
                 // check reaching to guided WP
                 timeout = 0;
+#if EAMS_UGV
+                while (MainV2.comPort.MAV.cs.wp_dist >= (float)wp_rad)
+#else
                 while (MainV2.comPort.MAV.cs.wp_dist > 0)
+#endif
                 {
                     Application.DoEvents();
                     await Task.Delay(1000);
@@ -5557,7 +5600,7 @@ namespace MissionPlanner.GCSViews
                         return;
                     }
                 }
-
+#if !EAMS_UGV
                 float servo = 1000;
                 if (grid_type >= 2 && grid_type <= 4)
                 {
@@ -5580,7 +5623,7 @@ namespace MissionPlanner.GCSViews
                     }
                     MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
                 }
-
+#endif
                 // set resume point wp
                 MainV2.comPort.setWPCurrent((ushort)lastwpno);
 #if false
@@ -5616,7 +5659,7 @@ namespace MissionPlanner.GCSViews
                         return;
                     }
                 }
-
+#if !EAMS_UGV
                 // reset CONDITION_YAW for AUTO mode restart
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
 
@@ -5633,7 +5676,7 @@ namespace MissionPlanner.GCSViews
                         }
                     }
                 }
-
+#endif
                 lastwpno = 0;
             }
             catch (Exception ex)

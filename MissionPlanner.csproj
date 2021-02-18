@@ -1784,6 +1784,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\launchSettings.json" />
+    <None Include="Resources\btn_return_stop_ugv.jpg" />
     <None Include="Resources\btn_stop_ugv.jpg" />
     <None Include="Resources\btn_status_ugv.jpg" />
     <None Include="Resources\btn_start_ugv.jpg" />

@@ -1588,7 +1588,7 @@ namespace MissionPlanner
 
                 if (getparams)
                     comPort.getParamList();
-
+#if !EAMS_UGV
                 // set SERVO7_FUNCTION normal @eams
                 if (grid_type <= 10)
                     MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
@@ -1599,7 +1599,7 @@ namespace MissionPlanner
                     MainV2.comPort.setParam("SERVO7_MAX", (float)grid_dosetservo_PWML);
                     MainV2.comPort.setParam("SERVO7_MIN", (float)grid_dosetservo_PWMH);
                 }
-
+#endif
                 _connectionControl.UpdateSysIDS();
 
                 // detect firmware we are conected to.
@@ -4296,9 +4296,9 @@ namespace MissionPlanner
                     CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
                     return;
                 }
-                if (grid_type <= 10)
-                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
-
+#if !EAMS_UGV
+                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
+#endif
                 // branch resume on failsafe
 //                if (MainV2.instance.FlightData.last_failsafe)
                 if (MainV2.instance.FlightData.resume_flag > 0)
@@ -4366,10 +4366,11 @@ namespace MissionPlanner
                     CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
                     return;
                 }
+#if !EAMS_UGV
                 //MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
-
+#endif
                 // ignore failsafe resume process
-//                MainV2.instance.FlightData.resume_flag = true;
+                //                MainV2.instance.FlightData.resume_flag = true;
 
                 // set mode RTL
                 MainV2.comPort.setMode("RTL");
@@ -4418,9 +4419,9 @@ namespace MissionPlanner
                     CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
                     return;
                 }
-                if (grid_type <= 10)
-                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
-
+#if !EAMS_UGV
+                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
+#endif
                 // set mode Loiter
                 MainV2.comPort.setMode("GUIDED");
                 MainV2.instance.FlightData.ButtonStop_ChangeState(false);
@@ -4478,15 +4479,25 @@ namespace MissionPlanner
 
                 // update flight start button state
                 //MainV2.instance.FlightData.ButtonStart_ChangeState(!(MainV2.comPort.MAV.cs.armed && MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO"));
+#if EAMS_UGV
                 MainV2.instance.FlightData.ButtonStart_ChangeState(true);
-                //MainV2.instance.FlightData.ButtonStart_ChangeState(!MainV2.comPort.MAV.cs.armed);
+#else
+                MainV2.instance.FlightData.ButtonStart_ChangeState(!MainV2.comPort.MAV.cs.armed);
+#endif
                 //MainV2.instance.FlightData.ButtonStart_ChangeState((int)MainV2.comPort.MAV.cs.DistToHome == 0);
 
                 // update resume clear button state
+#if EAMS_UGV
+                MainV2.instance.FlightData.ButtonResumeClear_ChangeState(MainV2.instance.FlightData.resume_flag > 0);
+#else
                 MainV2.instance.FlightData.ButtonResumeClear_ChangeState(MainV2.instance.FlightData.resume_flag > 0 && !MainV2.comPort.MAV.cs.armed);
-
+#endif
                 // update forced return button state
+#if EAMS_UGV
+                if ((int)MainV2.comPort.MAV.cs.DistToHome == 0)
+#else
                 if ((int)MainV2.comPort.MAV.cs.DistToHome == 0 && !MainV2.comPort.MAV.cs.armed)
+#endif
                 {
                     MainV2.instance.FlightData.ButtonReturn_ChangeState(true);
                 }
