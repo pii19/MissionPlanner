@@ -5098,23 +5098,22 @@ namespace MissionPlanner.GCSViews
                     }
                     MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
 
-                        // get parameters
-                        int grid_type = Settings.Instance.GetInt32("grid_type");
+                    // get parameters
+                    int grid_type = Settings.Instance.GetInt32("grid_type");
 #if !EAMS_UGV
                     // set SERVO7_FUNCTION auto @eams
                     MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
 #endif
-                        // servo operation in mode2
-                        if (grid_type == 2)
+                    // servo operation in mode2
+                    if (grid_type == 2)
+                    {
+                        for (int a = curwpno; a >= 0; a--)
                         {
-                            for (int a = curwpno; a >= 0; a--)
+                            if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
                             {
-                                if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
-                                {
-                                    var servo = cmds[a].p2;
-                                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
-                                    break;
-                                }
+                                var servo = cmds[a].p2;
+                                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
+                                break;
                             }
                         }
                     }
