@@ -64,6 +64,30 @@ namespace MissionPlanner.Grid
         Color grid_color = Color.Red;    // @eams add
         int grid_type = 2;  // @eams add
         double area_unit = 5.0;  // @eams add
+        int mesh_type = 0;  // @eams add
+
+        // @eams add for impeller
+        bool use_impeller = false;
+        int impeller_no = 8;
+        int impeller_pwm_on = 2000;
+        int impeller_pwm_off = 1000;
+        double impeller_on_delay = 1.0;
+
+        // @eams add for CONDITION_DELAY
+        bool addconditiondelay_firsttime = false;
+        bool grid_condition_delay = false;
+        double grid_condition_delay_first = 1.0;
+        double grid_condition_delay_open = 1.0;
+        double grid_condition_delay_close = 1.0;
+
+        // @eams add for DO_REPEATE_SERVO
+        double grid_repeatservo_cycle_last = 2;
+
+        // @eams add for grid end turn
+        bool grid_endturn = false;
+
+        // @eams add for camera easy mode
+        bool grid_camera_easy_mode = false;
 
         // GridUI
         public GridUI(GridPlugin plugin)
@@ -99,7 +123,22 @@ namespace MissionPlanner.Grid
             if (plugin.Host.config["distunits"] != null)
                 DistUnits = plugin.Host.config["distunits"].ToString();
 
+#if true
+            List<string> names = new List<string>();
+
+            foreach (System.Reflection.FieldInfo field in typeof(Utilities.Grid.StartPosition).GetFields(
+                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
+            {
+                var val = (Utilities.Grid.StartPosition)field.GetValue(null);
+                var name = val.GetEnumDisplayName();
+                names.Add(name);
+            }
+            names.Remove("ポイント");
+
+            CMB_startfrom.DataSource = names;
+#else
             CMB_startfrom.DataSource = Enum.GetNames(typeof(Utilities.Grid.StartPosition));
+#endif
             CMB_startfrom.SelectedIndex = 0;
 
             // set and angle that is good
@@ -122,12 +161,11 @@ namespace MissionPlanner.Grid
                 kmlpolygonsoverlay.Routes.Add(new GMapRoute(temp.Points, ""));
             }
 
-            xmlcamera(false, Settings.GetRunningDirectory() + "camerasBuiltin.xml");
+            //xmlcamera(false, Settings.GetRunningDirectory() + "camerasBuiltin.xml");  // @eams disabled
 
             xmlcamera(false, Settings.GetUserDataDirectory() + "cameras.xml");
 
             loading = false;
-
 
             // @eams add / form max/min button are invisible
             this.MaximizeBox = false;
@@ -144,6 +182,112 @@ namespace MissionPlanner.Grid
             // @eams add / area unit
             if (plugin.Host.config["area_unit"] != null)
                 area_unit = double.Parse(plugin.Host.config["area_unit"]);
+
+            // @eams add / impeller
+            if (plugin.Host.config["use_impeller"] != null)
+                use_impeller = bool.Parse(plugin.Host.config["use_impeller"]);
+            if (plugin.Host.config["impeller_no"] != null)
+                impeller_no = int.Parse(plugin.Host.config["impeller_no"]);
+            if (plugin.Host.config["impeller_pwm_on"] != null)
+                impeller_pwm_on = int.Parse(plugin.Host.config["impeller_pwm_on"]);
+            if (plugin.Host.config["impeller_pwm_off"] != null)
+                impeller_pwm_off = int.Parse(plugin.Host.config["impeller_pwm_off"]);
+            if (plugin.Host.config["impeller_on_delay"] != null)
+                impeller_on_delay = double.Parse(plugin.Host.config["impeller_on_delay"]);
+
+            // @eams add / CONDITION_DELAY
+            if (plugin.Host.config["grid_condition_delay"] != null)
+                grid_condition_delay = bool.Parse(plugin.Host.config["grid_condition_delay"]);
+            if (plugin.Host.config["grid_condition_delay_first"] != null)
+                grid_condition_delay_first = double.Parse(plugin.Host.config["grid_condition_delay_first"]);
+            if (plugin.Host.config["grid_condition_delay_open"] != null)
+                grid_condition_delay_open = double.Parse(plugin.Host.config["grid_condition_delay_open"]);
+            if (plugin.Host.config["grid_condition_delay_close"] != null)
+                grid_condition_delay_close = double.Parse(plugin.Host.config["grid_condition_delay_close"]);
+
+            // @eams add for DO_REPEATE_SERVO
+            if (plugin.Host.config["grid_repeatservo_cycle_last"] != null)
+                grid_repeatservo_cycle_last = double.Parse(plugin.Host.config["grid_repeatservo_cycle_last"]);
+
+            // @eams add for grid end turn
+            if (plugin.Host.config["grid_endturn"] != null)
+                grid_endturn = bool.Parse(plugin.Host.config["grid_endturn"]);
+
+            // @eams add / ndvi mesh
+            if (plugin.Host.config["overlay_mesh"] != null)
+                mesh_type = int.Parse(plugin.Host.config["overlay_mesh"]);
+
+            // @eams add / ndvi mesh
+            if (plugin.Host.config["grid_camera_easy_mode"] != null)
+                grid_camera_easy_mode = bool.Parse(plugin.Host.config["grid_camera_easy_mode"]);
+
+            // @eams add
+            if (mesh_type > 0)
+            {
+                map.Visible = false;
+            }
+
+            // @eams add
+            if (grid_type <= 5)
+            {
+                panel1.Visible = false;
+                panel3.Visible = false;
+                panel9.Visible = false;
+                panel5.Visible = false;
+                if (grid_type == 5)
+                {
+                    panel7.Visible = false;
+                }
+                panelMode6.Visible = false;
+                panelMode6Easy.Visible = false;
+                panel10.Visible = false;
+            }
+            else if (grid_type == 6)
+            {
+                if (grid_camera_easy_mode)
+                {
+                    panel2.Visible = false;
+                    panelMode6Easy.Location = panelMode6.Location;
+                    panelMode6.Visible = false;
+                }
+                else
+                {
+                    panel3.Visible = false;
+                    panel9.Visible = false;
+                    panelMode6Easy.Visible = false;
+                }
+                panel4.Visible = false;
+                panel7.Visible = false;
+                panel10.Visible = false;
+            }
+#if EAMS_UGV
+            this.Text = "走行ルート設定";
+            panel1.Visible = false;
+            panel3.Visible = false;
+            panel9.Visible = false;
+            panel5.Visible = false;
+            if (grid_type == 5)
+            {
+                panel7.Visible = false;
+            }
+
+            panelMode6.Visible = false;
+            panelMode6Easy.Visible = false;
+
+            label49.Text = "走行速度（m/s）";
+            label55.Text = "走行開始ポイント";
+            label53.Text = "走行距離：";
+            label54.Text = "走行時間：";
+            CHK_copter_headinghold.Visible = false;
+            TXT_headinghold.Visible = false;
+            BUT_headingholdplus.Visible = false;
+            BUT_headingholdminus.Visible = false;
+            CHK_copter_headingholdlock.Visible = false;
+            label48.Visible = false;
+            TXT_altitude.Visible = false;
+            BUT_altplus.Visible = false;
+            BUT_altminus.Visible = false;
+#endif
         }
 
         bool deleteLastLAND = false;    // @eams add
@@ -168,6 +312,20 @@ namespace MissionPlanner.Grid
             first_validate = true;
             domainUpDown1_ValueChanged(this, null);
 
+            // @eams add for mode6 easy
+            if (grid_type == 6 && grid_camera_easy_mode)
+            {
+                NUM_altitude.ValueChanged -= domainUpDown1_ValueChanged;
+                NUM_UpDownFlySpeed.ValueChanged -= domainUpDown1_ValueChanged;
+                //TXT_GrandRes.Text= TXT_cmpixel.Text.TrimEnd(new[] { 'c', 'm', ' ' });
+                //double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
+                //TXT_PhotoEvery.Text = ((double)NUM_spacing.Value / flyspeedms).ToString("F1");
+            }
+
+            // @eams add for mode22
+#if EAMS_UGV
+            //NUM_leadin.ValueChanged -= domainUpDown1_ValueChanged;
+#endif
             // @eams add
             int wpcount = plugin.Host.WPCount();
             if (wpcount > 0)
@@ -182,7 +340,11 @@ namespace MissionPlanner.Grid
                 CHK_toandland.Checked = true;
             }
 
-//            BUT_Accept_Click(this, null);   // @eams add
+            // @eams add
+            if (mesh_type > 0)
+            {
+                BUT_Accept_Click(this, null);
+            }
         }
 
         private void GridUI_Resize(object sender, EventArgs e)
@@ -257,9 +419,13 @@ namespace MissionPlanner.Grid
             NUM_overshoot.Value = griddata.overshoot1;
             NUM_overshoot2.Value = griddata.overshoot2;
             NUM_leadin.Value = griddata.leadin;
-            CMB_startfrom.Text = griddata.startfrom;
+            TXT_leadin.Text = Decimal.Round(NUM_leadin.Value, 1, MidpointRounding.AwayFromZero).ToString("f1");   //@eams add
+            //CMB_startfrom.Text = griddata.startfrom;
+            CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), griddata.startfrom);
             num_overlap.Value = griddata.overlap;
+            TXT_Overlap.Text = Decimal.Round(num_overlap.Value, 1, MidpointRounding.AwayFromZero).ToString("f0");   //@eams add
             num_sidelap.Value = griddata.sidelap;
+            TXT_Sidelap.Text = Decimal.Round(num_sidelap.Value, 1, MidpointRounding.AwayFromZero).ToString("f0");   //@eams add
             NUM_spacing.Value = griddata.spacing;
             chk_crossgrid.Checked = griddata.crossgrid;
 
@@ -318,7 +484,8 @@ namespace MissionPlanner.Grid
             griddata.overshoot1 = NUM_overshoot.Value;
             griddata.overshoot2 = NUM_overshoot2.Value;
             griddata.leadin = NUM_leadin.Value;
-            griddata.startfrom = CMB_startfrom.Text;
+            //griddata.startfrom = CMB_startfrom.Text;
+            griddata.startfrom = ((Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex)).ToString();
             griddata.overlap = num_overlap.Value;
             griddata.sidelap = num_sidelap.Value;
             griddata.spacing = NUM_spacing.Value;
@@ -367,9 +534,17 @@ namespace MissionPlanner.Grid
                 loadsetting("grid_overshoot1", NUM_overshoot);
                 loadsetting("grid_overshoot2", NUM_overshoot2);
                 loadsetting("grid_leadin", NUM_leadin);
+                TXT_leadin.Text = Decimal.Round(NUM_leadin.Value, 1, MidpointRounding.AwayFromZero).ToString("f1");   //@eams add
+#if true
+                var val = plugin.Host.config["grid_startfrom"].ToString();
+                CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), val);
+#else
                 loadsetting("grid_startfrom", CMB_startfrom);
+#endif
                 loadsetting("grid_overlap", num_overlap);
+                TXT_Overlap.Text = Decimal.Round(num_overlap.Value, 1, MidpointRounding.AwayFromZero).ToString("f0");   //@eams add
                 loadsetting("grid_sidelap", num_sidelap);
+                TXT_Sidelap.Text = Decimal.Round(num_sidelap.Value, 1, MidpointRounding.AwayFromZero).ToString("f0");   //@eams add
                 loadsetting("grid_spacing", NUM_spacing);
                 loadsetting("grid_crossgrid", chk_crossgrid);
 
@@ -459,9 +634,10 @@ namespace MissionPlanner.Grid
             plugin.Host.config["grid_spacing"] = NUM_spacing.Value.ToString();
             plugin.Host.config["grid_crossgrid"] = chk_crossgrid.Checked.ToString();
 
-            plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
+            //plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
+            plugin.Host.config["grid_startfrom"] = ((Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex)).ToString();
 
-            //            plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();    //@eams disabled
+            //plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();    //@eams disabled
             plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
 
             plugin.Host.config["grid_internals"] = CHK_internals.Checked.ToString();
@@ -626,7 +802,8 @@ namespace MissionPlanner.Grid
                 grid = Utilities.Grid.CreateCorridor(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                     (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value,
                     (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
-                    (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                    //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                    (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
                     (float)NUM_Lane_Dist.Value, (float)num_corridorwidth.Value, (float)NUM_leadin.Value);
             }
             else
@@ -637,37 +814,47 @@ namespace MissionPlanner.Grid
                 switch (grid_type)
                 {
                     case 2:
+                    case 5:
+                    case 6:
                         grid = Utilities.Grid.CreateGrid2(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                             (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
-                            (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
                             (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate);
                         break;
                     case 3:
-                        grid = Utilities.Grid.CreateGrid3(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
-                            (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
-                            (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
-                            (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
-                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate);
-                        break;
                     case 4:
                         grid = Utilities.Grid.CreateGrid4(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                             (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
-                            (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
                             (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate, area_unit);
+                        break;
+                    case 22:
+                        grid = Utilities.Grid.CreateGrid22(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+                            (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
+                            (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
+                            //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
+                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate);
                         break;
                     default:
                         grid = Utilities.Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                             (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value,
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
-                            (Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
+                            (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
                             (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation);
                         break;
                 }
 
                 NUM_angle.Value = (decimal)angle;
-                TXT_headinghold.Text = (Math.Round(NUM_angle.Value)).ToString();
+                if (CHK_copter_headinghold.Checked)
+                {
+                    TXT_headinghold.Text = (Math.Round(NUM_angle.Value)).ToString();
+                }
                 TXT_angle.Text = (Math.Round(NUM_angle.Value)).ToString();
                 first_validate = false;
 
@@ -901,7 +1088,8 @@ namespace MissionPlanner.Grid
                 lbl_footprint.Text = TXT_fovH.Text + " x " + TXT_fovV.Text + " m";
                 lbl_turnrad.Text = (turnrad * 2).ToString("0") + " m";
                 lbl_gndelev.Text = mingroundelevation.ToString("0") + "-" + maxgroundelevation.ToString("0") + " m";
-
+                lbl_alt.Text = NUM_altitude.Value.ToString("0.#") + " m";
+                lbl_speed.Text = NUM_UpDownFlySpeed.Value.ToString("0.#") + " m/s";
             }
 
             try
@@ -939,53 +1127,57 @@ namespace MissionPlanner.Grid
         }
 
         bool addwp_firsttime = true;
+        bool addwp_lasttime = false;
         private void AddWP(double Lng, double Lat, double Alt, object gridobject = null)
         {
             if (CHK_copter_headinghold.Checked)
             {
-                if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_YAW, Convert.ToInt32(TXT_headinghold.Text), 0, 0, 0, 0, 0, 0, gridobject);
+
+                // dummy DELAY
+                int grid_startup_delay2 = Settings.Instance.GetInt32("grid_startup_delay2");
+                if (grid_type == 4)   // @eams add
                 {
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_YAW, Convert.ToInt32(TXT_headinghold.Text), 0, 0, 0, 0, 0, 0, gridobject);
-                }
-                if (grid_type == 3 || grid_type == 4)   // @eams add
-                {
-#if false
+
                     if (addwp_firsttime)
                     {
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, (float)3.0, 0, 0, 0, 0, 0, 0, gridobject);
-                        addwp_firsttime = false;
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (float)grid_startup_delay2, 0, 0, 0, 0, 0, (double)(Alt * CurrentState.multiplierdist), gridobject);
                     }
                     else
                     {
-#endif
-                        //plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, (float)1.0, 0, 0, 0, 0, 0, 0, gridobject);
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (float)1.0, 0, 0, 0, 0, 0, 0, gridobject);
-                    //}
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (float)1.0, 0, 0, 0, 0, 0, (double)(Alt * CurrentState.multiplierdist), gridobject);
+                    }
                 }
                 else if (grid_type == 2)
                 {
                     if (addwp_firsttime)
                     {
-                        //plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, (float)1.0, 0, 0, 0, 0, 0, 0, gridobject);
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (float)1.0, 0, 0, 0, 0, 0, 0, gridobject);
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (float)grid_startup_delay2, 0, 0, 0, 0, 0, (double)(Alt * CurrentState.multiplierdist), gridobject);
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_YAW, Convert.ToInt32(TXT_headinghold.Text), 0, 0, 0, 0, 0, 0, gridobject);
                     }
                 }
             }
 
-            if (NUM_copter_delay.Value > 0)
+            double delay_time = 0.0;
+            if (addwp_firsttime)
             {
-                if (grid_type == 2 && addwp_firsttime)
-                {
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (float)3.0, 0, 0, 0, Lng, Lat, (double)(Alt * CurrentState.multiplierdist), gridobject);
-                }
-                else
-                {
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, (double)NUM_copter_delay.Value, 0, 0, 0, Lng, Lat, (double)(Alt * CurrentState.multiplierdist), gridobject);
-                }
+                delay_time = Settings.Instance.GetInt32("grid_firstwp_delay");
+            }
+            else if (addwp_lasttime)
+            {
+                delay_time = Settings.Instance.GetInt32("grid_lastwp_delay");
             }
             else
             {
-                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (double)(Alt * CurrentState.multiplierdist), gridobject);
+                delay_time = (double)NUM_copter_delay.Value;
+            }
+            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, delay_time, 0, 0, 0, Lng, Lat, (double)(Alt * CurrentState.multiplierdist), gridobject);
+
+            if (addwp_firsttime && use_impeller)
+            {
+                // turn on
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO, (float)impeller_no, (float)impeller_pwm_on, 0, 0, 0, 0, 0, gridobject);
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, impeller_on_delay, 0, 0, 0, 0, 0, (double)(Alt * CurrentState.multiplierdist), gridobject);
             }
             addwp_firsttime = false;
         }
@@ -999,6 +1191,20 @@ namespace MissionPlanner.Grid
             int mins = (int)(seconds / 60) % 60;
             int hours = (int)(seconds / 3600);// % 24;
 
+#if true    // @eams
+            if (hours > 0)
+            {
+                return hours + "h " + mins.ToString("00") + "m " + secs.ToString("00") + "s";
+            }
+            else if (mins > 0)
+            {
+                return mins + "m " + secs.ToString("00") + "s";
+            }
+            else
+            {
+                return secs.ToString("0.00") + "s";
+            }
+#else
             if (hours > 0)
             {
                 return hours + ":" + mins.ToString("00") + ":" + secs.ToString("00") + " Hours";
@@ -1011,6 +1217,7 @@ namespace MissionPlanner.Grid
             {
                 return secs.ToString("0.00") + " Seconds";
             }
+#endif
         }
 
         void AddDrawPolygon()
@@ -1027,7 +1234,8 @@ namespace MissionPlanner.Grid
 
             foreach (var item in list)
             {
-                routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red));
+                //routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red));
+                routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red_big_stop));
             }
         }
 
@@ -1164,15 +1372,34 @@ namespace MissionPlanner.Grid
                 if (CHK_camdirection.Checked)
                 {
                     NUM_spacing.Value = (decimal)((1 - (overlap / 100.0f)) * viewheight);
-                    //                    NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewwidth);     // @eams diabled
+                    if (grid_type == 6)
+                    {
+                        NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewwidth);
+                    }
                 }
                 else
                 {
                     NUM_spacing.Value = (decimal)((1 - (overlap / 100.0f)) * viewwidth);
-                    //                    NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewheight);    // @eams disabled
+                    if (grid_type == 6)
+                    {
+                        NUM_Distance.Value = (decimal)((1 - (sidelap / 100.0f)) * viewheight);
+                    }
                 }
                 NUM_spacing.ValueChanged += domainUpDown1_ValueChanged;
                 NUM_Distance.ValueChanged += domainUpDown1_ValueChanged;
+
+                // @eams add
+                if (grid_type == 6 && grid_camera_easy_mode)
+                {
+                    TXT_GrandRes.TextChanged -= TXT_GrandRes_TextChanged;
+                    var res = double.Parse(TXT_cmpixel.Text.TrimEnd(new[] { 'c', 'm', ' ' }));
+                    TXT_GrandRes.Text = res.ToString("F1");
+                    TXT_GrandRes.TextChanged += TXT_GrandRes_TextChanged;
+                    TXT_PhotoEvery.TextChanged -= TXT_PhotoEvery_TextChanged;
+                    double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
+                    TXT_PhotoEvery.Text = ((double)NUM_spacing.Value / flyspeedms).ToString("F0");
+                    TXT_PhotoEvery.TextChanged += TXT_PhotoEvery_TextChanged;
+                }
             }
             catch { return; }
         }
@@ -1379,19 +1606,6 @@ namespace MissionPlanner.Grid
             }
         }
 
-        // Operators
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                lock (thisLock)
-                {
-                    map.Zoom = TRK_zoom.Value;
-                }
-            }
-            catch { }
-        }
-
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             try
@@ -1415,6 +1629,13 @@ namespace MissionPlanner.Grid
             {
                 camerainfo camera = cameras[CMB_camera.Text];
 
+                // @eams add
+                NUM_focallength.ValueChanged -= NUM_ValueChanged;
+                TXT_sensheight.TextChanged -= TXT_TextChanged;
+                TXT_senswidth.TextChanged -= TXT_TextChanged;
+                TXT_imgheight.TextChanged -= TXT_TextChanged;
+                TXT_imgwidth.TextChanged -= TXT_TextChanged;
+
                 NUM_focallength.Value = (decimal)camera.focallen;
                 TXT_imgheight.Text = camera.imageheight.ToString();
                 TXT_imgwidth.Text = camera.imagewidth.ToString();
@@ -1422,6 +1643,13 @@ namespace MissionPlanner.Grid
                 TXT_senswidth.Text = camera.sensorwidth.ToString();
 
                 //NUM_Distance.Enabled = false;
+
+                // @eams add
+                NUM_focallength.ValueChanged += NUM_ValueChanged;
+                TXT_sensheight.TextChanged += TXT_TextChanged;
+                TXT_senswidth.TextChanged += TXT_TextChanged;
+                TXT_imgheight.TextChanged += TXT_TextChanged;
+                TXT_imgwidth.TextChanged += TXT_TextChanged;
             }
 
             GMapMarkerOverlap.Clear();
@@ -1464,6 +1692,7 @@ namespace MissionPlanner.Grid
                 CHK_copter_headingholdlock.Checked = false;
                 BUT_headingholdplus.Enabled = true;
                 BUT_headingholdminus.Enabled = true;
+                TXT_headinghold.Text = Decimal.Round(NUM_angle.Value).ToString();
             }
             else
             {
@@ -1662,6 +1891,7 @@ namespace MissionPlanner.Grid
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
             addwp_firsttime = true;
+            addconditiondelay_firsttime = true;
             if (grid != null && grid.Count > 0)
             {
                 MainV2.instance.FlightPlanner.quickadd = true;
@@ -1708,22 +1938,30 @@ namespace MissionPlanner.Grid
                         }
                         else
                         {
-                            var wpno = plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0,
-                                (int)(30 * CurrentState.multiplierdist), gridobject);
+                            if (grid_type <= 10)
+                            {
+	                            var wpno = plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0,
+    	                            (int)(30 * CurrentState.multiplierdist), gridobject);
 
-                            wpsplitstart.Add(wpno);
+        	                    wpsplitstart.Add(wpno);
+            	            }
                         }
-#if false
-                        // @eams add set SERVO7_FUNCTION auto
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_PARAMETER,
-                            703, MainV2.servo7_func_auto, 0, 0, 0, 0, 0, gridobject);
-#endif
-                        // @eams add
-                        if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                        if (grid_type >= 2 && grid_type <= 4)
                         {
+                            // @eams add to close
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
                                 (float)num_setservono.Value,
                                 (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                gridobject);
+                        }
+
+                        // @eams add to use impeller
+                        if (use_impeller)
+                        {
+                            // turn off
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                (float)impeller_no,
+                                (float)impeller_pwm_off, 0, 0, 0, 0, 0,
                                 gridobject);
                         }
                     }
@@ -1731,7 +1969,7 @@ namespace MissionPlanner.Grid
                     if (CHK_usespeed.Checked)
                     {
                         plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 0,
-                        (double)((float)NUM_UpDownFlySpeed.Value / CurrentState.multiplierspeed), 0, 0, 0, 0, 0,
+                        (double)(NUM_UpDownFlySpeed.Value / (Decimal)CurrentState.multiplierspeed), 0, 0, 0, 0, 0,
                             gridobject);
                     }
 
@@ -1748,6 +1986,7 @@ namespace MissionPlanner.Grid
                     int i = 0;
                     bool startedtrigdist = false;
                     PointLatLngAlt lastplla = PointLatLngAlt.Zero;
+                    bool reverse = true;
                     foreach (var plla in grid)
                     {
                         // skip before start point
@@ -1779,27 +2018,6 @@ namespace MissionPlanner.Grid
                                 {
                                     AddWP(plla.Lng, plla.Lat, plla.Alt);
                                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 1, 0, 0, 0, 0, 1, 0,
-                                        gridobject);
-                                }
-                                if (grid_type == 3 || grid_type == 4)
-                                {
-                                    AddWP(plla.Lng, plla.Lat, plla.Alt);
-                                    // open
-                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
-                                        (float)num_setservono.Value,
-                                        (float)num_setservolow.Value, 0, 0, 0, 0, 0,
-                                        gridobject);
-
-                                    // turn
-                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_TURNS,
-                                        (float)1,
-                                        0, 0, 0, (double)plla.Lng, (double)plla.Lat, plla.Alt,
-                                        gridobject);
-
-                                    // close
-                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
-                                        (float)num_setservono.Value,
-                                        (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
                                         gridobject);
                                 }
                             }
@@ -1864,19 +2082,74 @@ namespace MissionPlanner.Grid
                                                 plla.Alt != lastplla.Alt)
                                                 AddWP(plla.Lng, plla.Lat, plla.Alt);
 
-                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
-                                                (float)NUM_reptservo.Value,
-                                                (float)num_reptpwm.Value, 999, (float)NUM_repttime.Value, 0, 0, 0,
-                                                gridobject);
+                                            if (grid_type == 3 || grid_type == 4)
+                                            {
+                                                // open (specified time)
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                                    (float)NUM_reptservo.Value,
+                                                    (float)num_reptpwm.Value, 1, (float)NUM_repttime.Value, 0, 0, 0,
+                                                    gridobject);
+
+                                                if (grid_type == 4)
+                                                {
+                                                    // turn
+                                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_TURNS,
+                                                        (float)1,
+                                                        0, 0, 0, (double)plla.Lng, (double)plla.Lat, plla.Alt,
+                                                        gridobject);
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                                    (float)NUM_reptservo.Value,
+                                                    (float)num_reptpwm.Value, 999, (float)NUM_repttime.Value, 0, 0, 0,
+                                                    gridobject);
+                                            }
                                         }
                                         else if (plla.Tag == "ME")
                                         {
+                                            if (i >= grid.Count() - 2)
+                                            {
+                                                addwp_lasttime = true;
+                                            }
+
                                             AddWP(plla.Lng, plla.Lat, plla.Alt);
 
-                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                            if (grid_type == 3 || grid_type == 4)
+                                            {
+                                                // open (specified time)
+                                                double time = 0.0;
+                                                if (addwp_lasttime)
+                                                {
+                                                    time = grid_repeatservo_cycle_last;
+                                                }
+                                                else
+                                                {
+                                                    time = (float)NUM_repttime.Value;
+                                                }
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
+                                                    (float)NUM_reptservo.Value,
+                                                    (float)num_reptpwm.Value, 1, time, 0, 0, 0,
+                                                    gridobject);
+
+                                                if ((grid_type == 3 && (addwp_lasttime || grid_endturn)) || grid_type == 4)
+                                                {
+                                                    // turn
+                                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_TURNS,
+                                                        (float)1,
+                                                        0, 0, 0, (double)plla.Lng, (double)plla.Lat, plla.Alt,
+                                                        gridobject);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO,
                                                 (float)NUM_reptservo.Value,
                                                 (float)num_reptpwm.Value, 0, (float)NUM_repttime.Value, 0, 0, 0,
                                                 gridobject);
+                                            }
                                         }
                                     }
                                 }
@@ -1888,7 +2161,23 @@ namespace MissionPlanner.Grid
                                             plla.Alt != lastplla.Alt)
                                             AddWP(plla.Lng, plla.Lat, plla.Alt);
 
-                                        if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                                        if (grid_condition_delay)
+                                        {
+                                            if (addconditiondelay_firsttime)
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_DELAY,
+                                                    grid_condition_delay_first, 0, 0, 0, 0, 0, 0, gridobject);
+
+                                                addconditiondelay_firsttime = false;
+                                            }
+                                            else
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_DELAY,
+                                                    grid_condition_delay_open, 0, 0, 0, 0, 0, 0, gridobject);
+                                            }
+                                        }
+
+                                        if (grid_type >= 2 && grid_type <= 4)
                                         {
                                             // open
                                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
@@ -1914,6 +2203,10 @@ namespace MissionPlanner.Grid
                                     }
                                     else if (plla.Tag == "ME")
                                     {
+                                        if (i >= grid.Count() - 2)
+                                        {
+                                            addwp_lasttime = true;
+                                        }
                                         AddWP(plla.Lng, plla.Lat, plla.Alt);
 
                                         if (grid_type == 3 || grid_type == 4)
@@ -1929,15 +2222,37 @@ namespace MissionPlanner.Grid
                                                 (float)1,
                                                 0, 0, 0, (double)plla.Lng, (double)plla.Lat, plla.Alt,
                                                 gridobject);
+                                        }
 
-                                        }
-                                        if (plugin.Host.cs.firmware == Firmwares.ArduCopter2)
+                                        if (grid_condition_delay)
                                         {
-                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
-                                                (float)num_setservono.Value,
-                                                (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
-                                                gridobject);
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.CONDITION_DELAY,
+                                                grid_condition_delay_close, 0, 0, 0, 0, 0, 0, gridobject);
                                         }
+
+                                        if (grid_type >= 2 && grid_type <= 4)
+                                        {
+                                        	// close
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                            (float)num_setservono.Value,
+                                            (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                            gridobject);
+                                        }
+#if EAMS_UGV
+                                        if (!addwp_lasttime)
+                                        {
+                                            if (reverse)
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 1, 0, 0, 0, 0, 0, 0, gridobject);
+                                                reverse = false;
+                                            }
+                                            else
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                                                reverse = true;
+                                            }
+                                        }
+#endif
                                     }
                                 }
                             }
@@ -1951,11 +2266,28 @@ namespace MissionPlanner.Grid
                     }
 
                     // end
+#if EAMS_UGV
+                    //最後の逆走防止
+                    if (!reverse)
+                    {
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_REVERSE, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                    }
+#endif
 #if false
                     // @eams add set SERVO7_FUNCTION normal
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_PARAMETER,
                         703, MainV2.servo7_func_normal, 0, 0, 0, 0, 0, gridobject);
 #endif
+                    // @eams add to use impeller
+                    if (use_impeller)
+                    {
+                        // turn off
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                            (float)impeller_no,
+                            (float)impeller_pwm_off, 0, 0, 0, 0, 0,
+                            gridobject);
+                    }
+
                     if (rad_trigdist.Checked)
                     {
                         plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0, 0, 0, 0, 0, 0, 0, gridobject);
@@ -2084,46 +2416,52 @@ namespace MissionPlanner.Grid
         }
 
         // @eams add / below functions
+        private void BUT_Close_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BUT_zoomIn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                map.Zoom += 0.5;
+                //TRK_zoom.Value += (float)0.5;
 #if false
-        private void BUT_angleplus_Click(object sender, EventArgs e)
-        {
-            int previous = (int)NUM_angle.Value;
-
-            if (previous + 1 > 359)
-            {
-//                TXT_headinghold.Text = (previous - 359).ToString();
-                TXT_angle.Text = (previous - 359).ToString();
-                NUM_angle.Value = (previous - 359);
-            }
-            else
-            {
-//                TXT_headinghold.Text = (previous + 1).ToString();
-                TXT_angle.Text = (previous + 1).ToString();
-                NUM_angle.Value = (previous + 1);
-            }
-        }
-
-        private void BUT_angleminus_Click(object sender, EventArgs e)
-        {
-            int previous = (int)NUM_angle.Value;
-
-            if (previous - 1 < 0)
-            {
-//                TXT_headinghold.Text = (previous + 359).ToString();
-                TXT_angle.Text = (previous + 359).ToString();
-                NUM_angle.Value = (previous + 359);
-            }
-            else
-            {
-//                TXT_headinghold.Text = (previous - 1).ToString();
-                TXT_angle.Text = (previous - 1).ToString();
-                NUM_angle.Value = (previous - 1);
-            }
-        }
+                if (TRK_zoom.Maximum < TRK_zoom.Value)
+                {
+                    TRK_zoom.Value = TRK_zoom.Maximum;
+                }
 #endif
+            }
+            catch
+            {
+            }
+        }
+
+        private void BUT_zoomOut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                map.Zoom -= 0.5;
+                //TRK_zoom.Value -= (float)0.5;
+#if false
+                if (TRK_zoom.Maximum < TRK_zoom.Value)
+                {
+                    TRK_zoom.Value = TRK_zoom.Maximum;
+                }
+#endif
+            }
+            catch
+            {
+            }
+        }
+
         private double incrementValue = 0;
         private static int def_interval = 800;
         TextBox target = null;
+        private double MaximumValue = 9999;
+        private double MinimumValue = 0;
 
         public double CurrentValue
         {
@@ -2145,15 +2483,20 @@ namespace MissionPlanner.Grid
                     }
                     TXT_angle.Text = ((int)value).ToString();
 //                    TXT_headinghold.Text = value.ToString();
-                    NUM_angle.Value = (decimal)value;
+//                    NUM_angle.Value = (decimal)value;
                 }
                 else
                 {
-                    if (value < 0.0)
+                    if (value > MaximumValue)
                     {
-                        value = 0.0;
+                        value = MaximumValue;
+                    }
+                    if (value < MinimumValue)
+                    {
+                        value = MinimumValue;
                     }
                     target.Text = value.ToString("f1");
+#if false
                     if (target == TXT_altitude)
                     {
                         NUM_altitude.Value = Convert.ToDecimal(value);
@@ -2166,6 +2509,7 @@ namespace MissionPlanner.Grid
                     {
                         NUM_Distance.Value = Convert.ToDecimal(value);
                     }
+#endif
                 }
             }
             get
@@ -2200,6 +2544,13 @@ namespace MissionPlanner.Grid
 
         }
 
+        private void BUT_MouseUp(object sender, MouseEventArgs e)
+        {
+            incrementValue = 0;
+            target = null;
+        }
+
+        #region ライン角度
         private void BUT_angle_Down(object sender, MouseEventArgs e)
         {
             target = TXT_angle;
@@ -2209,200 +2560,374 @@ namespace MissionPlanner.Grid
             timer1.Start();
         }
 
-        private void BUT_angle_Up(object sender, MouseEventArgs e)
+        private void TXT_angle_TextChanged(object sender, EventArgs e)
         {
-            incrementValue = 0;
-            target = null;
-        }
-
-        private void BUT_Close_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void BUT_zoomIn_Click(object sender, EventArgs e)
-        {
-            try
+            decimal d = NUM_angle.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_angle.Text))
             {
-                map.Zoom += 0.5;
-                //                TRK_zoom.Value += (float)0.5;
-#if false
-                if (TRK_zoom.Maximum < TRK_zoom.Value)
+                if (decimal.TryParse(TXT_angle.Text, out d))
                 {
-                    TRK_zoom.Value = TRK_zoom.Maximum;
+                    if (d > NUM_angle.Maximum)
+                    {
+                        d = NUM_angle.Maximum;
+                    }
+                    if (d < NUM_angle.Minimum)
+                    {
+                        d = NUM_angle.Minimum;
+                    }
                 }
-#endif
             }
-            catch
-            {
-            }
+            TXT_angle.TextChanged -= TXT_angle_TextChanged;
+            TXT_angle.Text = d.ToString();
+            TXT_angle.TextChanged += TXT_angle_TextChanged;
+            NUM_angle.Value = d;
         }
+        #endregion
 
-        private void BUT_zoomOut_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                map.Zoom -= 0.5;
-                //                TRK_zoom.Value -= (float)0.5;
-#if false
-                if (TRK_zoom.Maximum < TRK_zoom.Value)
-                {
-                    TRK_zoom.Value = TRK_zoom.Maximum;
-                }
-#endif
-            }
-            catch
-            {
-            }
-        }
-#if false
-        private void BUT_offsetplus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_offset.Text, out value);
-            value += 0.1;
-            TXT_offset.Text = value.ToString();
-    }
-
-    private void BUT_offsetminus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_offset.Text, out value);
-            value -= 0.1;
-            if (value < 0.0)
-            {
-                value = 0.0;
-            }
-            TXT_offset.Text = value.ToString();
-        }
-#endif
-
+        #region ラインオフセット
         private void BUT_offset_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_offset;
+            MaximumValue = 999;
+            MinimumValue = 0;
             CurrentValue += (sender == BUT_offsetplus) ? 0.1 : -0.1;
             timer1.Interval = def_interval;
             incrementValue = (sender == BUT_offsetplus) ? 0.1 : -0.1;
             timer1.Start();
         }
 
-        private void BUT_offset_MouseUp(object sender, MouseEventArgs e)
+        private void TXT_offset_TextChanged(object sender, EventArgs e)
         {
-            incrementValue = 0;
-            target = null;
-        }
-#if false
-        private void BUT_altplus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_altitude.Text, out value);
-            value += 0.1;
-            TXT_altitude.Text = value.ToString("f1");
-            NUM_altitude.Value = (Decimal)value;
-        }
-
-        private void BUT_altminus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_altitude.Text, out value);
-            value -= 0.1;
-            if (value < 0)
+            decimal d = 0;
+            if (!String.IsNullOrWhiteSpace(TXT_offset.Text))
             {
-                value = 0;
+                if (decimal.TryParse(TXT_offset.Text, out d))
+                {
+                    if (d > 999)
+                    {
+                        d = 999;
+                    }
+                    if (d < 0)
+                    {
+                        d = 0;
+                    }
+                }
             }
-            TXT_altitude.Text = value.ToString("f1");
-            NUM_altitude.Value = (Decimal)value;
+            TXT_offset.TextChanged -= TXT_offset_TextChanged;
+            TXT_offset.Text = d.ToString("f1");
+            TXT_offset.TextChanged += TXT_offset_TextChanged;
+            domainUpDown1_ValueChanged(sender, e);
         }
-#endif
+        #endregion
+
+        #region 飛行高度
         private void BUT_alt_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_altitude;
-            CurrentValue += (sender == BUT_altplus) ? 0.1 : -0.1;
+            MaximumValue = (double)NUM_altitude.Maximum;
+            MinimumValue = (double)NUM_altitude.Minimum;
+            CurrentValue += (sender == BUT_altplus) ? 1 : -1;
             timer1.Interval = def_interval;
-            incrementValue = (sender == BUT_altplus) ? 0.1 : -0.1;
+            incrementValue = (sender == BUT_altplus) ? 1 : -1;
             timer1.Start();
         }
 
-        private void BUT_alt_MouseUp(object sender, MouseEventArgs e)
+        private void TXT_altitude_TextChanged(object sender, EventArgs e)
         {
-            incrementValue = 0;
-            target = null;
-        }
-#if false
-        private void BUT_speedplus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_FlySpeed.Text, out value);
-            value += 0.1;
-            TXT_FlySpeed.Text = value.ToString();
-            NUM_UpDownFlySpeed.Value = (Decimal)value;
-        }
-
-        private void BUT_speedminus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_FlySpeed.Text, out value);
-            value -= 0.1;
-            if (value < 0.0)
+            decimal d = NUM_altitude.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_altitude.Text))
             {
-                value = 0.0;
+                if (decimal.TryParse(TXT_altitude.Text, out d))
+                {
+                    if (d > NUM_altitude.Maximum)
+                    {
+                        d = NUM_altitude.Maximum;
+                    }
+                    if (d < NUM_altitude.Minimum)
+                    {
+                        d = NUM_altitude.Minimum;
+                    }
+                }
             }
-            TXT_FlySpeed.Text = value.ToString();
-            NUM_UpDownFlySpeed.Value = (Decimal)value;
+            TXT_altitude.TextChanged -= TXT_altitude_TextChanged;
+            TXT_altitude.Text = d.ToString("f1");
+            TXT_altitude.TextChanged += TXT_altitude_TextChanged;
+            NUM_altitude.Value = d;
         }
-#endif
+        #endregion
+
+        #region 飛行速度
         private void BUT_speed_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_FlySpeed;
+            MaximumValue = (double)NUM_UpDownFlySpeed.Maximum;
+            MinimumValue = (double)NUM_UpDownFlySpeed.Minimum;
             CurrentValue += (sender == BUT_speedplus) ? 0.1 : -0.1;
             timer1.Interval = def_interval;
             incrementValue = (sender == BUT_speedplus) ? 0.1 : -0.1;
             timer1.Start();
         }
 
-        private void BUT_speed_MouseUp(object sender, MouseEventArgs e)
+        private void TXT_FlySpeed_TextChanged(object sender, EventArgs e)
         {
-            incrementValue = 0;
-            target = null;
-        }
-#if false
-        private void BUT_distplus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_Distance.Text, out value);
-            value += 0.1;
-            TXT_Distance.Text = value.ToString();
-            NUM_Distance.Value = (Decimal)value;
-        }
-
-        private void BUT_distminus_Click(object sender, EventArgs e)
-        {
-            double value;
-            double.TryParse(TXT_Distance.Text, out value);
-            value -= 0.1;
-            if (value < 0.0)
+            decimal d = NUM_UpDownFlySpeed.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_FlySpeed.Text))
             {
-                value = 0.0;
+                if (decimal.TryParse(TXT_FlySpeed.Text, out d))
+                {
+                    if (d > NUM_UpDownFlySpeed.Maximum)
+                    {
+                        d = NUM_UpDownFlySpeed.Maximum;
+                    }
+                    if (d < NUM_UpDownFlySpeed.Minimum)
+                    {
+                        d = NUM_UpDownFlySpeed.Minimum;
+                    }
+                }
             }
-            TXT_Distance.Text = value.ToString();
-            NUM_Distance.Value = (Decimal)value;
+            TXT_FlySpeed.TextChanged -= TXT_FlySpeed_TextChanged;
+            TXT_FlySpeed.Text = d.ToString("f1");
+            TXT_FlySpeed.TextChanged += TXT_FlySpeed_TextChanged;
+            NUM_UpDownFlySpeed.Value = d;
         }
-#endif
+        #endregion
+
+        #region ライン間距離
         private void BUT_dist_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_Distance;
+            MaximumValue = (double)NUM_Distance.Maximum;
+            MinimumValue = (double)NUM_Distance.Minimum;
             CurrentValue += (sender == BUT_distplus) ? 0.1 : -0.1;
             timer1.Interval = def_interval;
             incrementValue = (sender == BUT_distplus) ? 0.1 : -0.1;
             timer1.Start();
         }
 
-        private void BUT_dist_MouseUp(object sender, MouseEventArgs e)
+        private void TXT_Distance_TextChanged(object sender, EventArgs e)
         {
-            incrementValue = 0;
-            target = null;
+            decimal d = NUM_Distance.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_Distance.Text))
+            {
+                if (decimal.TryParse(TXT_Distance.Text, out d))
+                {
+                    if (d > NUM_Distance.Maximum)
+                    {
+                        d = NUM_Distance.Maximum;
+                    }
+                    if (d < NUM_Distance.Minimum)
+                    {
+                        d = NUM_Distance.Minimum;
+                    }
+                }
+            }
+            TXT_Distance.TextChanged -= TXT_Distance_TextChanged;
+            TXT_Distance.Text = d.ToString("f1");
+            TXT_Distance.TextChanged += TXT_Distance_TextChanged;
+            NUM_Distance.Value = d;
+        }
+        #endregion
+
+        #region 機体前方角度
+        private void TXT_headinghold_TextChanged(object sender, EventArgs e)
+        {
+            decimal d = NUM_angle.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_headinghold.Text))
+            {
+                if (decimal.TryParse(TXT_headinghold.Text, out d))
+                {
+                    if (d >= NUM_angle.Minimum && d <= NUM_angle.Maximum)
+                    {
+                        return;
+                    }
+                }
+            }
+            TXT_headinghold.TextChanged -= TXT_headinghold_TextChanged;
+            TXT_headinghold.Text = d.ToString();
+            TXT_headinghold.TextChanged += TXT_headinghold_TextChanged;
+        }
+        #endregion
+
+        #region オーバーラップ
+        private void BUT_overlap_MouseDown(object sender, MouseEventArgs e)
+        {
+            target = TXT_Overlap;
+            MaximumValue = (double)num_overlap.Maximum;
+            MinimumValue = (double)num_overlap.Minimum;
+            CurrentValue += (sender == BUT_overlapplus) ? 1 : -1;
+            timer1.Interval = def_interval;
+            incrementValue = (sender == BUT_overlapplus) ? 1 : -1;
+            timer1.Start();
         }
 
+        private void TXT_Overlap_TextChanged(object sender, EventArgs e)
+        {
+            decimal d = num_overlap.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_Overlap.Text))
+            {
+                if (decimal.TryParse(TXT_Overlap.Text, out d))
+                {
+                    if (d > num_overlap.Maximum)
+                    {
+                        d = num_overlap.Maximum;
+                    }
+                    if (d < num_overlap.Minimum)
+                    {
+                        d = num_overlap.Minimum;
+                    }
+                }
+            }
+            TXT_Overlap.TextChanged -= TXT_Overlap_TextChanged;
+            TXT_Overlap.Text = d.ToString("f0");
+            TXT_Overlap.TextChanged += TXT_Overlap_TextChanged;
+            num_overlap.Value = d;
+        }
+        #endregion
+
+        #region サイドラップ
+        private void BUT_sidelap_MouseDown(object sender, MouseEventArgs e)
+        {
+            target = TXT_Sidelap;
+            MaximumValue = (double)num_sidelap.Maximum;
+            MinimumValue = (double)num_sidelap.Minimum;
+            CurrentValue += (sender == BUT_sidelapplus) ? 1 : -1;
+            timer1.Interval = def_interval;
+            incrementValue = (sender == BUT_sidelapplus) ? 1 : -1;
+            timer1.Start();
+        }
+
+        private void TXT_Sidelap_TextChanged(object sender, EventArgs e)
+        {
+            decimal d = num_sidelap.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_Sidelap.Text))
+            {
+                if (decimal.TryParse(TXT_Sidelap.Text, out d))
+                {
+                    if (d > num_sidelap.Maximum)
+                    {
+                        d = num_sidelap.Maximum;
+                    }
+                    if (d < num_sidelap.Minimum)
+                    {
+                        d = num_sidelap.Minimum;
+                    }
+                }
+            }
+            TXT_Sidelap.TextChanged -= TXT_Sidelap_TextChanged;
+            TXT_Sidelap.Text = d.ToString("f0");
+            TXT_Sidelap.TextChanged += TXT_Sidelap_TextChanged;
+            num_sidelap.Value = d;
+        }
+        #endregion
+
+        #region 地上分解能
+        private void BUT_grandres_MouseDown(object sender, MouseEventArgs e)
+        {
+            target = TXT_GrandRes;
+            MaximumValue = 999;
+            MinimumValue = 0.1;
+            CurrentValue += (sender == BUT_grandresplus) ? 0.1 : -0.1;
+            timer1.Interval = def_interval;
+            incrementValue = (sender == BUT_grandresplus) ? 0.1 : -0.1;
+            timer1.Start();
+        }
+
+        private void TXT_GrandRes_TextChanged(object sender, EventArgs e)
+        {
+            if (first_validate)
+            {
+                return;
+            }
+            decimal d = (decimal)0.1;
+            if (!String.IsNullOrWhiteSpace(TXT_GrandRes.Text))
+            {
+                if (decimal.TryParse(TXT_GrandRes.Text, out d))
+                {
+                    if (d > 999)
+                    {
+                        d = 999;
+                    }
+                    if (d < (decimal)0.1)
+                    {
+                        d = (decimal)0.1;
+                    }
+                }
+            }
+            //TXT_GrandRes.Text = d.ToString("f1");
+            NUM_altitude.Value = ResToAlt(d);
+            if (grid_camera_easy_mode)
+            {
+                domainUpDown1_ValueChanged(this, null);
+            }
+        }
+
+        private Decimal ResToAlt(Decimal value)
+        {
+            //地上分解能から飛行高度を演算
+            //逆演算ロジック
+            //fovv(m) = (cmpix(cm/pix) * imageheight(pix)) / 100
+            //flscale = (fovv(m) * 1000) / sensorheight(mm)
+            //flyalt(m) = flscale * (focallen(mm) / 1000)
+            int imageheight = int.Parse(TXT_imgheight.Text);
+            Decimal sensorheight = Decimal.Parse(TXT_sensheight.Text);
+            Decimal focallen = NUM_focallength.Value;
+
+            Decimal fovv = (value * imageheight) / 100;
+            Decimal flscale = (fovv * 1000) / sensorheight;
+            Decimal flyalt = flscale * (focallen / 1000);
+            return flyalt;
+        }
+
+        #endregion
+
+        #region シャッター間隔
+        private void BUT_photoevery_MouseDown(object sender, MouseEventArgs e)
+        {
+            target = TXT_PhotoEvery;
+            MaximumValue = 100;
+            MinimumValue = 0.1;
+            CurrentValue += (sender == BUT_photoeveryplus) ? 1 : -1;
+            timer1.Interval = def_interval;
+            incrementValue = (sender == BUT_photoeveryplus) ? 1 : -1;
+            timer1.Start();
+        }
+
+        private void TXT_PhotoEvery_TextChanged(object sender, EventArgs e)
+        {
+            if (first_validate)
+            {
+                return;
+            }
+            decimal d = (decimal)0.1;
+            if (!String.IsNullOrWhiteSpace(TXT_PhotoEvery.Text))
+            {
+                if (decimal.TryParse(TXT_PhotoEvery.Text, out d))
+                {
+                    if (d > 100)
+                    {
+                        d = 100;
+                    }
+                    if (d < (decimal)0.1)
+                    {
+                        d = (decimal)0.1;
+                    }
+                }
+            }
+            //TXT_PhotoEvery.Text = d.ToString("f1");
+            //シャッター間隔から飛行速度を演算
+                //逆演算ロジック
+                //flyspeedms(m/s) = NUM_spacing.Value(m) / photoevery(sec)
+
+            Decimal flyspeed = NUM_spacing.Value / d;
+            NUM_UpDownFlySpeed.Value = flyspeed;
+            if (grid_camera_easy_mode)
+            {
+                domainUpDown1_ValueChanged(this, null);
+            }
+        }
+        #endregion
+
+        #region グリッド位置調整
         private void grid_shift(int angle)
         {
             List<PointLatLngAlt> newgrid = new List<PointLatLngAlt>();
@@ -2437,5 +2962,43 @@ namespace MissionPlanner.Grid
         {
             grid_shift(270);
         }
+        #endregion
+
+        #region リードイン
+        private void BUT_leadin_MouseDown(object sender, MouseEventArgs e)
+        {
+            target = TXT_leadin;
+            MaximumValue = (double)NUM_leadin.Maximum;
+            MinimumValue = (double)NUM_leadin.Minimum;
+            CurrentValue += (sender == BUT_leadinplus) ? 0.1 : -0.1;
+            timer1.Interval = def_interval;
+            incrementValue = (sender == BUT_leadinplus) ? 0.1 : -0.1;
+            timer1.Start();
+        }
+
+        private void TXT_leadin_TextChanged(object sender, EventArgs e)
+        {
+            decimal d = NUM_leadin.Minimum;
+            if (!String.IsNullOrWhiteSpace(TXT_leadin.Text))
+            {
+                if (decimal.TryParse(TXT_leadin.Text, out d))
+                {
+                    if (d > NUM_leadin.Maximum)
+                    {
+                        d = NUM_leadin.Maximum;
+                    }
+                    if (d < NUM_leadin.Minimum)
+                    {
+                        d = NUM_leadin.Minimum;
+                    }
+                }
+            }
+            TXT_leadin.TextChanged -= TXT_Sidelap_TextChanged;
+            TXT_leadin.Text = d.ToString("f1");
+            TXT_leadin.TextChanged += TXT_Sidelap_TextChanged;
+            NUM_leadin.Value = d;
+//            domainUpDown1_ValueChanged(sender, e);
+        }
+        #endregion
     }
 }

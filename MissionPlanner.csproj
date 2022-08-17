@@ -31,12 +31,14 @@
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
     <LangVersion>default</LangVersion>
+    <DefineConstants>TRACE;EAMS_UGV</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;EAMS_UGV</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="APMPlannerXplanes\**" />
@@ -1782,6 +1784,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\launchSettings.json" />
+    <None Include="Resources\btn_return_stop_ugv.jpg" />
+    <None Include="Resources\btn_stop_ugv.jpg" />
+    <None Include="Resources\btn_status_ugv.jpg" />
+    <None Include="Resources\btn_start_ugv.jpg" />
+    <None Include="Resources\btn_return_ugv.jpg" />
+    <None Include="Resources\btn_restart_ugv.jpg" />
+    <None Include="Resources\btn_auto_ok_ugv.jpg" />
+    <None Include="Resources\btn_auto_ng_ugv.jpg" />
+    <None Include="Resources\btn_return_stop.jpg" />
+    <None Include="Resources\btn_act_auto.jpg" />
+    <None Include="Resources\btn_resume_clear.png" />
     <None Include="Resources\btn_flight_ng.jpg" />
     <None Include="Resources\btn_flight_ok.jpg" />
     <None Include="Resources\btn_sim.jpg" />

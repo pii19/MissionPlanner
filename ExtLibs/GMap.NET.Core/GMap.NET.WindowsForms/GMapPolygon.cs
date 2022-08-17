@@ -266,9 +266,16 @@ namespace GMap.NET.WindowsForms
             var p1 = Points[i];
             var p2 = Points[j];
 
+            if ((p1.Lng == p.Lng) && (p1.Lat == p.Lat))
+              return true;
+
+            if ((p1.Lat == p2.Lat) && (p.Lat == p2.Lat) && (p2.Lng <= p.Lng) && (p.Lng <= p1.Lng))
+              return true;
+
             if(p1.Lat < p.Lat && p2.Lat >= p.Lat || p2.Lat < p.Lat && p1.Lat >= p.Lat)
             {
-               if(p1.Lng + (p.Lat - p1.Lat) / (p2.Lat - p1.Lat) * (p2.Lng - p1.Lng) < p.Lng)
+                    var temp = p1.Lng + (p.Lat - p1.Lat) / (p2.Lat - p1.Lat) * (p2.Lng - p1.Lng);
+               if (p1.Lng + (p.Lat - p1.Lat) / (p2.Lat - p1.Lat) * (p2.Lng - p1.Lng) < p.Lng)
                {
                   result = !result;
                }

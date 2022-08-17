@@ -72,6 +72,8 @@ namespace MissionPlanner.GCSViews
 
         List<int> groupmarkers = new List<int>();
 
+        int mesh_type = 0;  // @eams add
+
         public enum altmode
         {
             Relative = MAVLink.MAV_FRAME.GLOBAL_RELATIVE_ALT,
@@ -518,14 +520,16 @@ namespace MissionPlanner.GCSViews
             // open wp file
             if (keyData == (Keys.Control | Keys.O))
             {
-                loadWPFileToolStripMenuItem_Click(null, null);
+                //loadWPFileToolStripMenuItem_Click(null, null);
+                loadPolygonToolStripMenuItem_Click(null, null);
                 return true;
             }
 
             // save wp file
             if (keyData == (Keys.Control | Keys.S))
             {
-                saveWPFileToolStripMenuItem_Click(null, null);
+                //saveWPFileToolStripMenuItem_Click(null, null);
+                savePolygonToolStripMenuItem_Click(null, null);
                 return true;
             }
 
@@ -538,7 +542,7 @@ namespace MissionPlanner.GCSViews
                 int a = 1;
                 commandlist.ForEach(i =>
                 {
-                    MAVLink.mavlink_mission_item_t item = (MAVLink.mavlink_mission_item_t) i;
+                    MAVLink.mavlink_mission_item_int_t item = i;
                     item.seq = (ushort)a;
                     MainV2.comPort.MAV.wps[a] = item;
                     a++;
@@ -598,6 +602,9 @@ namespace MissionPlanner.GCSViews
             MainMap.MaxZoom = 24;
 
             // draw this layer first
+            meshoverlay = new GMapOverlay("mesh");
+            MainMap.Overlays.Add(meshoverlay);
+
             kmlpolygonsoverlay = new GMapOverlay("kmlpolygons");
             MainMap.Overlays.Add(kmlpolygonsoverlay);
 
@@ -684,6 +691,10 @@ namespace MissionPlanner.GCSViews
                 grid_color = ColorTranslator.FromHtml(Settings.Instance["grid_color"]);
             drawnpolygon.Stroke = new Pen(grid_color, 2);   // @eams change / original is red
             drawnpolygon.Fill = Brushes.Transparent;
+
+            // @eams add / ndvi mesh
+            if (Settings.Instance["overlay_mesh"] != null)
+                mesh_type = int.Parse(Settings.Instance["overlay_mesh"]);
 
             /*
             var timer = new System.Timers.Timer();
@@ -959,6 +970,19 @@ namespace MissionPlanner.GCSViews
             panelWaypoints.Width = Width / 2;
 
             panelWaypoints.Expand = false;  // @eams add
+
+            // @eams add
+            if (mesh_type > 0)
+            {
+                panel8.Visible = true;
+                chk_ndvimesh.Checked = true;
+                chk_ndvigrid.Checked = true;
+                loadMesh();
+            }
+            else
+            {
+                panel8.Visible = false;
+            }
 
             Visible = true;
             updateDisplayView();
@@ -2063,7 +2087,7 @@ namespace MissionPlanner.GCSViews
                 // log
                 log.Info("wps values " + MainV2.comPort.MAV.wps.Values.Count);
                 log.Info("cmd rows " + (Commands.Rows.Count + 1)); // + home
-
+#if false
                 // check for changes / future mod to send just changed wp's
                 if (MainV2.comPort.MAV.wps.Values.Count == (Commands.Rows.Count + 1))
                 {
@@ -2102,7 +2126,7 @@ namespace MissionPlanner.GCSViews
                         a++;
                     }
                 }
-
+#endif
                 bool use_int = (port.MAV.cs.capabilities & (uint)MAVLink.MAV_PROTOCOL_CAPABILITY.MISSION_INT) > 0;
 
                 // set wp total
@@ -2247,11 +2271,15 @@ namespace MissionPlanner.GCSViews
                 ((ProgressReporterDialogue) sender).UpdateProgressAndStatus(95, "Setting params");
 
                 // m
-                port.setParam("WP_RADIUS", float.Parse(TXT_WPRad.Text)/CurrentState.multiplierdist);
+                port.setParam("WP_RADIUS", double.Parse(TXT_WPRad.Text)/CurrentState.multiplierdist);
 
                 // cm's
-                port.setParam("WPNAV_RADIUS", float.Parse(TXT_WPRad.Text)/CurrentState.multiplierdist*100.0);
-
+                port.setParam("WPNAV_RADIUS", double.Parse(TXT_WPRad.Text)/CurrentState.multiplierdist*100.0);
+#if !EAMS_UGV
+                // set WPNAV_SPEED @eams add
+                float grid_speed = Settings.Instance.GetFloat("grid_speed");
+                port.setParam("WPNAV_SPEED", grid_speed * 100);
+#endif
                 try
                 {
                     port.setParam(new[] {"LOITER_RAD", "WP_LOITER_RAD"},
@@ -2536,10 +2564,12 @@ namespace MissionPlanner.GCSViews
 
         private void TXT_WPRad_KeyPress(object sender, KeyPressEventArgs e)
         {
+#if false   // @eams
             float isNumber = 0;
             if (e.KeyChar.ToString() == "\b")
                 return;
             e.Handled = !float.TryParse(e.KeyChar.ToString(), out isNumber);
+#endif
         }
 
         private void TXT_WPRad_Leave(object sender, EventArgs e)
@@ -2910,6 +2940,7 @@ namespace MissionPlanner.GCSViews
         GMapOverlay kmlpolygonsoverlay;
         GMapOverlay geofenceoverlay;
         static GMapOverlay rallypointoverlay;
+        GMapOverlay meshoverlay;    // @eams add for NDVI mesh
 
         // etc
         readonly Random rnd = new Random();
@@ -3633,8 +3664,7 @@ namespace MissionPlanner.GCSViews
             {
                 try
                 {
-//                    trackBar1.Value = (int) (MainMap.Zoom);   // @eams diabled
-                    trackBar1.Value = (float)(MainMap.Zoom);
+                    trackBar1.Value = (float)(MainMap.Zoom);    // @eams change int->float
                 }
                 catch (Exception ex)
                 {
@@ -3910,7 +3940,8 @@ namespace MissionPlanner.GCSViews
                     var lat = double.Parse(Commands.Rows[e.RowIndex].Cells[Lat.Index].Value.ToString());
                     var lng = double.Parse(Commands.Rows[e.RowIndex].Cells[Lon.Index].Value.ToString());
                     convertFromGeographic(lat, lng);
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     log.Error(ex);
                     CustomMessageBox.Show("Invalid Lat/Long, please fix",Strings.ERROR);
@@ -4183,7 +4214,8 @@ namespace MissionPlanner.GCSViews
             try
             {
                 Commands.CurrentCell = null;
-            } catch { }
+            }
+            catch { }
 
             Commands.Rows.Clear();
 
@@ -4722,7 +4754,8 @@ namespace MissionPlanner.GCSViews
         {
             geofenceoverlay.Markers.Clear();
             geofenceoverlay.Markers.Add(new GMarkerGoogle(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng),
-                GMarkerGoogleType.red) {ToolTipMode = MarkerTooltipMode.OnMouseOver, ToolTipText = "GeoFence Return"});
+                GMarkerGoogleType.red)
+            { ToolTipMode = MarkerTooltipMode.OnMouseOver, ToolTipText = "GeoFence Return" });
 
             MainMap.Invalidate();
         }
@@ -6030,10 +6063,13 @@ namespace MissionPlanner.GCSViews
 
             e.Graphics.ResetTransform();
 
-            polyicon.Location = new Point(10,100);
-            polyicon.Width = 45;    // @eams add
-            polyicon.Height = 45;   // @eams add
-            polyicon.Paint(e.Graphics);
+            if (mesh_type == 0)
+            {
+                polyicon.Location = new Point(10,100);
+                polyicon.Width = 45;    // @eams add
+                polyicon.Height = 45;   // @eams add
+                polyicon.Paint(e.Graphics);
+            }
         }
 
         MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
@@ -6999,9 +7035,28 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void surveyGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GridPlugin grid = new GridPlugin();
-            grid.Host = new PluginHost();
-            grid.but_Click(sender, e);
+            if (mesh_type > 0)
+            {
+                //GridUIで順次処理
+                IProgressReporterDialogue frmProgressReporter = new ProgressReporterDialogue
+                {
+                    StartPosition = FormStartPosition.CenterScreen,
+                    Text = "フライトプラン自動生成中"
+                };
+                frmProgressReporter.DoWork += autoGrid;
+                frmProgressReporter.UpdateProgressAndStatus(-1, "グリッド生成開始");
+                ThemeManager.ApplyThemeTo(frmProgressReporter);
+                frmProgressReporter.RunBackgroundOperationAsync();
+                frmProgressReporter.Dispose();
+
+                drawnpolygonsoverlay.Clear();
+            }
+            else
+            {
+                GridPlugin grid = new GridPlugin();
+                grid.Host = new PluginHost();
+                grid.but_Click(sender, e);
+            }
         }
         
         private void Commands_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -7130,6 +7185,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         // @eams add
         private void label4_Click(object sender, EventArgs e)
         {
+            resetHome();
+        }
+
+        // @eams add
+        public void resetHome()
+        {
             if (MainV2.comPort.MAV.cs.lat != 0)
             {
                 TXT_homealt.Text = (MainV2.comPort.MAV.cs.altasl).ToString("0");
@@ -7141,6 +7202,529 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 CustomMessageBox.Show(
                     "If you're at the field, connect to your APM and wait for GPS lock. Then click 'Home Location' link to set home to your location");
             }
+        }
+
+        // @eams add
+        private void loadMesh()
+        {
+            try
+            {
+                //read ndvi file
+                var fn_ndvi = Settings.GetUserDataDirectory() + "ndvi.csv";
+                if (!File.Exists(fn_ndvi))
+                {
+                    return;
+                }
+                var ndvis = new List<double>();
+                StreamReader sr_ndvi = new StreamReader(fn_ndvi);
+                while (!sr_ndvi.EndOfStream)
+                {
+                    string line = sr_ndvi.ReadLine();
+                    if (line.StartsWith("#"))
+                    {
+                    }
+                    else if (line.StartsWith("mesh_id"))
+                    {
+                    }
+                    else
+                    {
+                        string[] items = line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (items.Length < 2)
+                        {
+                            ndvis.Add(-1.0);
+                        }
+                        else
+                        {
+                            ndvis.Add(double.Parse(items[1], CultureInfo.InvariantCulture));
+                        }
+                    }
+                }
+                sr_ndvi.Close();
+
+                //read mesh file
+                var fn_mesh = Settings.GetUserDataDirectory() + "mesh.csv";
+                if (!File.Exists(fn_mesh))
+                {
+                    return;
+                }
+
+                StreamReader sr_mesh = new StreamReader(fn_mesh);
+
+                meshoverlay.Markers.Clear();
+                meshoverlay.Polygons.Clear();
+
+                int a = 0;
+
+                while (!sr_mesh.EndOfStream)
+                {
+                    string line = sr_mesh.ReadLine();
+                    if (line.StartsWith("#"))
+                    {
+                    }
+                    else if (line.StartsWith("mesh_id"))
+                    {
+                    }
+                    else
+                    {
+                        GMapPolygonMesh poly = new GMapPolygonMesh(new List<PointLatLng>(), "mesh")
+                        {
+                            //Fill = Brushes.Transparent,
+                            Ndvi = ndvis[a]
+                        };
+                        string[] items = line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (items.Length < 12)
+                            continue;
+
+                        //mesh_id,lat_left_top,lat_right_top,lat_left_bottom,lat_right_bottom,lon_left_top,lon_right_top,lon_left_bottom,lon_right_bottom,row,column,is_field
+                        //0      ,1           ,2            ,3              ,4               ,5           ,6            ,7              ,8               ,9  ,10    ,11
+                        if (items[11] == "1")
+                        {
+
+                            poly.Points.Add(new PointLatLng(
+                                double.Parse(items[1], CultureInfo.InvariantCulture),
+                                double.Parse(items[5], CultureInfo.InvariantCulture)));
+                            poly.Points.Add(new PointLatLng(
+                                double.Parse(items[3], CultureInfo.InvariantCulture),
+                                double.Parse(items[7], CultureInfo.InvariantCulture)));
+                            poly.Points.Add(new PointLatLng(
+                                double.Parse(items[4], CultureInfo.InvariantCulture),
+                                double.Parse(items[8], CultureInfo.InvariantCulture)));
+                            poly.Points.Add(new PointLatLng(
+                                double.Parse(items[2], CultureInfo.InvariantCulture),
+                                double.Parse(items[6], CultureInfo.InvariantCulture)));
+                            meshoverlay.Polygons.Add(poly);
+
+                            //ズームのためにマーカーを仮置き
+                            meshoverlay.Markers.Add(new GMarkerGoogle(
+                                new PointLatLng(
+                                    double.Parse(items[1], CultureInfo.InvariantCulture),
+                                    double.Parse(items[5], CultureInfo.InvariantCulture))
+                                , GMarkerGoogleType.orange_small));
+                            meshoverlay.Markers.Add(new GMarkerGoogle(
+                                new PointLatLng(
+                                    double.Parse(items[3], CultureInfo.InvariantCulture),
+                                    double.Parse(items[7], CultureInfo.InvariantCulture))
+                                , GMarkerGoogleType.orange_small));
+                            meshoverlay.Markers.Add(new GMarkerGoogle(
+                                new PointLatLng(
+                                    double.Parse(items[4], CultureInfo.InvariantCulture),
+                                    double.Parse(items[8], CultureInfo.InvariantCulture))
+                                , GMarkerGoogleType.orange_small));
+                            meshoverlay.Markers.Add(new GMarkerGoogle(
+                                new PointLatLng(
+                                    double.Parse(items[2], CultureInfo.InvariantCulture),
+                                    double.Parse(items[6], CultureInfo.InvariantCulture))
+                                , GMarkerGoogleType.orange_small));
+
+                            a++;
+                        }
+                    }
+                }
+                sr_mesh.Close();
+            }
+            catch (Exception)
+            {
+                CustomMessageBox.Show(Strings.ERROR, "NDVIメッシュ表示処理でエラーが発生しました。");
+                return;
+            }
+#if true
+            try
+            {
+                //NDVI閾値による対象メッシュの抽出（非対象の排除）
+                var grid_ndvi_low = double.Parse(Settings.Instance["grid_ndvi_low"]);
+                var grid_ndvi_high = double.Parse(Settings.Instance["grid_ndvi_high"]);
+                foreach (GMapPolygonMesh item in meshoverlay.Polygons)
+                {
+                    if (item.Ndvi >= grid_ndvi_low && item.Ndvi <= grid_ndvi_high)
+                    {
+                        //item.Fill = drawnpolygon.Fill;
+                        GMapPolygonMesh poly = new GMapPolygonMesh(item.Points, "mesh");
+                        poly.Fill = Brushes.Transparent;
+                        poly.Stroke = drawnpolygon.Stroke;
+                        polygonsoverlay.Polygons.Add(poly);
+                    }
+                }
+#if true
+                //隣接ポリゴンの結合処理
+                for (int i=0; i<polygonsoverlay.Polygons.Count()-1; i++)    //最後のメッシュは処理が不要なのでカウンタは-1
+                {
+                    var poly_base = (GMapPolygonMesh)polygonsoverlay.Polygons[i];
+                    for (int j = i+1; j < polygonsoverlay.Polygons.Count(); j++)
+                    {
+                        var poly_target = (GMapPolygonMesh)polygonsoverlay.Polygons[j];
+                        //隣接チェック
+                        int count_inside = 0;
+                        for (int k = 0; k < poly_target.Points.Count(); k++)
+                        {
+                            if (poly_base.IsInside(poly_target.Points[k]))  //T字型の隣接ポイントも走査
+                            {
+                                count_inside++;
+                            }
+                        }
+                        //隣接ポイントが2以上だったら結合処理
+                        if (count_inside >= 2)
+                        {
+                            var point_base = poly_base.Points;
+                            var point_target = poly_target.Points;
+                            bool flag_proc = false;
+                            //ベースのポイントを順に走査し、ターゲットと重複するポイントを見つける
+                            for (int bp = 0; bp < point_base.Count(); bp++)
+                            {
+                                for (int tp = 0; tp < point_target.Count(); tp++)
+                                {
+                                    if (point_base[bp] == point_target[tp])
+                                    {
+                                        //重複ポイントをベースとターゲット両者から削除する
+                                        point_base.RemoveAt(bp);
+                                        point_target.RemoveAt(tp);
+                                        //削除したベースのポイントに、ターゲットの残りのポイントを削除ポイントの次番から挿入する
+                                        for (int m = 0; m < tp; m++)    //ターゲットのローテーション
+                                        {
+                                            point_target.Add(point_target[0]);
+                                            point_target.RemoveAt(0);
+                                        }
+                                        point_base.InsertRange(bp, point_target);
+                                        flag_proc = true;
+                                        break;
+                                    }
+                                }
+                                if (flag_proc)
+                                {
+                                    break;
+                                }
+                            }
+#if true
+                            //残りの重複ポイント（残数最大1）を削除
+                            for (int bp = 0; bp < point_base.Count(); bp++)
+                            {
+                                var p = point_base.LastIndexOf(point_base[bp]);
+                                if ( bp != p)
+                                {
+                                    point_base.RemoveAt(p);
+                                    point_base.RemoveAt(bp);
+                                    break;
+                                }
+                            }
+#endif
+#if false   //NGロジック
+                            //ポイント結合（排他的論理和）
+                            var intersect = poly_base.Points.Intersect(poly_target.Points); //積集合
+                            var union = poly_base.Points.Union(poly_target.Points); //和集合
+                            var merge = union.Except(intersect).ToList<PointLatLng>(); //和集合と積集合の差集合＝排他的論理和
+
+                            //ポイントのリナンバリング
+                            List<PointLatLng> renum = new List<PointLatLng>();
+                            var p1 = merge.OrderBy(a => a.Lat).ThenBy(a => a.Lng).ToList()[0];  //起点決定
+                            renum.Add(p1);
+//                            var p2 = merge.Find(a => a.Lng == p1.Lng && a.Lat > p1.Lat);        //二番目決定(下方のみなる)
+                            int direction = 1;  //下方：0、右方：1、上方：2、左方：3
+                            PointLatLng p = p1;
+                            PointLatLng next = new PointLatLng();
+
+                            for (i = 0; i < merge.Count() - 1; i++)
+                            {
+                                switch (direction)
+                                {
+                                    case 0: //下方後
+                                            //左方サーチ
+                                        next = merge.Find(a => a.Lat == p.Lat && a.Lng < p.Lng);
+                                        if (next == null)
+                                        {
+                                            //右方サーチ
+                                            next = merge.Find(a => a.Lat == p.Lat && a.Lng > p.Lng);
+                                            direction = 1;
+                                        }
+                                        else
+                                        {
+                                            direction = 3;
+                                        }
+                                        break;
+                                    case 1: //右方後
+                                            //下方サーチ
+                                        next = merge.Find(a => a.Lng == p.Lng && a.Lat > p.Lat);
+                                        if (next == null)
+                                        {
+                                            //上方サーチ
+                                            next = merge.Find(a => a.Lng == p.Lng && a.Lat < p.Lat);
+                                            direction = 2;
+                                        }
+                                        else
+                                        {
+                                            direction = 0;
+                                        }
+                                        break;
+                                    case 2: //上方後
+                                            //右方サーチ
+                                        next = merge.Find(a => a.Lat == p.Lat && a.Lng > p.Lng);
+                                        if (next == null)
+                                        {
+                                            //左方サーチ
+                                            next = merge.Find(a => a.Lat == p.Lat && a.Lng < p.Lng);
+                                            direction = 3;
+                                        }
+                                        else
+                                        {
+                                            direction = 1;
+                                        }
+                                        break;
+                                    case 3: //左方後
+                                            //上方サーチ
+                                        next = merge.Find(a => a.Lng == p.Lng && a.Lat < p.Lat);
+                                        if (next == null)
+                                        {
+                                            //下方サーチ
+                                            next = merge.Find(a => a.Lng == p.Lng && a.Lat > p.Lat);
+                                            direction = 0;
+                                        }
+                                        else
+                                        {
+                                            direction = 2;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                renum.Add(next);
+                                next = p;
+                            }
+                            //ポイントの適用
+                            poly_base.Points.Clear();
+                            //poly_base.Points.AddRange(merge);
+                            poly_base.Points.AddRange(renum);
+#endif
+                            //重複被対象ポリゴン削除
+                            polygonsoverlay.Polygons.RemoveAt(j);
+                            i--;
+                            break;
+                        }
+                    }
+                }
+#endif
+            }
+            catch (Exception)
+            {
+#if EAMS_UGV
+                CustomMessageBox.Show(Strings.ERROR, "NDVI走行プラン自動生成でエラーが発生しました。");
+#else
+                CustomMessageBox.Show(Strings.ERROR, "NDVI飛行プラン自動生成でエラーが発生しました。");
+#endif
+                return;
+            }
+#endif
+            //MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+            MainMap.ZoomAndCenterMarkers(meshoverlay.Id);
+            meshoverlay.Markers.Clear();    //仮置きマーカー削除
+            //MainMap_OnMapZoomChanged();
+            //MainMap.Invalidate();
+            //MainMap.Focus();
+        }
+
+        void autoGrid(IProgressReporterDialogue sender)
+        {
+            try
+            {
+                //ホームポジション取得
+                PointLatLngAlt home = new PointLatLngAlt();
+                Invoke((MethodInvoker)delegate
+                {
+                    if (TXT_homealt.Text != "" && TXT_homelat.Text != "" && TXT_homelng.Text != "")
+                    {
+                        try
+                        {
+                            home = new PointLatLngAlt(
+                                double.Parse(TXT_homelat.Text), double.Parse(TXT_homelng.Text),
+                                double.Parse(TXT_homealt.Text) / CurrentState.multiplieralt, "H")
+                            { Tag2 = CMB_altmode.SelectedValue.ToString() };
+                        }
+                        catch (Exception ex)
+                        {
+                            CustomMessageBox.Show(Strings.ERROR, Strings.Invalid_home_location);
+                            log.Error(ex);
+                        }
+                    }
+                });
+
+                //ホームから近い順にソート
+                var polys = polygonsoverlay.Polygons.OrderBy(a => Math.Pow((a.Points[0].Lat - home.Lat), 2) + Math.Pow((a.Points[0].Lng - home.Lng), 2));
+
+                //グリッド生成
+                for (int i = 0; i < polys.Count(); i++)
+                {
+                    drawnpolygon = polys.ElementAt(i);
+                    Invoke((MethodInvoker)delegate
+                    {
+                        GridPlugin grid = new GridPlugin();
+                        grid.Host = new PluginHost();
+                        grid.but_Click(sender, null);
+                        ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(i * 100 / polys.Count(), "グリッド生成 " + (i + 1));
+                        ((ProgressReporterDialogue)sender).Refresh();
+                        Application.DoEvents();
+                    });
+                }
+                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus(100, "グリッド生成完了");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                return;
+            }
+        }
+
+        private void chk_ndvimesh_CheckedChanged(object sender, EventArgs e)
+        {
+            meshoverlay.IsVisibile = chk_ndvimesh.Checked;
+        }
+
+        private void chk_ndvigrid_CheckedChanged(object sender, EventArgs e)
+        {
+            polygonsoverlay.IsVisibile = chk_ndvigrid.Checked;
+        }
+
+        public void addPolygonPointRC(double lat, double lng)
+        {
+            if (polygongridmode == false)
+            {
+                return;
+            }
+
+            List<PointLatLng> polygonPoints = new List<PointLatLng>();
+            if (drawnpolygonsoverlay.Polygons.Count == 0)
+            {
+                drawnpolygon.Points.Clear();
+                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+            }
+
+            drawnpolygon.Fill = Brushes.Transparent;
+
+            // remove full loop is exists
+            if (drawnpolygon.Points.Count > 1 &&
+                drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
+
+            drawnpolygon.Points.Add(new PointLatLng(lat, lng));
+
+            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), lng, lat, 0);
+
+            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+            MainMap.Invalidate();
+        }
+    }
+
+    public class GMapPolygonMesh : GMapPolygon
+    {
+        private double ndvi = 0.0;
+
+        public double Ndvi
+        {
+            get
+            {
+                return ndvi;
+            }
+
+            set
+            {
+                int alpha = 160;
+                ndvi = value;
+
+                if (ndvi < 0.00)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#ffffff")));
+                }
+                else if (ndvi < 0.05)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#2b83ba")));
+                }
+                else if (ndvi < 0.1)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#4595b5")));
+                }
+                else if (ndvi < 0.15)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#60a8b0")));
+                }
+                else if (ndvi < 0.2)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#7bbbac")));
+                }
+                else if (ndvi < 0.25)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#96cea7")));
+                }
+                else if (ndvi < 0.3)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#afdea5")));
+                }
+                else if (ndvi < 0.35)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#c1e5ab")));
+                }
+                else if (ndvi < 0.4)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#d2edb0")));
+                }
+                else if (ndvi < 0.45)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#e4f4b6")));
+                }
+                else if (ndvi < 0.5)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#f6fbbc")));
+                }
+                else if (ndvi < 0.55)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#fef6b5")));
+                }
+                else if (ndvi < 0.6)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#fee5a1")));
+                }
+                else if (ndvi < 0.65)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#fdd48d")));
+                }
+                else if (ndvi < 0.7)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#fdc379")));
+                }
+                else if (ndvi < 0.75)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#fdb265")));
+                }
+                else if (ndvi < 0.8)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#f79656")));
+                }
+                else if (ndvi < 0.85)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#ef7747")));
+                }
+                else if (ndvi < 0.9)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#e75739")));
+                }
+                else if (ndvi < 0.95)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#df382a")));
+                }
+                else if (ndvi <= 1)
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#d7191c")));
+                }
+                else
+                {
+                    Fill = new SolidBrush(Color.FromArgb(alpha, ColorTranslator.FromHtml("#000000")));
+                }
+            }
+        }
+
+        public GMapPolygonMesh(List<PointLatLng> points, string name)
+           : base(points, name)
+        {
+            Stroke = new Pen(Color.FromArgb(100, Color.Black));
+            Stroke.Width = 2;
         }
     }
 }

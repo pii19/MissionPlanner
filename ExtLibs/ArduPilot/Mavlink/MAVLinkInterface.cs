@@ -2804,7 +2804,7 @@ Please check the following
                         }
                         else
                         {
-                            MAVlist[req.target_system, req.target_component].wps[req.seq] = req;
+                            MAVlist[req.target_system, req.target_component].wps[req.seq] = (Locationwp)req;
                         }
 
                         //if (ans.target_system == req.target_system && ans.target_component == req.target_component)
@@ -2835,7 +2835,7 @@ Please check the following
                             }
                             else
                             {
-                                MAVlist[req.target_system, req.target_component].wps[req.seq] = req;
+                                MAVlist[req.target_system, req.target_component].wps[req.seq] = (Locationwp)req;
                             }
 
                             //if (ans.target_system == req.target_system && ans.target_component == req.target_component)
@@ -3035,12 +3035,12 @@ Please check the following
             setWPCurrent(wpno);
         }
 
-        public void setGuidedModeWP(Locationwp gotohere, bool setguidedmode = true)
+        public void setGuidedModeWP(Locationwp gotohere, bool setguidedmode = true, bool useterrain = false)
         {
-            setGuidedModeWP(MAV.sysid, MAV.compid, gotohere, setguidedmode);
+            setGuidedModeWP(MAV.sysid, MAV.compid, gotohere, setguidedmode, useterrain);
         }
 
-        public void setGuidedModeWP(byte sysid, byte compid, Locationwp gotohere, bool setguidedmode = true)
+        public void setGuidedModeWP(byte sysid, byte compid, Locationwp gotohere, bool setguidedmode = true, bool useterrain = false)
         {
             if (gotohere.alt == 0 || gotohere.lat == 0 || gotohere.lng == 0)
                 return;
@@ -3069,9 +3069,18 @@ Please check the following
                 }
                 else
                 {
-                    setPositionTargetGlobalInt((byte)sysid, (byte)compid,
+                    if (useterrain)
+                    {
+                        setPositionTargetGlobalInt((byte)sysid, (byte)compid,
+                        true, false, false, false, MAVLink.MAV_FRAME.GLOBAL_TERRAIN_ALT_INT,
+                        gotohere.lat, gotohere.lng, gotohere.alt, 0, 0, 0, 0, 0);
+                    }
+                    else
+                    {
+                        setPositionTargetGlobalInt((byte)sysid, (byte)compid,
                         true, false, false, false, MAVLink.MAV_FRAME.GLOBAL_RELATIVE_ALT_INT,
                         gotohere.lat, gotohere.lng, gotohere.alt, 0, 0, 0, 0, 0);
+                    }
                 }
             }
             catch (Exception ex)
@@ -4121,7 +4130,7 @@ Please check the following
                 }
                 else
                 {
-                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] = wp;
+                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] = (Locationwp)wp;
                 }
 
                 //Console.WriteLine("WP # {7} cmd {8} p1 {0} p2 {1} p3 {2} p4 {3} x {4} y {5} z {6}", wp.param1, wp.param2, wp.param3, wp.param4, wp.x, wp.y, wp.z, wp.seq, wp.command);
@@ -4143,8 +4152,7 @@ Please check the following
                 }
                 else
                 {
-                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] =
-                        (mavlink_mission_item_t) (Locationwp) wp;
+                    MAVlist[wp.target_system, wp.target_component].wps[wp.seq] = wp;
                 }
 
                 //Console.WriteLine("WP INT # {7} cmd {8} p1 {0} p2 {1} p3 {2} p4 {3} x {4} y {5} z {6}", wp.param1, wp.param2, wp.param3, wp.param4, wp.x, wp.y, wp.z, wp.seq, wp.command);

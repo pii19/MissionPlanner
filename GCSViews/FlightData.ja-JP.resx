@@ -238,7 +238,7 @@
     <value>モードをRTLに変更</value>
   </data>
   <data name="tablogbrowse.Text" xml:space="preserve">
-    <value>データ･フラッシュ・ログ</value>
+    <value>ログ</value>
   </data>
   <data name="BUT_mountmode.ToolTip" xml:space="preserve">
     <value>左記のモードに変更</value>
@@ -340,7 +340,7 @@
     <value>スクリプトの選択：選択されていません。</value>
   </data>
   <data name="tabQuick.Text" xml:space="preserve">
-    <value>クイック</value>
+    <value>監視画面</value>
   </data>
   <data name="BUT_speed5.Text" xml:space="preserve">
     <value>5x</value>
@@ -382,7 +382,7 @@
     <value>スクリプト選択</value>
   </data>
   <data name="tabTLogs.Text" xml:space="preserve">
-    <value>テレメトリ ログ</value>
+    <value>検証</value>
   </data>
   <data name="myButton2.ToolTip" xml:space="preserve">
     <value>モードをRTLに変える</value>

@@ -155,6 +155,8 @@ namespace MissionPlanner.GCSViews
             {
                 AddBackstageViewPage(typeof(ConfigFailSafe), rm.GetString("backstageViewPagefs.Text"), isConnected, mand);
             }
+
+            AddBackstageViewPage(typeof(ConfigGPSInject), "RTK/GPS Inject");
 #if false   // @eams hidden
             var opt = AddBackstageViewPage(typeof(ConfigOptional), rm.GetString("backstageViewPageopt.Text"));
             AddBackstageViewPage(typeof(ConfigGPSInject), "RTK/GPS Inject", true, opt);

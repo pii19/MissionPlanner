@@ -39,8 +39,8 @@ namespace MissionPlanner.Maps
             // anti NaN
             try
             {
-                g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float) Math.Cos((heading - 90)*MathHelper.deg2rad)*length,
-                    (float) Math.Sin((heading - 90)*MathHelper.deg2rad)*length);
+                //g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float) Math.Cos((heading - 90)*MathHelper.deg2rad)*length,
+                    //(float) Math.Sin((heading - 90)*MathHelper.deg2rad)*length);
             }
             catch
             {

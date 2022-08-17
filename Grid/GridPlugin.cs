@@ -65,7 +65,20 @@ namespace MissionPlanner.Grid
 
                 if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
                 {
-                    gridui.ShowDialog();
+                    // @eams add / ndvi mesh
+                    int mesh_type = 0;
+                    if (Host.config["overlay_mesh"] != null)
+                        mesh_type = int.Parse(Host.config["overlay_mesh"]);
+                    if (mesh_type > 0)
+                    {
+                        gridui.WindowState = FormWindowState.Minimized;
+                        gridui.Visible = false;
+                        gridui.ShowDialog();
+                    }
+                    else
+                    {
+                        gridui.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -80,8 +93,9 @@ namespace MissionPlanner.Grid
                     else
                     {
 #endif
-                        CustomMessageBox.Show("Please define a polygon.", "Error");
-//                    }
+                        //CustomMessageBox.Show("Please define a polygon.", "Error");
+                        CustomMessageBox.Show("ポリゴンを設定してください。", "Error");
+                    //}
                 }
             }
         }

@@ -334,6 +334,13 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
 
             LabelWPno_ChangeNumber(0);
+
+            //int grid_type = Settings.Instance.GetInt32("grid_type");
+#if EAMS_UGV
+            label12.Text = "積算走行時間：";
+            label8.Text = "走行モード";
+            label9.Text = "制御状態";
+#endif
         }
 
         protected override void OnInvalidated(InvalidateEventArgs e)
@@ -355,7 +362,7 @@ namespace MissionPlanner.GCSViews
 
         void mymap_Paint(object sender, PaintEventArgs e)
         {
-            distanceBar1.DoPaintRemote(e);
+            //distanceBar1.DoPaintRemote(e);    //@eams disabled
         }
 
         internal GMapMarker CurrentGMapMarker;
@@ -838,6 +845,7 @@ namespace MissionPlanner.GCSViews
             while (!IsHandleCreated)
                 Thread.Sleep(1000);
 
+            bool first_RTL = true;
             while (threadrun)
             {
                 if (MainV2.comPort.giveComport)
@@ -1031,41 +1039,39 @@ namespace MissionPlanner.GCSViews
                     switch (MainV2.comPort.MAV.cs.mode.ToUpper())
                     {
                         case "LOITER":
-                        case "HOLD":
                             mode_jp = "GPSモード";
                             break;
                         case "ALTHOLD":
                             mode_jp = "高度維持モード";
                             break;
                         case "STABILIZE":
-                        case "MANUAL":
                             mode_jp = "マニュアルモード";
                             break;
                         case "AUTO":
-                            if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                            {
-                                mode_jp = "自動飛行モード";
-                            }
-                            else
-                            {
-                                mode_jp = "自動走行モード";
-                            }
+#if EAMS_UGV
+                            mode_jp = "自動走行モード";
+#else
+                            mode_jp = "自動飛行モード";
+#endif
                             break;
                         case "ZIGZAG":
-                            if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                            {
-                                mode_jp = "2点間飛行モード";
-                            }
-                            else
-                            {
-                                mode_jp = "2点間走行モード";
-                            }
+#if EAMS_UGV
+                            mode_jp = "2点間走行モード";
+#else
+                            mode_jp = "2点間飛行モード";
+#endif
                             break;
                         case "RTL":
                             mode_jp = "帰還モード";
                             break;
                         case "LAND":
                             mode_jp = "自動着陸モード";
+                            break;
+                        case "HOLD":
+                            mode_jp = "停止モード";
+                            break;
+                        case "MANUAL":
+                            mode_jp = "手動操作モード";
                             break;
                         default:
                             if (resume_flag >= 2)
@@ -1090,24 +1096,21 @@ namespace MissionPlanner.GCSViews
                     }
 
                     // @eams update arming display
-                    if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                    if (MainV2.comPort.MAV.cs.armed)
                     {
-                        if (MainV2.comPort.MAV.cs.armed)
-                        {
-                            mode_jp = "プロペラ回転中";
-                        }
-                        else
-                        {
-                            mode_jp = "プロペラ停止中";
-                        }
-                    }
-                    else if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduRover)
-                    {
-                        mode_jp = "刈り刃停止中";
+#if EAMS_UGV
+                        mode_jp = "自律制御ユニット稼働中";
+#else
+                        mode_jp = "プロペラ回転中";
+#endif
                     }
                     else
                     {
-                        mode_jp = "";
+#if EAMS_UGV
+                        mode_jp = "自律制御ユニット停止中";
+#else
+                        mode_jp = "プロペラ停止中";
+#endif
                     }
                     if (labelArm.InvokeRequired)
                     {
@@ -1156,10 +1159,7 @@ namespace MissionPlanner.GCSViews
                     }
 
                     // @eams check resume point and failsafe
-                    // search first & end waypoint no in current mission
                     var commands = MainV2.instance.FlightPlanner.GetCommandList();
-                    int firstwpno = commands.FindIndex(x => x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) + 1;
-                    int endwpno = commands.FindLastIndex(x => x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) + 1;
                     string lastwp = MainV2.comPort.MAV.cs.lastautowp.ToString();
                     if (lastwp == "-1")
                         lastwp = "1";
@@ -1167,51 +1167,83 @@ namespace MissionPlanner.GCSViews
 
                     if (MainV2.comPort.MAV.cs.mode.ToUpper() == "RTL")
                     {
-                        if (resume_flag == 0 || resume_flag == 2)
+#if !EAMS_UGV
+                        if (first_RTL)
                         {
+                            int grid_type = Settings.Instance.GetInt32("grid_type");
+                            if (grid_type >= 2 && grid_type <= 4)
+                            {
+                                // force close servo 7 and change function
+                                float servohigh = Settings.Instance.GetFloat("grid_dosetservo_PWMH");
+                                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
+                                MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_normal);
+                            }
+                            first_RTL = false;
+                        }
+#endif
+                        if (resume_flag == 0 || resume_flag == 3)
+                        {
+                            // search first & end waypoint no in current mission
+                            int firstwpno = commands.FindIndex(x => (x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT)&&(x.lat != 0)) + 1;
+                            int endwpno = commands.FindLastIndex(x => x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) + 1;
                             if (curwpno >= firstwpno + 1 && curwpno <= endwpno)
                             {
-                                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+#if EAMS_UGV
+                                if (first_RTL)
                                 {
-                                    // force servo to close
-                                    float servohigh = Settings.Instance.GetFloat("grid_dosetservo_PWMH");
-                                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
-                                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_normal);
-
-                                    var rtl_alt = (float)MainV2.comPort.MAV.param["RTL_ALT"] / 100;
-                                    if (MainV2.comPort.MAV.cs.alt >= rtl_alt * 0.95)
-                                    {
-                                        resume_pos.Lat = MainV2.comPort.MAV.cs.lat;
-                                        resume_pos.Lng = MainV2.comPort.MAV.cs.lng;
-                                        resume_pos.Alt = MainV2.comPort.MAV.cs.alt;
-                                        resume_flag = 1;
-                                    }
-                                }
-                                else
-                                {
+                                    // save resume point
                                     resume_pos.Lat = MainV2.comPort.MAV.cs.lat;
                                     resume_pos.Lng = MainV2.comPort.MAV.cs.lng;
                                     resume_pos.Alt = MainV2.comPort.MAV.cs.alt;
                                     resume_flag = 1;
+                                    lastwpno = curwpno;
+                                    first_RTL = false;
                                 }
-
-                                lastwpno = curwpno;
-//                            last_failsafe = MainV2.comPort.MAV.cs.failsafe;
+#else
+                                var rtl_alt = (float)MainV2.comPort.MAV.param["RTL_ALT"] / 100;
+                                string rngfnd_type = "0";
+                                try
+                                {
+                                    rngfnd_type = MainV2.comPort.MAV.param["RNGFND1_TYPE"].ToString();
+                                }
+                                catch (Exception)
+                                {
+                                    rngfnd_type = MainV2.comPort.MAV.param["RNGFND_TYPE"].ToString();
+                                }
+                                float alt;
+                                if (rngfnd_type == "0")
+                                {
+                                    alt = MainV2.comPort.MAV.cs.alt;
+                                }
+                                else
+                                {
+                                    alt = MainV2.comPort.MAV.cs.sonarrange;
+                                }
+                                if (alt >= rtl_alt * 0.95)
+                                {
+                                    // save resume point
+                                    resume_pos.Lat = MainV2.comPort.MAV.cs.lat;
+                                    resume_pos.Lng = MainV2.comPort.MAV.cs.lng;
+                                    resume_pos.Alt = alt;
+                                    resume_flag = 1;
+                                    lastwpno = curwpno;
+                                }
+#endif
                             }
                         }
-                        else if (resume_flag == 1)
-                        {
-                            // check reaching to home
-                            if (MainV2.comPort.MAV.cs.DistToHome < 0.5)
-                            {
-                                MainV2.comPort.doARM(false);
-                            }
-                        }
+                    }
+                    else
+                    {
+                        first_RTL = true;
                     }
 
                     if (resume_flag >= 2)
                     {
+#if EAMS_UGV
+                        if (curwpno >= commands.Count)
+#else
                         if (curwpno >= commands.Count && !MainV2.comPort.MAV.cs.armed)
+#endif
                         {
                             resume_flag = 0;
                         }
@@ -1317,7 +1349,10 @@ namespace MissionPlanner.GCSViews
                         if (route == null)
                         {
                             route = new GMapRoute(trackPoints, "track");
-                            routes.Routes.Add(route);
+                            if (Settings.Instance.GetBoolean("track_line"))
+                            {
+                                routes.Routes.Add(route);
+                            }
                         }
 
                         PointLatLng currentloc = new PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
@@ -1343,8 +1378,8 @@ namespace MissionPlanner.GCSViews
                         updateRoutePosition();
 
                         // update programed wp course
-//                        if (waypoints.AddSeconds(5) < DateTime.Now)
-                        if (waypoints.AddSeconds(MainV2.update_wp_delay/1000) < DateTime.Now)
+                        //if (waypoints.AddSeconds(5) < DateTime.Now)
+                        if (waypoints.AddSeconds(MainV2.update_wp_delay / 1000) < DateTime.Now)
                         {
                             //Console.WriteLine("Doing FD WP's");
                             updateClearMissionRouteMarkers();
@@ -1611,28 +1646,23 @@ namespace MissionPlanner.GCSViews
                             // add primary route icon
 
                             // draw guide mode point for only main mav
+#if true    //@eams change
+                            if (resume_flag > 0)
+                            {
+#if EAMS_UGV
+                                addpolygonmarker("自動走行再開ポイント", resume_pos.Lng, resume_pos.Lat, (int)resume_pos.Alt, Color.Blue, routes);
+#else
+                                addpolygonmarker("自動飛行再開ポイント", resume_pos.Lng, resume_pos.Lat, (int)resume_pos.Alt, Color.Blue, routes);
+#endif
+                            }
+#else
                             if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
                             {
-#if true    // @eams change
-                                string disp = "";
-                                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                                {
-                                    disp = "自動飛行再開ポイント";
-                                }
-                                else
-                                {
-                                    disp = "自動走行再開ポイント";
-                                }
-                                addpolygonmarker(disp, MainV2.comPort.MAV.GuidedMode.y,
-                                    MainV2.comPort.MAV.GuidedMode.x, (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue,
-                                    routes);
-#else
                                 addpolygonmarker("Guided Mode", MainV2.comPort.MAV.GuidedMode.y,
                                     MainV2.comPort.MAV.GuidedMode.x, (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue,
                                     routes);
-#endif
                             }
-
+#endif
                             // draw all icons for all connected mavs
                             foreach (var port in MainV2.Comports.ToArray())
                             {
@@ -1949,8 +1979,8 @@ namespace MissionPlanner.GCSViews
                        }
                        lastmapposchange = DateTime.Now;
                    }
-                    //hud1.Refresh();
-                }
+                   //hud1.Refresh();
+               }
                catch
                {
                }
@@ -3598,8 +3628,8 @@ namespace MissionPlanner.GCSViews
             {
                 selectform.Controls.ForEach(a =>
 {
-if (a is CheckBox && ((CheckBox)a).Checked)
-((CheckBox)a).BackColor = Color.Green;
+    if (a is CheckBox && ((CheckBox)a).Checked)
+        ((CheckBox)a).BackColor = Color.Green;
 });
             };
 
@@ -3769,7 +3799,8 @@ if (a is CheckBox && ((CheckBox)a).Checked)
             try
             {
                 if (MainV2.comPort.MAV.cs.armed)
-                    if (CustomMessageBox.Show("Are you sure you want to Disarm?", "Disarm?", MessageBoxButtons.YesNo) !=
+                    //if (CustomMessageBox.Show("Are you sure you want to Disarm?", "Disarm?", MessageBoxButtons.YesNo) !=
+                    if (CustomMessageBox.Show("プロペラを回転停止してもよろしいですか？", "プロペラ回転停止", MessageBoxButtons.YesNo) !=
                         (int)DialogResult.Yes)
                         return;
 
@@ -4399,7 +4430,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                             }
 
                             timeout = 0;
-                            while (MainV2.comPort.MAV.cs.alt < (lastwpdata.alt*0.95))
+                            while (MainV2.comPort.MAV.cs.alt < (lastwpdata.alt * 0.95))
                             {
                                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, lastwpdata.alt);
                                 Thread.Sleep(1000);
@@ -4724,6 +4755,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
         private void setQuickViewRowsCols(string cols, string rows)
         {
+            tableLayoutPanelQuick.PerformLayout();
             tableLayoutPanelQuick.SuspendLayout();
             tableLayoutPanelQuick.ColumnCount = Math.Max(1, int.Parse(cols));
             tableLayoutPanelQuick.RowCount = Math.Max(1, int.Parse(rows));
@@ -4763,7 +4795,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
 
             // add extra
-            while (total > tableLayoutPanelQuick.Controls.Count)
+            while (total != tableLayoutPanelQuick.Controls.Count)
             {
                 var QV = new QuickView()
                 {
@@ -4787,6 +4819,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                 tableLayoutPanelQuick.ColumnStyles[i].SizeType = SizeType.Percent;
                 tableLayoutPanelQuick.ColumnStyles[i].Width = 100.0f / tableLayoutPanelQuick.ColumnCount;
             }
+
             for (int j = 0; j < tableLayoutPanelQuick.RowCount; j++)
             {
                 if (tableLayoutPanelQuick.RowStyles.Count <= j)
@@ -4959,6 +4992,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         {
             MainV2.instance.MenuStartClick(sender);
             ButtonStop_ChangeState(true);
+            ButtonReturn_ChangeState(true);
         }
 
         /// <summary>
@@ -4975,7 +5009,12 @@ if (a is CheckBox && ((CheckBox)a).Checked)
             Graphics g = Graphics.FromImage(canvas);
 
             //画像を取得
+#if EAMS_UGV
+            Bitmap img = global::MissionPlanner.Properties.Resources.btn_start_ugv;
+            toolTip1.SetToolTip(ButtonStart, "自動走行開始");
+#else
             Bitmap img = global::MissionPlanner.Properties.Resources.btn_start;
+#endif
 
             if (state)
             {
@@ -4992,9 +5031,8 @@ if (a is CheckBox && ((CheckBox)a).Checked)
             ButtonStart.BackgroundImage = canvas; //表示する
         }
 
-        private void ButtonStop_Click(object sender, EventArgs e)
+        async private void ButtonStop_Click(object sender, EventArgs e)
         {
-//            if (ButtonStop.Text == "飛行停止")
             if ((string)ButtonStop.BackgroundImage.Tag == "stop")
             {
                 MainV2.instance.MenuStopClick(sender);
@@ -5038,7 +5076,6 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     cmds = MainV2.instance.FlightPlanner.GetCommandList();
                     cmds.Insert(0, home);
                     var wpcount = cmds.Count;
-
 #if true
                     MainV2.comPort.setMode("AUTO");
 #else
@@ -5049,14 +5086,24 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "MISSION_START"),
                         param1, 0, param3, 0, 0, 0, 0);
 #endif
-                    if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                    // CONDTION_YAW
+                    float grid_angle = 0;
+                    for (ushort a = 0; a < wpcount; a++)
                     {
-                        // set SERVO7_FUNCTION auto @eams
-                        MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
+                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.CONDITION_YAW)
+                        {
+                            grid_angle = cmds[a].p1;
+                            break;
+                        }
+                    }
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
 
                         // get parameters
                         int grid_type = Settings.Instance.GetInt32("grid_type");
-
+#if !EAMS_UGV
+                    // set SERVO7_FUNCTION auto @eams
+                    MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
+#endif
                         // servo operation in mode2
                         if (grid_type == 2)
                         {
@@ -5089,41 +5136,84 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         {
             if (state)
             {
-//                ButtonStop.Text = "飛行停止";
-//                ButtonStop.BackColor = Color.DodgerBlue;
+#if EAMS_UGV
+                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
+                toolTip1.SetToolTip(ButtonStop, "自動走行停止");
+#else
                 ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop;
+                toolTip1.SetToolTip(ButtonStop, "自動飛行停止");
+#endif
                 ButtonStop.BackgroundImage.Tag = "stop";
-                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                {
-                    toolTip1.SetToolTip(ButtonStop, "自動飛行停止");
-                }
-                else
-                {
-                    toolTip1.SetToolTip(ButtonStop, "自動走行停止");
-                }
             }
             else
             {
-//                ButtonStop.Text = "飛行再開";
-//                ButtonStop.BackColor = Color.DarkOrchid;
+#if EAMS_UGV
+                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart_ugv;
+                toolTip1.SetToolTip(ButtonStop, "自動走行再開");
+#else
                 ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart;
+                toolTip1.SetToolTip(ButtonStop, "自動飛行再開");
+#endif
                 ButtonStop.BackgroundImage.Tag = "restart";
-                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                {
-                    toolTip1.SetToolTip(ButtonStop, "自動飛行再開");
-                }
-                else
-                {
-                    toolTip1.SetToolTip(ButtonStop, "自動走行再開");
-                }
             }
 
         }
 
         private void ButtonReturn_Click(object sender, EventArgs e)
         {
-            MainV2.instance.MenuReturnClick(sender);
+            if ((string)ButtonReturn.BackgroundImage.Tag == "return")
+            {
+                MainV2.instance.MenuReturnClick(sender);
+            }
+            else
+            {
+                // set mode Loiter
+                try
+                {
+                    if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                    {
+                        CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+                        return;
+                    }
+                    MainV2.comPort.setMode("Loiter");
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+                ButtonReturn_ChangeState(true);
+            }
             ButtonStop_ChangeState(true);
+        }
+
+        /// <summary>
+        /// 強制帰還ボタンの更新
+        /// <param name="state">true:強制帰還、false:帰還停止</param>
+        /// </summary>
+        public void ButtonReturn_ChangeState(bool state)
+        {
+            if (state)
+            {
+#if EAMS_UGV
+                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_ugv;
+                toolTip1.SetToolTip(ButtonReturn, "自動帰還");
+#else
+                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return;
+                toolTip1.SetToolTip(ButtonReturn, "強制帰還");
+#endif
+                ButtonReturn.BackgroundImage.Tag = "return";
+            }
+            else
+            {
+#if EAMS_UGV
+                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_stop_ugv;
+#else
+                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_stop;
+#endif
+                toolTip1.SetToolTip(ButtonReturn, "帰還停止");
+                ButtonReturn.BackgroundImage.Tag = "return_stop";
+            }
+
         }
 
         private void ButtonConnect_Click(object sender, EventArgs e)
@@ -5141,13 +5231,13 @@ if (a is CheckBox && ((CheckBox)a).Checked)
             {
                 this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_disconnect_icon;
                 this.ButtonConnect.Image.Tag = "Disconnect";
-//                this.ButtonConnect.Text = "切断";
             }
             else
             {
                 this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon;
                 this.ButtonConnect.Image.Tag = "Connect";
-//                this.ButtonConnect.Text = "接続";
+                ButtonReturn_ChangeState(true);
+                ButtonStop_ChangeState(true);
             }
 
         }
@@ -5177,15 +5267,19 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         {
             if (state)
             {
-//                LabelPreArm.Text = "飛行OK";
-//                LabelPreArm.BackColor = Color.Green;
+#if EAMS_UGV
+                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_auto_ok_ugv;
+#else
                 LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_flight_ok;
+#endif
             }
             else
             {
-//                LabelPreArm.Text = "飛行NG";
-//                LabelPreArm.BackColor = Color.Red;
+#if EAMS_UGV
+                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_auto_ng_ugv;
+#else
                 LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_flight_ng;
+#endif
             }
         }
 
@@ -5195,7 +5289,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         /// </summary>
         public void LabelWPno_ChangeNumber(int wpno)
         {
-            if (wpno>0)
+            if (wpno > 0)
             {
                 LabelWPno.Text = wpno.ToString();
 
@@ -5212,7 +5306,7 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         /// </summary>
         public void LabelTime_ChangeTime(int time)
         {
-            LabelTime.Text = (time/3600.0).ToString("F2") + " (h)";
+            LabelTime.Text = (time / 3600.0).ToString("F2") + " (h)";
         }
 
         /// <summary>
@@ -5227,19 +5321,12 @@ if (a is CheckBox && ((CheckBox)a).Checked)
         private int lastwpno = 0;
         private PointLatLngAlt resume_pos = new PointLatLngAlt();
         public int resume_flag = 0;
-//        public bool last_failsafe = false;
 
         /// <summary>
         /// フェイルセーフからのレジューム
         /// </summary>
         public async void ResumeOnFailSafe()
         {
-#if false
-            if (!last_failsafe)
-            {
-                return;
-            }
-#endif
             try
             {
 #if false
@@ -5255,31 +5342,100 @@ if (a is CheckBox && ((CheckBox)a).Checked)
 
                 int lastwpno = int.Parse(lastwp);
 #endif
+                resume_flag = 2;
+
+#if !EAMS_UGV
                 // get parameters
                 int grid_type = Settings.Instance.GetInt32("grid_type");
-#if false
-                float servohigh = Settings.Instance.GetFloat("grid_dosetservo_PWMH");
-                float grid_speed = Settings.Instance.GetFloat("grid_speed");
-                int grid_startup_delay = Settings.Instance.GetInt32("grid_startup_delay");
-                float grid_angle = Settings.Instance.GetFloat("grid_angle");
+                bool use_impeller = Settings.Instance.GetBoolean("use_impeller");
+                int impeller_no = Settings.Instance.GetInt32("impeller_no");
+                int impeller_pwm_on = Settings.Instance.GetInt32("impeller_pwm_on");
+                int impeller_pwm_off = Settings.Instance.GetInt32("impeller_pwm_off");
+                string rngfnd_type = "0";
+                try
+                {
+                    rngfnd_type = MainV2.comPort.MAV.param["RNGFND1_TYPE"].ToString();
+                }
+                catch (Exception)
+                {
+                    rngfnd_type = MainV2.comPort.MAV.param["RNGFND_TYPE"].ToString();
+                }
+#else
+                double wp_rad = 0.0;
+                if (MainV2.comPort.MAV.param["WP_RADIUS"] != null)
+                {
+                    wp_rad = MainV2.comPort.MAV.param["WP_RADIUS"].Value;
+                }
 #endif
                 // get our target wp
                 var lastwpdata = MainV2.comPort.getWP((ushort)lastwpno);
 
-                Locationwp gotohere = new Locationwp();
-
+                // get wp data
+                List<Locationwp> cmds = new List<Locationwp>();
+#if true
+                Locationwp home = new Locationwp();
+                home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
+                home.lat = MainV2.comPort.MAV.cs.HomeLocation.Lat;
+                home.lng = MainV2.comPort.MAV.cs.HomeLocation.Lng;
+                home.alt = (float)MainV2.comPort.MAV.cs.HomeLocation.Alt / CurrentState.multiplieralt;
+                cmds = MainV2.instance.FlightPlanner.GetCommandList();
+                cmds.Insert(0, home);
+                var wpcount = cmds.Count;
+#else
+                var wpcount = MainV2.comPort.getWPCount();
+                for (ushort a = 0; a < wpcount; a++)
+                {
+                    var wpdata = MainV2.comPort.getWP(a);
+                    cmds.Add(wpdata);
+                }
+#endif
                 //Guidedモード直後にWP表示を正しく表示させるため
+                int takeoffwpno = cmds.FindIndex(x => (x.id == (ushort)MAVLink.MAV_CMD.TAKEOFF));
+                Locationwp gotohere = new Locationwp();
                 gotohere.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                gotohere.alt = lastwpdata.alt;
+#if EAMS_UGV
+                gotohere.alt = (float)resume_pos.Alt;
+#else
+                gotohere.alt = cmds[takeoffwpno].alt;
+#endif
                 gotohere.lat = resume_pos.Lat;
                 gotohere.lng = resume_pos.Lng;
                 MainV2.comPort.setGuidedModeWP(gotohere);
+                log.Info("FlightData gotohere alt: " + gotohere.alt);
 
-                //MainV2.comPort.setMode("GUIDED");
-                await Task.Delay(1000);
+                // arming
+                bool ans = MainV2.comPort.doARM(true);
+                if (ans == false)
+                    CustomMessageBox.Show(Strings.ErrorRejectedByMAV, Strings.ERROR);
+#if false
+                // set Loiter mode for WPNAV_SPEED
+                MainV2.comPort.setMode("Loiter");
+                await Task.Delay(500);
+
+                // get grid_speed for WPNAV_SPEED
+                float grid_speed = 5;
+                for (ushort a = 0; a < wpcount; a++)
+                {
+                    if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
+                    {
+                        grid_speed = cmds[a].p2;
+                        break;
+                    }
+                }
+
+                // get/set WPNAV_SPEED
+                double wpnav_speed = 0;   //The unit of WPNAV_SPEED is cm/sec.
+                if (MainV2.comPort.MAV.param["WPNAV_SPEED"] != null)
+                {
+                    wpnav_speed = MainV2.comPort.MAV.param["WPNAV_SPEED"].Value;
+                }
+                MainV2.comPort.setParam("WPNAV_SPEED", grid_speed * 100);
+                var debug_temp = MainV2.comPort.MAV.param["WPNAV_SPEED"].Value;
+#endif
+                // guided
+                MainV2.comPort.setMode("GUIDED");
+                await Task.Delay(500);
                 Application.DoEvents();
-
-                resume_flag = 2;
 #if false
                 // force redraw map
                 await Task.Delay(MainV2.update_wp_delay+200);
@@ -5309,69 +5465,49 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                 // set SERVO7_FUNCTION auto @eams
                 MainV2.comPort.setParam("SERVO7_FUNCTION", (float)MainV2.servo7_func_auto);
 #endif
+                // take off
                 int timeout = 0;
-
-                // get wp data
-                List<Locationwp> cmds = new List<Locationwp>();
-#if true
-                Locationwp home = new Locationwp();
-                home.id = (ushort)MAVLink.MAV_CMD.WAYPOINT;
-                home.lat = MainV2.comPort.MAV.cs.HomeLocation.Lat;
-                home.lng = MainV2.comPort.MAV.cs.HomeLocation.Lng;
-                home.alt = (float)MainV2.comPort.MAV.cs.HomeLocation.Alt / CurrentState.multiplieralt;
-                cmds = MainV2.instance.FlightPlanner.GetCommandList();
-                cmds.Insert(0, home);
-                var wpcount = cmds.Count;
-#else
-                var wpcount = MainV2.comPort.getWPCount();
-                for (ushort a = 0; a < wpcount; a++)
+#if !EAMS_UGV
+                bool result_takeoff = false;
+                float alt = 0;
+                while (alt < (gotohere.alt * 0.95))
                 {
-                    var wpdata = MainV2.comPort.getWP(a);
-                    cmds.Add(wpdata);
+                    await Task.Delay(1000);
+                    if (!result_takeoff)
+                    {
+                        result_takeoff = MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, gotohere.alt);
+                        Application.DoEvents();
+                    }
+                    //log.Info("FlightData Takeoff timeout: " + timeout);
+                    if (rngfnd_type == "0")
+                    {
+                        alt = MainV2.comPort.MAV.cs.alt;
+                    }
+                    else
+                    {
+                        alt = MainV2.comPort.MAV.cs.sonarrange;
+                    }
+                    timeout++;
+
+                    if (timeout > gotohere.alt + 10)
+                    {
+                        CustomMessageBox.Show("離陸コマンドタイムアウトエラー", Strings.ErrorNoResponce);
+                        resume_flag = 1;
+                        return;
+                    }
+
+                    if (MainV2.comPort.MAV.cs.mode.ToLower() != "guided")
+                    {
+                        log.Info("FlightData: resume cancel");
+                        resume_flag = 1;
+                        return;
+                    }
                 }
 #endif
-                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
-                {
-                    // take off
-                    while (MainV2.comPort.MAV.cs.alt < (lastwpdata.alt * 0.95))
-                    {
-                        MainV2.comPort.doCommand(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, lastwpdata.alt);
-                        await Task.Delay(100);
-                        Application.DoEvents();
-                        timeout++;
-
-                        if (timeout > 400)
-                        {
-                            CustomMessageBox.Show(Strings.ERROR, Strings.ErrorNoResponce);
-                            return;
-                        }
-                    }
-
-                    // DO_SET_SERVO high (close)
-                    float servohigh = 1000;
-                    for (ushort a = 0; a < wpcount; a++)
-                    {
-                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
-                        {
-                            servohigh = cmds[a].p2;
-                            break;
-                        }
-                    }
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servohigh, 0, 0, 0, 0, 0);
-                }
-
+#if false
                 // DO_CHANGE_SPEED
-                float grid_speed = 5;
-                for (ushort a = 0; a < wpcount; a++)
-                {
-                    if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_CHANGE_SPEED)
-                    {
-                        grid_speed = cmds[a].p2;
-                        break;
-                    }
-                }
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 0, grid_speed, 0, 0, 0, 0, 0);
-
+#endif
                 // startup delay
                 int grid_startup_delay = 0;
                 for (ushort a = 0; a < wpcount; a++)
@@ -5383,88 +5519,306 @@ if (a is CheckBox && ((CheckBox)a).Checked)
                     }
                 }
                 await Task.Delay(grid_startup_delay * 1000);
-
-                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+#if !EAMS_UGV
+                // CONDTION_YAW for GUIDED
+                float grid_angle = 0;
+                for (ushort a = 0; a < wpcount; a++)
                 {
-                    // CONDTION_YAW
-                    float grid_angle = 0;
-                    for (ushort a = 0; a < wpcount; a++)
+                    if (cmds[a].id == (ushort)MAVLink.MAV_CMD.CONDITION_YAW)
                     {
-                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.CONDITION_YAW)
-                        {
-                            grid_angle = cmds[a].p1;
-                            break;
-                        }
+                        grid_angle = cmds[a].p1;
+                        break;
                     }
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
                 }
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
 
-                // 1sec delay
-                await Task.Delay(1000);
+                // startup delay after CONDITION_YAW
+                // ホーム用のWAYPOINTコマンド無視、その後最初にあったWAYPOINTコマンドがセカンドディレイ用
+                for (ushort a = 1; a < wpcount; a++)
+                {
+                    if (cmds[a].id == (ushort)MAVLink.MAV_CMD.WAYPOINT)
+                    {
+                        grid_startup_delay = (int)cmds[a].p1;
+                        break;
+                    }
+                }
+                await Task.Delay(grid_startup_delay * 1000);
+#endif
+                // check wp_dist value is not 0
+                timeout = 0;
+                do
+                {
+                    if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided")
+                    {
+#if EAMS_UGV
+                        MainV2.comPort.setGuidedModeWP(gotohere, true, false);
+#else
+                        // re-set guided WP
+                        if (rngfnd_type == "0")
+                        {
+                            MainV2.comPort.setGuidedModeWP(gotohere, true, false);
+                        }
+                        else
+                        {
+                            MainV2.comPort.setGuidedModeWP(gotohere, true, true);
+                        }
+#endif
+                    }
+                    else
+                    {
+                        log.Info("FlightData: resume cancel");
+                        resume_flag = 1;
+                        return;
+                    }
+                    await Task.Delay(1000);
+                    Application.DoEvents();
+                    timeout++;
+                    log.Info("FlightData check wp_dist value timeout: " + timeout);
 
-                // re-set guided WP
-                MainV2.comPort.setGuidedModeWP(gotohere);
-                await Task.Delay(1000);
-                Application.DoEvents();
+                    if (timeout > 20)
+                    {
+                        CustomMessageBox.Show("ガイドコマンドタイムアウトエラー", Strings.ErrorNoResponce);
+                        resume_flag = 1;
+                        return;
+                    }
+                } while (MainV2.comPort.MAV.cs.wp_dist == 0);
 
                 // check reaching to guided WP
                 timeout = 0;
+#if EAMS_UGV
+                while (MainV2.comPort.MAV.cs.wp_dist >= (float)wp_rad)
+#else
                 while (MainV2.comPort.MAV.cs.wp_dist > 0)
+#endif
                 {
-                    await Task.Delay(100);
                     Application.DoEvents();
+                    await Task.Delay(1000);
                     timeout++;
+                    //log.Info("FlightData guided wp timeout: " + timeout);
 
-                    if (timeout > 1200)
+                    if (timeout > 120)
                     {
-                        CustomMessageBox.Show(Strings.ERROR, Strings.ErrorNoResponce);
+                        CustomMessageBox.Show("ガイドコマンドタイムアウトエラー", Strings.ErrorNoResponce);
+                        resume_flag = 1;
                         return;
                     }
                 }
+#if !EAMS_UGV
+                float servo = 1000;
+                if (grid_type >= 2 && grid_type <= 4)
+                {
+                    // use impeller
+                    if (use_impeller)
+                    {
+                        // turn on
+                        MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, impeller_no, impeller_pwm_on, 0, 0, 0, 0, 0);
+                        await Task.Delay(1000);
+                    }
 
+                    // DO_SET_SERVO(close)
+                    for (ushort a = 0; a < wpcount; a++)
+                    {
+                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
+                        {
+                            servo = cmds[a].p2;
+                            break;
+                        }
+                    }
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
+                }
+#endif
                 // set resume point wp
                 MainV2.comPort.setWPCurrent((ushort)lastwpno);
-
+#if false
+                // set WPNAV_SPEED original value
+                MainV2.comPort.setParam("WPNAV_SPEED", wpnav_speed);
+#endif
                 // auto 
                 timeout = 0;
                 while (MainV2.comPort.MAV.cs.mode.ToLower() != "AUTO".ToLower())
                 {
-                    MainV2.comPort.setMode("AUTO");
-                    await Task.Delay(100);
+                    if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided")
+                    {
+                        MainV2.comPort.setMode("AUTO");
+                    }
+                    else
+                    {
+                        log.Info("FlightData: resume cancel");
+                        resume_flag = 1;
+                        return;
+                    }
+                    await Task.Delay(500);
                     Application.DoEvents();
                     timeout++;
 
-                    if (timeout > 300)
+                    if (timeout > 60)
                     {
-                        CustomMessageBox.Show(Strings.ERROR, Strings.ErrorNoResponce);
+#if EAMS_UGV
+                        CustomMessageBox.Show("自動走行再開コマンドタイムアウトエラー", Strings.ErrorNoResponce);
+#else
+                        CustomMessageBox.Show("自動飛行再開コマンドタイムアウトエラー", Strings.ErrorNoResponce);
+#endif
+                        resume_flag = 1;
                         return;
                     }
                 }
+#if !EAMS_UGV
+                // reset CONDITION_YAW for AUTO mode restart
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.CONDITION_YAW, grid_angle, 0, 0, 0, 0, 0, 0);
 
-                if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                // servo operation in mode2
+                if (grid_type == 2)
                 {
-                    // servo operation in mode2
-                    if (grid_type == 2)
+                    for (int a = lastwpno; a >= 0; a--)
                     {
-                        for (int a = lastwpno; a >= 0; a--)
+                        if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
                         {
-                            if (cmds[a].id == (ushort)MAVLink.MAV_CMD.DO_SET_SERVO)
-                            {
-                                var servo = cmds[a].p2;
-                                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
-                                break;
-                            }
+                            servo = cmds[a].p2;
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, servo, 0, 0, 0, 0, 0);
+                            break;
                         }
                     }
                 }
-
-                //last_failsafe = false;
+#endif
                 lastwpno = 0;
             }
             catch (Exception ex)
             {
                 CustomMessageBox.Show(Strings.CommandFailed + "\n" + ex.ToString(), Strings.ERROR);
             }
+            resume_flag = 3;
+        }
+
+        private void ButtonResumeClear_Click(object sender, EventArgs e)
+        {
+            resume_flag = 0;
+        }
+
+        /// <summary>
+        /// レジュームクリアボタンの更新
+        /// <param name="state">true:enabled、false:disabled</param>
+        /// </summary>
+        public void ButtonResumeClear_ChangeState(bool state)
+        {
+            ButtonResumeClear.Enabled = state;
+
+            //描画先とするImageオブジェクトを作成する
+            Bitmap canvas = new Bitmap(ButtonResumeClear.Width, ButtonResumeClear.Height);
+            //ImageオブジェクトのGraphicsオブジェクトを作成する
+            Graphics g = Graphics.FromImage(canvas);
+
+            //画像を取得
+            Bitmap img = global::MissionPlanner.Properties.Resources.btn_resume_clear;
+
+            if (state)
+            {
+                //画像を普通に表示
+                g.DrawImage(img, 0, 0);
+            }
+            else
+            {
+                //画像を無効状態で表示
+                ControlPaint.DrawImageDisabled(g, img, 0, 0, ButtonResumeClear.BackColor);
+            }
+
+            g.Dispose();    //リソースを解放する
+            ButtonResumeClear.BackgroundImage = canvas; //表示する
+        }
+
+        private void BtnAltHold_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).Enabled = false;
+                MainV2.comPort.setMode("ALTHOLD");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            ((Button)sender).Enabled = true;
+        }
+
+        private void BtnActStab_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).Enabled = false;
+                MainV2.comPort.setMode("STABILIZE");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            ((Button)sender).Enabled = true;
+        }
+
+        private void BtnActLand_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).Enabled = false;
+                MainV2.comPort.setMode("LAND");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            ((Button)sender).Enabled = true;
+        }
+
+        private void BtnActReboot_Click(object sender, EventArgs e)
+        {
+            if (
+                CustomMessageBox.Show("再起動してもよろしいですか？", "再起動", MessageBoxButtons.YesNo) == (int)DialogResult.Yes)
+            {
+                try
+                {
+                    ((Button)sender).Enabled = false;
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.PREFLIGHT_REBOOT_SHUTDOWN, 1, 0, 1, 0, 0, 0, 0);
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+                }
+                ((Button)sender).Enabled = true;
+            }
+        }
+
+        private void BtnActWPset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).Enabled = false;
+                MainV2.comPort.setWPCurrent(ushort.Parse(LblWPno.Text)); // set nav to
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            ((Button)sender).Enabled = true;
+        }
+
+        private void BtnActKey_Click(object sender, EventArgs e)
+        {
+            if (LblWPno.Text.Length >= 4)
+            {
+                return;
+            }
+            string key = ((Button)sender).Tag.ToString();
+            if (LblWPno.Text == "0")
+            {
+                LblWPno.Text = key;
+            }
+            else
+            {
+                LblWPno.Text += key;
+            }
+        }
+
+        private void BtnActKeyClear_Click(object sender, EventArgs e)
+        {
+            LblWPno.Text = "0";
         }
     }
 }
