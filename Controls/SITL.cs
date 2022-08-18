@@ -12,11 +12,15 @@ using MissionPlanner.Maps;
 using MissionPlanner.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
+using log4net;
 
 namespace MissionPlanner.Controls
 {
     public partial class SITL : MyUserControl, IActivate
     {
+        internal static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         //https://regex101.com/r/cH3kV3/2
         //https://regex101.com/r/cH3kV3/3
         Regex default_params_regex = new Regex(@"""([^""]+)""\s*:\s*\{\s*[^\{}]+""default_params_filename""\s*:\s*\[*""([^""]+)""\s*[^\}]*\}");
@@ -267,6 +271,7 @@ namespace MissionPlanner.Controls
 
                 using (Newtonsoft.Json.JsonTextReader reader =
                     new JsonTextReader(File.OpenText(sitldirectory + "vehicleinfo.py")))
+                try
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     var obj = (JObject) serializer.Deserialize(reader);
@@ -317,6 +322,11 @@ namespace MissionPlanner.Controls
                         return temp;
                     }
                 }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                    Console.WriteLine(ex.ToString());
+                }
             }
             return "";
         }
@@ -328,6 +338,8 @@ namespace MissionPlanner.Controls
             var match = BraceMatch(content, '{', '}');
 
             match = Regex.Replace(match, @"#.*", "");
+            match = Regex.Replace(match, @"True", "\"True\"");
+            match = Regex.Replace(match, @"False", "\"False\"");
 
             File.WriteAllText(filename, match);
         }
