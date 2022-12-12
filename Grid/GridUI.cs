@@ -89,6 +89,13 @@ namespace MissionPlanner.Grid
         // @eams add for camera easy mode
         bool grid_camera_easy_mode = false;
 
+#if EAMS_UGV
+        Decimal num_setservono2 = 0;
+        Decimal num_setservolow2 = 0;
+        Decimal num_setservohigh2 = 0;
+        double servo_after_delay_time = Settings.Instance.GetInt32("grid_servo_after_delay");
+#endif
+
         // GridUI
         public GridUI(GridPlugin plugin)
         {
@@ -441,7 +448,11 @@ namespace MissionPlanner.Grid
             num_setservono.Value = griddata.setservo_no;
             num_setservolow.Value = griddata.setservo_low;
             num_setservohigh.Value = griddata.setservo_high;
-
+#if EAMS_UGV
+            num_setservono2 = griddata.setservo2_no;
+            num_setservolow2 = griddata.setservo2_low;
+            num_setservohigh2 = griddata.setservo2_high;
+#endif
             // Copter Settings
             NUM_copter_delay.Value = griddata.copter_delay;
             CHK_copter_headinghold.Checked = griddata.copter_headinghold_chk;
@@ -511,7 +522,11 @@ namespace MissionPlanner.Grid
             griddata.setservo_no = num_setservono.Value;
             griddata.setservo_low = num_setservolow.Value;
             griddata.setservo_high = num_setservohigh.Value;
-
+#if EAMS_UGV
+            griddata.setservo2_no = num_setservono2;
+            griddata.setservo2_low = num_setservolow2;
+            griddata.setservo2_high = num_setservohigh2;
+#endif
             return griddata;
         }
 
@@ -563,7 +578,11 @@ namespace MissionPlanner.Grid
                 loadsetting("grid_dosetservo_no", num_setservono);
                 loadsetting("grid_dosetservo_PWML", num_setservolow);
                 loadsetting("grid_dosetservo_PWMH", num_setservohigh);
-
+#if EAMS_UGV
+                num_setservono2 = decimal.Parse(plugin.Host.config["grid_dosetservo2_no"].ToString());
+                num_setservolow2 = decimal.Parse(plugin.Host.config["grid_dosetservo2_PWML"].ToString());   // up blade
+                num_setservohigh2 = decimal.Parse(plugin.Host.config["grid_dosetservo2_PWMH"].ToString());  // down blade
+#endif
                 // camera last to it invokes a reload
                 loadsetting("grid_camera", CMB_camera);
 
@@ -654,7 +673,11 @@ namespace MissionPlanner.Grid
             plugin.Host.config["grid_dosetservo_no"] = num_setservono.Value.ToString();
             plugin.Host.config["grid_dosetservo_PWML"] = num_setservolow.Value.ToString();
             plugin.Host.config["grid_dosetservo_PWMH"] = num_setservohigh.Value.ToString();
-
+#if EAMS_UGV
+            plugin.Host.config["grid_dosetservo2_no"] = num_setservono2.ToString();
+            plugin.Host.config["grid_dosetservo2_PWML"] = num_setservolow2.ToString();
+            plugin.Host.config["grid_dosetservo2_PWMH"] = num_setservohigh2.ToString();
+#endif
             // Copter Settings
             plugin.Host.config["grid_copter_delay"] = NUM_copter_delay.Value.ToString();
             plugin.Host.config["grid_copter_headinghold_chk"] = CHK_copter_headinghold.Checked.ToString();
@@ -833,6 +856,7 @@ namespace MissionPlanner.Grid
                             (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate, area_unit);
                         break;
                     case 22:
+                    case 23:
                         grid = Utilities.Grid.CreateGrid22(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                             (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
@@ -2200,6 +2224,25 @@ namespace MissionPlanner.Grid
                                                 (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
                                                 gridobject);
                                         }
+#if EAMS_UGV
+                                        if (grid_type == 23)
+                                        {
+                                            // start blade
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                                (float)num_setservono.Value,
+                                                (float)num_setservolow.Value, 0, 0, 0, 0, 0,
+                                                gridobject);
+
+                                            // down blade
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                                (float)num_setservono2,
+                                                (float)num_setservolow2, 0, 0, 0, 0, 0,
+                                                gridobject);
+
+                                            // after delay
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, servo_after_delay_time, 0, 0, 0, 0, 0, 0, gridobject);
+                                        }
+#endif
                                     }
                                     else if (plla.Tag == "ME")
                                     {
@@ -2239,7 +2282,25 @@ namespace MissionPlanner.Grid
                                             gridobject);
                                         }
 #if EAMS_UGV
-                                        if (!addwp_lasttime)
+                                        if (grid_type == 23)
+                                        {
+                                            // up blade
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                            (float)num_setservono2,
+                                            (float)num_setservohigh2, 0, 0, 0, 0, 0,
+                                            gridobject);
+
+                                            // stop blade
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                            (float)num_setservono.Value,
+                                            (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                            gridobject);
+
+                                            // after delay
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, servo_after_delay_time, 0, 0, 0, 0, 0, 0, gridobject);
+                                        }
+
+                                        if (grid_type == 22 && !addwp_lasttime)
                                         {
                                             if (reverse)
                                             {

@@ -55,5 +55,10 @@ namespace MissionPlanner.Grid
         public decimal setservo_no;
         public decimal setservo_low;
         public decimal setservo_high;
+#if EAMS_UGV
+        public decimal setservo2_no;
+        public decimal setservo2_low;
+        public decimal setservo2_high;
+#endif
     }
 }
