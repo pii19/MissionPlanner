@@ -5957,10 +5957,21 @@ namespace MissionPlanner.GCSViews
                 ButtonEmergency.BackColor = SystemColors.ControlDarkDark;
             }
 
+            // 経路モード状態表示
+            now = GetServoValue(MainV2.route_auto_servo_ch);
+            if (now == MainV2.khi_servo_PWMH)
+            {
+                labelRoute.Text = "自動生成";
+            }
+            else
+            {
+                labelRoute.Text = "有人走行";
+            }
+
             // GPS状態表示
             labelGps.Text = hud1.gpstext.Replace("GPS: ", "");
 
-            // 障害物検知
+            // 障害物検知表示
             string mes = "";
             if (MainV2.comPort.MAV?.Proximity != null && MainV2.comPort.MAV.Proximity.DataAvailable)
             {
@@ -5979,6 +5990,17 @@ namespace MissionPlanner.GCSViews
                 }
             }
             labelProximity.Text = mes;
+
+            // 刈刃状態表示
+            now = GetServoValue(MainV2.cutter_servo_ch);
+            if (now == MainV2.khi_servo_PWMH)
+            {
+                labelCutter.Text = "刈刃オン";
+            }
+            else
+            {
+                labelCutter.Text = "刈刃オフ";
+            }
         }
     }
 }
