@@ -364,14 +364,14 @@
             // label20
             // 
             resources.ApplyResources(this.label20, "label20");
-            this.label20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label20.BackColor = System.Drawing.Color.Silver;
             this.label20.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label20.Name = "label20";
             this.label20.Tag = "custom";
             // 
             // labelCutter
             // 
-            this.labelCutter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelCutter.BackColor = System.Drawing.Color.Silver;
             resources.ApplyResources(this.labelCutter, "labelCutter");
             this.labelCutter.ForeColor = System.Drawing.Color.Black;
             this.labelCutter.Name = "labelCutter";
@@ -410,14 +410,14 @@
             // label16
             // 
             resources.ApplyResources(this.label16, "label16");
-            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label16.BackColor = System.Drawing.Color.Silver;
             this.label16.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label16.Name = "label16";
             this.label16.Tag = "custom";
             // 
             // labelGps
             // 
-            this.labelGps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.labelGps.BackColor = System.Drawing.Color.Silver;
             resources.ApplyResources(this.labelGps, "labelGps");
             this.labelGps.ForeColor = System.Drawing.Color.Black;
             this.labelGps.Name = "labelGps";
