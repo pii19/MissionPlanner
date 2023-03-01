@@ -1184,7 +1184,7 @@ namespace MissionPlanner.GCSViews
                         if (resume_flag == 0 || resume_flag == 3)
                         {
                             // search first & end waypoint no in current mission
-                            int firstwpno = commands.FindIndex(x => (x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT)&&(x.lat != 0)) + 1;
+                            int firstwpno = commands.FindIndex(x => (x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) && (x.lat != 0)) + 1;
                             int endwpno = commands.FindLastIndex(x => x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) + 1;
                             if (curwpno >= firstwpno + 1 && curwpno <= endwpno)
                             {
@@ -4995,6 +4995,11 @@ namespace MissionPlanner.GCSViews
             ButtonReturn_ChangeState(true);
         }
 
+#if EAMS_UGV
+        Image img_start = global::MissionPlanner.Properties.Resources.btn_start_ugv;
+#else
+        Image img_start = global::MissionPlanner.Properties.Resources.btn_start;
+#endif
         /// <summary>
         /// 飛行開始ボタンの更新
         /// <param name="state">true:enabled、false:disabled</param>
@@ -5008,23 +5013,15 @@ namespace MissionPlanner.GCSViews
             //ImageオブジェクトのGraphicsオブジェクトを作成する
             Graphics g = Graphics.FromImage(canvas);
 
-            //画像を取得
-#if EAMS_UGV
-            Bitmap img = global::MissionPlanner.Properties.Resources.btn_start_ugv;
-            toolTip1.SetToolTip(ButtonStart, "自動走行開始");
-#else
-            Bitmap img = global::MissionPlanner.Properties.Resources.btn_start;
-#endif
-
             if (state)
             {
                 //画像を普通に表示
-                g.DrawImage(img, 0, 0);
+                g.DrawImage(img_start, 0, 0);
             }
             else
             {
                 //画像を無効状態で表示
-                ControlPaint.DrawImageDisabled(g, img, 0, 0, ButtonStart.BackColor);
+                ControlPaint.DrawImageDisabled(g, img_start, 0, 0, ButtonStart.BackColor);
             }
 
             g.Dispose();    //リソースを解放する
@@ -5127,33 +5124,67 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+#if EAMS_UGV
+        Image img_stop = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
+        Image img_restart = global::MissionPlanner.Properties.Resources.btn_restart_ugv;
+#else
+        Image img_stop = global::MissionPlanner.Properties.Resources.btn_stop;
+        Image img_restart = global::MissionPlanner.Properties.Resources.btn_restart;
+#endif
         /// <summary>
         /// 飛行停止ボタンの更新
         /// <param name="state">true:飛行停止、false:飛行再開</param>
         /// </summary>
         public void ButtonStop_ChangeState(bool state)
         {
+            //描画先とするImageオブジェクトを作成する
+            Bitmap canvas = new Bitmap(ButtonStop.Width, ButtonStop.Height);
+            //ImageオブジェクトのGraphicsオブジェクトを作成する
+            Graphics g = Graphics.FromImage(canvas);
+
             if (state)
             {
+                if (ButtonStop.Text == "")
+                {
+                    //画像を普通に表示
+                    g.DrawImage(img_stop, 0, 0);
+                }
+                else
+                {
+                    //画像を無効状態で表示
+                    ControlPaint.DrawImageDisabled(g, img_stop, 0, 0, ButtonStop.BackColor);
+                }
+                g.Dispose();    //リソースを解放する
+                ButtonStop.BackgroundImage = canvas; //表示する
+
+                ButtonStop.BackgroundImage.Tag = "stop";
 #if EAMS_UGV
-                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
                 toolTip1.SetToolTip(ButtonStop, "自動走行停止");
 #else
-                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop;
                 toolTip1.SetToolTip(ButtonStop, "自動飛行停止");
 #endif
-                ButtonStop.BackgroundImage.Tag = "stop";
             }
             else
             {
+                if (ButtonStop.Text == "")
+                {
+                    //画像を普通に表示
+                    g.DrawImage(img_restart, 0, 0);
+                }
+                else
+                {
+                    //画像を無効状態で表示
+                    ControlPaint.DrawImageDisabled(g, img_restart, 0, 0, ButtonStop.BackColor);
+                }
+                g.Dispose();    //リソースを解放する
+                ButtonStop.BackgroundImage = canvas; //表示する
+
+                ButtonStop.BackgroundImage.Tag = "restart";
 #if EAMS_UGV
-                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart_ugv;
                 toolTip1.SetToolTip(ButtonStop, "自動走行再開");
 #else
-                ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_restart;
                 toolTip1.SetToolTip(ButtonStop, "自動飛行再開");
 #endif
-                ButtonStop.BackgroundImage.Tag = "restart";
             }
 
         }
@@ -5185,6 +5216,13 @@ namespace MissionPlanner.GCSViews
             ButtonStop_ChangeState(true);
         }
 
+#if EAMS_UGV
+        Image img_return = global::MissionPlanner.Properties.Resources.btn_return_ugv;
+        Image img_return_stop = global::MissionPlanner.Properties.Resources.btn_return_stop_ugv;
+#else
+        Image img_return = global::MissionPlanner.Properties.Resources.btn_return;
+        Image img_return_stop = global::MissionPlanner.Properties.Resources.btn_return_stop;
+#endif
         /// <summary>
         /// 強制帰還ボタンの更新
         /// <param name="state">true:強制帰還、false:帰還停止</param>
@@ -5193,24 +5231,15 @@ namespace MissionPlanner.GCSViews
         {
             if (state)
             {
-#if EAMS_UGV
-                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_ugv;
-                toolTip1.SetToolTip(ButtonReturn, "自動帰還");
-#else
-                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return;
-                toolTip1.SetToolTip(ButtonReturn, "強制帰還");
-#endif
+                ButtonReturn.BackgroundImage = img_return;
                 ButtonReturn.BackgroundImage.Tag = "return";
+                toolTip1.SetToolTip(ButtonReturn, "強制帰還");
             }
             else
             {
-#if EAMS_UGV
-                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_stop_ugv;
-#else
-                ButtonReturn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_return_stop;
-#endif
-                toolTip1.SetToolTip(ButtonReturn, "帰還停止");
+                ButtonReturn.BackgroundImage = img_return_stop;
                 ButtonReturn.BackgroundImage.Tag = "return_stop";
+                toolTip1.SetToolTip(ButtonReturn, "帰還停止");
             }
 
         }
@@ -5220,6 +5249,8 @@ namespace MissionPlanner.GCSViews
             MainV2.instance.Connect();
         }
 
+        Image img_disconnect = global::MissionPlanner.Properties.Resources.light_disconnect_icon;
+        Image img_connect = global::MissionPlanner.Properties.Resources.light_connect_icon;
         /// <summary>
         /// 接続アイコンの更新
         /// <param name="state">true:接続時＝iconは接続、Textは切断、false:切断時＝iconは切断、Textは接続</param>
@@ -5228,12 +5259,12 @@ namespace MissionPlanner.GCSViews
         {
             if (state)
             {
-                this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_disconnect_icon;
+                this.ButtonConnect.Image = img_disconnect;
                 this.ButtonConnect.Image.Tag = "Disconnect";
             }
             else
             {
-                this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon;
+                this.ButtonConnect.Image = img_connect;
                 this.ButtonConnect.Image.Tag = "Connect";
                 ButtonReturn_ChangeState(true);
                 ButtonStop_ChangeState(true);
@@ -5258,6 +5289,13 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+#if EAMS_UGV
+        Image img_flight_ok = global::MissionPlanner.Properties.Resources.btn_auto_ok_ugv;
+        Image img_flight_ng = global::MissionPlanner.Properties.Resources.btn_auto_ng_ugv;
+#else
+        Image img_flight_ok = global::MissionPlanner.Properties.Resources.btn_flight_ok;
+        Image img_flight_ng = global::MissionPlanner.Properties.Resources.btn_flight_ng;
+#endif
         /// <summary>
         /// PreArm表示の更新
         /// <param name="state">true=failsafe以外、false=failsafe中</param>
@@ -5266,19 +5304,11 @@ namespace MissionPlanner.GCSViews
         {
             if (state)
             {
-#if EAMS_UGV
-                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_auto_ok_ugv;
-#else
-                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_flight_ok;
-#endif
+                LabelPreArm.Image = img_flight_ok;
             }
             else
             {
-#if EAMS_UGV
-                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_auto_ng_ugv;
-#else
-                LabelPreArm.Image = global::MissionPlanner.Properties.Resources.btn_flight_ng;
-#endif
+                LabelPreArm.Image = img_flight_ng;
             }
         }
 
@@ -5693,6 +5723,7 @@ namespace MissionPlanner.GCSViews
             resume_flag = 0;
         }
 
+        Image img_resume_clear = global::MissionPlanner.Properties.Resources.btn_resume_clear;
         /// <summary>
         /// レジュームクリアボタンの更新
         /// <param name="state">true:enabled、false:disabled</param>
@@ -5706,18 +5737,15 @@ namespace MissionPlanner.GCSViews
             //ImageオブジェクトのGraphicsオブジェクトを作成する
             Graphics g = Graphics.FromImage(canvas);
 
-            //画像を取得
-            Bitmap img = global::MissionPlanner.Properties.Resources.btn_resume_clear;
-
             if (state)
             {
                 //画像を普通に表示
-                g.DrawImage(img, 0, 0);
+                g.DrawImage(img_resume_clear, 0, 0);
             }
             else
             {
                 //画像を無効状態で表示
-                ControlPaint.DrawImageDisabled(g, img, 0, 0, ButtonResumeClear.BackColor);
+                ControlPaint.DrawImageDisabled(g, img_resume_clear, 0, 0, ButtonResumeClear.BackColor);
             }
 
             g.Dispose();    //リソースを解放する
@@ -5818,6 +5846,116 @@ namespace MissionPlanner.GCSViews
         private void BtnActKeyClear_Click(object sender, EventArgs e)
         {
             LblWPno.Text = "0";
+        }
+
+        private void ButtonPower_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen) return;
+
+            var ch = MainV2.power_servo_ch;
+            AltServo(ch);
+        }
+
+        private void ButtonMode_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen) return;
+
+            var ch = MainV2.route_auto_servo_ch;
+            AltServo(ch);
+        }
+
+        private void ButtonEmergency_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen) return;
+
+            var ch = MainV2.emergency_servo_ch;
+            var pwm = AltServo(ch);
+            if (pwm == MainV2.khi_servo_PWMH)
+            {
+                MainV2.comPort.setMode("Acro");
+            }
+        }
+
+        private int AltServo(int ch)
+        {
+            // alternate
+            var now = GetServoValue(ch);
+            var pwm = (now == MainV2.khi_servo_PWMH) ? MainV2.khi_servo_PWML : MainV2.khi_servo_PWMH;
+            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, (float)ch, pwm, 0, 0, 0, 0, 0);
+            return pwm;
+        }
+
+        private int GetServoValue(int ch)
+        {
+            int value = 0;
+            switch (ch)
+            {
+                case 1:
+                    value = (int)MainV2.comPort.MAV.cs.ch1out;
+                    break;
+                case 2:
+                    value = (int)MainV2.comPort.MAV.cs.ch2out;
+                    break;
+                case 3:
+                    value = (int)MainV2.comPort.MAV.cs.ch3out;
+                    break;
+                case 4:
+                    value = (int)MainV2.comPort.MAV.cs.ch4out;
+                    break;
+                case 5:
+                    value = (int)MainV2.comPort.MAV.cs.ch5out;
+                    break;
+                case 6:
+                    value = (int)MainV2.comPort.MAV.cs.ch6out;
+                    break;
+                case 7:
+                    value = (int)MainV2.comPort.MAV.cs.ch7out;
+                    break;
+                case 8:
+                    value = (int)MainV2.comPort.MAV.cs.ch8out;
+                    break;
+                default:
+                    break;
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// 追加ボタン群の更新
+        /// </summary>
+        public void ButtonKHI_ChangeState()
+        {
+            // Power
+            var now = GetServoValue(MainV2.power_servo_ch);
+            if (now == MainV2.khi_servo_PWMH)
+            {
+                ButtonPower.BackColor = SystemColors.HotTrack;
+            }
+            else
+            {
+                ButtonPower.BackColor = SystemColors.ControlDarkDark;
+            }
+
+            // Mode
+            now = GetServoValue(MainV2.route_auto_servo_ch);
+            if (now == MainV2.khi_servo_PWMH)
+            {
+            }
+            else
+            {
+            }
+
+            // Emergency
+            now = GetServoValue(MainV2.emergency_servo_ch);
+            if (now == MainV2.khi_servo_PWMH)
+            {
+                ButtonEmergency.BackColor = Color.OrangeRed;
+            }
+            else
+            {
+                ButtonEmergency.BackColor = SystemColors.ControlDarkDark;
+            }
         }
     }
 }

@@ -432,6 +432,16 @@ namespace MissionPlanner
         public static int grid_dosetservo_PWMH;
         public static int grid_type = 2;
 
+        // @eams add
+        public static int power_servo_ch = 6;
+        public static int emergency_servo_ch = 5;
+        public static int cutter_servo_ch = 4;
+        public static int route_auto_servo_ch = 3;
+        public static int specifywp_servo_ch = 7;
+        public static int recwp_servo_ch = 8;
+        public static int khi_servo_PWML = 1100;
+        public static int khi_servo_PWMH = 1900;
+
         public void updateLayout(object sender, EventArgs e)
         {
 #if false   //@eams
@@ -1048,6 +1058,16 @@ namespace MissionPlanner
             grid_dosetservo_PWML = Settings.Instance.GetInt32("grid_dosetservo_PWML");
             grid_dosetservo_PWMH = Settings.Instance.GetInt32("grid_dosetservo_PWMH");
             grid_type = Settings.Instance.GetInt32("grid_type");
+
+            // @eams add
+            power_servo_ch = Settings.Instance.GetInt32("power_servo_ch", power_servo_ch);
+            emergency_servo_ch = Settings.Instance.GetInt32("emergency_servo_ch", emergency_servo_ch);
+            cutter_servo_ch = Settings.Instance.GetInt32("cutter_servo_ch", cutter_servo_ch);
+            route_auto_servo_ch = Settings.Instance.GetInt32("route_auto_servo_ch", route_auto_servo_ch);
+            specifywp_servo_ch = Settings.Instance.GetInt32("specifywp_servo_ch", specifywp_servo_ch);
+            recwp_servo_ch = Settings.Instance.GetInt32("recwp_servo_ch", recwp_servo_ch);
+            khi_servo_PWML = Settings.Instance.GetInt32("khi_servo_PWML", khi_servo_PWML);
+            khi_servo_PWMH = Settings.Instance.GetInt32("khi_servo_PWMH", khi_servo_PWMH);
 
             Application.DoEvents();
 
@@ -4501,6 +4521,10 @@ namespace MissionPlanner
                 {
                     MainV2.instance.FlightData.ButtonReturn_ChangeState(true);
                 }
+
+#if EAMS_UGV
+                MainV2.instance.FlightData.ButtonKHI_ChangeState();
+#endif
 
                 // update wpno display
                 MainV2.instance.FlightData.LabelWPno_ChangeNumber(Convert.ToInt32(MainV2.comPort.MAV.cs.wpno));
