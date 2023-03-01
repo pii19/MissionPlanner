@@ -282,43 +282,40 @@
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="labelObstacle.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelProximity.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="labelObstacle.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelProximity.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 18pt</value>
   </data>
-  <data name="labelObstacle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelProximity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="labelObstacle.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelProximity.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="labelObstacle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="labelProximity.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 1</value>
   </data>
-  <data name="labelObstacle.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelProximity.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 63</value>
   </data>
-  <data name="labelObstacle.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelProximity.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
-  <data name="labelObstacle.Text" xml:space="preserve">
-    <value>障害物なし</value>
-  </data>
-  <data name="labelObstacle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelProximity.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;labelObstacle.Name" xml:space="preserve">
-    <value>labelObstacle</value>
+  <data name="&gt;&gt;labelProximity.Name" xml:space="preserve">
+    <value>labelProximity</value>
   </data>
-  <data name="&gt;&gt;labelObstacle.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelProximity.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelObstacle.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelProximity.Parent" xml:space="preserve">
     <value>panel10</value>
   </data>
-  <data name="&gt;&gt;labelObstacle.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelProximity.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="panel10.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -404,9 +401,6 @@
   </data>
   <data name="labelGps.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
-  </data>
-  <data name="labelGps.Text" xml:space="preserve">
-    <value>Fix 3D</value>
   </data>
   <data name="labelGps.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>

@@ -5960,7 +5960,25 @@ namespace MissionPlanner.GCSViews
             // GPS状態表示
             labelGps.Text = hud1.gpstext.Replace("GPS: ", "");
 
-
+            // 障害物検知
+            string mes = "";
+            if (MainV2.comPort.MAV?.Proximity != null && MainV2.comPort.MAV.Proximity.DataAvailable)
+            {
+                var rawdata = MainV2.comPort.MAV.Proximity.DirectionState.GetRaw();
+                double dist = 0.0;
+                foreach (var temp in rawdata.ToList())
+                {
+                    if (temp.Distance > dist)
+                    {
+                        dist = temp.Distance;
+                    }
+                }
+                if (dist > 0.0)
+                {
+                    mes = dist.ToString("0.0") + "m";
+                }
+            }
+            labelProximity.Text = mes;
         }
     }
 }

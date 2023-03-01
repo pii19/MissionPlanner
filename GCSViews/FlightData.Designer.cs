@@ -18,7 +18,7 @@
             this.labelCutter = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
-            this.labelObstacle = new System.Windows.Forms.Label();
+            this.labelProximity = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.labelGps = new System.Windows.Forms.Label();
@@ -380,7 +380,7 @@
             // panel10
             // 
             this.panel10.Controls.Add(this.label18);
-            this.panel10.Controls.Add(this.labelObstacle);
+            this.panel10.Controls.Add(this.labelProximity);
             resources.ApplyResources(this.panel10, "panel10");
             this.panel10.Name = "panel10";
             // 
@@ -392,13 +392,13 @@
             this.label18.Name = "label18";
             this.label18.Tag = "custom";
             // 
-            // labelObstacle
+            // labelProximity
             // 
-            this.labelObstacle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            resources.ApplyResources(this.labelObstacle, "labelObstacle");
-            this.labelObstacle.ForeColor = System.Drawing.Color.Black;
-            this.labelObstacle.Name = "labelObstacle";
-            this.labelObstacle.Tag = "custom";
+            this.labelProximity.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            resources.ApplyResources(this.labelProximity, "labelProximity");
+            this.labelProximity.ForeColor = System.Drawing.Color.Black;
+            this.labelProximity.Name = "labelProximity";
+            this.labelProximity.Tag = "custom";
             // 
             // panel9
             // 
@@ -3381,7 +3381,7 @@
         private System.Windows.Forms.Label labelCutter;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label labelObstacle;
+        private System.Windows.Forms.Label labelProximity;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label labelGps;
