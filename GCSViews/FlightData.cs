@@ -5961,11 +5961,11 @@ namespace MissionPlanner.GCSViews
             now = GetServoValue(MainV2.route_auto_servo_ch);
             if (now == MainV2.khi_servo_PWMH)
             {
-                labelRoute.Text = "自動生成";
+                labelRoute.Text = "有人走行";
             }
             else
             {
-                labelRoute.Text = "有人走行";
+                labelRoute.Text = "自動生成";
             }
 
             // GPS状態表示
