@@ -3534,6 +3534,7 @@ namespace MissionPlanner
                 MyView.ShowScreen(MyView.current.Name);
                 return true;
             }
+            */
 
             if (keyData == (Keys.Control | Keys.F)) // temp
             {
@@ -3542,7 +3543,7 @@ namespace MissionPlanner
                 frm.Show();
                 return true;
             }
-            */
+
             /*if (keyData == (Keys.Control | Keys.S)) // screenshot
             {
                 ScreenShot();
