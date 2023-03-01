@@ -1269,6 +1269,26 @@ namespace MissionPlanner
         // reference
         public DateTime datetime { get; set; }
 
+        // @eams add
+        [DisplayText("エンジン回転数(rpm)")]
+        public double eng_rpm { get; set; }
+
+        [DisplayText("バッテリ電圧(V)")]
+        public double batt_voltage { get; set; }
+
+        [DisplayText("FuelRate(L/hr)")]
+        public double fuelrate { get; set; }
+
+        [DisplayText("スロットル開度(%)")]
+        public double throttle_pos { get; set; }
+
+        [DisplayText("吸気温度(℃)")]
+        public int intake_air_temp { get; set; }
+
+        public bool propo_status { get; set; }
+        public bool controller_status { get; set; }
+        public bool wplogging_status { get; set; }
+
         public bool connected
         {
             get { return (parent.parent.BaseStream.IsOpen || parent.parent.logreadmode); }
@@ -2753,6 +2773,24 @@ namespace MissionPlanner
                         AOA = aoa_ssa.AOA;
                         SSA = aoa_ssa.SSA;
                     }
+
+                    // @eams add
+                    mavLinkMessage = MAV.getPacket((uint)MAVLink.MAVLINK_MSG_ID.KHI_LAWNMOWER_INFO);
+                    if (mavLinkMessage != null)
+                    {
+                        var khi = mavLinkMessage.ToStructure<MAVLink.mavlink_khi_lawnmower_info_t>();
+
+                        eng_rpm = (double)khi.eng_rpm * 0.125;
+                        batt_voltage = (double)khi.batt_voltage * 0.05;
+                        fuelrate = (double)khi.fuelrate * 0.05;
+                        throttle_pos = (double)khi.throttle_pos * 0.4;
+                        fuelrate = (int)khi.fuelrate - 40;
+                        propo_status = (khi.com_status & (byte)1) != 0;
+                        controller_status = (khi.com_status & (byte)2) != 0;
+                        wplogging_status = (khi.wplogging_status & (byte)1) != 0;
+                    }
+
+
                 }
 
                 try
