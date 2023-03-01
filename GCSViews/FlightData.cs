@@ -5922,11 +5922,11 @@ namespace MissionPlanner.GCSViews
         }
 
         /// <summary>
-        /// 追加ボタン群の更新
+        /// 追加ボタン、状態表示群の更新
         /// </summary>
         public void ButtonKHI_ChangeState()
         {
-            // Power
+            // 遠隔電源ボタン
             var now = GetServoValue(MainV2.power_servo_ch);
             if (now == MainV2.khi_servo_PWMH)
             {
@@ -5937,7 +5937,7 @@ namespace MissionPlanner.GCSViews
                 ButtonPower.BackColor = SystemColors.ControlDarkDark;
             }
 
-            // Mode
+            // 経路生成モードボタン
             now = GetServoValue(MainV2.route_auto_servo_ch);
             if (now == MainV2.khi_servo_PWMH)
             {
@@ -5946,7 +5946,7 @@ namespace MissionPlanner.GCSViews
             {
             }
 
-            // Emergency
+            // 非常停止ボタン
             now = GetServoValue(MainV2.emergency_servo_ch);
             if (now == MainV2.khi_servo_PWMH)
             {
@@ -5956,6 +5956,11 @@ namespace MissionPlanner.GCSViews
             {
                 ButtonEmergency.BackColor = SystemColors.ControlDarkDark;
             }
+
+            // GPS状態表示
+            labelGps.Text = hud1.gpstext.Replace("GPS: ", "");
+
+
         }
     }
 }

@@ -180,43 +180,43 @@
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label21.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelCutter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label21.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelCutter.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 18pt</value>
   </data>
-  <data name="label21.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelCutter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label21.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelCutter.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="label21.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="labelCutter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 1</value>
   </data>
-  <data name="label21.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelCutter.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 63</value>
   </data>
-  <data name="label21.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelCutter.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
-  <data name="label21.Text" xml:space="preserve">
+  <data name="labelCutter.Text" xml:space="preserve">
     <value>刈刃オフ</value>
   </data>
-  <data name="label21.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelCutter.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;label21.Name" xml:space="preserve">
-    <value>label21</value>
+  <data name="&gt;&gt;labelCutter.Name" xml:space="preserve">
+    <value>labelCutter</value>
   </data>
-  <data name="&gt;&gt;label21.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelCutter.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label21.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelCutter.Parent" xml:space="preserve">
     <value>panel11</value>
   </data>
-  <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelCutter.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="panel11.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -282,43 +282,43 @@
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label19.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelObstacle.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label19.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelObstacle.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 18pt</value>
   </data>
-  <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelObstacle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelObstacle.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="label19.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="labelObstacle.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 1</value>
   </data>
-  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelObstacle.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 63</value>
   </data>
-  <data name="label19.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelObstacle.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
-  <data name="label19.Text" xml:space="preserve">
-    <value>障害物あり</value>
+  <data name="labelObstacle.Text" xml:space="preserve">
+    <value>障害物なし</value>
   </data>
-  <data name="label19.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelObstacle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;label19.Name" xml:space="preserve">
-    <value>label19</value>
+  <data name="&gt;&gt;labelObstacle.Name" xml:space="preserve">
+    <value>labelObstacle</value>
   </data>
-  <data name="&gt;&gt;label19.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelObstacle.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label19.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelObstacle.Parent" xml:space="preserve">
     <value>panel10</value>
   </data>
-  <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelObstacle.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="panel10.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -384,43 +384,43 @@
   <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label17.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelGps.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label17.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelGps.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 18pt</value>
   </data>
-  <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelGps.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelGps.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="label17.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="labelGps.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 1</value>
   </data>
-  <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelGps.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 63</value>
   </data>
-  <data name="label17.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelGps.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
-  <data name="label17.Text" xml:space="preserve">
+  <data name="labelGps.Text" xml:space="preserve">
     <value>Fix 3D</value>
   </data>
-  <data name="label17.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelGps.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;label17.Name" xml:space="preserve">
-    <value>label17</value>
+  <data name="&gt;&gt;labelGps.Name" xml:space="preserve">
+    <value>labelGps</value>
   </data>
-  <data name="&gt;&gt;label17.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelGps.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label17.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelGps.Parent" xml:space="preserve">
     <value>panel9</value>
   </data>
-  <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelGps.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="panel9.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -486,43 +486,43 @@
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label15.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelRoute.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label15.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelRoute.Font" type="System.Drawing.Font, System.Drawing">
     <value>メイリオ, 18pt</value>
   </data>
-  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="labelRoute.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelRoute.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="label15.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="labelRoute.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 2, 3, 1</value>
   </data>
-  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="labelRoute.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 63</value>
   </data>
-  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelRoute.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
-  <data name="label15.Text" xml:space="preserve">
-    <value>有人軌跡</value>
+  <data name="labelRoute.Text" xml:space="preserve">
+    <value>自動生成</value>
   </data>
-  <data name="label15.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelRoute.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;label15.Name" xml:space="preserve">
-    <value>label15</value>
+  <data name="&gt;&gt;labelRoute.Name" xml:space="preserve">
+    <value>labelRoute</value>
   </data>
-  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelRoute.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelRoute.Parent" xml:space="preserve">
     <value>panel8</value>
   </data>
-  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelRoute.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="panel8.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -6977,11 +6977,41 @@
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>1400, 590</value>
   </data>
+  <data name="&gt;&gt;bindingSourceHud.Name" xml:space="preserve">
+    <value>bindingSourceHud</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceHud.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;setViewCountToolStripMenuItem.Name" xml:space="preserve">
     <value>setViewCountToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;setViewCountToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceQuickTab.Name" xml:space="preserve">
+    <value>bindingSourceQuickTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceQuickTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceGaugesTab.Name" xml:space="preserve">
+    <value>bindingSourceGaugesTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceGaugesTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourcePayloadTab.Name" xml:space="preserve">
+    <value>bindingSourcePayloadTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourcePayloadTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
+    <value>bindingSource1</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;goHereToolStripMenuItem.Name" xml:space="preserve">
     <value>goHereToolStripMenuItem</value>
@@ -7186,36 +7216,6 @@
   </data>
   <data name="&gt;&gt;Messagetabtimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceHud.Name" xml:space="preserve">
-    <value>bindingSourceHud</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceHud.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceQuickTab.Name" xml:space="preserve">
-    <value>bindingSourceQuickTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceQuickTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceGaugesTab.Name" xml:space="preserve">
-    <value>bindingSourceGaugesTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceGaugesTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourcePayloadTab.Name" xml:space="preserve">
-    <value>bindingSourcePayloadTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourcePayloadTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
-    <value>bindingSource1</value>
-  </data>
-  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bindingSourceStatusTab.Name" xml:space="preserve">
     <value>bindingSourceStatusTab</value>

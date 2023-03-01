@@ -182,6 +182,9 @@ namespace MissionPlanner.Controls
         private string _mode = "Manual";
         private int _wpno = 0;
 
+        // @eams add
+        private string _gpstext = "";
+
         float _AOA = 0;
         float _SSA = 0;
         float _critAOA = 25;
@@ -472,6 +475,21 @@ namespace MissionPlanner.Controls
                 if (_gpshdop2 != value)
                 {
                     _gpshdop2 = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
+        // @eams add
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public string gpstext
+        {
+            get { return _gpstext; }
+            set
+            {
+                if (_gpstext != value)
+                {
+                    _gpstext = value;
                     this.Invalidate();
                 }
             }
@@ -2585,6 +2603,9 @@ namespace MissionPlanner.Controls
 
                     drawstring(gps, font, fontsize + 2, col, this.Width - 13 * fontsize,
                         this.Height - 30 - fontoffset);
+
+                    // @eams add
+                    _gpstext = gps;
                 }
 
                 if (isNaN)
