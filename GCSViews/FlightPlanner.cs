@@ -7611,6 +7611,34 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             MainMap.Invalidate();
         }
+
+        private void BUT_wplogon_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                var servo = (MainV2.khi_recwp_time << 8) + MainV2.khi_recwp_dist + 0x8000;
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.recwp_servo_ch, servo, 0, 0, 0, 0, 0);
+                lbl_wplog.Text = "WPロギング実行中";
+            }
+            else
+            {
+                CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+            }
+        }
+
+        private void BUT_wplogoff_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                var servo = (MainV2.khi_recwp_time << 8) + MainV2.khi_recwp_dist;
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.recwp_servo_ch, servo, 0, 0, 0, 0, 0);
+                lbl_wplog.Text = "WPロギング停止中";
+            }
+            else
+            {
+                CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+            }
+        }
     }
 
     public class GMapPolygonMesh : GMapPolygon

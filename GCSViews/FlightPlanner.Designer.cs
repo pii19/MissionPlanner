@@ -126,6 +126,10 @@ namespace MissionPlanner.GCSViews
             this.panel7 = new System.Windows.Forms.Panel();
             this.BUT_zoomIn = new System.Windows.Forms.Button();
             this.BUT_zoomOut = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.lbl_wplog = new System.Windows.Forms.Label();
+            this.BUT_wplogon = new System.Windows.Forms.Button();
+            this.BUT_wplogoff = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.chk_ndvigrid = new System.Windows.Forms.CheckBox();
             this.chk_ndvimesh = new System.Windows.Forms.CheckBox();
@@ -226,6 +230,7 @@ namespace MissionPlanner.GCSViews
             this.panel6.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -711,6 +716,7 @@ namespace MissionPlanner.GCSViews
             this.flowLayoutPanel1.Controls.Add(this.panel6);
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.panel7);
+            this.flowLayoutPanel1.Controls.Add(this.panel9);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.panel8);
             this.flowLayoutPanel1.Controls.Add(this.panel4);
@@ -817,6 +823,41 @@ namespace MissionPlanner.GCSViews
             this.BUT_zoomOut.Tag = "custom";
             this.BUT_zoomOut.UseVisualStyleBackColor = false;
             this.BUT_zoomOut.Click += new System.EventHandler(this.BUT_zoomOut_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.lbl_wplog);
+            this.panel9.Controls.Add(this.BUT_wplogon);
+            this.panel9.Controls.Add(this.BUT_wplogoff);
+            resources.ApplyResources(this.panel9, "panel9");
+            this.panel9.Name = "panel9";
+            // 
+            // lbl_wplog
+            // 
+            resources.ApplyResources(this.lbl_wplog, "lbl_wplog");
+            this.lbl_wplog.Name = "lbl_wplog";
+            // 
+            // BUT_wplogon
+            // 
+            this.BUT_wplogon.BackColor = System.Drawing.Color.SteelBlue;
+            resources.ApplyResources(this.BUT_wplogon, "BUT_wplogon");
+            this.BUT_wplogon.FlatAppearance.BorderSize = 0;
+            this.BUT_wplogon.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BUT_wplogon.Name = "BUT_wplogon";
+            this.BUT_wplogon.Tag = "custom";
+            this.BUT_wplogon.UseVisualStyleBackColor = false;
+            this.BUT_wplogon.Click += new System.EventHandler(this.BUT_wplogon_Click);
+            // 
+            // BUT_wplogoff
+            // 
+            this.BUT_wplogoff.BackColor = System.Drawing.Color.MediumVioletRed;
+            resources.ApplyResources(this.BUT_wplogoff, "BUT_wplogoff");
+            this.BUT_wplogoff.FlatAppearance.BorderSize = 0;
+            this.BUT_wplogoff.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BUT_wplogoff.Name = "BUT_wplogoff";
+            this.BUT_wplogoff.Tag = "custom";
+            this.BUT_wplogoff.UseVisualStyleBackColor = false;
+            this.BUT_wplogoff.Click += new System.EventHandler(this.BUT_wplogoff_Click);
             // 
             // panel8
             // 
@@ -1501,6 +1542,8 @@ namespace MissionPlanner.GCSViews
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel7.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1686,5 +1729,9 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.CheckBox chk_ndvimesh;
         private System.Windows.Forms.CheckBox chk_ndvigrid;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Button BUT_wplogon;
+        private System.Windows.Forms.Button BUT_wplogoff;
+        private System.Windows.Forms.Label lbl_wplog;
     }
 }
