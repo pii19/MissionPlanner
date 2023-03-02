@@ -2785,9 +2785,25 @@ namespace MissionPlanner
                         fuelrate = (double)khi.fuelrate * 0.05;
                         throttle_pos = (double)khi.throttle_pos * 0.4;
                         intake_air_temp = (int)khi.intake_air_temp - 40;
-                        propo_status = (khi.com_status & (byte)1) != 0;
-                        controller_status = (khi.com_status & (byte)2) != 0;
                         wplogging_status = (khi.wplogging_status & (byte)1) != 0;
+
+                        // propo_status
+                        var err = (khi.com_status & (byte)1) != 0;
+                        if (err != propo_status && err)
+                        {
+                            messageHigh = "プロポとの通信で異常が発生しました。";
+                            messageHighTime = DateTime.Now;
+                        }
+                        propo_status = err;
+
+                        // controller_status
+                        err = (khi.com_status & (byte)2) != 0;
+                        if (err != controller_status && err)
+                        {
+                            messageHigh = "走行コントローラとの通信で異常が発生しました。";
+                            messageHighTime = DateTime.Now;
+                        }
+                        controller_status = err;
                     }
 
 

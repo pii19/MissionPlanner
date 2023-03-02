@@ -5937,15 +5937,6 @@ namespace MissionPlanner.GCSViews
                 ButtonPower.BackColor = SystemColors.ControlDarkDark;
             }
 
-            // 経路生成モードボタン
-            now = GetServoValue(MainV2.route_auto_servo_ch);
-            if (now == MainV2.khi_servo_PWMH)
-            {
-            }
-            else
-            {
-            }
-
             // 非常停止ボタン
             now = GetServoValue(MainV2.emergency_servo_ch);
             if (now == MainV2.khi_servo_PWMH)
