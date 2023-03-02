@@ -390,6 +390,7 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigSimplePids.cs"> <SubType>Control</SubType> </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigTradHeli.cs"> <SubType>Control</SubType> </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigWizard.cs"> <SubType>Control</SubType> </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigHWKHI.cs"> <SubType>Control</SubType> </Compile>
     <Compile Include="GeoRef\georefimage.cs"> <SubType>Control</SubType> </Compile>
     <Compile Include="Grid\GridPlugin.cs" />
     <Compile Include="Grid\GridUI.cs"> <SubType>Control</SubType> </Compile>
@@ -585,6 +586,7 @@
     <Compile Include="GCSViews\ConfigurationView\ConfigSimplePids.Designer.cs"><DependentUpon>ConfigSimplePids.cs</DependentUpon> </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigTradHeli.Designer.cs"><DependentUpon>ConfigTradHeli.cs</DependentUpon> </Compile>
     <Compile Include="GCSViews\ConfigurationView\ConfigWizard.Designer.cs"><DependentUpon>ConfigWizard.cs</DependentUpon> </Compile>
+    <Compile Include="GCSViews\ConfigurationView\ConfigHWKHI.Designer.cs"><DependentUpon>ConfigHWKHI.cs</DependentUpon> </Compile>
     <Compile Include="GeoRef\georefimage.Designer.cs"><DependentUpon>georefimage.cs</DependentUpon> </Compile>
     <Compile Include="Grid\GridUI.Designer.cs"><DependentUpon>GridUI.cs</DependentUpon> </Compile>
     <Compile Include="Joystick\JoystickSetup.Designer.cs"><DependentUpon>JoystickSetup.cs</DependentUpon> </Compile>
@@ -1415,6 +1417,8 @@
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTradHeli.zh-Hans.resx"><DependentUpon>ConfigTradHeli.cs</DependentUpon> </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigTradHeli.zh-TW.resx"><DependentUpon>ConfigTradHeli.cs</DependentUpon> </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigWizard.resx"><DependentUpon>ConfigWizard.cs</DependentUpon> </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigHWKHI.ja-JP.resx"><DependentUpon>ConfigHWKHI.cs</DependentUpon> </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigHWKHI.resx"><DependentUpon>ConfigHWKHI.cs</DependentUpon> </EmbeddedResource>
     <EmbeddedResource Include="GeoRef\georefimage.resx"><DependentUpon>georefimage.cs</DependentUpon> </EmbeddedResource>
     <EmbeddedResource Include="GeoRef\Georefimage.ar.resx"><DependentUpon>georefimage.cs</DependentUpon> </EmbeddedResource>
     <EmbeddedResource Include="GeoRef\Georefimage.az-Latn-AZ.resx"><DependentUpon>georefimage.cs</DependentUpon> </EmbeddedResource>

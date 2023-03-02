@@ -233,6 +233,9 @@ namespace MissionPlanner.GCSViews
             if (MainV2.comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                 AddBackstageViewPage(typeof(ConfigAC_Fence), Strings.GeoFence);
 #endif
+#if EAMS_UGV
+            AddBackstageViewPage(typeof(ConfigHWKHI), "WPロギング設定", true);
+#endif
             // remeber last page accessed
             foreach (BackstageViewPage page in backstageView.Pages)
             {

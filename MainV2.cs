@@ -441,6 +441,9 @@ namespace MissionPlanner
         public static int recwp_servo_ch = 8;
         public static int khi_servo_PWML = 1100;
         public static int khi_servo_PWMH = 1900;
+        public static int khi_proximity_th = 10;
+        public static int khi_recwp_time = 0;
+        public static int khi_recwp_dist = 10;
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -1068,6 +1071,9 @@ namespace MissionPlanner
             recwp_servo_ch = Settings.Instance.GetInt32("recwp_servo_ch", recwp_servo_ch);
             khi_servo_PWML = Settings.Instance.GetInt32("khi_servo_PWML", khi_servo_PWML);
             khi_servo_PWMH = Settings.Instance.GetInt32("khi_servo_PWMH", khi_servo_PWMH);
+            khi_proximity_th = Settings.Instance.GetInt32("khi_proximity_th", khi_proximity_th);
+            khi_recwp_time = Settings.Instance.GetInt32("khi_recwp_time", khi_recwp_time);
+            khi_recwp_dist = Settings.Instance.GetInt32("khi_recwp_dist", khi_recwp_dist);
 
             Application.DoEvents();
 
@@ -1620,6 +1626,10 @@ namespace MissionPlanner
                     MainV2.comPort.setParam("SERVO7_MIN", (float)grid_dosetservo_PWMH);
                 }
 #endif
+#if EAMS_UGV
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, recwp_servo_ch, (khi_recwp_time << 8) + khi_recwp_dist, 0, 0, 0, 0, 0);
+#endif
+
                 _connectionControl.UpdateSysIDS();
 
                 // detect firmware we are conected to.
