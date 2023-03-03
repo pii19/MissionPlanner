@@ -4559,23 +4559,25 @@ namespace MissionPlanner
                     MainV2.instance.FlightData.LabelNextWPdist_ChangeDist(MainV2.comPort.MAV.cs.wp_dist);
                 }
 
-                // catch RC7 switch for polygon make
-                int point_trig_pwm = 2000;
-                if (Settings.Instance["point_trig_pwm"] != null)
-                    point_trig_pwm = Settings.Instance.GetInt32("point_trig_pwm");
-                if (MainV2.comPort.MAV.cs.ch7in >= point_trig_pwm)
+                if (MainV2.grid_type == 22 || MainV2.grid_type == 23)
                 {
-                    if (!rc7_flag)
+                    // catch RC7 switch for polygon make
+                    int point_trig_pwm = 2000;
+                    if (Settings.Instance["point_trig_pwm"] != null)
+                        point_trig_pwm = Settings.Instance.GetInt32("point_trig_pwm");
+                    if (MainV2.comPort.MAV.cs.ch7in >= point_trig_pwm)
                     {
-                        MainV2.instance.FlightPlanner.addPolygonPointRC(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
-                        rc7_flag = true;
+                        if (!rc7_flag)
+                        {
+                            MainV2.instance.FlightPlanner.addPolygonPointRC(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
+                            rc7_flag = true;
+                        }
+                    }
+                    else
+                    {
+                        rc7_flag = false;
                     }
                 }
-                else
-                {
-                    rc7_flag = false;
-                }
-
             }
             catch (Exception ex)
             {
