@@ -181,6 +181,15 @@
             this.TXT_Distance = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.buttonCutterOffMinus = new System.Windows.Forms.Button();
+            this.buttonCutterOffPlus = new System.Windows.Forms.Button();
+            this.textBoxCutterOffWP = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.buttonCutterOnMinus = new System.Windows.Forms.Button();
+            this.buttonCutterOnPlus = new System.Windows.Forms.Button();
+            this.textBoxCutterOnWP = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
             this.BUT_sidelapminus = new System.Windows.Forms.Button();
             this.BUT_sidelapplus = new System.Windows.Forms.Button();
             this.TXT_Sidelap = new System.Windows.Forms.TextBox();
@@ -190,6 +199,8 @@
             this.TXT_Overlap = new System.Windows.Forms.TextBox();
             this.label60 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.checkBoxCutterOff = new System.Windows.Forms.CheckBox();
             this.BUT_photoeveryminus = new System.Windows.Forms.Button();
             this.BUT_photoeveryplus = new System.Windows.Forms.Button();
             this.TXT_PhotoEvery = new System.Windows.Forms.TextBox();
@@ -273,7 +284,9 @@
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -1575,6 +1588,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.panel12);
             this.panel5.Controls.Add(this.BUT_sidelapminus);
             this.panel5.Controls.Add(this.BUT_sidelapplus);
             this.panel5.Controls.Add(this.TXT_Sidelap);
@@ -1585,6 +1599,73 @@
             this.panel5.Controls.Add(this.label60);
             resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.buttonCutterOffMinus);
+            this.panel12.Controls.Add(this.buttonCutterOffPlus);
+            this.panel12.Controls.Add(this.textBoxCutterOffWP);
+            this.panel12.Controls.Add(this.label65);
+            this.panel12.Controls.Add(this.buttonCutterOnMinus);
+            this.panel12.Controls.Add(this.buttonCutterOnPlus);
+            this.panel12.Controls.Add(this.textBoxCutterOnWP);
+            this.panel12.Controls.Add(this.label66);
+            resources.ApplyResources(this.panel12, "panel12");
+            this.panel12.Name = "panel12";
+            // 
+            // buttonCutterOffMinus
+            // 
+            resources.ApplyResources(this.buttonCutterOffMinus, "buttonCutterOffMinus");
+            this.buttonCutterOffMinus.Name = "buttonCutterOffMinus";
+            this.buttonCutterOffMinus.Tag = "custom";
+            this.buttonCutterOffMinus.UseVisualStyleBackColor = false;
+            this.buttonCutterOffMinus.Click += new System.EventHandler(this.buttonCutterOffMinus_Click);
+            // 
+            // buttonCutterOffPlus
+            // 
+            resources.ApplyResources(this.buttonCutterOffPlus, "buttonCutterOffPlus");
+            this.buttonCutterOffPlus.Name = "buttonCutterOffPlus";
+            this.buttonCutterOffPlus.Tag = "custom";
+            this.buttonCutterOffPlus.UseVisualStyleBackColor = false;
+            this.buttonCutterOffPlus.Click += new System.EventHandler(this.buttonCutterOffPlus_Click);
+            // 
+            // textBoxCutterOffWP
+            // 
+            resources.ApplyResources(this.textBoxCutterOffWP, "textBoxCutterOffWP");
+            this.textBoxCutterOffWP.Name = "textBoxCutterOffWP";
+            this.textBoxCutterOffWP.ReadOnly = true;
+            // 
+            // label65
+            // 
+            resources.ApplyResources(this.label65, "label65");
+            this.label65.Name = "label65";
+            // 
+            // buttonCutterOnMinus
+            // 
+            resources.ApplyResources(this.buttonCutterOnMinus, "buttonCutterOnMinus");
+            this.buttonCutterOnMinus.Name = "buttonCutterOnMinus";
+            this.buttonCutterOnMinus.Tag = "custom";
+            this.buttonCutterOnMinus.UseVisualStyleBackColor = false;
+            this.buttonCutterOnMinus.Click += new System.EventHandler(this.buttonCutterOnMinus_Click);
+            // 
+            // buttonCutterOnPlus
+            // 
+            resources.ApplyResources(this.buttonCutterOnPlus, "buttonCutterOnPlus");
+            this.buttonCutterOnPlus.Name = "buttonCutterOnPlus";
+            this.buttonCutterOnPlus.Tag = "custom";
+            this.buttonCutterOnPlus.UseVisualStyleBackColor = false;
+            this.buttonCutterOnPlus.Click += new System.EventHandler(this.buttonCutterOnPlus_Click);
+            // 
+            // textBoxCutterOnWP
+            // 
+            resources.ApplyResources(this.textBoxCutterOnWP, "textBoxCutterOnWP");
+            this.textBoxCutterOnWP.Name = "textBoxCutterOnWP";
+            this.textBoxCutterOnWP.ReadOnly = true;
+            // 
+            // label66
+            // 
+            resources.ApplyResources(this.label66, "label66");
+            this.label66.Name = "label66";
             // 
             // BUT_sidelapminus
             // 
@@ -1646,12 +1727,27 @@
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.panel11);
             this.panel9.Controls.Add(this.BUT_photoeveryminus);
             this.panel9.Controls.Add(this.BUT_photoeveryplus);
             this.panel9.Controls.Add(this.TXT_PhotoEvery);
             this.panel9.Controls.Add(this.label57);
             resources.ApplyResources(this.panel9, "panel9");
             this.panel9.Name = "panel9";
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.checkBoxCutterOff);
+            resources.ApplyResources(this.panel11, "panel11");
+            this.panel11.Name = "panel11";
+            // 
+            // checkBoxCutterOff
+            // 
+            resources.ApplyResources(this.checkBoxCutterOff, "checkBoxCutterOff");
+            this.checkBoxCutterOff.Checked = true;
+            this.checkBoxCutterOff.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCutterOff.Name = "checkBoxCutterOff";
+            this.checkBoxCutterOff.UseVisualStyleBackColor = true;
             // 
             // BUT_photoeveryminus
             // 
@@ -2079,8 +2175,12 @@
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel10.ResumeLayout(false);
@@ -2305,5 +2405,16 @@
         private System.Windows.Forms.Button BUT_leadinplus;
         private System.Windows.Forms.TextBox TXT_leadin;
         private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Button buttonCutterOffMinus;
+        private System.Windows.Forms.Button buttonCutterOffPlus;
+        private System.Windows.Forms.TextBox textBoxCutterOffWP;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Button buttonCutterOnMinus;
+        private System.Windows.Forms.Button buttonCutterOnPlus;
+        private System.Windows.Forms.TextBox textBoxCutterOnWP;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.CheckBox checkBoxCutterOff;
     }
 }

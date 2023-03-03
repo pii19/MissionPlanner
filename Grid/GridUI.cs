@@ -271,12 +271,12 @@ namespace MissionPlanner.Grid
             this.Text = "走行ルート設定";
             panel1.Visible = false;
             panel3.Visible = false;
-            panel9.Visible = false;
-            panel5.Visible = false;
-            if (grid_type == 5)
+            if (grid_type == 22 || grid_type == 23)
             {
-                panel7.Visible = false;
+                panel9.Visible = false;
+                panel5.Visible = false;
             }
+            panel6.Height = 140;
 
             panelMode6.Visible = false;
             panelMode6Easy.Visible = false;
@@ -579,9 +579,9 @@ namespace MissionPlanner.Grid
                 loadsetting("grid_dosetservo_PWML", num_setservolow);
                 loadsetting("grid_dosetservo_PWMH", num_setservohigh);
 #if EAMS_UGV
-                num_setservono2 = decimal.Parse(plugin.Host.config["grid_dosetservo2_no"].ToString());
-                num_setservolow2 = decimal.Parse(plugin.Host.config["grid_dosetservo2_PWML"].ToString());   // up blade
-                num_setservohigh2 = decimal.Parse(plugin.Host.config["grid_dosetservo2_PWMH"].ToString());  // down blade
+                num_setservono2 = decimal.Parse(plugin.Host.config.GetInt32("grid_dosetservo2_no").ToString());
+                num_setservolow2 = decimal.Parse(plugin.Host.config.GetInt32("grid_dosetservo2_PWML").ToString());   // up blade
+                num_setservohigh2 = decimal.Parse(plugin.Host.config.GetInt32("grid_dosetservo2_PWMH").ToString());  // down blade
 #endif
                 // camera last to it invokes a reload
                 loadsetting("grid_camera", CMB_camera);
@@ -806,6 +806,10 @@ namespace MissionPlanner.Grid
             }
         }
 
+#if EAMS_UGV
+        int first_wp = 0;
+        int last_wp = 0;
+#endif
         // Do Work
         //        private async void domainUpDown1_ValueChanged(object sender, EventArgs e)
         private void domainUpDown1_ValueChanged(object sender, EventArgs e)
@@ -857,6 +861,7 @@ namespace MissionPlanner.Grid
                         break;
                     case 22:
                     case 23:
+                    case 24:
                         grid = Utilities.Grid.CreateGrid22(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                             (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
@@ -881,7 +886,6 @@ namespace MissionPlanner.Grid
                 }
                 TXT_angle.Text = (Math.Round(NUM_angle.Value)).ToString();
                 first_validate = false;
-
 #else
                 grid = await Utilities.Grid.CreateGridAsync(list, CurrentState.fromDistDisplayUnit((double) NUM_altitude.Value),
                     (double) NUM_Distance.Value, (double) NUM_spacing.Value, (double) NUM_angle.Value,
@@ -923,6 +927,10 @@ namespace MissionPlanner.Grid
             int strips = 0;
             int images = 0;
             int a = 1;
+#if EAMS_UGV
+            first_wp = 0;
+            last_wp = 0;
+#endif
             PointLatLngAlt prevprevpoint = grid[0];
             PointLatLngAlt prevpoint = grid[0];
             // distance to/from home
@@ -1022,6 +1030,13 @@ namespace MissionPlanner.Grid
                         var marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
                         routesOverlay.Markers.Add(marker);
                     }
+#if EAMS_UGV
+                    if (item.Tag == "SM" && first_wp == 0)
+                    {
+                        first_wp = a;
+                    }
+                    last_wp = a;
+#endif
 
                     segment.Add(prevpoint);
                     segment.Add(item);
@@ -1044,7 +1059,10 @@ namespace MissionPlanner.Grid
 
                 segment.Clear();
             }
-
+#if EAMS_UGV
+            textBoxCutterOnWP.Text = first_wp.ToString();
+            textBoxCutterOffWP.Text = last_wp.ToString();
+#endif
             if (CHK_footprints.Checked)
                 routesOverlay.Markers.Add(GMapMarkerOverlap);
             /*      Old way of drawing route, incase something breaks using segments
@@ -1146,7 +1164,6 @@ namespace MissionPlanner.Grid
                 map.ZoomAndCenterMarkers("routes");
 
 //            CalcHeadingHold();    // @eams diabled
-
             map.Invalidate();
         }
 
@@ -2242,6 +2259,23 @@ namespace MissionPlanner.Grid
                                             // after delay
                                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, servo_after_delay_time, 0, 0, 0, 0, 0, 0, gridobject);
                                         }
+                                        if (grid_type == 24)
+                                        {
+                                            var startno = int.Parse(textBoxCutterOnWP.Text) - 1;
+                                            var endno = int.Parse(textBoxCutterOffWP.Text) - 1;
+
+                                            if (i >= startno && i <= endno)
+                                            {
+                                                // start blade
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                                    (float)num_setservono.Value,
+                                                    (float)num_setservolow.Value, 0, 0, 0, 0, 0,
+                                                    gridobject);
+
+                                                // after delay
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, servo_after_delay_time, 0, 0, 0, 0, 0, 0, gridobject);
+                                            }
+                                        }
 #endif
                                     }
                                     else if (plla.Tag == "ME")
@@ -2300,6 +2334,24 @@ namespace MissionPlanner.Grid
                                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, servo_after_delay_time, 0, 0, 0, 0, 0, 0, gridobject);
                                         }
 
+                                        if (grid_type == 24 && checkBoxCutterOff.Checked)
+                                        {
+                                            var startno = int.Parse(textBoxCutterOnWP.Text) - 2;
+                                            var endno = int.Parse(textBoxCutterOffWP.Text) - 2;
+
+                                            if (i >= startno && i <= endno)
+                                            {
+                                                // stop blade
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                                                    (float)num_setservono.Value,
+                                                    (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                                                    gridobject);
+
+                                                // after delay
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DELAY, servo_after_delay_time, 0, 0, 0, 0, 0, 0, gridobject);
+                                            }
+                                        }
+
                                         if (grid_type == 22 && !addwp_lasttime)
                                         {
                                             if (reverse)
@@ -2339,6 +2391,17 @@ namespace MissionPlanner.Grid
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_PARAMETER,
                         703, MainV2.servo7_func_normal, 0, 0, 0, 0, 0, gridobject);
 #endif
+                    // ターン時オフが除外された時のために刈刃をオフにする
+                    if (grid_type == 24)
+                    {
+                        // stop blade
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_SERVO,
+                            (float)num_setservono.Value,
+                            (float)num_setservohigh.Value, 0, 0, 0, 0, 0,
+                            gridobject);
+
+                    }
+
                     // @eams add to use impeller
                     if (use_impeller)
                     {
@@ -3059,6 +3122,46 @@ namespace MissionPlanner.Grid
             TXT_leadin.TextChanged += TXT_Sidelap_TextChanged;
             NUM_leadin.Value = d;
 //            domainUpDown1_ValueChanged(sender, e);
+        }
+        #endregion
+
+        #region 刈刃オンオフWP番号
+        private void buttonCutterOnPlus_Click(object sender, EventArgs e)
+        {
+            var start = int.Parse(textBoxCutterOnWP.Text) + 4 ;
+            var end = int.Parse(textBoxCutterOffWP.Text);
+            if (start <= last_wp && start <= end)
+            {
+                textBoxCutterOnWP.Text = start.ToString();
+            }
+        }
+
+        private void buttonCutterOnMinus_Click(object sender, EventArgs e)
+        {
+            var start = int.Parse(textBoxCutterOnWP.Text) - 4;
+            if (start >= first_wp)
+            {
+                textBoxCutterOnWP.Text = start.ToString();
+            }
+        }
+
+        private void buttonCutterOffPlus_Click(object sender, EventArgs e)
+        {
+            var end = int.Parse(textBoxCutterOffWP.Text) + 4;
+            if (end <= last_wp)
+            {
+                textBoxCutterOffWP.Text = end.ToString();
+            }
+        }
+
+        private void buttonCutterOffMinus_Click(object sender, EventArgs e)
+        {
+            var start = int.Parse(textBoxCutterOnWP.Text);
+            var end = int.Parse(textBoxCutterOffWP.Text) - 4;
+            if (end >= first_wp && end >= start)
+            {
+                textBoxCutterOffWP.Text = end.ToString();
+            }
         }
         #endregion
     }
