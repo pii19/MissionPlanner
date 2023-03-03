@@ -472,7 +472,7 @@
             0,
             0});
             this.num_setservono.Minimum = new decimal(new int[] {
-            5,
+            3,
             0,
             0,
             0});
