@@ -4330,6 +4330,9 @@ namespace MissionPlanner
 #if !EAMS_UGV
                 MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_auto);
 #endif
+#if EAMS_UGV
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.specifywp_servo_ch, MainV2.khi_servo_PWML, 0, 0, 0, 0, 0);
+#endif
                 // branch resume on failsafe
                 //if (MainV2.instance.FlightData.last_failsafe)
                 if (MainV2.instance.FlightData.resume_flag > 0)

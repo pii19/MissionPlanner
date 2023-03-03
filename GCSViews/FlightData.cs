@@ -2816,6 +2816,9 @@ namespace MissionPlanner.GCSViews
             try
             {
                 ((Button)sender).Enabled = false;
+#if EAMS_UGV
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.specifywp_servo_ch, MainV2.khi_servo_PWMH, 0, 0, 0, 0, 0);
+#endif
                 MainV2.comPort.setMode("Auto");
             }
             catch
