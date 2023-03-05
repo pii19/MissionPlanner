@@ -4539,7 +4539,8 @@ namespace MissionPlanner
                 }
 
 #if EAMS_UGV
-                MainV2.instance.FlightData.ButtonKHI_ChangeState();
+                MainV2.instance.FlightData.KHI_ChangeState();
+                MainV2.instance.FlightPlanner.KHI_ChangeState();
 #endif
 
                 // update wpno display

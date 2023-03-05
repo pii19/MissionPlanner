@@ -5927,7 +5927,7 @@ namespace MissionPlanner.GCSViews
         /// <summary>
         /// 追加ボタン、状態表示群の更新
         /// </summary>
-        public void ButtonKHI_ChangeState()
+        public void KHI_ChangeState()
         {
             // 遠隔電源ボタン
             var now = GetServoValue(MainV2.power_servo_ch);
