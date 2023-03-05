@@ -3776,6 +3776,10 @@ Please check the following
                     lock (objlock)
                     {
                         MAVlist[sysid, compid].addPacket(message);
+                        if (compid == 190 && msgid == (byte)MAVLINK_MSG_ID.KHI_LAWNMOWER_INFO)
+                        {
+                            MAVlist[sysid, compidcurrent].addPacket(message);
+                        }
 
                         // 3dr radio status packet are injected into the current mav
                         // most radios have a fixed sysid AND componentid ...
