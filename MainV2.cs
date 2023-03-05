@@ -2882,10 +2882,12 @@ namespace MissionPlanner
                             {
                                 bool old_armed = MAV.cs.armed;
                                 MAV.cs.UpdateCurrentSettings(null, false, port, MAV);
+#if !EAMS_UGV
                                 if(MAV.cs.armed != old_armed && MAV.cs.armed == false)
                                 {
                                     comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
                                 }
+#endif
                             }
                             catch (Exception ex)
                             {
