@@ -5873,7 +5873,7 @@ namespace MissionPlanner.GCSViews
 
             var ch = MainV2.emergency_servo_ch;
             var pwm = AltServo(ch);
-            if (pwm == MainV2.khi_servo_PWMH)
+            if (pwm >= MainV2.khi_servo_PWMH)
             {
                 MainV2.comPort.setMode("Acro");
             }
@@ -5883,7 +5883,7 @@ namespace MissionPlanner.GCSViews
         {
             // alternate
             var now = GetServoValue(ch);
-            var pwm = (now == MainV2.khi_servo_PWMH) ? MainV2.khi_servo_PWML : MainV2.khi_servo_PWMH;
+            var pwm = (now >= MainV2.khi_servo_PWMH) ? MainV2.khi_servo_PWML : MainV2.khi_servo_PWMH;
             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, (float)ch, pwm, 0, 0, 0, 0, 0);
             return pwm;
         }
@@ -5931,7 +5931,7 @@ namespace MissionPlanner.GCSViews
         {
             // 遠隔電源ボタン
             var now = GetServoValue(MainV2.power_servo_ch);
-            if (now == MainV2.khi_servo_PWMH)
+            if (now >= MainV2.khi_servo_PWMH)
             {
                 ButtonPower.BackColor = SystemColors.HotTrack;
             }
@@ -5942,7 +5942,7 @@ namespace MissionPlanner.GCSViews
 
             // 非常停止ボタン
             now = GetServoValue(MainV2.emergency_servo_ch);
-            if (now == MainV2.khi_servo_PWMH)
+            if (now >= MainV2.khi_servo_PWMH)
             {
                 ButtonEmergency.BackColor = Color.OrangeRed;
             }
@@ -5953,7 +5953,7 @@ namespace MissionPlanner.GCSViews
 
             // 経路モード状態表示
             now = GetServoValue(MainV2.route_auto_servo_ch);
-            if (now == MainV2.khi_servo_PWMH)
+            if (now >= MainV2.khi_servo_PWMH)
             {
                 labelRoute.Text = "有人走行";
             }
@@ -5987,7 +5987,7 @@ namespace MissionPlanner.GCSViews
 
             // 刈刃状態表示
             now = GetServoValue(MainV2.cutter_servo_ch);
-            if (now == MainV2.khi_servo_PWMH)
+            if (now >= MainV2.khi_servo_PWMH)
             {
                 labelCutter.Text = "刈刃オン";
             }
