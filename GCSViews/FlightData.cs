@@ -5985,20 +5985,48 @@ namespace MissionPlanner.GCSViews
             if (MainV2.comPort.MAV?.Proximity != null && MainV2.comPort.MAV.Proximity.DataAvailable)
             {
                 var rawdata = MainV2.comPort.MAV.Proximity.DirectionState.GetRaw();
-                double dist = 0.0;
                 foreach (var temp in rawdata.ToList())
                 {
-                    if (temp.Distance > dist)
+                    double dist = temp.Distance * 0.01;
+
+                    // 前方左
+                    if (temp.Orientation == MAVLink.MAV_SENSOR_ORIENTATION.MAV_SENSOR_ROTATION_YAW_315)
                     {
-                        dist = temp.Distance;
+                        if (dist > (double)MainV2.khi_proximity_th)
+                        {
+                            labelProximityLeft.Text = dist.ToString("0.0") + " m";
+                        }
+                        else
+                        {
+                            labelProximityLeft.Text = "";
+                        }
+                    }
+                    // 前方
+                    else if (temp.Orientation == MAVLink.MAV_SENSOR_ORIENTATION.MAV_SENSOR_ROTATION_NONE)
+                    {
+                        if (dist > (double)MainV2.khi_proximity_th)
+                        {
+                            labelProximityCenter.Text = dist.ToString("0.0") + " m";
+                        }
+                        else
+                        {
+                            labelProximityCenter.Text = "";
+                        }
+                    }
+                    // 前方右
+                    else if (temp.Orientation == MAVLink.MAV_SENSOR_ORIENTATION.MAV_SENSOR_ROTATION_YAW_45)
+                    {
+                        if (dist > (double)MainV2.khi_proximity_th)
+                        {
+                            labelProximityRight.Text = dist.ToString("0.0") + " m";
+                        }
+                        else
+                        {
+                            labelProximityRight.Text = "";
+                        }
                     }
                 }
-                if (dist > 0.0)
-                {
-                    mes = dist.ToString("0.0") + "m";
-                }
             }
-            labelProximity.Text = mes;
 
             // 刈刃状態表示
             now = GetServoValue(MainV2.cutter_servo_ch);
