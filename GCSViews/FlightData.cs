@@ -1049,7 +1049,7 @@ namespace MissionPlanner.GCSViews
                             break;
                         case "AUTO":
 #if EAMS_UGV
-                            mode_jp = "自動走行モード";
+                            mode_jp = "自律走行中";
 #else
                             mode_jp = "自動飛行モード";
 #endif
@@ -1068,11 +1068,20 @@ namespace MissionPlanner.GCSViews
                             mode_jp = "自動着陸モード";
                             break;
                         case "HOLD":
+#if EAMS_UGV
+                            mode_jp = "待機中";
+#else
                             mode_jp = "停止モード";
+#endif
                             break;
                         case "MANUAL":
                             mode_jp = "手動操作モード";
                             break;
+#if EAMS_UGV
+                        case "ACRO":
+                            mode_jp = "非常停止";
+                            break;
+#endif
                         default:
                             if (resume_flag >= 2)
                             {
@@ -1084,6 +1093,12 @@ namespace MissionPlanner.GCSViews
                             }
                             break;
                     }
+#if EAMS_UGV
+                    if (MainV2.comPort.MAV.cs.wplogging_status)
+                    {
+                        mode_jp = "ロギング中";
+                    }
+#endif
                     if (labelMode.InvokeRequired)
                     {
                         Invoke((MethodInvoker)(() => labelMode.Text = mode_jp));
