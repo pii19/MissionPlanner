@@ -1787,7 +1787,7 @@ namespace MissionPlanner
                 HUD.Custom.src = MainV2.comPort.MAV.cs;
 
                 // set connected icon
-                this.MenuConnect.Image = displayicons.disconnect;
+                //this.MenuConnect.Image = displayicons.disconnect;
             }
             catch (Exception ex)
             {
@@ -2346,7 +2346,7 @@ namespace MissionPlanner
                     {
                         this.BeginInvoke((MethodInvoker) delegate
                         {
-                            this.MenuConnect.Image = displayicons.disconnect;
+                            //this.MenuConnect.Image = displayicons.disconnect;
                             this.MenuConnect.Image.Tag = "Disconnect";
                             this.MenuConnect.Text = Strings.DISCONNECTc;
                             MainV2.instance.FlightData.ButtonConnect_ChangeState(true);    // @eams add
@@ -2360,7 +2360,7 @@ namespace MissionPlanner
                     {
                         this.BeginInvoke((MethodInvoker) delegate
                         {
-                            this.MenuConnect.Image = displayicons.connect;
+                            //this.MenuConnect.Image = displayicons.connect;
                             this.MenuConnect.Image.Tag = "Connect";
                             this.MenuConnect.Text = Strings.CONNECTc;
                             MainV2.instance.FlightData.ButtonConnect_ChangeState(false);    // @eams add
