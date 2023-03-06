@@ -1857,16 +1857,18 @@ namespace MissionPlanner
             }
             else
             {
-                // @eams add
-                PopulateSerialportList();
-                _connectionControl.CMB_serialport.SelectedIndex = _connectionControl.CMB_serialport.Items.IndexOf(detect_com);
-                // check for saved baud rate and restore @eamas add
-                if (Settings.Instance[_connectionControl.CMB_serialport.Text + "_BAUD"] != null)
+                if (Settings.Instance["comport"].Contains("COM"))
                 {
-                    _connectionControl.CMB_baudrate.Text =
-                        Settings.Instance[_connectionControl.CMB_serialport.Text + "_BAUD"];
+                    // @eams add
+                    PopulateSerialportList();
+                    _connectionControl.CMB_serialport.SelectedIndex = _connectionControl.CMB_serialport.Items.IndexOf(detect_com);
+                    // check for saved baud rate and restore @eamas add
+                    if (Settings.Instance[_connectionControl.CMB_serialport.Text + "_BAUD"] != null)
+                    {
+                        _connectionControl.CMB_baudrate.Text =
+                            Settings.Instance[_connectionControl.CMB_serialport.Text + "_BAUD"];
+                    }
                 }
-
                 doConnect(comPort, _connectionControl.CMB_serialport.Text, _connectionControl.CMB_baudrate.Text);
             }
 

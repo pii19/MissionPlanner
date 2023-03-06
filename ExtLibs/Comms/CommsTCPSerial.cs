@@ -23,7 +23,7 @@ namespace MissionPlanner.Comms
         public bool autoReconnect = false;
         private bool inOpen = false;
 
-        bool reconnectnoprompt = false;
+        bool reconnectnoprompt = true;
 
         public int WriteBufferSize { get; set; }
         public int WriteTimeout { get; set; }
