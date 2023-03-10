@@ -1143,10 +1143,12 @@ namespace MissionPlanner.GCSViews
                     {
                         if (!messageHigh.StartsWith("PX4v2 "))
                         {
+#if false
                             if (messageHigh != "" && messageHighTime.AddSeconds(10) < DateTime.Now)
                             {
                                 messageHigh = "";
                             }
+#endif
                             if (labelError.InvokeRequired)
                             {
                                 Invoke((MethodInvoker)(() => labelError.Text = messageHigh));
