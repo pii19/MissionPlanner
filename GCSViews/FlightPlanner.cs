@@ -483,7 +483,7 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-            return; //@eams
+            //return; //@eams
             // creating a WP
 
             selectedrow = Commands.Rows.Add();
