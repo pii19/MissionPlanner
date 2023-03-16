@@ -5168,11 +5168,13 @@ namespace MissionPlanner.GCSViews
                 {
                     //画像を普通に表示
                     g.DrawImage(img_stop, 0, 0);
+                    ButtonStop.Enabled = true;
                 }
                 else
                 {
                     //画像を無効状態で表示
                     ControlPaint.DrawImageDisabled(g, img_stop, 0, 0, ButtonStop.BackColor);
+                    ButtonStop.Enabled = false;
                 }
                 g.Dispose();    //リソースを解放する
                 ButtonStop.BackgroundImage = canvas; //表示する
@@ -5190,11 +5192,13 @@ namespace MissionPlanner.GCSViews
                 {
                     //画像を普通に表示
                     g.DrawImage(img_restart, 0, 0);
+                    ButtonStop.Enabled = true;
                 }
                 else
                 {
                     //画像を無効状態で表示
                     ControlPaint.DrawImageDisabled(g, img_restart, 0, 0, ButtonStop.BackColor);
+                    ButtonStop.Enabled = false;
                 }
                 g.Dispose();    //リソースを解放する
                 ButtonStop.BackgroundImage = canvas; //表示する
