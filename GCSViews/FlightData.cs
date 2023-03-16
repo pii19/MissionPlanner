@@ -5016,9 +5016,9 @@ namespace MissionPlanner.GCSViews
         }
 
 #if EAMS_UGV
-        Image img_start = global::MissionPlanner.Properties.Resources.btn_start_ugv;
+        private readonly Image img_start = global::MissionPlanner.Properties.Resources.btn_start_ugv;
 #else
-        Image img_start = global::MissionPlanner.Properties.Resources.btn_start;
+        private readonly Image img_start = global::MissionPlanner.Properties.Resources.btn_start;
 #endif
         /// <summary>
         /// 飛行開始ボタンの更新
@@ -5145,11 +5145,11 @@ namespace MissionPlanner.GCSViews
         }
 
 #if EAMS_UGV
-        Image img_stop = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
-        Image img_restart = global::MissionPlanner.Properties.Resources.btn_restart_ugv;
+        private readonly Image img_stop = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
+        private readonly Image img_restart = global::MissionPlanner.Properties.Resources.btn_restart_ugv;
 #else
-        Image img_stop = global::MissionPlanner.Properties.Resources.btn_stop;
-        Image img_restart = global::MissionPlanner.Properties.Resources.btn_restart;
+        private readonly Image img_stop = global::MissionPlanner.Properties.Resources.btn_stop;
+        private readonly Image img_restart = global::MissionPlanner.Properties.Resources.btn_restart;
 #endif
         /// <summary>
         /// 飛行停止ボタンの更新
@@ -5241,11 +5241,11 @@ namespace MissionPlanner.GCSViews
         }
 
 #if EAMS_UGV
-        Image img_return = global::MissionPlanner.Properties.Resources.btn_return_ugv;
-        Image img_return_stop = global::MissionPlanner.Properties.Resources.btn_return_stop_ugv;
+        private readonly Image img_return = global::MissionPlanner.Properties.Resources.btn_return_ugv;
+        private readonly Image img_return_stop = global::MissionPlanner.Properties.Resources.btn_return_stop_ugv;
 #else
-        Image img_return = global::MissionPlanner.Properties.Resources.btn_return;
-        Image img_return_stop = global::MissionPlanner.Properties.Resources.btn_return_stop;
+        private readonly Image img_return = global::MissionPlanner.Properties.Resources.btn_return;
+        private readonly Image img_return_stop = global::MissionPlanner.Properties.Resources.btn_return_stop;
 #endif
         /// <summary>
         /// 強制帰還ボタンの更新
@@ -5273,8 +5273,8 @@ namespace MissionPlanner.GCSViews
             MainV2.instance.Connect();
         }
 
-        Image img_disconnect = global::MissionPlanner.Properties.Resources.light_disconnect_icon;
-        Image img_connect = global::MissionPlanner.Properties.Resources.light_connect_icon;
+        private readonly Image img_disconnect = global::MissionPlanner.Properties.Resources.light_disconnect_icon;
+        private readonly Image img_connect = global::MissionPlanner.Properties.Resources.light_connect_icon;
         /// <summary>
         /// 接続アイコンの更新
         /// <param name="state">true:接続時＝iconは接続、Textは切断、false:切断時＝iconは切断、Textは接続</param>
@@ -5314,11 +5314,11 @@ namespace MissionPlanner.GCSViews
         }
 
 #if EAMS_UGV
-        Image img_flight_ok = global::MissionPlanner.Properties.Resources.btn_auto_ok_ugv;
-        Image img_flight_ng = global::MissionPlanner.Properties.Resources.btn_auto_ng_ugv;
+        private readonly Image img_flight_ok = global::MissionPlanner.Properties.Resources.btn_auto_ok_ugv;
+        private readonly Image img_flight_ng = global::MissionPlanner.Properties.Resources.btn_auto_ng_ugv;
 #else
-        Image img_flight_ok = global::MissionPlanner.Properties.Resources.btn_flight_ok;
-        Image img_flight_ng = global::MissionPlanner.Properties.Resources.btn_flight_ng;
+        private readonly Image img_flight_ok = global::MissionPlanner.Properties.Resources.btn_flight_ok;
+        private readonly Image img_flight_ng = global::MissionPlanner.Properties.Resources.btn_flight_ng;
 #endif
         /// <summary>
         /// PreArm表示の更新
@@ -5747,7 +5747,7 @@ namespace MissionPlanner.GCSViews
             resume_flag = 0;
         }
 
-        Image img_resume_clear = global::MissionPlanner.Properties.Resources.btn_resume_clear;
+        private readonly Image img_resume_clear = global::MissionPlanner.Properties.Resources.btn_resume_clear;
         /// <summary>
         /// レジュームクリアボタンの更新
         /// <param name="state">true:enabled、false:disabled</param>

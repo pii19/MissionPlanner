@@ -10,6 +10,8 @@ namespace MissionPlanner.Maps
     [Serializable]
     public class GMapMarkerRover : GMapMarker
     {
+        private static readonly Bitmap icon = global::MissionPlanner.Maps.Resources.rover;
+
         static readonly System.Drawing.Size SizeSt =
             new System.Drawing.Size(global::MissionPlanner.Maps.Resources.rover.Width,
                 global::MissionPlanner.Maps.Resources.rover.Height);
@@ -61,9 +63,7 @@ namespace MissionPlanner.Maps
             catch
             {
             }
-            g.DrawImageUnscaled(global::MissionPlanner.Maps.Resources.rover,
-                global::MissionPlanner.Maps.Resources.rover.Width/-2,
-                global::MissionPlanner.Maps.Resources.rover.Height/-2);
+            g.DrawImageUnscaled(icon, icon.Width / -2, icon.Height / -2);
 
             g.Transform = temp;
         }

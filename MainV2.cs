@@ -147,10 +147,12 @@ namespace MissionPlanner
                 get { return global::MissionPlanner.Properties.Resources.light_disconnect_icon; }
             }
 
+            private static readonly Image image_bg = global::MissionPlanner.Properties.Resources.bgdark;
             public override Image bg
             {
-                get { return global::MissionPlanner.Properties.Resources.bgdark; }
+                get { return image_bg; }
             }
+
             public override Image wizard
             {
                 get { return global::MissionPlanner.Properties.Resources.wizardicon; }
