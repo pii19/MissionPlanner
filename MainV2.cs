@@ -4404,7 +4404,10 @@ namespace MissionPlanner
                     CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
                     return;
                 }
-#if !EAMS_UGV
+#if EAMS_UGV
+                // 刈刃オフ
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, (float)cutter_servo_ch, (float)khi_servo_PWML, 0, 0, 0, 0, 0);
+#else
                 //MainV2.comPort.setParam("SERVO7_FUNCTION", (float)servo7_func_normal);
 #endif
                 // ignore failsafe resume process
