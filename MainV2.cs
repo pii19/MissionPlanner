@@ -3042,11 +3042,11 @@ namespace MissionPlanner
 
             // update firmware version list - only once per day
             ThreadPool.QueueUserWorkItem(BGFirmwareCheck);
-
+#if false
             log.Info("start udpvideoshim");
             // start listener
             UDPVideoShim.Start();
-
+#endif
             log.Info("start udpmavlinkshim");
             UDPMavlinkShim.Start();
 
