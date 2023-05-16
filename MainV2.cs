@@ -4652,7 +4652,14 @@ namespace MissionPlanner
 
                 // update prearm display
                 //MainV2.instance.FlightData.LabelPreArm_ChangeState(!MainV2.comPort.MAV.cs.failsafe);
-                MainV2.instance.FlightData.LabelPreArm_ChangeState(MainV2.comPort.MAV.cs.ekfflags == ekf_status_flags);
+                if (ekf_status_flags != 0)
+                {
+                    MainV2.instance.FlightData.LabelPreArm_ChangeState(MainV2.comPort.MAV.cs.ekfflags == ekf_status_flags);
+                }
+                else
+                {
+                    MainV2.instance.FlightData.LabelPreArm_ChangeState(MainV2.comPort.MAV.cs.sensors_health.prearm);
+                }
 
                 // update flight start button state
                 //MainV2.instance.FlightData.ButtonStart_ChangeState(!(MainV2.comPort.MAV.cs.armed && MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO"));

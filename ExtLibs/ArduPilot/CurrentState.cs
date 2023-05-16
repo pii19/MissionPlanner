@@ -3161,6 +3161,15 @@ namespace MissionPlanner
                 set { bitArray[ConvertValuetoBitmaskOffset((int)MAVLink.MAV_SYS_STATUS_SENSOR.MAV_SYS_STATUS_LOGGING)] = value; }
             }
 
+            public bool prearm
+            {
+                get => bitArray[
+                    ConvertValuetoBitmaskOffset((int)MAVLink.MAV_SYS_STATUS_SENSOR.MAV_SYS_STATUS_PREARM_CHECK)];
+                set => bitArray[
+                        ConvertValuetoBitmaskOffset((int)MAVLink.MAV_SYS_STATUS_SENSOR.MAV_SYS_STATUS_PREARM_CHECK)] =
+                    value;
+            }
+
             int ConvertValuetoBitmaskOffset(int input)
             {
                 int offset = 0;

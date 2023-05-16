@@ -2618,7 +2618,9 @@ ICAROUS_KINEMATIC_BANDS = 42001,
     	///<summary> 0x8000000 Satellite Communication  | </summary>
         [Description("0x8000000 Satellite Communication ")]
         SATCOM=134217728, 
-    
+        ///<summary> 0x10000000 pre-arm check status. Always healthy when armed | </summary>
+        [Description("0x10000000 pre-arm check status. Always healthy when armed")]
+        MAV_SYS_STATUS_PREARM_CHECK = 268435456,
     };
     
     ///<summary>  </summary>
