@@ -258,7 +258,7 @@ public partial class MAVLink
 		new message_info(42000, "ICAROUS_HEARTBEAT", 227, 1, 1, typeof( mavlink_icarous_heartbeat_t )),
 		new message_info(42001, "ICAROUS_KINEMATIC_BANDS", 239, 46, 46, typeof( mavlink_icarous_kinematic_bands_t )),
 
-        new message_info(236, "KHI_LAWNMOWER_INFO", 0, 10, 10, typeof( mavlink_khi_lawnmower_info_t )),
+        new message_info(236, "ATEX_LAWNMOWER_INFO", 0, 2, 2, typeof( mavlink_atex_lawnmower_info_t )),
     };
 
     public const byte MAVLINK_VERSION = 2;
@@ -513,7 +513,7 @@ ESC_TELEMETRY_5_TO_8 = 11031,
 ESC_TELEMETRY_9_TO_12 = 11032,
 ICAROUS_HEARTBEAT = 42000,
 ICAROUS_KINEMATIC_BANDS = 42001,
-KHI_LAWNMOWER_INFO = 236,
+ATEX_LAWNMOWER_INFO = 236,
 
     }
 
@@ -12432,38 +12432,18 @@ KHI_LAWNMOWER_INFO = 236,
     
     };
 
-    [StructLayout(LayoutKind.Sequential, Pack=1, Size=10)]
-    ///<summary> custom message for KHI </summary>
-    public struct mavlink_khi_lawnmower_info_t
+    [StructLayout(LayoutKind.Sequential, Pack=1, Size=2)]
+    ///<summary> custom message for atex </summary>
+    public struct mavlink_atex_lawnmower_info_t
     {
-        /// <summary>engine rpm (*0.125)</summary>
-        [Units("[rpm]")]
-        [Description("engine rpm")]
-        public ushort eng_rpm;          //uint16
-        /// <summary>battery voltage (*0.05)</summary>
-        [Units("[V]")]
-        [Description("battery voltage")]
-        public ushort batt_voltage;     //uint16
-        /// <summary>fuel rate (*0.05)</summary>
-        [Units("[L/hr]")]
-        [Description("fuel rate")]
-        public ushort fuelrate;         //uint16
-        /// <summary>throttle position (*0.4)</summary>
-        [Units("[%]")]
-        [Description("throttle position")]
-        public byte throttle_pos;       //uint8
-        /// <summary>intake air temp (offset-40)</summary>
-        [Units("[Åé]")]
-        [Description("intake air temp")]
-        public byte intake_air_temp;   //uint8
-        /// <summary>com status /bit0:propo(0=normal, 1=error), bit1:controller(0=normal, 1=error)</summary>
+        /// <summary>wp sw count</summary>
         [Units("")]
-        [Description("com status /bit0:propo(0=normal, 1=error), bit1:controller(0=normal, 1=error)")]
-        public byte com_status;         //uint8
-        /// <summary>wp logging status /bit0:status(0=stop, 1=logging)</summary>
+        [Description("wp sw count")]
+        public byte wp_sw_cnt;          //uint8
+        /// <summary>error return request count</summary>
         [Units("")]
-        [Description("wp logging status /bit0:status(0=stop, 1=logging)")]
-        public byte wplogging_status;   //uint8
+        [Description("error return request count")]
+        public byte error_return_req;   //uint8
 
     };
 }
