@@ -432,6 +432,11 @@ namespace MissionPlanner
         public static int grid_dosetservo_PWMH;
         public static int grid_type = 2;
 
+        // @eams add
+        public static int atex_length_ch = 5;
+        public static int atex_control_ch = 4;
+        public static int atex_err_cnt = 0;
+
         public void updateLayout(object sender, EventArgs e)
         {
 #if false   //@eams

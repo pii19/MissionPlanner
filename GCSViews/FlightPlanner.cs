@@ -3317,10 +3317,18 @@ namespace MissionPlanner.GCSViews
 
                 if (polyicon.IsSelected)
                 {
+                    // @eams add
+                    var servo = (MainV2.atex_err_cnt << 1) + 0x0001;
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
+
                     polygongridmode = true;
                 }
                 else
                 {
+                    // @eams add
+                    var servo = (MainV2.atex_err_cnt << 1);
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
+
                     polygongridmode = false;
                     clearPolygonToolStripMenuItem_Click(this, null);
                 }
