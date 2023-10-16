@@ -4522,7 +4522,7 @@ namespace MissionPlanner
                 {
                     MainV2.instance.FlightData.LabelNextWPdist_ChangeDist(MainV2.comPort.MAV.cs.wp_dist);
                 }
-
+#if false
                 // catch RC7 switch for polygon make
                 int point_trig_pwm = 2000;
                 if (Settings.Instance["point_trig_pwm"] != null)
@@ -4538,6 +4538,13 @@ namespace MissionPlanner
                 else
                 {
                     rc7_flag = false;
+                }
+#endif
+                // catch atex_lawnmower_info.wp_sw_cnt changing for polygon make
+                if (MainV2.comPort.MAV.cs.wp_sw_cnt_status)
+                {
+                    MainV2.instance.FlightPlanner.addPolygonPointRC(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
+                    MainV2.comPort.MAV.cs.wp_sw_cnt_status = false;
                 }
 
             }
