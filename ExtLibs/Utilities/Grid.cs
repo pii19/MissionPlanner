@@ -651,7 +651,7 @@ namespace MissionPlanner.Utilities
         }
 
         public static List<PointLatLngAlt> CreateGrid22(List<PointLatLngAlt> polygon, double altitude, double distance, double spacing, ref double angle,
-            double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation, float leadin, PointLatLngAlt HomeLocation, double offset, bool first)
+            double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation, float leadin, PointLatLngAlt HomeLocation, double offset, bool first, ref int dist_max_ref)
         {
             //DoDebug();
 
@@ -728,6 +728,7 @@ namespace MissionPlanner.Utilities
                     }
                     angle = utmpositions[index].GetBearing(utmpositions[index + 1]);
                 }
+                dist_max_ref = (int)dist_max;   // for a2.0
             }
 
             // get left extent

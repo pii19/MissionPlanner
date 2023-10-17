@@ -292,7 +292,9 @@ namespace MissionPlanner.Grid
 
         bool deleteLastLAND = false;    // @eams add
         bool first_validate = false;    // @eams add
-
+#if EAMS_UGV
+        int dist_max = 0;
+#endif
         private void GridUI_Load(object sender, EventArgs e)
         {
             loading = true;
@@ -838,7 +840,7 @@ namespace MissionPlanner.Grid
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                             //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
                             (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
-                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate);
+                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate, ref dist_max);
                         break;
                     default:
                         grid = Utilities.Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
@@ -2350,6 +2352,9 @@ namespace MissionPlanner.Grid
                     }
 
                 }
+
+                // @eams add
+                MainV2.atex_longest_line_dist = dist_max;
 
                 // Redraw the polygon in FP
                 plugin.Host.RedrawFPPolygon(list);
