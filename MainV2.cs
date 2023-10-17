@@ -433,7 +433,8 @@ namespace MissionPlanner
         public static int grid_type = 2;
 
         // @eams add
-        public static int atex_length_ch = 5;
+        public static int atex_longest_line_dist_ch = 5;
+        public static int atex_longest_line_dist = 0;
         public static int atex_control_ch = 4;
         public static int atex_err_cnt = 0;
 
@@ -4224,18 +4225,18 @@ namespace MissionPlanner
                     }
 #if EAMS_UGV
                     MainV2.instance.FlightPlanner.resetHome();  // reset home position
-                    if (MainV2.comPort.MAV.cs.armed)
-                    {
-                        MainV2.comPort.doARM(false);
-                    }
+                    //if (MainV2.comPort.MAV.cs.armed)
+                    //{
+                        //MainV2.comPort.doARM(false);
+                    //}
 #endif
                     // write mission to UAV
                     MainV2.instance.FlightPlanner.BUT_write_Click(this, null);
 #if EAMS_UGV
-                    MainV2.comPort.setWPCurrent(0); // set nav to
+                    //MainV2.comPort.setWPCurrent(0); // set nav to
 #endif
                 }
-
+#if false
                 // change mode STABILIZE/Loiter
                 if (MainV2.comPort.MAV.cs.failsafe)
                 {
@@ -4250,7 +4251,7 @@ namespace MissionPlanner
                 }
 
                 MainV2.comPort.setMode("GUIDED");
-
+#endif
                 // force redraw map
                 await Task.Delay(update_wp_delay+200);
                 //GCSViews.FlightData.mymap.Refresh();
@@ -4282,6 +4283,10 @@ namespace MissionPlanner
                     }
                 }
 
+                // set longest line distance
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_longest_line_dist_ch, atex_longest_line_dist, 0, 0, 0, 0, 0);
+
+#if false
                 // arm the MAV
                 try
                 {
@@ -4327,6 +4332,7 @@ namespace MissionPlanner
                 {
                     CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
                 }
+#endif
             }
             finally
             {
