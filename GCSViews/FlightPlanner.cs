@@ -4224,6 +4224,9 @@ namespace MissionPlanner.GCSViews
 
             Commands.Rows.Clear();
 
+            // @eams add
+            clearPolygonToolStripMenuItem_Click(this, null);
+
             selectedrow = 0;
             quickadd = false;
             writeKML();
