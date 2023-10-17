@@ -3009,14 +3009,14 @@ namespace MissionPlanner
             ThreadPool.QueueUserWorkItem(BGNoFly);
 
             ThreadPool.QueueUserWorkItem(BGGetKIndex);
-
+#if false
             // update firmware version list - only once per day
             ThreadPool.QueueUserWorkItem(BGFirmwareCheck);
 
             log.Info("start udpvideoshim");
             // start listener
             UDPVideoShim.Start();
-
+#endif
             log.Info("start udpmavlinkshim");
             UDPMavlinkShim.Start();
 
