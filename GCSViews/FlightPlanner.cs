@@ -3330,7 +3330,7 @@ namespace MissionPlanner.GCSViews
                     MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
 
                     polygongridmode = false;
-                    clearPolygonToolStripMenuItem_Click(this, null);
+                    // clearPolygonToolStripMenuItem_Click(this, null);
                 }
 
                 return;
