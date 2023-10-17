@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MissionPlanner.Controls;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MissionPlanner.MsgBox
 {
@@ -34,7 +35,7 @@ namespace MissionPlanner.MsgBox
             return Show(text, caption, buttons, MessageBoxIcon.None);
         }
 
-        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, Action waitTask = null)
         {
             DialogResult answer = DialogResult.Cancel;
 
@@ -49,7 +50,7 @@ namespace MissionPlanner.MsgBox
                     {
                         Console.WriteLine("CustomMessageBox thread running invoke " +
                                           System.Threading.Thread.CurrentThread.Name);
-                        answer = ShowUI(text, caption, buttons, icon);
+                        answer = ShowUI(text, caption, buttons, icon, waitTask);
                     });
                 }
                 catch (Exception ex)
@@ -57,19 +58,19 @@ namespace MissionPlanner.MsgBox
                     Console.WriteLine(ex);
                     // fall back
                     Console.WriteLine("CustomMessageBox thread running " + System.Threading.Thread.CurrentThread.Name);
-                    answer = ShowUI(text, caption, buttons, icon);
+                    answer = ShowUI(text, caption, buttons, icon, waitTask);
                 }
             }
             else
             {
                 Console.WriteLine("CustomMessageBox thread running " + System.Threading.Thread.CurrentThread.Name);
-                answer =  ShowUI(text, caption, buttons, icon);
+                answer =  ShowUI(text, caption, buttons, icon, waitTask);
             }
 
             return answer;
         }
 
-        static DialogResult ShowUI(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+        static DialogResult ShowUI(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, Action waitTask = null)
         {
             DialogResult answer = DialogResult.Abort;
 
@@ -178,6 +179,12 @@ namespace MissionPlanner.MsgBox
                 }
                 catch
                 {
+                }
+
+                // @eams add for wait task
+                if (waitTask != null)
+                {
+                    Task.Run(() => waitTask()).ContinueWith(_ => msgBoxFrm.Invoke((MethodInvoker)(() => msgBoxFrm.Close())));
                 }
 
                 DialogResult test = msgBoxFrm.ShowDialog();

@@ -151,9 +151,9 @@ namespace MissionPlanner
             Application.DoEvents();
             Application.DoEvents();
 
-            CustomMessageBox.ShowEvent += (text, caption, buttons, icon) =>
+            CustomMessageBox.ShowEvent += (text, caption, buttons, icon, waitTask) =>
             {
-                return (CustomMessageBox.DialogResult)(int)MsgBox.CustomMessageBox.Show(text, caption, (MessageBoxButtons)(int)buttons, (MessageBoxIcon)(int)icon);
+                return (CustomMessageBox.DialogResult)(int)MsgBox.CustomMessageBox.Show(text, caption, (MessageBoxButtons)(int)buttons, (MessageBoxIcon)(int)icon, waitTask);
             };
 
             // setup theme provider

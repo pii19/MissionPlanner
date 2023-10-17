@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace System
 {
     public static class CustomMessageBox
     {
         public delegate DialogResult ShowDelegate(string text, string caption = "",
-            MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.None);
+            MessageBoxButtons buttons = MessageBoxButtons.OK, MessageBoxIcon icon = MessageBoxIcon.None, Action waitTask = null);
 
         public static event ShowDelegate ShowEvent;
 
@@ -23,20 +24,20 @@ namespace System
         }
 
         public static int Show(string text, string caption = "", object MessageBoxButtons = null,
-            object MessageBoxIcon = null)
+            object MessageBoxIcon = null, Action waitTask = null)
         {
             if (MessageBoxButtons == null)
                 MessageBoxButtons = CustomMessageBox.MessageBoxButtons.OK;
             if (MessageBoxIcon == null)
                 MessageBoxIcon = CustomMessageBox.MessageBoxIcon.None;
 
-            return (int)Show(text, caption, (MessageBoxButtons)(int)MessageBoxButtons, (MessageBoxIcon)(int)MessageBoxIcon);
+            return (int)Show(text, caption, (MessageBoxButtons)(int)MessageBoxButtons, (MessageBoxIcon)(int)MessageBoxIcon, waitTask);
         }
 
-        public static DialogResult Show(string text, string caption = "", MessageBoxButtons MessageBoxButtons = MessageBoxButtons.OK, MessageBoxIcon MessageBoxIcon = MessageBoxIcon.None)
+        public static DialogResult Show(string text, string caption = "", MessageBoxButtons MessageBoxButtons = MessageBoxButtons.OK, MessageBoxIcon MessageBoxIcon = MessageBoxIcon.None, Action waitTask = null)
         {
             if (ShowEvent != null)
-                return ShowEvent.Invoke(text, caption, MessageBoxButtons, MessageBoxIcon);
+                return ShowEvent.Invoke(text, caption, MessageBoxButtons, MessageBoxIcon, waitTask);
 
             throw new Exception("ShowEvent Not Set");
         }
