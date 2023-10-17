@@ -4286,6 +4286,17 @@ namespace MissionPlanner
                 // set longest line distance
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_longest_line_dist_ch, atex_longest_line_dist, 0, 0, 0, 0, 0);
 
+                // wait AUTO
+                //var act = new Action(() => System.Threading.Thread.Sleep(5000));
+                var act = new Action(() => {
+                    while (MainV2.comPort.MAV.cs.mode.ToLower() != "auto")
+                    {
+                        System.Threading.Thread.Sleep(1);
+                    }
+                    System.Threading.Thread.Sleep(500);
+                }
+                );
+                CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
 #if false
                 // arm the MAV
                 try
