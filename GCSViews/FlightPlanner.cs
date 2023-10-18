@@ -1417,6 +1417,8 @@ namespace MissionPlanner.GCSViews
         {
             int a = 0;
             PointLatLngAlt last = HomeLocation;
+            double max_dist = 0.0;  // @eams add
+            bool first = true;  // @eams add
             foreach (var lla in pointlist)
             {
                 if (lla == null)
@@ -1438,6 +1440,21 @@ namespace MissionPlanner.GCSViews
                         Commands.Rows[int.Parse(lla.Tag) - 1].Cells[Dist.Index].Value =
                             (Math.Sqrt(Math.Pow(distance,2) + Math.Pow(height,2))).ToString("0.0");
 
+                        // @eams add
+                        if (lla.Lat != 0.0)
+                        {
+                            if (first)
+                            {
+                                // 一つ目のWPのDistはホームからの距離なので無視する
+                                first = false;
+                            }
+                            else
+                            {
+                                var dist = Convert.ToDouble(Commands.Rows[int.Parse(lla.Tag) - 1].Cells[Dist.Index].Value);
+                                max_dist = dist > max_dist ? dist : max_dist;
+                            }
+                        }
+
                         Commands.Rows[int.Parse(lla.Tag) - 1].Cells[AZ.Index].Value =
                             ((lla.GetBearing(last) + 180)%360).ToString("0");
                     }
@@ -1449,6 +1466,8 @@ namespace MissionPlanner.GCSViews
                 a++;
                 last = lla;
             }
+            // @eams add
+            MainV2.atex_longest_line_dist = (int)Math.Round(max_dist, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>
