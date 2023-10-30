@@ -3776,7 +3776,7 @@ Please check the following
                     lock (objlock)
                     {
                         MAVlist[sysid, compid].addPacket(message);
-                        if (compid == 190 && msgid == (byte)MAVLINK_MSG_ID.KHI_LAWNMOWER_INFO)
+                        if (compid == 190 && msgid == (byte)MAVLINK_MSG_ID.ATEX_LAWNMOWER_INFO)
                         {
                             MAVlist[sysid, compidcurrent].addPacket(message);
                         }
