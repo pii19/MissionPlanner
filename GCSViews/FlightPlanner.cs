@@ -981,7 +981,8 @@ namespace MissionPlanner.GCSViews
                 panel8.Visible = true;
                 chk_ndvimesh.Checked = true;
                 chk_ndvigrid.Checked = true;
-                loadMesh();
+                //loadMesh();
+                loadPolies();
             }
             else
             {
@@ -6073,13 +6074,13 @@ namespace MissionPlanner.GCSViews
 
             e.Graphics.ResetTransform();
 
-            if (mesh_type == 0)
-            {
+            //if (mesh_type == 0)
+            //{
                 polyicon.Location = new Point(10,100);
                 polyicon.Width = 45;    // @eams add
                 polyicon.Height = 45;   // @eams add
                 polyicon.Paint(e.Graphics);
-            }
+            //}
         }
 
         MissionPlanner.Controls.Icon.Polygon polyicon = new MissionPlanner.Controls.Icon.Polygon();
@@ -7206,6 +7207,94 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 CustomMessageBox.Show(
                     //"If you're at the field, connect to your APM and wait for GPS lock. Then click 'Home Location' link to set home to your location");
                     "機体に接続しGPSロック状態を確認後に再度ボタンを押下してください。");
+            }
+        }
+
+        // @eams add
+        private void loadPolies()
+        {
+            try
+            {
+                //read .poly files
+#if false
+                var fn_poly = Settings.GetUserDataDirectory() + "polies\\" + "0fd3dd2a-bdfa-4c20-9ee3-e1a8ecf4b9fb.poly";
+                if (!File.Exists(fn_poly))
+                {
+                    return;
+                }
+#endif
+                var di_polies = Settings.GetUserDataDirectory() + "polies\\";
+
+                string[] polies = Directory.GetFiles(di_polies, "*.poly");
+                foreach (string f in polies)
+                {
+                    StreamReader sr = new StreamReader(f);
+
+                    int a = 0;
+
+                    GMapPolygonMesh poly = new GMapPolygonMesh(new List<PointLatLng>(), "mesh")
+                    {
+                        Fill = Brushes.Transparent,
+                        Stroke = drawnpolygon.Stroke,
+                };
+
+                    while (!sr.EndOfStream)
+                    {
+                        string line = sr.ReadLine();
+                        if (line.StartsWith("#"))
+                        {
+                        }
+                        else
+                        {
+                            string[] items = line.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (items.Length < 2)
+                                continue;
+#if false
+                            drawnpolygon.Points.Add(new PointLatLng(
+                                double.Parse(items[0], CultureInfo.InvariantCulture),
+                                double.Parse(items[1], CultureInfo.InvariantCulture)));
+                            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(),
+                                double.Parse(items[1], CultureInfo.InvariantCulture),
+                                double.Parse(items[0], CultureInfo.InvariantCulture), 0);
+#endif
+                            poly.Points.Add(new PointLatLng(
+                                double.Parse(items[0], CultureInfo.InvariantCulture),
+                                double.Parse(items[1], CultureInfo.InvariantCulture)));
+
+                            a++;
+
+                        }
+                    }
+#if false
+                    // remove loop close
+                    if (drawnpolygon.Points.Count > 1 &&
+                        drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                    {
+                        drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1);
+                    }
+
+                    drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+#endif
+                    // remove loop close
+                    if (poly.Points.Count > 1 &&
+                        poly.Points[0] == poly.Points[poly.Points.Count - 1])
+                    {
+                        poly.Points.RemoveAt(poly.Points.Count - 1);
+                    }
+
+                    polygonsoverlay.Polygons.Add(poly);
+
+                    //MainMap.UpdatePolygonLocalPosition(polygonsoverlay);
+                    //MainMap.Invalidate();
+                }
+
+                MainMap.ZoomAndCenterMarkers(polygonsoverlay.Id);
+            }
+            catch (Exception)
+            {
+                CustomMessageBox.Show(Strings.ERROR, "複数ポリゴン表示処理でエラーが発生しました。");
+                return;
             }
         }
 
