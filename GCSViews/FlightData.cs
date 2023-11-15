@@ -1049,7 +1049,7 @@ namespace MissionPlanner.GCSViews
                             break;
                         case "AUTO":
 #if EAMS_UGV
-                            mode_jp = "自動走行モード";
+                            mode_jp = "自動運転中";
 #else
                             mode_jp = "自動飛行モード";
 #endif
@@ -1068,10 +1068,13 @@ namespace MissionPlanner.GCSViews
                             mode_jp = "自動着陸モード";
                             break;
                         case "HOLD":
-                            mode_jp = "停止モード";
+                            mode_jp = "自動運転待機中";
                             break;
                         case "MANUAL":
                             mode_jp = "手動操作モード";
+                            break;
+                        case "GUIDED":
+                            mode_jp = "自動運転中断中";
                             break;
                         default:
                             if (resume_flag >= 2)
