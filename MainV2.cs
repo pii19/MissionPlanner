@@ -4233,7 +4233,7 @@ namespace MissionPlanner
                     // write mission to UAV
                     MainV2.instance.FlightPlanner.BUT_write_Click(this, null);
 #if EAMS_UGV
-                    //MainV2.comPort.setWPCurrent(0); // set nav to
+                    MainV2.comPort.setWPCurrent(0); // set nav to
 #endif
                 }
 #if false
@@ -4294,6 +4294,7 @@ namespace MissionPlanner
                         System.Threading.Thread.Sleep(1);
                     }
                     System.Threading.Thread.Sleep(500);
+                    first = true;
                 }
                 );
                 CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
@@ -4569,11 +4570,43 @@ namespace MissionPlanner
                     MainV2.comPort.MAV.cs.wp_sw_cnt_status = false;
                 }
 
+                // check last wp passing
+                var commands = MainV2.instance.FlightPlanner.GetCommandList();
+                //string lastwp = MainV2.comPort.MAV.cs.lastautowp.ToString();
+                string lastwp = MainV2.comPort.MAV.cs.wpno.ToString();
+                //if (lastwp == "-1")
+                //lastwp = "1";
+                var curwpno = int.Parse(lastwp);
+                int firstwpno = commands.FindIndex(x => (x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) && (x.lat != 0)) + 1;
+                int endwpno = commands.FindLastIndex(x => x.id == (ushort)MAVLink.MAV_CMD.WAYPOINT) + 1;
+                double wp_rad = 0.0;
+                if (MainV2.comPort.MAV.param["WP_RADIUS"] != null)
+                {
+                    wp_rad = MainV2.comPort.MAV.param["WP_RADIUS"].Value;
+                }
+                
+                if (curwpno > endwpno && first && MainV2.comPort.MAV.cs.mode.ToLower() == "auto" && MainV2.comPort.MAV.cs.wp_dist <= (float)wp_rad)
+                {
+                    first = false;
+                    // wait HOLD
+                    var act = new Action(() => {
+                        while (MainV2.comPort.MAV.cs.mode.ToLower() != "hold")
+                        {
+                            System.Threading.Thread.Sleep(1);
+                        }
+                        System.Threading.Thread.Sleep(500);
+                    }
+                    );
+                    CustomMessageBox.Show("プロポの自動運転SWをOFFにしてください", "自動走行", MessageBoxButtons.OK, null, act);
+
+                }
+
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
         }
+        bool first = false;
     }
 }
