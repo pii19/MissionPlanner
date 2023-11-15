@@ -153,7 +153,7 @@ namespace MissionPlanner.Controls
                 CustomMessageBox.Show(Strings.Invalid_home_location);
                 return;
             }
-            var exepath = Path.Combine(sitldirectory, "APMrover2.exe"); // CheckandGetSITLImage("APMrover2.elf");
+            var exepath = Path.Combine(sitldirectory, "ArduRover.exe"); // CheckandGetSITLImage("APMrover2.elf");
 
             StartSITL(exepath, "rover", BuildHomeLocation(markeroverlay.Markers[0].Position, (int)NUM_heading.Value), "", (int)num_simspeed.Value);
 
