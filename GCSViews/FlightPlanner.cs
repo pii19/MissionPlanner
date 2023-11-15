@@ -3339,7 +3339,8 @@ namespace MissionPlanner.GCSViews
                     // @eams add
                     if (!MainV2.comPort.BaseStream.IsOpen)
                     {
-                        var servo = (MainV2.atex_err_cnt << 1) + 0x0001;
+                        MainV2.atex_rooting = 0x0001;
+                        var servo = (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
                         MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
                     }
 
@@ -3350,7 +3351,8 @@ namespace MissionPlanner.GCSViews
                     // @eams add
                     if (!MainV2.comPort.BaseStream.IsOpen)
                     {
-                        var servo = (MainV2.atex_err_cnt << 1);
+                        MainV2.atex_rooting = 0x0000;
+                        var servo = (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
                         MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
                     }
 

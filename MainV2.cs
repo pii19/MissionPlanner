@@ -437,6 +437,7 @@ namespace MissionPlanner
         public static int atex_longest_line_dist = 0;
         public static int atex_control_ch = 4;
         public static int atex_err_cnt = 0;
+        public static int atex_rooting = 0x0000;
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -4473,6 +4474,7 @@ namespace MissionPlanner
         static bool rc7_flag = false;
         private void timerCustom_Tick(Object sender, EventArgs e)
         {
+            ((System.Windows.Forms.Timer)sender).Enabled = false;
             try
             {
                 // update COM display
@@ -4570,6 +4572,17 @@ namespace MissionPlanner
                     MainV2.comPort.MAV.cs.wp_sw_cnt_status = false;
                 }
 
+                // catch atex_lawnmower_info.error_return_req changing
+                if (MainV2.comPort.MAV.cs.error_return_req_status)
+                {
+                    MainV2.comPort.MAV.cs.error_return_req_status = false;
+                    CustomMessageBox.Show("自動運転を再開しますか？", "自動走行", MessageBoxButtons.OK);
+                    if (++MainV2.atex_err_cnt > 3)
+                        MainV2.atex_err_cnt = 0;
+                    var servo = (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
+                }
+
                 // check last wp passing
                 var commands = MainV2.instance.FlightPlanner.GetCommandList();
                 //string lastwp = MainV2.comPort.MAV.cs.lastautowp.ToString();
@@ -4598,14 +4611,13 @@ namespace MissionPlanner
                     }
                     );
                     CustomMessageBox.Show("プロポの自動運転SWをOFFにしてください", "自動走行", MessageBoxButtons.OK, null, act);
-
                 }
-
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
+            ((System.Windows.Forms.Timer)sender).Enabled = true;
         }
         bool first = false;
     }
