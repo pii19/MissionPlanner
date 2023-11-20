@@ -2312,7 +2312,7 @@ namespace MissionPlanner.Grid
                         else
                         {
 #if true
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_UNLIM, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                            //plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_UNLIM, 0, 0, 0, 0, 0, 0, 0, gridobject);
 #else
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.HomeLocation.Lng,
                                 plugin.Host.cs.HomeLocation.Lat, 0, gridobject);
@@ -2330,7 +2330,7 @@ namespace MissionPlanner.Grid
                         else
                         {
 #if true
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_UNLIM, 0, 0, 0, 0, 0, 0, 0, gridobject);
+                            //plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LOITER_UNLIM, 0, 0, 0, 0, 0, 0, 0, gridobject);
 #else
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.HomeLocation.Lng,
                                 plugin.Host.cs.HomeLocation.Lat, 0, gridobject);
