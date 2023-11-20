@@ -3337,7 +3337,7 @@ namespace MissionPlanner.GCSViews
                 if (polyicon.IsSelected)
                 {
                     // @eams add
-                    if (!MainV2.comPort.BaseStream.IsOpen)
+                    if (MainV2.comPort.BaseStream.IsOpen)
                     {
                         MainV2.atex_rooting = 0x0001;
                         var servo = (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
@@ -3349,7 +3349,7 @@ namespace MissionPlanner.GCSViews
                 else
                 {
                     // @eams add
-                    if (!MainV2.comPort.BaseStream.IsOpen)
+                    if (MainV2.comPort.BaseStream.IsOpen)
                     {
                         MainV2.atex_rooting = 0x0000;
                         var servo = (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
