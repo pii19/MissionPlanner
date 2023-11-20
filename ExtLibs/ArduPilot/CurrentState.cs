@@ -1270,8 +1270,8 @@ namespace MissionPlanner
         public DateTime datetime { get; set; }
 
         // @eams add for atex
-        public int wp_sw_cnt { get; set; } = 0;
-        public int error_return_req { get; set; } = 0;
+        public int wp_sw_cnt { get; set; } = -1;
+        public int error_return_req { get; set; } = -1;
         public bool wp_sw_cnt_status { get; set; } = false;
         public bool error_return_req_status { get; set; } = false;
 
@@ -2765,6 +2765,14 @@ namespace MissionPlanner
                     if (mavLinkMessage != null)
                     {
                         var atex = mavLinkMessage.ToStructure<MAVLink.mavlink_atex_lawnmower_info_t>();
+                        if (wp_sw_cnt == -1)
+                        {
+                            wp_sw_cnt = (int)atex.wp_sw_cnt;
+                        }
+                        if (error_return_req == -1)
+                        {
+                            error_return_req = (int)atex.error_return_req;
+                        }
 
                         if (wp_sw_cnt != (int)atex.wp_sw_cnt)
                         {
