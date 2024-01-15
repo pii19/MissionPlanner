@@ -91,6 +91,7 @@ namespace MissionPlanner.Maps
         }
 
         public static string CustomURL =
-            "https://cyberjapandata.gsi.go.jp/xyz/std/{0}/{1}/{2}.png";
+            //"https://cyberjapandata.gsi.go.jp/xyz/std/{0}/{1}/{2}.png";
+            "https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{0}/{1}/{2}.jpg";
     }
 }
