@@ -4228,7 +4228,7 @@ namespace MissionPlanner.GCSViews
 
         private void clearPolygonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            polygongridmode = false;
+            //polygongridmode = false;
             if (drawnpolygon == null)
                 return;
             drawnpolygon.Points.Clear();
