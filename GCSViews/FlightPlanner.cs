@@ -2486,11 +2486,13 @@ namespace MissionPlanner.GCSViews
 
                 if (param.ContainsKey("WP_RADIUS"))
                 {
-                    TXT_WPRad.Text = (((double) param["WP_RADIUS"]*CurrentState.multiplierdist)).ToString();
+                    TXT_WPRad.Text = string.Format("{0:N2}",
+                        (((double)param["WP_RADIUS"] * CurrentState.multiplierdist)));
                 }
                 if (param.ContainsKey("WPNAV_RADIUS") )
                 {
-                    TXT_WPRad.Text = (((double) param["WPNAV_RADIUS"]*CurrentState.multiplierdist/100.0)).ToString();
+                    TXT_WPRad.Text = string.Format("{0:N2}",
+                        (((double)param["WPNAV_RADIUS"] * CurrentState.multiplierdist / 100.0)));
                 }
 
                 log.Info("param WP_RADIUS " + TXT_WPRad.Text);
