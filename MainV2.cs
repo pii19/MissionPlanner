@@ -4226,12 +4226,14 @@ namespace MissionPlanner
                     }
 #if EAMS_UGV
                     MainV2.instance.FlightPlanner.resetHome();  // reset home position
-                    //if (MainV2.comPort.MAV.cs.armed)
-                    //{
-                        //MainV2.comPort.doARM(false);
-                    //}
+                                                                //if (MainV2.comPort.MAV.cs.armed)
+                                                                //{
+                                                                //MainV2.comPort.doARM(false);
+                                                                //}
 #endif
                     // write mission to UAV
+                    MainV2.instance.FlightPlanner.setWPParams();
+                    MainV2.instance.FlightPlanner.config(true);
                     MainV2.instance.FlightPlanner.BUT_write_Click(this, null);
 #if EAMS_UGV
                     MainV2.comPort.setWPCurrent(0); // set nav to

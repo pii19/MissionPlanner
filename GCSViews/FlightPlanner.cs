@@ -2476,7 +2476,7 @@ namespace MissionPlanner.GCSViews
             MainMap_OnMapZoomChanged();
         }
 
-        void setWPParams()
+        public void setWPParams()
         {
             try
             {
@@ -2526,7 +2526,7 @@ namespace MissionPlanner.GCSViews
         /// Saves this forms config to MAIN, where it is written in a global config
         /// </summary>
         /// <param name="write">true/false</param>
-        private void config(bool write)
+        public void config(bool write)
         {
             if (write)
             {
