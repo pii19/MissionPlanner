@@ -3486,8 +3486,8 @@ namespace MissionPlanner.GCSViews
                         }
                         else
                         {
-                            callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat,
-                                currentMarker.Position.Lng, -2);
+                            //callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat,
+                                //currentMarker.Position.Lng, -2);
                         }
                         CurentRectMarker = null;
                     }
@@ -3630,6 +3630,11 @@ namespace MissionPlanner.GCSViews
                     catch (Exception ex)
                     {
                         log.Error(ex);
+                    }
+
+                    if (CurentRectMarker != null && CurentRectMarker.Tag != null)
+                    {
+                        return;
                     }
 
                     // update rect and marker pos.
