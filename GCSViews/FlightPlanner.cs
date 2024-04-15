@@ -3774,7 +3774,7 @@ namespace MissionPlanner.GCSViews
             coords1.Lng = point.Lng;
 
             // always show on planner view
-            //if (MainV2.ShowAirports)
+            if (MainV2.ShowAirports)
             {
                 airportsoverlay.Clear();
                 foreach (var item in Airports.getAirports(MainMap.Position))
