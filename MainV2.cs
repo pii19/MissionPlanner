@@ -385,6 +385,31 @@ namespace MissionPlanner
             }
         }
 
+        // @eams add for WNI FOSTER server
+        private Utilities.foster _foster;
+
+        public bool EnableFOSTER
+        {
+            get { return _foster != null; }
+            set
+            {
+                if (value == true)
+                {
+                    _foster = new Utilities.foster();
+
+                    if (Settings.Instance["fosterserver"] != null)
+                        Utilities.adsb.server = Settings.Instance["fosterserver"];
+                    if (Settings.Instance["fosterport"] != null)
+                        Utilities.adsb.serverport = int.Parse(Settings.Instance["fosterport"].ToString());
+                }
+                else
+                {
+                    Utilities.foster.Stop();
+                    _foster = null;
+                }
+            }
+        }
+
         //public static event EventHandler LayoutChanged;
 
         /// <summary>
@@ -424,6 +449,14 @@ namespace MissionPlanner
 
         public ConcurrentDictionary<string, adsb.PointLatLngAltHdg> adsbPlanes =
             new ConcurrentDictionary<string, adsb.PointLatLngAltHdg>();
+
+        /// <summary>
+        /// other planes in the area from foster
+        /// </summary>
+        public object fosterlock = new object();
+
+        public ConcurrentDictionary<string, foster.PointLatLngAltHdg> fosterPlanes =
+            new ConcurrentDictionary<string, foster.PointLatLngAltHdg>();
 
         public static string titlebar;
 
@@ -745,6 +778,9 @@ namespace MissionPlanner
                 }
             };
 
+            // setup foster
+            Utilities.foster.UpdatePlanePosition += foster_UpdatePlanePosition;
+
             MAVLinkInterface.gcssysid = (byte) Settings.Instance.GetByte("gcsid", MAVLinkInterface.gcssysid);
 
             Form splash = Program.Splash;
@@ -907,6 +943,12 @@ namespace MissionPlanner
             if (Settings.Instance["enableadsb"] != null)
             {
                 MainV2.instance.EnableADSB = Settings.Instance.GetBoolean("enableadsb");
+            }
+
+            // @eams add for WNI FOSTER server
+            if (Settings.Instance["enablefoster"] != null)
+            {
+                MainV2.instance.EnableFOSTER = Settings.Instance.GetBoolean("enablefoster");
             }
 
             try
@@ -1304,6 +1346,36 @@ namespace MissionPlanner
             }
         }
 
+        void foster_UpdatePlanePosition(object sender, MissionPlanner.Utilities.foster.PointLatLngAltHdg foster)
+        {
+            lock (fosterlock)
+            {
+                var id = foster.Tag;
+
+                if (MainV2.instance.fosterPlanes.ContainsKey(id))
+                {
+                    // update existing
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Lat = foster.Lat;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Lng = foster.Lng;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Alt = foster.Alt;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Heading = foster.Heading;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Time = DateTime.Now;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).CallSign = foster.CallSign;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Squawk = foster.Squawk;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Raw = foster.Raw;
+                    ((foster.PointLatLngAltHdg)instance.fosterPlanes[id]).Speed = foster.Speed;
+                }
+                else
+                {
+                    // create new plane
+                    MainV2.instance.fosterPlanes[id] =
+                        new foster.PointLatLngAltHdg(foster.Lat, foster.Lng,
+                                foster.Alt, foster.Heading, foster.Speed, id,
+                                DateTime.Now)
+                        { CallSign = foster.CallSign, Squawk = foster.Squawk, Raw = foster.Raw };
+                }
+            }
+        }
 
         private void ResetConnectionStats()
         {

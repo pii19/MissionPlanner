@@ -146,6 +146,8 @@ namespace MissionPlanner.GCSViews
         GMapOverlay routes;
         GMapOverlay adsbais;
 
+        GMapOverlay copilots;   // @eams add for WNI copilot display
+
         Script script;
 
         //whether or not a script is running
@@ -390,6 +392,9 @@ namespace MissionPlanner.GCSViews
             gMapControl1.Overlays.Add(rallypointoverlay);
 
             gMapControl1.Overlays.Add(poioverlay);
+
+            copilots = new GMapOverlay("copilots"); // @eams add for WNI copilots display
+            gMapControl1.Overlays.Add(copilots);
 
             float gspeedMax = Settings.Instance.GetFloat("GspeedMAX");
             if (gspeedMax != 0)
@@ -3579,6 +3584,7 @@ namespace MissionPlanner.GCSViews
                         }
 
                         adsb.CurrentPosition = MainV2.comPort.MAV.cs.HomeLocation;
+                        foster.CurrentPosition = MainV2.comPort.MAV.cs.HomeLocation;
 
                         // show proximity screen
                         if (MainV2.comPort.MAV?.Proximity != null && MainV2.comPort.MAV.Proximity.DataAvailable)
@@ -3935,16 +3941,16 @@ namespace MissionPlanner.GCSViews
                             {
                                 if (plla.Raw != null)
                                 {
-                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t) plla.Raw);
+                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t)plla.Raw);
                                     if (msg.emitter_type == 255 &&
                                         Encoding.ASCII.GetString(msg.callsign).Trim('\0') == "OA_DB")
                                     {
                                         // cm
                                         var radius = msg.squawk;
 
-                                        if (((DateTime) plla.Time) > DateTime.Now.AddSeconds(-10))
+                                        if (((DateTime)plla.Time) > DateTime.Now.AddSeconds(-10))
                                             addMissionRouteMarker(new GMapMarkerDistance(plla, radius / 100.0, 0)
-                                                {Pen = new Pen(Color.Red, 3)});
+                                            { Pen = new Pen(Color.Red, 3) });
                                         continue;
                                     }
                                 }
@@ -3955,7 +3961,7 @@ namespace MissionPlanner.GCSViews
                             {
                                 if (a.Raw != null)
                                 {
-                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t) a.Raw);
+                                    var msg = ((MAVLink.mavlink_adsb_vehicle_t)a.Raw);
                                     if (msg.emitter_type == 255 &&
                                         Encoding.ASCII.GetString(msg.callsign).Trim('\0') == "OA_DB")
                                     {
@@ -3969,7 +3975,7 @@ namespace MissionPlanner.GCSViews
                             //draw ADSB
                             updateMarkersAsNeeded<adsb.PointLatLngAltHdg, GMapMarkerADSBPlane>(adsbitems, adsbais,
                                 (plla) => { return plla.Tag; },
-                                (marker) => { return ((adsb.PointLatLngAltHdg) marker?.Tag)?.Tag; },
+                                (marker) => { return ((adsb.PointLatLngAltHdg)marker?.Tag)?.Tag; },
                                 (pllac) =>
                                 {
                                     return new GMapMarkerADSBPlane(pllac, pllac.Heading)
@@ -3995,7 +4001,7 @@ namespace MissionPlanner.GCSViews
                                     adsbplane.heading = pllau.Heading;
                                     adsbplane.Tag = pllau;
 
-                                    if (((DateTime) pllau.Time) > DateTime.Now.AddSeconds(-30))
+                                    if (((DateTime)pllau.Time) > DateTime.Now.AddSeconds(-30))
                                     {
                                         adsbplane.IsVisible = true;
 
@@ -4018,6 +4024,70 @@ namespace MissionPlanner.GCSViews
                                     else
                                     {
                                         adsbplane.IsVisible = false;
+                                    }
+                                });
+                        }
+
+                        lock (MainV2.instance.fosterlock)
+                        {
+                            // filter out OA_DB foster
+                            var fosteritems = MainV2.instance.fosterPlanes.Values.Where(a =>
+                            {
+                                return true;
+                            });
+
+                            //draw FOSTER
+                            updateMarkersAsNeeded<foster.PointLatLngAltHdg, GMapMarkerADSBPlane>(fosteritems, copilots,
+                                (plla) => { return plla.Tag; },
+                                (marker) => { return ((foster.PointLatLngAltHdg)marker?.Tag)?.Tag; },
+                                (pllac) =>
+                                {
+                                    return new GMapMarkerADSBPlane(pllac, pllac.Heading)
+                                    {
+                                        Tag = pllac
+                                    };
+                                },
+                                (pllau, marker) =>
+                                {
+                                    var fosterplane = marker as GMapMarkerADSBPlane;
+
+                                    if (fosterplane == null || pllau == null)
+                                        return;
+
+                                    fosterplane.ToolTipText = "ICAO: " + pllau.Tag + "\n" +
+                                                            "CallSign: " + pllau.CallSign + "\n" +
+                                                            "Squawk: " + Convert.ToString(pllau.Squawk) + "\n" +
+                                                            "Alt: " + (pllau.Alt * CurrentState.multiplieralt).ToString("0") + "\n" +
+                                                            "Speed: " + pllau.Speed.ToString("0") + "\n" +
+                                                            "Heading: " + pllau.Heading.ToString("0");
+                                    fosterplane.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+                                    fosterplane.Position = pllau;
+                                    fosterplane.heading = pllau.Heading;
+                                    fosterplane.Tag = pllau;
+
+                                    if (((DateTime)pllau.Time) > DateTime.Now.AddSeconds(-30))
+                                    {
+                                        fosterplane.IsVisible = true;
+
+                                        if (pllau.DisplayICAO)
+                                            fosterplane.ToolTipMode = MarkerTooltipMode.Always;
+
+                                        switch (pllau.ThreatLevel)
+                                        {
+                                            case MAVLink.MAV_COLLISION_THREAT_LEVEL.NONE:
+                                                fosterplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Orange;
+                                                break;
+                                            case MAVLink.MAV_COLLISION_THREAT_LEVEL.LOW:
+                                                fosterplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Orange;
+                                                break;
+                                            case MAVLink.MAV_COLLISION_THREAT_LEVEL.HIGH:
+                                                fosterplane.AlertLevel = GMapMarkerADSBPlane.AlertLevelOptions.Red;
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        fosterplane.IsVisible = false;
                                     }
                                 });
                         }
