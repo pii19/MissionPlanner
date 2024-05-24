@@ -10,6 +10,8 @@ using log4net;
 using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 
 namespace MissionPlanner.Utilities
@@ -70,6 +72,7 @@ namespace MissionPlanner.Utilities
             while (run)
             {
                 log.Info("foster connect loop");
+#if false
                 //custom
                 try
                 {
@@ -90,34 +93,30 @@ namespace MissionPlanner.Utilities
                     }
                 }
                 catch (Exception ex) { log.Error(ex); }
-
+#endif
                 // fosterexchange
                 try
                 {
 
                     if (CurrentPosition != PointLatLngAlt.Zero)
                     {
-                        string url =
-                            "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat={0}&lng={1}&fDstL=0&fDstU={2}";
-                        string path = Settings.GetDataDirectory() + Path.DirectorySeparatorChar + "foster.json";
-                        var ans = Download.getFilefromNet(String.Format(url, CurrentPosition.Lat, CurrentPosition.Lng, fosterexchangerange),
-                            path);
+                        var result = GetFoster().Result;
 
-                        if (ans)
+                        if (result.data.Count < 1)
+                            fosterexchangerange = Math.Min(fosterexchangerange + 10, 400);
+
+                        foreach (var copilot in result.data)
                         {
-                            var result = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(path));
+                            var id = copilot.copilot_id;
+                            var routes = copilot.Route;
+                            var coord = routes[0].ACT_WP[0].geometry.coordinates;
+                            var prop = routes[0].ACT_WP[0].properties;
+                            var dt = DateTime.Parse(prop.obs_time);
 
-                            if (result.acList.Count < 1)
-                                fosterexchangerange = Math.Min(fosterexchangerange + 10, 400);
+                            var plane = new MissionPlanner.Utilities.foster.PointLatLngAltHdg(coord[0], coord[1], coord[2] * 0.3048,
+                                (float)prop.heading, prop.speed, id, dt);
 
-                            foreach (var acList in result.acList)
-                            {
-                                var plane = new MissionPlanner.Utilities.foster.PointLatLngAltHdg(acList.Lat, acList.Long,
-                                    acList.Alt * 0.3048,
-                                    (float) acList.Trak, acList.Spd, acList.Icao, DateTime.Now);
-
-                                UpdatePlanePosition(null, plane);
-                            }
+                            UpdatePlanePosition(null, plane);
                         }
                     }
                 }
@@ -134,84 +133,50 @@ namespace MissionPlanner.Utilities
             log.Info("foster thread exit");
         }
 
-        public class Feed
+        public static async Task<RootObject> GetFoster()
         {
-            public int id { get; set; }
-            public string name { get; set; }
-            public bool polarPlot { get; set; }
+            var url = "https://wrap.wni.com/api/V1/data/FOSTER-copilot/group/eams/latest.json?user_key=87ed485964d29d422ecc340960c95511";
+            var result = await new HttpClient().GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            var jsonString = await result.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<RootObject>(jsonString);
+            return response;
         }
 
-        public class AcList
+        public class Geometry
         {
-            public int Id { get; set; }
-            public int Rcvr { get; set; }
-            public bool HasSig { get; set; }
-            public int Sig { get; set; }
-            public string Icao { get; set; }
-            public bool Bad { get; set; }
-            public string Reg { get; set; }
-            public string FSeen { get; set; }
-            public int TSecs { get; set; }
-            public int CMsgs { get; set; }
-            public int Alt { get; set; }
-            public int GAlt { get; set; }
-            public double InHg { get; set; }
-            public int AltT { get; set; }
-            public string Call { get; set; }
-            public double Lat { get; set; }
-            public double Long { get; set; }
-            public string PosTime { get; set; }
-            public bool Mlat { get; set; }
-            public bool Tisb { get; set; }
-            public double Spd { get; set; }
-            public double Trak { get; set; }
-            public bool TrkH { get; set; }
-            public string Type { get; set; }
-            public string Mdl { get; set; }
-            public string Man { get; set; }
-            public string CNum { get; set; }
-            public string Op { get; set; }
-            public string OpIcao { get; set; }
-            public string Sqk { get; set; }
-            public int Vsi { get; set; }
-            public int VsiT { get; set; }
-            public double Dst { get; set; }
-            public double Brng { get; set; }
-            public int WTC { get; set; }
-            public int Species { get; set; }
-            public string Engines { get; set; }
-            public int EngType { get; set; }
-            public int EngMount { get; set; }
-            public bool Mil { get; set; }
-            public string Cou { get; set; }
-            public bool HasPic { get; set; }
-            public bool Interested { get; set; }
-            public int FlightsCount { get; set; }
-            public bool Gnd { get; set; }
-            public int SpdTyp { get; set; }
-            public bool CallSus { get; set; }
-            public int Trt { get; set; }
-            public string Year { get; set; }
-            public string From { get; set; }
-            public string To { get; set; }
-            public bool? Help { get; set; }
+            public string type { get; set; }
+            public List<double> coordinates { get; set; }
+        }
+
+        public class Properties
+        {
+            public int heading { get; set; }
+            public string obs_time { get; set; }
+            public int speed { get; set; }
+        }
+
+        public class ACT_WP
+        {
+            public string type { get; set; }
+            public Geometry geometry { get; set; }
+            public Properties properties { get; set; }
+        }
+
+        public class Route
+        {
+            public string type { get; set; }
+            public List<ACT_WP> ACT_WP { get; set; }
+        }
+
+        public class Datum
+        {
+            public string copilot_id { get; set; }
+            public List<Route> Route { get; set; }
         }
 
         public class RootObject
         {
-            public int src { get; set; }
-            public List<Feed> feeds { get; set; }
-            public int srcFeed { get; set; }
-            public bool showSil { get; set; }
-            public bool showFlg { get; set; }
-            public bool showPic { get; set; }
-            public int flgH { get; set; }
-            public int flgW { get; set; }
-            public List<AcList> acList { get; set; }
-            public int totalAc { get; set; }
-            public string lastDv { get; set; }
-            public int shtTrlSec { get; set; }
-            public long stm { get; set; }
+            public List<Datum> data { get; set; }
         }
 
         static Hashtable Planes = new Hashtable();

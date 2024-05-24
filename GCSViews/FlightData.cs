@@ -4054,9 +4054,7 @@ namespace MissionPlanner.GCSViews
                                     if (fosterplane == null || pllau == null)
                                         return;
 
-                                    fosterplane.ToolTipText = "ICAO: " + pllau.Tag + "\n" +
-                                                            "CallSign: " + pllau.CallSign + "\n" +
-                                                            "Squawk: " + Convert.ToString(pllau.Squawk) + "\n" +
+                                    fosterplane.ToolTipText = "copilot_id: " + pllau.Tag + "\n" +
                                                             "Alt: " + (pllau.Alt * CurrentState.multiplieralt).ToString("0") + "\n" +
                                                             "Speed: " + pllau.Speed.ToString("0") + "\n" +
                                                             "Heading: " + pllau.Heading.ToString("0");
