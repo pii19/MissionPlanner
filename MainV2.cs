@@ -4474,8 +4474,15 @@ namespace MissionPlanner
         // @eams add / update COM and failsafe display
         string detect_com = "";
         static bool rc7_flag = false;
+        static bool flag_timer = false;
         private void timerCustom_Tick(Object sender, EventArgs e)
         {
+            if (flag_timer)
+            {
+                return;
+            }
+            flag_timer = true;
+
             ((System.Windows.Forms.Timer)sender).Enabled = false;
             try
             {
@@ -4620,6 +4627,7 @@ namespace MissionPlanner
                 log.Error(ex);
             }
             ((System.Windows.Forms.Timer)sender).Enabled = true;
+            flag_timer = false;
         }
         bool first = false;
     }
