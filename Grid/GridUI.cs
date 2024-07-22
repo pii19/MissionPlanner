@@ -2266,7 +2266,7 @@ namespace MissionPlanner.Grid
                     }
 
                     // end
-#if EAMS_UGV
+#if false
                     //最後の逆走防止
                     if (!reverse)
                     {
