@@ -4301,6 +4301,7 @@ namespace MissionPlanner
                 }
                 );
                 CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
+                MainV2.instance.FlightPlanner.clearPolygonMode();
 #if false
                 // arm the MAV
                 try

@@ -7653,6 +7653,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             MainMap.Invalidate();
         }
+
+        public void clearPolygonMode()
+        {
+            polyicon.IsSelected = !polyicon.IsSelected;
+            polygongridmode = false;
+            if (drawnpolygon == null)
+                return;
+            drawnpolygon.Points.Clear();
+            drawnpolygonsoverlay.Markers.Clear();
+            MainMap.Invalidate();
+        }
+
     }
 
     public class GMapPolygonMesh : GMapPolygon
