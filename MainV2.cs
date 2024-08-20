@@ -438,6 +438,7 @@ namespace MissionPlanner
         public static int atex_control_ch = 4;
         public static int atex_err_cnt = 0;
         public static int atex_rooting = 0x0000;
+        public static int atex_timer_ch = 7;
 
         public void updateLayout(object sender, EventArgs e)
         {
@@ -4288,6 +4289,10 @@ namespace MissionPlanner
 
                 // set longest line distance
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_longest_line_dist_ch, atex_longest_line_dist, 0, 0, 0, 0, 0);
+
+                // set timer
+                int time = Settings.Instance.GetInt32("atex_timer_time");
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_timer_ch, time, 0, 0, 0, 0, 0);
 
                 // wait AUTO
                 //var act = new Action(() => System.Threading.Thread.Sleep(5000));

@@ -340,6 +340,7 @@ namespace MissionPlanner.GCSViews
             label12.Text = "積算走行時間：";
             label8.Text = "走行モード";
             label9.Text = "制御状態";
+            TXT_timer.Text = Settings.Instance.GetInt32("atex_timer_time").ToString();
 #endif
         }
 
@@ -5819,6 +5820,28 @@ namespace MissionPlanner.GCSViews
         private void BtnActKeyClear_Click(object sender, EventArgs e)
         {
             LblWPno.Text = "0";
+        }
+
+        private void TXT_timer_TextChanged(object sender, EventArgs e)
+        {
+            int result = 0;
+            string text = TXT_timer.Text.TrimStart('0');
+            int.TryParse(text, out result);
+            if (result < 0 || result > 65535)
+            {
+                result = 0;
+            }
+            TXT_timer.Text = result.ToString();
+            Settings.Instance["atex_timer_time"] = TXT_timer.Text;
+        }
+
+        private void TXT_timer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //0～9と、バックスペース以外の時は、イベントをキャンセルする
+            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
         }
     }
 }
