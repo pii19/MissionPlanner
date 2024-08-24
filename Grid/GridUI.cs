@@ -89,6 +89,9 @@ namespace MissionPlanner.Grid
         // @eams add for camera easy mode
         bool grid_camera_easy_mode = false;
 
+        // @eams add for grid_dist adjust width
+        double grid_dist_adj = 0.1;
+
         // GridUI
         public GridUI(GridPlugin plugin)
         {
@@ -220,6 +223,10 @@ namespace MissionPlanner.Grid
             // @eams add / ndvi mesh
             if (plugin.Host.config["grid_camera_easy_mode"] != null)
                 grid_camera_easy_mode = bool.Parse(plugin.Host.config["grid_camera_easy_mode"]);
+
+            // @eams add / grid_dist_adj
+            if (plugin.Host.config["grid_dist_adj"] != null)
+                grid_dist_adj = double.Parse(plugin.Host.config["grid_dist_adj"]);
 
             // @eams add
             if (mesh_type > 0)
@@ -2485,6 +2492,18 @@ namespace MissionPlanner.Grid
 //                    TXT_headinghold.Text = value.ToString();
 //                    NUM_angle.Value = (decimal)value;
                 }
+                else if(target == TXT_Distance)
+                {
+                    if (value > MaximumValue)
+                    {
+                        value = MaximumValue;
+                    }
+                    if (value < MinimumValue)
+                    {
+                        value = MinimumValue;
+                    }
+                    target.Text = value.ToString("f2");
+                }
                 else
                 {
                     if (value > MaximumValue)
@@ -2698,9 +2717,9 @@ namespace MissionPlanner.Grid
             target = TXT_Distance;
             MaximumValue = (double)NUM_Distance.Maximum;
             MinimumValue = (double)NUM_Distance.Minimum;
-            CurrentValue += (sender == BUT_distplus) ? 0.1 : -0.1;
+            CurrentValue += (sender == BUT_distplus) ? grid_dist_adj : -grid_dist_adj;
             timer1.Interval = def_interval;
-            incrementValue = (sender == BUT_distplus) ? 0.1 : -0.1;
+            incrementValue = (sender == BUT_distplus) ? grid_dist_adj : -grid_dist_adj;
             timer1.Start();
         }
 
@@ -2722,7 +2741,7 @@ namespace MissionPlanner.Grid
                 }
             }
             TXT_Distance.TextChanged -= TXT_Distance_TextChanged;
-            TXT_Distance.Text = d.ToString("f1");
+            TXT_Distance.Text = d.ToString("f2");
             TXT_Distance.TextChanged += TXT_Distance_TextChanged;
             NUM_Distance.Value = d;
         }
