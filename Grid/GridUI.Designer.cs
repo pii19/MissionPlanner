@@ -2020,7 +2020,7 @@
             this.Controls.Add(this.map);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.lbl_area);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "GridUI";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.GridUI_Load);
