@@ -746,7 +746,7 @@
     <value>NoControl</value>
   </data>
   <data name="splitter1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 531</value>
+    <value>165, 731</value>
   </data>
   <data name="splitter1.Size" type="System.Drawing.Size, System.Drawing">
     <value>840, 3</value>
@@ -1218,7 +1218,7 @@
     <value>Bottom</value>
   </data>
   <data name="panelWaypoints.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 534</value>
+    <value>165, 734</value>
   </data>
   <data name="panelWaypoints.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>21, 21</value>
@@ -1254,7 +1254,7 @@
     <value>1002, 0</value>
   </data>
   <data name="splitter2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>3, 531</value>
+    <value>3, 731</value>
   </data>
   <data name="splitter2.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -1775,6 +1775,180 @@
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="label51.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label51.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="label51.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label51.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="label51.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 16</value>
+  </data>
+  <data name="label51.TabIndex" type="System.Int32, mscorlib">
+    <value>147</value>
+  </data>
+  <data name="label51.Text" xml:space="preserve">
+    <value>グリッド位置調整</value>
+  </data>
+  <data name="&gt;&gt;label51.Name" xml:space="preserve">
+    <value>label51</value>
+  </data>
+  <data name="&gt;&gt;label51.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label51.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;label51.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="BUT_shiftdown.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="BUT_shiftdown.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_shiftdown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 106</value>
+  </data>
+  <data name="BUT_shiftdown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 39</value>
+  </data>
+  <data name="BUT_shiftdown.TabIndex" type="System.Int32, mscorlib">
+    <value>146</value>
+  </data>
+  <data name="BUT_shiftdown.Text" xml:space="preserve">
+    <value>↓</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftdown.Name" xml:space="preserve">
+    <value>BUT_shiftdown</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftdown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftdown.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftdown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BUT_shiftup.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="BUT_shiftup.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_shiftup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 30</value>
+  </data>
+  <data name="BUT_shiftup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 39</value>
+  </data>
+  <data name="BUT_shiftup.TabIndex" type="System.Int32, mscorlib">
+    <value>145</value>
+  </data>
+  <data name="BUT_shiftup.Text" xml:space="preserve">
+    <value>↑</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftup.Name" xml:space="preserve">
+    <value>BUT_shiftup</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftup.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftup.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BUT_shiftright.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="BUT_shiftright.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_shiftright.Location" type="System.Drawing.Point, System.Drawing">
+    <value>105, 67</value>
+  </data>
+  <data name="BUT_shiftright.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 39</value>
+  </data>
+  <data name="BUT_shiftright.TabIndex" type="System.Int32, mscorlib">
+    <value>144</value>
+  </data>
+  <data name="BUT_shiftright.Text" xml:space="preserve">
+    <value>→</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftright.Name" xml:space="preserve">
+    <value>BUT_shiftright</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftright.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftright.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftright.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="BUT_shiftleft.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt</value>
+  </data>
+  <data name="BUT_shiftleft.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_shiftleft.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 67</value>
+  </data>
+  <data name="BUT_shiftleft.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 39</value>
+  </data>
+  <data name="BUT_shiftleft.TabIndex" type="System.Int32, mscorlib">
+    <value>143</value>
+  </data>
+  <data name="BUT_shiftleft.Text" xml:space="preserve">
+    <value>←</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftleft.Name" xml:space="preserve">
+    <value>BUT_shiftleft</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftleft.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftleft.Parent" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;BUT_shiftleft.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panel9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 703</value>
+  </data>
+  <data name="panel9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 150</value>
+  </data>
+  <data name="panel9.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;panel9.Name" xml:space="preserve">
+    <value>panel9</value>
+  </data>
+  <data name="&gt;&gt;panel9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel9.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;panel9.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
   <data name="flowLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1782,7 +1956,7 @@
     <value>1, 22</value>
   </data>
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 677</value>
+    <value>163, 877</value>
   </data>
   <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
@@ -1809,7 +1983,7 @@
     <value>21, 21</value>
   </data>
   <data name="panelAction.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 700</value>
+    <value>165, 900</value>
   </data>
   <data name="panelAction.TabIndex" type="System.Int32, mscorlib">
     <value>50</value>
@@ -1902,7 +2076,7 @@
     <value>Vertical</value>
   </data>
   <data name="trackBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 507</value>
+    <value>45, 707</value>
   </data>
   <data name="trackBar1.TabIndex" type="System.Int32, mscorlib">
     <value>46</value>
@@ -2427,7 +2601,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainMap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 527</value>
+    <value>800, 727</value>
   </data>
   <data name="MainMap.TabIndex" type="System.Int32, mscorlib">
     <value>45</value>
@@ -2454,7 +2628,7 @@
     <value>27, 27</value>
   </data>
   <data name="panelMap.Size" type="System.Drawing.Size, System.Drawing">
-    <value>840, 534</value>
+    <value>840, 734</value>
   </data>
   <data name="panelMap.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
@@ -2481,7 +2655,7 @@
     <value>0, 0</value>
   </data>
   <data name="panelBASE.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1005, 700</value>
+    <value>1005, 900</value>
   </data>
   <data name="panelBASE.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -2511,7 +2685,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1005, 700</value>
+    <value>1005, 900</value>
   </data>
   <data name="&gt;&gt;dataGridViewImageColumn1.Name" xml:space="preserve">
     <value>dataGridViewImageColumn1</value>

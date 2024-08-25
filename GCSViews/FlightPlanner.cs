@@ -73,6 +73,7 @@ namespace MissionPlanner.GCSViews
         List<int> groupmarkers = new List<int>();
 
         int mesh_type = 0;  // @eams add
+        double grid_shift_adj = 0.5;
 
         public enum altmode
         {
@@ -695,6 +696,10 @@ namespace MissionPlanner.GCSViews
             // @eams add / ndvi mesh
             if (Settings.Instance["overlay_mesh"] != null)
                 mesh_type = int.Parse(Settings.Instance["overlay_mesh"]);
+
+            // @eams add / grid_shift_adj
+            if (Settings.Instance["grid_shift_adj"] != null)
+                grid_shift_adj = double.Parse(Settings.Instance["grid_shift_adj"]);
 
             /*
             var timer = new System.Timers.Timer();
@@ -7671,6 +7676,101 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             MainMap.Invalidate();
         }
 
+        private void BUT_shiftup_Click(object sender, EventArgs e)
+        {
+            grid_shift(0);
+        }
+
+        private void BUT_shiftright_Click(object sender, EventArgs e)
+        {
+            grid_shift(90);
+        }
+
+        private void BUT_shiftdown_Click(object sender, EventArgs e)
+        {
+            grid_shift(180);
+        }
+
+        private void BUT_shiftleft_Click(object sender, EventArgs e)
+        {
+            grid_shift(270);
+        }
+
+        private void grid_shift(int angle)
+        {
+            //全選択
+            foreach (var marker in MainMap.Overlays.First(a => a.Id == "WPOverlay").Markers)
+            {
+                try
+                {
+                    if (marker.Tag != null)
+                    {
+                        groupmarkeradd(marker);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
+
+            //移動
+            if (groupmarkers.Count > 0)
+            {
+                var markers = MainMap.Overlays.First(a => a.Id == "WPOverlay");
+                Hashtable seen = new Hashtable();
+
+                foreach (var markerid in groupmarkers)
+                {
+                    if (seen.ContainsKey(markerid))
+                        continue;
+
+                    seen[markerid] = 1;
+                    for (int a = 0; a < markers.Markers.Count; a++)
+                    {
+                        var marker = markers.Markers[a];
+
+                        if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
+                        {
+                            var temp = new PointLatLngAlt(marker.Position.Lat, marker.Position.Lng);
+                            marker.Position = temp.newpos(angle, grid_shift_adj).Point();
+                        }
+                    }
+                }
+
+                //決定
+                Dictionary<string, PointLatLng> dest = new Dictionary<string, PointLatLng>();
+
+                foreach (var markerid in groupmarkers.Distinct())
+                {
+                    for (int a = 0; a < markers.Markers.Count; a++)
+                    {
+                        var marker = markers.Markers[a];
+
+                        if (marker.Tag != null && marker.Tag.ToString() == markerid.ToString())
+                        {
+                            dest[marker.Tag.ToString()] = marker.Position;
+                            break;
+                        }
+                    }
+                }
+
+                foreach (KeyValuePair<string, PointLatLng> item in dest)
+                {
+                    var value = item.Value;
+                    quickadd = true;
+                    callMeDrag(item.Key, value.Lat, value.Lng, -1);
+                    quickadd = false;
+                }
+
+                MainMap.SelectedArea = RectLatLng.Empty;
+                groupmarkers.Clear();
+                // redraw to remove selection
+                writeKML();
+
+                CurentRectMarker = null;
+            }
+        }
     }
 
     public class GMapPolygonMesh : GMapPolygon

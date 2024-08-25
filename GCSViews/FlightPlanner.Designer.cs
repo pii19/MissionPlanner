@@ -134,6 +134,12 @@ namespace MissionPlanner.GCSViews
             this.chk_grid = new System.Windows.Forms.CheckBox();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.lnk_kml = new System.Windows.Forms.LinkLabel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label51 = new System.Windows.Forms.Label();
+            this.BUT_shiftdown = new System.Windows.Forms.Button();
+            this.BUT_shiftup = new System.Windows.Forms.Button();
+            this.BUT_shiftright = new System.Windows.Forms.Button();
+            this.BUT_shiftleft = new System.Windows.Forms.Button();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_homedist = new System.Windows.Forms.Label();
             this.lbl_prevdist = new System.Windows.Forms.Label();
@@ -229,6 +235,7 @@ namespace MissionPlanner.GCSViews
             this.panel8.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panelMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -716,6 +723,7 @@ namespace MissionPlanner.GCSViews
             this.flowLayoutPanel1.Controls.Add(this.panel4);
             this.flowLayoutPanel1.Controls.Add(this.panel3);
             this.flowLayoutPanel1.Controls.Add(this.panel5);
+            this.flowLayoutPanel1.Controls.Add(this.panel9);
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
@@ -879,6 +887,53 @@ namespace MissionPlanner.GCSViews
             this.lnk_kml.Name = "lnk_kml";
             this.lnk_kml.TabStop = true;
             this.lnk_kml.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnk_kml_LinkClicked);
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.label51);
+            this.panel9.Controls.Add(this.BUT_shiftdown);
+            this.panel9.Controls.Add(this.BUT_shiftup);
+            this.panel9.Controls.Add(this.BUT_shiftright);
+            this.panel9.Controls.Add(this.BUT_shiftleft);
+            resources.ApplyResources(this.panel9, "panel9");
+            this.panel9.Name = "panel9";
+            // 
+            // label51
+            // 
+            resources.ApplyResources(this.label51, "label51");
+            this.label51.Name = "label51";
+            // 
+            // BUT_shiftdown
+            // 
+            resources.ApplyResources(this.BUT_shiftdown, "BUT_shiftdown");
+            this.BUT_shiftdown.Name = "BUT_shiftdown";
+            this.BUT_shiftdown.Tag = "custom";
+            this.BUT_shiftdown.UseVisualStyleBackColor = false;
+            this.BUT_shiftdown.Click += new System.EventHandler(this.BUT_shiftdown_Click);
+            // 
+            // BUT_shiftup
+            // 
+            resources.ApplyResources(this.BUT_shiftup, "BUT_shiftup");
+            this.BUT_shiftup.Name = "BUT_shiftup";
+            this.BUT_shiftup.Tag = "custom";
+            this.BUT_shiftup.UseVisualStyleBackColor = false;
+            this.BUT_shiftup.Click += new System.EventHandler(this.BUT_shiftup_Click);
+            // 
+            // BUT_shiftright
+            // 
+            resources.ApplyResources(this.BUT_shiftright, "BUT_shiftright");
+            this.BUT_shiftright.Name = "BUT_shiftright";
+            this.BUT_shiftright.Tag = "custom";
+            this.BUT_shiftright.UseVisualStyleBackColor = false;
+            this.BUT_shiftright.Click += new System.EventHandler(this.BUT_shiftright_Click);
+            // 
+            // BUT_shiftleft
+            // 
+            resources.ApplyResources(this.BUT_shiftleft, "BUT_shiftleft");
+            this.BUT_shiftleft.Name = "BUT_shiftleft";
+            this.BUT_shiftleft.Tag = "custom";
+            this.BUT_shiftleft.UseVisualStyleBackColor = false;
+            this.BUT_shiftleft.Click += new System.EventHandler(this.BUT_shiftleft_Click);
             // 
             // panelMap
             // 
@@ -1506,6 +1561,8 @@ namespace MissionPlanner.GCSViews
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -1686,5 +1743,11 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.CheckBox chk_ndvimesh;
         private System.Windows.Forms.CheckBox chk_ndvigrid;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Button BUT_shiftdown;
+        private System.Windows.Forms.Button BUT_shiftup;
+        private System.Windows.Forms.Button BUT_shiftright;
+        private System.Windows.Forms.Button BUT_shiftleft;
     }
 }
