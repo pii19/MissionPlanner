@@ -92,6 +92,9 @@ namespace MissionPlanner.Grid
         // @eams add for grid_dist adjust width
         double grid_dist_adj = 0.1;
 
+        // @eams add for grid_shift adjust width
+        double grid_shift_adj = 0.5;
+
         // GridUI
         public GridUI(GridPlugin plugin)
         {
@@ -228,6 +231,10 @@ namespace MissionPlanner.Grid
             // @eams add / grid_dist_adj
             if (plugin.Host.config["grid_dist_adj"] != null)
                 grid_dist_adj = double.Parse(plugin.Host.config["grid_dist_adj"]);
+
+            // @eams add / grid_shift_adj
+            if (plugin.Host.config["grid_shift_adj"] != null)
+                grid_shift_adj = double.Parse(plugin.Host.config["grid_shift_adj"]);
 
             // @eams add
             if (mesh_type > 0)
@@ -2953,7 +2960,7 @@ namespace MissionPlanner.Grid
             List<PointLatLngAlt> newgrid = new List<PointLatLngAlt>();
             foreach (var point in list)
             {
-                newgrid.Add(point.newpos(angle, 0.5));
+                newgrid.Add(point.newpos(angle, grid_shift_adj));
             }
             list.Clear();
             foreach (var point in newgrid)
