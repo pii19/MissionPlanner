@@ -255,6 +255,8 @@
     </Compile>
     <Compile Include="ElevationProfile.cs"> <SubType>Control</SubType> </Compile>
     <Compile Include="FollowMe.cs"> <SubType>Control</SubType> </Compile>
+    <Compile Include="Grid\RadioButtonList.cs" />
+    <Compile Include="Grid\RadioButtonList.Designer.cs" />
     <Compile Include="Swarm\PaintEventArgsI.cs" />
     <Compile Include="Swarm\TD\UI.cs">
       <SubType>Form</SubType>

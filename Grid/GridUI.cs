@@ -139,6 +139,7 @@ namespace MissionPlanner.Grid
             names.Remove("ポイント");
 
             CMB_startfrom.DataSource = names;
+            RBL_startfrom.DataSource = names;
 #else
             CMB_startfrom.DataSource = Enum.GetNames(typeof(Utilities.Grid.StartPosition));
 #endif

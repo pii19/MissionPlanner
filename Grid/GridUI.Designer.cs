@@ -234,6 +234,7 @@
             this.lbl_alt = new System.Windows.Forms.Label();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.map = new MissionPlanner.Controls.myGMAP();
+            this.RBL_startfrom = new MissionPlanner.Grid.RadioButtonList();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1684,6 +1685,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.RBL_startfrom);
             this.panel6.Controls.Add(this.label45);
             this.panel6.Controls.Add(this.TXT_angle);
             this.panel6.Controls.Add(this.BUT_angleminus);
@@ -1998,6 +2000,13 @@
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.map_MouseMove);
             this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.map_MouseUp);
             // 
+            // RBL_startfrom
+            // 
+            this.RBL_startfrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.RBL_startfrom, "RBL_startfrom");
+            this.RBL_startfrom.FormattingEnabled = true;
+            this.RBL_startfrom.Name = "RBL_startfrom";
+            // 
             // GridUI
             // 
             resources.ApplyResources(this, "$this");
@@ -2305,5 +2314,6 @@
         private System.Windows.Forms.Button BUT_leadinplus;
         private System.Windows.Forms.TextBox TXT_leadin;
         private System.Windows.Forms.Label label64;
+        private RadioButtonList RBL_startfrom;
     }
 }
