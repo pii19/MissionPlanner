@@ -7698,12 +7698,15 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void grid_shift(int angle)
         {
+            groupmarkers.Clear();
+
             //全選択
             foreach (var marker in MainMap.Overlays.First(a => a.Id == "WPOverlay").Markers)
             {
                 try
                 {
-                    if (marker.Tag != null)
+                    double d;
+                    if (marker.Tag != null && double.TryParse(marker.Tag.ToString(), out d))
                     {
                         groupmarkeradd(marker);
                     }
@@ -7767,9 +7770,31 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 groupmarkers.Clear();
                 // redraw to remove selection
                 writeKML();
-
-                CurentRectMarker = null;
             }
+
+            shiftdrawnpolygon(angle, grid_shift_adj);
+        }
+        private void shiftdrawnpolygon(int angle, double shift)
+        {
+            List<PointLatLng> list = new List<PointLatLng>(drawnpolygon.Points);
+
+            drawnpolygon.Points.Clear();
+            drawnpolygonsoverlay.Clear();
+
+            int tag = 0;
+            
+            list.ForEach(x =>
+            {
+                tag++;
+                var temp = new PointLatLngAlt(x.Lat, x.Lng);
+                var pos = temp.newpos(angle, shift).Point();
+                drawnpolygon.Points.Add(pos);
+                addpolygonmarkergrid(tag.ToString(), pos.Lng, pos.Lat, 0);
+            });
+
+            drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
+            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+            MainMap.Invalidate();
         }
     }
 
