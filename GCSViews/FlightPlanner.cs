@@ -5979,10 +5979,22 @@ namespace MissionPlanner.GCSViews
                 deleteWPToolStripMenuItem.Enabled = true;
             }
 
-            isMouseClickOffMenu = false; // Just incase
+            // @eamd add
+            int no = 0;
+            if (int.TryParse(CurentRectMarker.InnerMarker.Tag.ToString(), out no))
+            {
+                deleteWPToolStripMenuItem.Text = "ウェイポイントを削除";
+            }
+            else if (int.TryParse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", ""), out no))
+            {
+                deleteWPToolStripMenuItem.Text = "エリアポイントを削除";
+            }
+
+
+                isMouseClickOffMenu = false; // Just incase
 
             // @eamd add
-            deleteWPToolStripMenuItem.Visible = false;
+            deleteWPToolStripMenuItem.Visible = true;
             insertWpToolStripMenuItem.Visible = false;
             insertSplineWPToolStripMenuItem.Visible = false;
             loiterToolStripMenuItem.Visible = false;
@@ -6005,6 +6017,7 @@ namespace MissionPlanner.GCSViews
             switchDockingToolStripMenuItem.Visible = false;
             autoGridToolStripMenuItem.Visible = false;
             clearMissionToolStripMenuItem.Visible = false;
+            setHomeHereToolStripMenuItem.Visible = false;
         }
 
         private void contextMenuStrip1_Closed(object sender, ToolStripDropDownClosedEventArgs e)

@@ -4209,6 +4209,20 @@ namespace MissionPlanner
             {
                 if (MainV2.instance.FlightData.resume_flag == 0)
                 {
+                    // armable check
+                    if (MainV2.comPort.MAV.cs.ekfflags != ekf_status_flags)
+                    {
+                        CustomMessageBox.Show("自動走行を開始する準備が整っていません。\n状態表示がオート可（緑色）になるまでお待ちください。", "自動走行", MessageBoxButtons.OK);
+                        return;
+                    }
+
+                    // mission alive check
+                    var cmds = MainV2.instance.FlightPlanner.GetCommandList();
+                    if (cmds.Count == 0)
+                    {
+                        CustomMessageBox.Show("ミッションが設定されていないため自動走行が開始できません。", "自動走行", MessageBoxButtons.OK);
+                        return;
+                    }
 #if EAMS_UGV
                     if (CustomMessageBox.Show("機体に接続しミッションを書き込んでもよろしいですか？", "自動走行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
 #else
