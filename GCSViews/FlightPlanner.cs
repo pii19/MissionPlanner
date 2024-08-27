@@ -1327,6 +1327,12 @@ namespace MissionPlanner.GCSViews
             });
         }
 
+        public class midline
+        {
+            public PointLatLngAlt now { get; set; }
+            public PointLatLngAlt next { get; set; }
+        }
+
         /// <summary>
         /// used to write a KML, update the Map view polygon, and update the row headers
         /// </summary>
@@ -1409,6 +1415,24 @@ namespace MissionPlanner.GCSViews
                 }
 
                 pointlist = overlay.pointlist;
+
+                    {
+                        foreach (var pointLatLngAlt in pointlist.PrevNowNext())
+                        {
+                            var now = pointLatLngAlt.Item2;
+                            var next = pointLatLngAlt.Item3;
+
+                            if(now == null || next == null)
+                                continue;
+
+                            var mid = new PointLatLngAlt((now.Lat + next.Lat) / 2, (now.Lng + next.Lng) / 2,
+                                (now.Alt + next.Alt) / 2);
+
+                            var pnt = new GMapMarkerPlus(mid);
+                            pnt.Tag = new midline() {now = now, next = next};
+                            overlay.overlay.Markers.Add(pnt);
+                        }
+                    }
 
                 MainMap.Refresh();
             }
@@ -2972,6 +2996,7 @@ namespace MissionPlanner.GCSViews
         GMapMarkerRallyPt CurrentRallyPt;
         GMapMarkerPOI CurrentPOIMarker;
         GMapMarker CurrentGMapMarker;
+        private GMapMarker CurrentMidLine;
         bool isMouseDown;
         bool isMouseDraging;
         bool isMouseClickOffMenu;
@@ -3000,6 +3025,10 @@ namespace MissionPlanner.GCSViews
                 if (item is GMapMarkerPOI)
                 {
                     CurrentPOIMarker = null;
+                }
+                if (item is GMapMarkerPlus && ((GMapMarkerPlus)item).Tag is midline)
+                {
+                    CurrentMidLine = null;
                 }
                 if (item is GMapMarker)
                 {
@@ -3044,6 +3073,11 @@ namespace MissionPlanner.GCSViews
                 if (item is GMapMarkerAirport)
                 {
                     // do nothing - readonly
+                    return;
+                }
+                if (item is GMapMarkerPlus && ((GMapMarkerPlus)item).Tag is midline)
+                {
+                    CurrentMidLine = item;
                     return;
                 }
                 if (item is GMapMarkerPOI)
@@ -3386,6 +3420,26 @@ namespace MissionPlanner.GCSViews
                 {
                     POI.POIMove(CurrentPOIMarker);
                     CurrentPOIMarker = null;
+                }
+
+                if (CurrentMidLine is GMapMarkerPlus)
+                {
+                    int pnt2 = 0;
+                    var midline = CurrentMidLine.Tag as midline;
+                    // var pnt1 = int.Parse(midline.now.Tag);
+                    if (int.TryParse(midline.next.Tag, out pnt2))
+                    {
+
+                        InsertCommand(pnt2 - 1, MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, CurrentMidLine.Position.Lng,
+                            CurrentMidLine.Position.Lat, float.Parse(TXT_DefaultAlt.Text));
+                    }
+
+                    isMouseDown = false;
+                    isMouseDraging = false;
+                    CurrentMidLine = null;
+
+                    writeKML();
+                    return;
                 }
 
                 if (e.Button == MouseButtons.Left)
