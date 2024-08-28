@@ -195,6 +195,7 @@
             this.TXT_PhotoEvery = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.RBL_startfrom = new MissionPlanner.Grid.RadioButtonList();
             this.label45 = new System.Windows.Forms.Label();
             this.TXT_angle = new System.Windows.Forms.TextBox();
             this.BUT_angleminus = new System.Windows.Forms.Button();
@@ -234,7 +235,6 @@
             this.lbl_alt = new System.Windows.Forms.Label();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.map = new MissionPlanner.Controls.myGMAP();
-            this.RBL_startfrom = new MissionPlanner.Grid.RadioButtonList();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1700,6 +1700,13 @@
             resources.ApplyResources(this.panel6, "panel6");
             this.panel6.Name = "panel6";
             // 
+            // RBL_startfrom
+            // 
+            this.RBL_startfrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.RBL_startfrom, "RBL_startfrom");
+            this.RBL_startfrom.FormattingEnabled = true;
+            this.RBL_startfrom.Name = "RBL_startfrom";
+            // 
             // label45
             // 
             resources.ApplyResources(this.label45, "label45");
@@ -1999,13 +2006,6 @@
             this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.map_MouseDown);
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.map_MouseMove);
             this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.map_MouseUp);
-            // 
-            // RBL_startfrom
-            // 
-            this.RBL_startfrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.RBL_startfrom, "RBL_startfrom");
-            this.RBL_startfrom.FormattingEnabled = true;
-            this.RBL_startfrom.Name = "RBL_startfrom";
             // 
             // GridUI
             // 
