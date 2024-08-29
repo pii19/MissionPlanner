@@ -9,7 +9,7 @@ namespace MissionPlanner.Maps
     [Serializable]
     public class GMapMarkerPlus : GMapMarker
     {
-        private static readonly Bitmap icong = new Bitmap(global::MissionPlanner.Maps.Resources.plus.ToBitmap(), new Size(20, 20));
+        private static readonly Bitmap icong = new Bitmap(global::MissionPlanner.Maps.Resources.plus, new Size(20, 20));
 
         public GMapMarkerPlus(PointLatLng p)
             : base(p)
