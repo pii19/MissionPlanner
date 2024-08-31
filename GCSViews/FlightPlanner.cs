@@ -3545,8 +3545,11 @@ namespace MissionPlanner.GCSViews
                         }
                         else
                         {
-                            //callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat,
-                                //currentMarker.Position.Lng, -2);
+                            if (!chk_WPlock.Checked)
+                            {
+                                callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat,
+                                currentMarker.Position.Lng, -2);
+                            }
                         }
                         CurentRectMarker = null;
                     }
@@ -3691,7 +3694,7 @@ namespace MissionPlanner.GCSViews
                         log.Error(ex);
                     }
 
-                    if (CurentRectMarker != null && CurentRectMarker.Tag != null)
+                    if (CurentRectMarker.Tag != null && chk_WPlock.Checked)
                     {
                         return;
                     }
@@ -7862,6 +7865,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
             MainMap.UpdatePolygonLocalPosition(drawnpolygon);
             MainMap.Invalidate();
+        }
+
+        private void chk_WPlock_CheckedChanged(object sender, EventArgs e)
+        {
         }
     }
 
