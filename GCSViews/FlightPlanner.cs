@@ -7879,6 +7879,112 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             savePolygonToolStripMenuItem.PerformClick();
         }
+
+        public void autosave()
+        {
+            // get timestamp string
+            var time_str = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            // save waypoint file
+            if (Commands.Rows.Count > 0)
+            {
+                string file = time_str + ".waypoints"; ;
+                try
+                {
+                    StreamWriter sw = new StreamWriter(file);
+                    sw.WriteLine("QGC WPL 110");
+                    try
+                    {
+                        sw.WriteLine("0\t1\t0\t16\t0\t0\t0\t0\t" +
+                            double.Parse(TXT_homelat.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                            "\t" +
+                            double.Parse(TXT_homelng.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                            "\t" +
+                            double.Parse(TXT_homealt.Text).ToString("0.000000", new CultureInfo("en-US")) +
+                            "\t1");
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                        sw.WriteLine("0\t1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t1");
+                    }
+                    for (int a = 0; a < Commands.Rows.Count - 0; a++)
+                    {
+                        ushort mode = 0;
+
+                        if (Commands.Rows[a].Cells[0].Value.ToString() == "UNKNOWN")
+                        {
+                            mode = (ushort)Commands.Rows[a].Cells[Command.Index].Tag;
+                        }
+                        else
+                        {
+                            mode = (ushort)(MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), Commands.Rows[a].Cells[Command.Index].Value.ToString());
+                        }
+
+                        sw.Write((a + 1)); // seq
+                        sw.Write("\t" + 0); // current
+                        sw.Write("\t" + CMB_altmode.SelectedValue); //frame 
+                        sw.Write("\t" + mode);
+                        sw.Write("\t" +
+                            double.Parse(Commands.Rows[a].Cells[Param1.Index].Value.ToString())
+                                .ToString("0.00000000", new CultureInfo("en-US")));
+                        sw.Write("\t" +
+                            double.Parse(Commands.Rows[a].Cells[Param2.Index].Value.ToString())
+                                .ToString("0.00000000", new CultureInfo("en-US")));
+                        sw.Write("\t" +
+                            double.Parse(Commands.Rows[a].Cells[Param3.Index].Value.ToString())
+                                .ToString("0.00000000", new CultureInfo("en-US")));
+                        sw.Write("\t" +
+                            double.Parse(Commands.Rows[a].Cells[Param4.Index].Value.ToString())
+                                .ToString("0.00000000", new CultureInfo("en-US")));
+                        sw.Write("\t" +
+                            double.Parse(Commands.Rows[a].Cells[Lat.Index].Value.ToString())
+                                .ToString("0.00000000", new CultureInfo("en-US")));
+                        sw.Write("\t" +
+                            double.Parse(Commands.Rows[a].Cells[Lon.Index].Value.ToString())
+                                .ToString("0.00000000", new CultureInfo("en-US")));
+                        sw.Write("\t" +
+                            (double.Parse(Commands.Rows[a].Cells[Alt.Index].Value.ToString()) /
+                                CurrentState.multiplieralt).ToString("0.000000", new CultureInfo("en-US")));
+                        sw.Write("\t" + 1);
+                        sw.WriteLine("");
+                    }
+                    sw.Close();
+
+                    lbl_wpfile.Text = "Saved " + Path.GetFileName(file);
+                }
+                catch (Exception)
+                {
+                    CustomMessageBox.Show(Strings.ERROR);
+                }
+            }
+
+            // save poly file
+            if (drawnpolygon.Points.Count > 0)
+            {
+                string file = time_str + ".poly"; ;
+                try
+                {
+                    StreamWriter sw = new StreamWriter(file);
+                    sw.WriteLine("#saved by Mission Planner " + Application.ProductVersion);
+                    if (drawnpolygon.Points.Count > 0)
+                    {
+                        foreach (var pll in drawnpolygon.Points)
+                        {
+                            sw.WriteLine(pll.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll.Lng.ToString(CultureInfo.InvariantCulture));
+                        }
+
+                        PointLatLng pll2 = drawnpolygon.Points[0];
+                        sw.WriteLine(pll2.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll2.Lng.ToString(CultureInfo.InvariantCulture));
+                    }
+                    sw.Close();
+                }
+                catch
+                {
+                    CustomMessageBox.Show(Strings.ERROR);
+                }
+            }
+        }
     }
 
     public class GMapPolygonMesh : GMapPolygon

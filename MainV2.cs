@@ -4322,6 +4322,10 @@ namespace MissionPlanner
                     first = true;
                 }
                 );
+
+                // auto save
+                MainV2.instance.FlightPlanner.autosave();
+
                 CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
 #if false
                 // arm the MAV
