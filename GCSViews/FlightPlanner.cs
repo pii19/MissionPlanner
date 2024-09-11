@@ -6021,6 +6021,8 @@ namespace MissionPlanner.GCSViews
                     MainMap.Invalidate();
 
                     MainMap.ZoomAndCenterMarkers(drawnpolygonsoverlay.Id);
+
+                    lbl_polyfile.Text = "Loaded " + Path.GetFileName(fd.FileName);
                 }
             }
         }
@@ -7869,6 +7871,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void chk_WPlock_CheckedChanged(object sender, EventArgs e)
         {
+        }
+
+        private void BUT_loadpolyfile_Click(object sender, EventArgs e)
+        {
+            loadPolygonToolStripMenuItem.PerformClick();
+        }
+
+        private void BUT_savepolyfile_Click(object sender, EventArgs e)
+        {
+            savePolygonToolStripMenuItem.PerformClick();
         }
     }
 
