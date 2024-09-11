@@ -777,7 +777,6 @@ namespace MissionPlanner.GCSViews
             this.chk_WPlock.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_WPlock.Name = "chk_WPlock";
             this.chk_WPlock.UseVisualStyleBackColor = true;
-            this.chk_WPlock.CheckedChanged += new System.EventHandler(this.chk_WPlock_CheckedChanged);
             // 
             // panel11
             // 

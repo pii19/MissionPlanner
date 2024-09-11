@@ -7846,6 +7846,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             shiftdrawnpolygon(angle, grid_shift_adj);
         }
+
         private void shiftdrawnpolygon(int angle, double shift)
         {
             List<PointLatLng> list = new List<PointLatLng>(drawnpolygon.Points);
@@ -7867,10 +7868,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
             MainMap.UpdatePolygonLocalPosition(drawnpolygon);
             MainMap.Invalidate();
-        }
-
-        private void chk_WPlock_CheckedChanged(object sender, EventArgs e)
-        {
         }
 
         private void BUT_loadpolyfile_Click(object sender, EventArgs e)
