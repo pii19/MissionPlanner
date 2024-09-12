@@ -7884,11 +7884,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             // get timestamp string
             var time_str = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var dir = Settings.GetUserDataDirectory();
 
             // save waypoint file
             if (Commands.Rows.Count > 0)
             {
-                string file = time_str + ".waypoints"; ;
+                string file = Path.Combine(dir, time_str + ".waypoints");
                 try
                 {
                     StreamWriter sw = new StreamWriter(file);
@@ -7962,7 +7963,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             // save poly file
             if (drawnpolygon.Points.Count > 0)
             {
-                string file = time_str + ".poly"; ;
+                string file = Path.Combine(dir, time_str + ".poly");
                 try
                 {
                     StreamWriter sw = new StreamWriter(file);
