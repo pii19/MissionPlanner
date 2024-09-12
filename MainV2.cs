@@ -4301,6 +4301,9 @@ namespace MissionPlanner
                     }
                 }
 
+                // auto save
+                MainV2.instance.FlightPlanner.autosave();
+
                 // set longest line distance
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_longest_line_dist_ch, atex_longest_line_dist, 0, 0, 0, 0, 0);
 
@@ -4322,9 +4325,6 @@ namespace MissionPlanner
                     first = true;
                 }
                 );
-
-                // auto save
-                MainV2.instance.FlightPlanner.autosave();
 
                 CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
 #if false

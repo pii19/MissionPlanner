@@ -5958,6 +5958,7 @@ namespace MissionPlanner.GCSViews
                         }
 
                         sw.Close();
+                        lbl_polyfile.Text = "Saved " + Path.GetFileName(sf.FileName);
                     }
                     catch
                     {
@@ -7979,6 +7980,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         sw.WriteLine(pll2.Lat.ToString(CultureInfo.InvariantCulture) + " " + pll2.Lng.ToString(CultureInfo.InvariantCulture));
                     }
                     sw.Close();
+                    lbl_polyfile.Text = "Saved " + Path.GetFileName(file);
                 }
                 catch
                 {
