@@ -923,6 +923,7 @@ namespace MissionPlanner.Grid
             double maxgroundelevation = double.MinValue;
             double mingroundelevation = double.MaxValue;
             double startalt = plugin.Host.cs.HomeAlt;
+            bool reverse = false;    // @eams add
 
             foreach (var item in grid)
             {
@@ -1020,7 +1021,18 @@ namespace MissionPlanner.Grid
                     a++;
                 }
                 GMapRoute seg = new GMapRoute(segment, "segment" + a.ToString());
-                seg.Stroke = new Pen(Color.Yellow, 4);
+                if (item.Tag == "E")
+                {
+                    reverse = !reverse;
+                }
+                if (reverse)
+                {
+                    seg.Stroke = new Pen(Color.Red, 4);
+                }
+                else
+                {
+                    seg.Stroke = new Pen(Color.Yellow, 4);
+                }
                 seg.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Custom;
                 seg.IsHitTestVisible = true;
                 routetotal = routetotal + (float)seg.Distance;
