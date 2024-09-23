@@ -43,6 +43,7 @@ namespace MissionPlanner.ArduPilot
             addpolygonmarker("H", home.Lng, home.Lat, home.Alt, null, 0);
 
             int a = 0;
+            bool reverse = false;
             foreach (var itemtuple in missionitems.PrevNowNext())
             {
                 var itemprev = itemtuple.Item1;
@@ -149,8 +150,10 @@ namespace MissionPlanner.ArduPilot
                     }
                     else
                     {
+                        string tag2 = reverse ? "reverse" : "";
                         pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
-                            item.alt + gethomealt(item.lat, item.lng), (a + 1).ToString()));
+                            item.alt + gethomealt(item.lat, item.lng), (a + 1).ToString())
+                        { Tag2 = tag2 });
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
                         addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
                             item.alt, null, wpradius);
@@ -182,6 +185,10 @@ namespace MissionPlanner.ArduPilot
                     }
 
                     fullpointlist.AddRange(list);
+                }
+                else if (command == (ushort)MAVLink.MAV_CMD.DO_SET_REVERSE)
+                {
+                    reverse = item.p1 == 1 ? true : false;
                 }
                 else
                 {
@@ -344,6 +351,8 @@ namespace MissionPlanner.ArduPilot
             PointLatLngAlt homepoint = new PointLatLngAlt();
             PointLatLngAlt firstpoint = new PointLatLngAlt();
             PointLatLngAlt lastpoint = new PointLatLngAlt();
+            PointLatLngAlt prevpoint = new PointLatLngAlt();
+            List<PointLatLng> segment = new List<PointLatLng>();
 
             if (count > 2)
             {
@@ -359,6 +368,7 @@ namespace MissionPlanner.ArduPilot
                     if (counter == 2)
                     {
                         firstpoint = x;
+                        prevpoint = x;
                     }
                     if (counter == count - 1)
                     {
@@ -371,7 +381,22 @@ namespace MissionPlanner.ArduPilot
                         homeroute.Points.Add(firstpoint);
                         return;
                     }
-                    route.Points.Add(x);
+                    segment.Add(prevpoint);
+                    segment.Add(x);
+                    prevpoint = x;
+                    GMapRoute seg = new GMapRoute(segment, "segment" + counter.ToString());
+                    if (x.Tag2 == "reverse")
+                    {
+                        seg.Stroke = new Pen(Color.Yellow, 4);
+                    }
+                    else
+                    {
+                        seg.Stroke = new Pen(Color.Red, 4);
+                    }
+                    seg.Stroke.DashStyle = DashStyle.Custom;
+                    overlay.Routes.Add(seg);
+
+                    //route.Points.Add(x);
                 });
 
                 homeroute.Stroke = new Pen(Color.Yellow, 2);
@@ -381,9 +406,9 @@ namespace MissionPlanner.ArduPilot
 
                 overlay.Routes.Add(homeroute);
 
-                route.Stroke = new Pen(Color.Yellow, 4);
-                route.Stroke.DashStyle = DashStyle.Custom;
-                overlay.Routes.Add(route);
+                //route.Stroke = new Pen(Color.Yellow, 4);
+                //route.Stroke.DashStyle = DashStyle.Custom;
+                //overlay.Routes.Add(route);
             }
         }
     }
