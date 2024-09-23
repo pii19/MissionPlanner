@@ -1038,10 +1038,10 @@ namespace MissionPlanner
             MenuConnect.Visible = false;
             toolStripConnectionControl.Visible = false; // for users
             toolStripTextBoxCom.Visible = false;
-#if false
             MenuInitConfig.Visible = false;
-            MenuArduPilot.Visible = false;
             MenuSimulation.Visible = false;
+#if false
+            MenuArduPilot.Visible = false;
 #endif
 
 #if EAMS_UGV
@@ -1355,6 +1355,12 @@ namespace MissionPlanner
 
         private void MenuTuning_Click(object sender, EventArgs e)
         {
+            if (!timerAtex.Enabled)
+            {
+                timerAtex.Enabled = true;
+            }
+            timer_atex_click++;
+#if false
             if (Settings.Instance.GetBoolean("password_protect") == false)
             {
                 MyView.ShowScreen("SWConfig");
@@ -1366,6 +1372,28 @@ namespace MissionPlanner
                     MyView.ShowScreen("SWConfig");
                 }
             }
+#endif
+        }
+
+        static int timer_atex_click = 0;
+        private void timerAtex_Tick(Object sender, EventArgs e)
+        {
+            timerAtex.Enabled = false;
+            if (timer_atex_click >= 5)
+            {
+                if (Settings.Instance.GetBoolean("password_protect") == false)
+                {
+                    MyView.ShowScreen("SWConfig");
+                }
+                else
+                {
+                    if (Password.VerifyPassword())
+                    {
+                        MyView.ShowScreen("SWConfig");
+                    }
+                }
+            }
+            timer_atex_click = 0;
         }
 
         private void MenuTerminal_Click(object sender, EventArgs e)
@@ -3315,7 +3343,13 @@ namespace MissionPlanner
             timerCustom.Interval = 500;
             timerCustom.Enabled = true; // timer.Start()と同じ
 
+            // @eams additional timer for atex
+            timerAtex.Tick += new EventHandler(timerAtex_Tick);
+            timerAtex.Interval = 3000;
+            timerAtex.Enabled = false;
         }
+
+        System.Windows.Forms.Timer timerAtex = new System.Windows.Forms.Timer();
 
         private Dictionary<string, string> ProcessCommandLine(string[] args)
         {
