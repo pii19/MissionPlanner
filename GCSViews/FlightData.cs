@@ -3566,6 +3566,8 @@ namespace MissionPlanner.GCSViews
 
         private void quickView_DoubleClick(object sender, EventArgs e)
         {
+            return;
+
             QuickView qv = (QuickView)sender;
 
             Form selectform = new Form
@@ -4805,7 +4807,7 @@ namespace MissionPlanner.GCSViews
                     Name = "quickView" + (tableLayoutPanelQuick.Controls.Count + 1)
                 };
                 QV.DoubleClick += quickView_DoubleClick;
-                QV.ContextMenuStrip = contextMenuStripQuickView;
+                //QV.ContextMenuStrip = contextMenuStripQuickView;
                 QV.Dock = DockStyle.Fill;
                 QV.numberColor = GetColor();
                 QV.number = 0;
