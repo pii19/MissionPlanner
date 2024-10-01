@@ -352,7 +352,7 @@ namespace MissionPlanner.ArduPilot
             PointLatLngAlt firstpoint = new PointLatLngAlt();
             PointLatLngAlt lastpoint = new PointLatLngAlt();
             PointLatLngAlt prevpoint = new PointLatLngAlt();
-            List<PointLatLng> segment = new List<PointLatLng>();
+            List<PointLatLngAlt> route_point = new List<PointLatLngAlt>();
 
             if (count > 2)
             {
@@ -381,22 +381,8 @@ namespace MissionPlanner.ArduPilot
                         homeroute.Points.Add(firstpoint);
                         return;
                     }
-                    segment.Add(prevpoint);
-                    segment.Add(x);
-                    prevpoint = x;
-                    GMapRoute seg = new GMapRoute(segment, "segment" + counter.ToString());
-                    if (x.Tag2 == "reverse")
-                    {
-                        seg.Stroke = new Pen(Color.Yellow, 4);
-                    }
-                    else
-                    {
-                        seg.Stroke = new Pen(Color.Red, 4);
-                    }
-                    seg.Stroke.DashStyle = DashStyle.Custom;
-                    overlay.Routes.Add(seg);
-
-                    //route.Points.Add(x);
+                    route.Points.Add(x);
+                    route_point.Add(x);
                 });
 
                 homeroute.Stroke = new Pen(Color.Yellow, 2);
@@ -405,6 +391,26 @@ namespace MissionPlanner.ArduPilot
                     homeroute.Stroke.DashStyle = DashStyle.Dash;
 
                 overlay.Routes.Add(homeroute);
+
+                List<PointLatLng> segment = new List<PointLatLng>();
+
+                foreach ( PointLatLngAlt p in route_point)
+                {
+                    segment.Add(prevpoint);
+                    segment.Add(p);
+                    prevpoint = p;
+                    GMapRoute seg = new GMapRoute(segment, "segment" + counter.ToString());
+                    if (p.Tag2 == "reverse")
+                    {
+                        seg.Stroke = new Pen(Color.Red, 4);
+                    }
+                    else
+                    {
+                        seg.Stroke = new Pen(Color.Yellow, 4);
+                    }
+                    seg.Stroke.DashStyle = DashStyle.Custom;
+                    overlay.Routes.Add(seg);
+                }
 
                 //route.Stroke = new Pen(Color.Yellow, 4);
                 //route.Stroke.DashStyle = DashStyle.Custom;
