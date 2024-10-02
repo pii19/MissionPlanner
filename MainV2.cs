@@ -1039,7 +1039,7 @@ namespace MissionPlanner
             toolStripConnectionControl.Visible = false; // for users
             toolStripTextBoxCom.Visible = false;
             MenuInitConfig.Visible = false;
-            MenuSimulation.Visible = false;
+            MenuSimulation.Visible = true;
 #if false
             MenuArduPilot.Visible = false;
 #endif
@@ -4285,7 +4285,7 @@ namespace MissionPlanner
                     MainV2.instance.FlightPlanner.config(true);
                     MainV2.instance.FlightPlanner.BUT_write_Click(this, null);
 #if EAMS_UGV
-                    MainV2.comPort.setWPCurrent(0); // set nav to
+                    //MainV2.comPort.setWPCurrent(0); // set nav to
 #endif
                 }
 #if false
@@ -4334,6 +4334,19 @@ namespace MissionPlanner
                         return;
                     }
                 }
+
+                var sender_name = ((Button)sender).Name;
+                int wpno = 0;
+                string wpno_str = "0";
+                if (string.Equals(sender_name, "ButtonStartWpno"))
+                {
+                    if (InputBox.Show("走行開始WP指定", "途中から走行を開始したいウェイポイント番号を指定してください。", ref wpno_str) == DialogResult.OK)
+                    {
+                        ;
+                    }
+                }
+                int.TryParse(wpno_str, out wpno);
+                MainV2.comPort.setWPCurrent((ushort)wpno); // set nav to
 
                 // auto save
                 MainV2.instance.FlightPlanner.autosave();
