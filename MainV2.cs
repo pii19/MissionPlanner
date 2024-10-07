@@ -1039,7 +1039,7 @@ namespace MissionPlanner
             toolStripConnectionControl.Visible = false; // for users
             toolStripTextBoxCom.Visible = false;
             MenuInitConfig.Visible = false;
-            MenuSimulation.Visible = true;
+            MenuSimulation.Visible = false;
 #if false
             MenuArduPilot.Visible = false;
 #endif
