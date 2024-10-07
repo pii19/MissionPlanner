@@ -1272,6 +1272,9 @@ namespace MissionPlanner
         // @eams add for atex
         public int wp_sw_cnt { get; set; } = -1;
         public int error_return_req { get; set; } = -1;
+        public int err_code_main { get; set; } = 0;
+        public int err_code_sub { get; set; } = 0;
+        public int err_msg_code { get; set; } = 0;
         public bool wp_sw_cnt_status { get; set; } = false;
         public bool error_return_req_status { get; set; } = false;
 
@@ -2784,6 +2787,10 @@ namespace MissionPlanner
                             error_return_req = (int)atex.error_return_req;
                             error_return_req_status = true;
                         }
+
+                        err_code_main = (int)atex.err_code_main;
+                        err_code_sub = (int)atex.err_code_sub;
+                        err_msg_code = (int)atex.err_msg_code;
                     }
 
                 }

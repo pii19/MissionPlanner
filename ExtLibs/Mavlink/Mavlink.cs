@@ -12444,6 +12444,18 @@ ATEX_LAWNMOWER_INFO = 236,
         [Units("")]
         [Description("error return request count")]
         public byte error_return_req;   //uint8
+        /// <summary>error code main</summary>
+        [Units("")]
+        [Description("error code main")]
+        public byte err_code_main;   //uint8
+        /// <summary>error code sub</summary>
+        [Units("")]
+        [Description("error code sub")]
+        public byte err_code_sub;   //uint8
+        /// <summary>error message code</summary>
+        [Units("")]
+        [Description("error message code")]
+        public byte err_msg_code;   //uint8
 
     };
 }
