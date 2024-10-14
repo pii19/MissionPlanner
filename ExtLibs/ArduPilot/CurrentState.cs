@@ -1278,6 +1278,14 @@ namespace MissionPlanner
         public bool wp_sw_cnt_status { get; set; } = false;
         public bool error_return_req_status { get; set; } = false;
 
+        [DisplayText("エラーコード")]
+        private string _err_code = "0.00";
+        public string err_code
+        {
+            get { return $"{err_code_main:0}.{err_code_sub:00}"; }
+            set { _err_code = value; }
+        }
+
         public bool connected
         {
             get { return (parent.parent.BaseStream.IsOpen || parent.parent.logreadmode); }
