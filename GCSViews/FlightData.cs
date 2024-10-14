@@ -518,6 +518,10 @@ namespace MissionPlanner.GCSViews
                         QV.Tag = QV.desc;
                         QV.desc = MainV2.comPort.MAV.cs.GetNameandUnit(desc);
 
+                        // set numberformat     @eams add
+                        if (desc == "gpsstatus" || desc == "satcount" || desc == "gpshdop")
+                            QV.numberformat = "0";
+
                         // set databinding for value
                         QV.DataBindings.Clear();
                         try
