@@ -221,6 +221,9 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
@@ -292,6 +295,7 @@
             this.contextMenuStripHud.SuspendLayout();
             this.contextMenuStripactionstab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainH
@@ -328,6 +332,7 @@
             // 
             resources.ApplyResources(this.tableLayoutPanelMessage, "tableLayoutPanelMessage");
             this.tableLayoutPanelMessage.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tableLayoutPanelMessage.Controls.Add(this.panel8, 0, 4);
             this.tableLayoutPanelMessage.Controls.Add(this.panel4, 0, 0);
             this.tableLayoutPanelMessage.Controls.Add(this.panel5, 0, 1);
             this.tableLayoutPanelMessage.Controls.Add(this.panel6, 0, 2);
@@ -2276,7 +2281,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2796,6 +2801,29 @@
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.label15);
+            this.panel8.Controls.Add(this.labelStatus);
+            resources.ApplyResources(this.panel8, "panel8");
+            this.panel8.Name = "panel8";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.BackColor = System.Drawing.Color.Silver;
+            this.label15.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label15.Name = "label15";
+            this.label15.Tag = "custom";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.BackColor = System.Drawing.Color.Silver;
+            resources.ApplyResources(this.labelStatus, "labelStatus");
+            this.labelStatus.ForeColor = System.Drawing.Color.Black;
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Tag = "custom";
+            // 
             // modifyandSetLoiterRad
             // 
             this.modifyandSetLoiterRad.ButtonText = "Set Loiter Rad";
@@ -3011,6 +3039,7 @@
             this.contextMenuStripHud.ResumeLayout(false);
             this.contextMenuStripactionstab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
+            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3249,5 +3278,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox TXT_timer;
         private System.Windows.Forms.Button ButtonStartWpno;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label labelStatus;
     }
 }
