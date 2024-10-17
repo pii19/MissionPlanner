@@ -1029,21 +1029,21 @@
             65536});
             resources.ApplyResources(this.NUM_Distance, "NUM_Distance");
             this.NUM_Distance.Maximum = new decimal(new int[] {
-            9999,
+            7,
             0,
             0,
-            0});
+            65536});
             this.NUM_Distance.Minimum = new decimal(new int[] {
-            3,
+            2,
             0,
             0,
             65536});
             this.NUM_Distance.Name = "NUM_Distance";
             this.NUM_Distance.Value = new decimal(new int[] {
-            50,
+            7,
             0,
             0,
-            0});
+            65536});
             this.NUM_Distance.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
             // label3
