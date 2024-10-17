@@ -258,7 +258,7 @@ public partial class MAVLink
 		new message_info(42000, "ICAROUS_HEARTBEAT", 227, 1, 1, typeof( mavlink_icarous_heartbeat_t )),
 		new message_info(42001, "ICAROUS_KINEMATIC_BANDS", 239, 46, 46, typeof( mavlink_icarous_kinematic_bands_t )),
 
-        new message_info(236, "ATEX_LAWNMOWER_INFO", 0, 2, 2, typeof( mavlink_atex_lawnmower_info_t )),
+        new message_info(236, "ATEX_LAWNMOWER_INFO", 0, 5, 5, typeof( mavlink_atex_lawnmower_info_t )),
     };
 
     public const byte MAVLINK_VERSION = 2;
