@@ -1162,6 +1162,17 @@ namespace MissionPlanner.GCSViews
                         labelMessage.Text = mes;
                     }
 
+                    // @eams update status display
+                    mes = BuildStatusMes();
+                    if (labelStatus.InvokeRequired)
+                    {
+                        Invoke((MethodInvoker)(() => labelStatus.Text = mes));
+                    }
+                    else
+                    {
+                        labelStatus.Text = mes;
+                    }
+
                     // @eams check resume point and failsafe
                     var commands = MainV2.instance.FlightPlanner.GetCommandList();
                     string lastwp = MainV2.comPort.MAV.cs.lastautowp.ToString();
@@ -5844,6 +5855,78 @@ namespace MissionPlanner.GCSViews
             {
                 e.Handled = true;
             }
+        }
+
+        private string BuildStatusMes()
+        {
+            string mes = "";
+            switch (MainV2.comPort.MAV.cs.err_msg_code)
+            {
+                case 0x01:
+                    mes = "中断(自動運転スイッチOFF)";
+                    break;
+                case 0x02:
+                    mes = "中断(レバー操作)";
+                    break;
+                case 0x03:
+                    mes = "中断(本機側エラー)";
+                    break;
+                case 0x04:
+                    mes = "中断(急傾斜状態検知)";
+                    break;
+                case 0x05:
+                    mes = "中断(前方障害物検知)";
+                    break;
+                case 0x06:
+                    mes = "中断(後方障害物検知)";
+                    break;
+                case 0x07:
+                    mes = "中断(タイマー切れ)";
+                    break;
+                case 0x08:
+                    mes = "中断(経路逸脱/走行スタック)";
+                    break;
+                case 0x09:
+                    mes = "中断(位置情報品質低下)";
+                    break;
+                case 0x0a:
+                    mes = "中断(ユニット側エラー)";
+                    break;
+                case 0x0b:
+                    mes = "中断(CAN通信途絶)";
+                    break;
+                case 0x11:
+                    mes = "開始失敗(ユニット未起動)";
+                    break;
+                case 0x12:
+                    mes = "開始失敗(位置情報不定)";
+                    break;
+                case 0x13:
+                    mes = "開始失敗(手動走行中)";
+                    break;
+                case 0x14:
+                    mes = "開始失敗(経路設定中)";
+                    break;
+                case 0x15:
+                    mes = "開始失敗(急傾斜状態)";
+                    break;
+                case 0x16:
+                    mes = "開始失敗(障害物センサーON)";
+                    break;
+                case 0x17:
+                    mes = "開始失敗(経路情報未設定)";
+                    break;
+                case 0x18:
+                    mes = "開始失敗(開始位置エラー)";
+                    break;
+                case 0x19:
+                    mes = "開始失敗(本機側エラー)";
+                    break;
+                default:
+                    mes = "";
+                    break;
+            }
+            return mes;
         }
     }
 }
