@@ -12432,7 +12432,7 @@ ATEX_LAWNMOWER_INFO = 236,
     
     };
 
-    [StructLayout(LayoutKind.Sequential, Pack=1, Size=2)]
+    [StructLayout(LayoutKind.Sequential, Pack=1, Size=5)]
     ///<summary> custom message for atex </summary>
     public struct mavlink_atex_lawnmower_info_t
     {
