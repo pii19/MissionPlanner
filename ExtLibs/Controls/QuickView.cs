@@ -126,16 +126,19 @@ namespace MissionPlanner.Controls
 
            // extent = extenttest;
 
-            float hRatio = (labelWithPseudoOpacity2.Height) / (float)(extent.Height);
+            float hRatio = (labelWithPseudoOpacity2.Height - labelWithPseudoOpacity1.Height) / (float)(extent.Height);
             float wRatio = this.Width / (float)extent.Width;
             float ratio = (hRatio < wRatio) ? hRatio : wRatio;
 
-            float newSize = this.Font.Size * ratio;
+            //float newSize = this.Font.Size * ratio;
+            float newSize = 8;
+            newSize = (newSize * ratio);// * 0.75f; // pixel to points
+            newSize -= newSize % 5;
 
             if (newSize < 8 || newSize > 999999)
                 newSize = 8;
 
-            labelWithPseudoOpacity2.Font = new Font(labelWithPseudoOpacity2.Font.FontFamily, newSize - 2, labelWithPseudoOpacity2.Font.Style);
+            labelWithPseudoOpacity2.Font = new Font(labelWithPseudoOpacity2.Font.FontFamily, newSize, labelWithPseudoOpacity2.Font.Style);
         }
 
         protected override void OnResize(EventArgs e)
