@@ -31,17 +31,14 @@ namespace MissionPlanner.Controls
         {
             this.components = new System.ComponentModel.Container();
             this.labelWithPseudoOpacity1 = new System.Windows.Forms.Label();
-  
             this.labelWithPseudoOpacity2 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-          
             this.SuspendLayout();
             // 
             // labelWithPseudoOpacity1
             // 
             this.labelWithPseudoOpacity1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelWithPseudoOpacity1.AutoSize = false;
             this.labelWithPseudoOpacity1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelWithPseudoOpacity1.Location = new System.Drawing.Point(3, 0);
             this.labelWithPseudoOpacity1.Name = "labelWithPseudoOpacity1";
@@ -49,9 +46,6 @@ namespace MissionPlanner.Controls
             this.labelWithPseudoOpacity1.TabIndex = 0;
             this.labelWithPseudoOpacity1.Text = "Altitude:";
             this.labelWithPseudoOpacity1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.labelWithPseudoOpacity1, "Double click to change");
-            // 
-
             // 
             // labelWithPseudoOpacity2
             // 
@@ -65,7 +59,6 @@ namespace MissionPlanner.Controls
             this.labelWithPseudoOpacity2.TabIndex = 2;
             this.labelWithPseudoOpacity2.Text = "0000.00";
             this.labelWithPseudoOpacity2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.toolTip1.SetToolTip(this.labelWithPseudoOpacity2, "Double click to change");
             // 
             // QuickView
             // 
@@ -74,7 +67,6 @@ namespace MissionPlanner.Controls
             this.Name = "QuickView";
             this.Size = new System.Drawing.Size(122, 54);
             this.Resize += new System.EventHandler(this.QuickView_Resize);
-
             this.ResumeLayout(false);
 
         }
