@@ -928,7 +928,17 @@
             0,
             0,
             0});
+            this.NUM_leadin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.NUM_leadin.Name = "NUM_leadin";
+            this.NUM_leadin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.NUM_leadin.ValueChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
             // label7
@@ -1702,8 +1712,10 @@
             // 
             // RBL_startfrom
             // 
+            this.RBL_startfrom.BackColor = System.Drawing.SystemColors.Control;
             this.RBL_startfrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.RBL_startfrom, "RBL_startfrom");
+            this.RBL_startfrom.ForeColor = System.Drawing.SystemColors.ControlText;
             this.RBL_startfrom.FormattingEnabled = true;
             this.RBL_startfrom.Name = "RBL_startfrom";
             // 

@@ -971,6 +971,16 @@ namespace MissionPlanner.Utilities
                         newstart = newpos(closest.p1, angle, 0);
                         first_S = false;
                     }
+                    if (!PointInPolygon(newstart, utmpositions))
+                    {
+                        utmpos tmpend = newpos(closest.p2, angle, overshoot1);
+                        lastpnt = closest.p2;
+                        grid.Remove(closest);
+                        if (grid.Count == 0)
+                            break;
+                        closest = findClosestLine(tmpend, grid, minLaneSeparationINMeters, angle);
+                        continue;
+                    }
                     newstart.Tag = "S";
                     addtomap(newstart, "S");
                     ans.Add(newstart);
@@ -1039,6 +1049,16 @@ namespace MissionPlanner.Utilities
                     {
                         newstart = newpos(closest.p2, angle, 0);
                         first_S = false;
+                    }
+                    if (!PointInPolygon(newstart, utmpositions))
+                    {
+                        utmpos tmpend = newpos(closest.p1, angle, -overshoot2);
+                        lastpnt = closest.p1;
+                        grid.Remove(closest);
+                        if (grid.Count == 0)
+                            break;
+                        closest = findClosestLine(tmpend, grid, minLaneSeparationINMeters, angle);
+                        continue;
                     }
                     newstart.Tag = "S";
                     addtomap(newstart, "S");
