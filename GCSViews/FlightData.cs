@@ -32,6 +32,7 @@ using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using TableLayoutPanelCellPosition = System.Windows.Forms.TableLayoutPanelCellPosition;
 using UnauthorizedAccessException = System.UnauthorizedAccessException;
+using static MissionPlanner.GCSViews.FlightPlanner;
 
 // written by michael oborne
 
@@ -591,7 +592,8 @@ namespace MissionPlanner.GCSViews
             GraphPane myPane = zgc.GraphPane;
 
             // Set the titles and axis labels
-            myPane.Title.Text = "Tuning - Double click to change items";
+            //myPane.Title.Text = "Tuning - Double click to change items";
+            myPane.Title.Text = "フライトプランをロードしていると標高グラフが表示されます。";
             myPane.XAxis.Title.Text = "Time (s)";
             myPane.YAxis.Title.Text = "Unit";
             myPane.YAxis.Title.FontSpec.Size += 2;
@@ -1088,8 +1090,8 @@ namespace MissionPlanner.GCSViews
             {
                 if (sc.Name == "FlightPlanner")
                 {
-                    splitContainer1.Panel2.Controls.Remove(sc.Control);
-                    splitContainer1.Panel2.Controls.Remove((Control) sender);
+                    splitContainer1.Panel1.Controls.Remove(sc.Control);
+                    splitContainer1.Panel1.Controls.Remove((Control) sender);
                     sc.Control.Visible = false;
 
                     if (sc.Control is IDeactivate)
@@ -1101,7 +1103,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            foreach (Control ctl in splitContainer1.Panel2.Controls)
+            foreach (Control ctl in splitContainer1.Panel1.Controls)
             {
                 ctl.Visible = true;
             }
@@ -1824,22 +1826,49 @@ namespace MissionPlanner.GCSViews
             hud1.bgimage = camimage;
         }
 
+        ElevationProfile formElevation;
         private void CB_tuning_CheckedChanged(object sender, EventArgs e)
         {
             if (CB_tuning.Checked)
             {
-                splitContainer1.Panel1Collapsed = false;
+                splitContainer1.Panel2Collapsed = false;
+                double homealt = MainV2.comPort.MAV.cs.HomeAlt;
+                var pointlist = MainV2.instance.FlightPlanner.pointlist;
+                if (pointlist.Count < 1)
+                {
+                    return;
+                } 
+                Form formElevation = new ElevationProfile(pointlist, homealt,
+                    (altmode)Enum.Parse(typeof(altmode), MainV2.instance.FlightPlanner.CMB_altmode.Text));
+                ThemeManager.ApplyThemeTo(formElevation);
+                formElevation.TopLevel = false;
+                formElevation.FormBorderStyle = FormBorderStyle.None;
+                formElevation.Dock = DockStyle.Fill;
+                splitContainer1.Panel2.Controls.Add(formElevation);
+                formElevation.Show();
+                formElevation.BringToFront();
+#if false
                 ZedGraphTimer.Enabled = true;
                 ZedGraphTimer.Start();
                 zg1.Visible = true;
                 zg1.Refresh();
+#endif
             }
             else
             {
-                splitContainer1.Panel1Collapsed = true;
+                splitContainer1.Panel2Collapsed = true;
+                if (formElevation != null)
+                {
+                    formElevation.Close();
+                    splitContainer1.Controls.Remove(formElevation);
+                    formElevation.Dispose();
+
+                }
+#if false
                 ZedGraphTimer.Enabled = false;
                 ZedGraphTimer.Stop();
                 zg1.Visible = false;
+#endif
             }
         }
 
@@ -2683,7 +2712,7 @@ namespace MissionPlanner.GCSViews
 
             prop = new Propagation(gMapControl1);
 
-            splitContainer1.Panel1Collapsed = true;
+            splitContainer1.Panel2Collapsed = true;
 
             try
             {
@@ -2791,7 +2820,7 @@ namespace MissionPlanner.GCSViews
 
         private void flightPlannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (Control ctl in splitContainer1.Panel2.Controls)
+            foreach (Control ctl in splitContainer1.Panel1.Controls)
             {
                 ctl.Visible = false;
             }
@@ -2802,13 +2831,13 @@ namespace MissionPlanner.GCSViews
                 {
                     MyButton but = new MyButton
                     {
-                        Location = new Point(splitContainer1.Panel2.Width / 2, 0),
+                        Location = new Point(splitContainer1.Panel1.Width / 2, 0),
                         Text = "Close"
                     };
                     but.Click += but_Click;
 
-                    splitContainer1.Panel2.Controls.Add(but);
-                    splitContainer1.Panel2.Controls.Add(sc.Control);
+                    splitContainer1.Panel1.Controls.Add(but);
+                    splitContainer1.Panel1.Controls.Add(sc.Control);
                     ThemeManager.ApplyThemeTo(sc.Control);
                     ThemeManager.ApplyThemeTo(this);
 

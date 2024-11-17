@@ -842,8 +842,8 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Button))
                 {
-                    ctl.ForeColor = TextColor;
-                    ctl.BackColor = ButBG;
+                    //ctl.ForeColor = Color.Black;  // @eams disabled
+                    //ctl.BackColor = ButBG;    // @eams disabled
                 }
                 else if (ctl.GetType() == typeof(MyButton))
                 {
@@ -1144,8 +1144,8 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Button))
                 {
-                    ctl.ForeColor = Color.Black;
-                    ctl.BackColor = ButBG;
+                    //ctl.ForeColor = Color.Black;  // @eams disabled
+                    //ctl.BackColor = ButBG;    // @eams disabled
                 }
                 else if (ctl.GetType() == typeof(MyButton))
                 {
