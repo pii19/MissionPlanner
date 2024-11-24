@@ -179,7 +179,7 @@ namespace MissionPlanner.Controls
 
         [Browsable(false)] public bool npotSupported { get; private set; }
 
-        public bool SixteenXNine = false;
+        public bool SixteenXNine = true;
 
         [System.ComponentModel.Browsable(true), DefaultValue(true)]
         public bool displayheading { get; set; }

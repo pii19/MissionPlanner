@@ -12,6 +12,12 @@ namespace MissionPlanner.GCSViews
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.panelCamCont = new System.Windows.Forms.Panel();
+            this.buttonCamUnder = new System.Windows.Forms.Button();
+            this.buttonCamFront = new System.Windows.Forms.Button();
+            this.buttonCamAuto = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.hud1 = new MissionPlanner.Controls.HUD();
             this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -197,13 +203,15 @@ namespace MissionPlanner.GCSViews
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
             this.panelBottom = new System.Windows.Forms.Panel();
-            this.transparentPanel1 = new MissionPlanner.Controls.TransparentPanel();
             this.buttonPreFlight = new System.Windows.Forms.Button();
             this.buttonARM = new System.Windows.Forms.Button();
             this.buttonRTL = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainV = new System.Windows.Forms.SplitContainer();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
@@ -252,6 +260,11 @@ namespace MissionPlanner.GCSViews
             this.SubMainLeft.Panel1.SuspendLayout();
             this.SubMainLeft.Panel2.SuspendLayout();
             this.SubMainLeft.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.panelCamCont.SuspendLayout();
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
@@ -331,13 +344,85 @@ namespace MissionPlanner.GCSViews
             // 
             // SubMainLeft.Panel1
             // 
-            this.SubMainLeft.Panel1.Controls.Add(this.hud1);
+            this.SubMainLeft.Panel1.Controls.Add(this.splitContainer2);
             // 
             // SubMainLeft.Panel2
             // 
             this.SubMainLeft.Panel2.ContextMenuStrip = this.contextMenuStripactionstab;
             this.SubMainLeft.Panel2.Controls.Add(this.tabControlactions);
             this.SubMainLeft.Panel2.Controls.Add(this.panel_persistent);
+            // 
+            // splitContainer2
+            // 
+            resources.ApplyResources(this.splitContainer2, "splitContainer2");
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.panelCamCont);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.hud1);
+            // 
+            // panelCamCont
+            // 
+            this.panelCamCont.BackColor = System.Drawing.Color.Transparent;
+            this.panelCamCont.Controls.Add(this.buttonCamUnder);
+            this.panelCamCont.Controls.Add(this.buttonCamFront);
+            this.panelCamCont.Controls.Add(this.buttonCamAuto);
+            this.panelCamCont.Controls.Add(this.label7);
+            resources.ApplyResources(this.panelCamCont, "panelCamCont");
+            this.panelCamCont.ForeColor = System.Drawing.SystemColors.Window;
+            this.panelCamCont.Name = "panelCamCont";
+            // 
+            // buttonCamUnder
+            // 
+            this.buttonCamUnder.BackColor = System.Drawing.Color.Transparent;
+            this.buttonCamUnder.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_under_off;
+            resources.ApplyResources(this.buttonCamUnder, "buttonCamUnder");
+            this.buttonCamUnder.FlatAppearance.BorderSize = 0;
+            this.buttonCamUnder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonCamUnder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonCamUnder.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonCamUnder.Name = "buttonCamUnder";
+            this.buttonCamUnder.TabStop = false;
+            this.buttonCamUnder.Tag = "custom";
+            this.buttonCamUnder.UseVisualStyleBackColor = false;
+            // 
+            // buttonCamFront
+            // 
+            this.buttonCamFront.BackColor = System.Drawing.Color.Transparent;
+            this.buttonCamFront.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_front_off;
+            resources.ApplyResources(this.buttonCamFront, "buttonCamFront");
+            this.buttonCamFront.FlatAppearance.BorderSize = 0;
+            this.buttonCamFront.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonCamFront.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonCamFront.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonCamFront.Name = "buttonCamFront";
+            this.buttonCamFront.TabStop = false;
+            this.buttonCamFront.Tag = "custom";
+            this.buttonCamFront.UseVisualStyleBackColor = false;
+            // 
+            // buttonCamAuto
+            // 
+            this.buttonCamAuto.BackColor = System.Drawing.Color.Transparent;
+            this.buttonCamAuto.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_auto_on;
+            resources.ApplyResources(this.buttonCamAuto, "buttonCamAuto");
+            this.buttonCamAuto.FlatAppearance.BorderSize = 0;
+            this.buttonCamAuto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonCamAuto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonCamAuto.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonCamAuto.Name = "buttonCamAuto";
+            this.buttonCamAuto.TabStop = false;
+            this.buttonCamAuto.Tag = "custom";
+            this.buttonCamAuto.UseVisualStyleBackColor = false;
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
             // 
             // hud1
             // 
@@ -2411,7 +2496,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 900D;
+            this.windDir1.Direction = 2160D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2578,7 +2663,9 @@ namespace MissionPlanner.GCSViews
             // 
             // panelBottom
             // 
-            this.panelBottom.Controls.Add(this.transparentPanel1);
+            this.panelBottom.Controls.Add(this.label10);
+            this.panelBottom.Controls.Add(this.label9);
+            this.panelBottom.Controls.Add(this.label8);
             this.panelBottom.Controls.Add(this.buttonPreFlight);
             this.panelBottom.Controls.Add(this.buttonARM);
             this.panelBottom.Controls.Add(this.buttonRTL);
@@ -2587,11 +2674,6 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Name = "panelBottom";
             // 
-            // transparentPanel1
-            // 
-            resources.ApplyResources(this.transparentPanel1, "transparentPanel1");
-            this.transparentPanel1.Name = "transparentPanel1";
-            // 
             // buttonPreFlight
             // 
             resources.ApplyResources(this.buttonPreFlight, "buttonPreFlight");
@@ -2599,22 +2681,25 @@ namespace MissionPlanner.GCSViews
             this.buttonPreFlight.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonPreFlight.Image = global::MissionPlanner.Properties.Resources.light_flightdata_icon;
             this.buttonPreFlight.Name = "buttonPreFlight";
+            this.buttonPreFlight.TabStop = false;
             this.buttonPreFlight.UseVisualStyleBackColor = false;
             // 
             // buttonARM
             // 
             resources.ApplyResources(this.buttonARM, "buttonARM");
-            this.buttonARM.BackColor = System.Drawing.Color.LimeGreen;
+            this.buttonARM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
             this.buttonARM.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonARM.Name = "buttonARM";
+            this.buttonARM.TabStop = false;
             this.buttonARM.UseVisualStyleBackColor = false;
             // 
             // buttonRTL
             // 
             resources.ApplyResources(this.buttonRTL, "buttonRTL");
-            this.buttonRTL.BackColor = System.Drawing.Color.Tomato;
+            this.buttonRTL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
             this.buttonRTL.ForeColor = System.Drawing.SystemColors.Control;
             this.buttonRTL.Name = "buttonRTL";
+            this.buttonRTL.TabStop = false;
             this.buttonRTL.Tag = "custom";
             this.buttonRTL.UseVisualStyleBackColor = false;
             // 
@@ -2645,6 +2730,30 @@ namespace MissionPlanner.GCSViews
             // MainV.Panel2
             // 
             this.MainV.Panel2.Controls.Add(this.panelBottom);
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label8.Name = "label8";
+            this.label8.Tag = "custom";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label9.Name = "label9";
+            this.label9.Tag = "custom";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label10.Name = "label10";
+            this.label10.Tag = "custom";
             // 
             // modifyandSetLoiterRad
             // 
@@ -2965,6 +3074,12 @@ namespace MissionPlanner.GCSViews
             this.SubMainLeft.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.panelCamCont.ResumeLayout(false);
+            this.panelCamCont.PerformLayout();
             this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
@@ -3270,7 +3385,15 @@ namespace MissionPlanner.GCSViews
         private Button buttonARM;
         private Button buttonRTL;
         private Button buttonPreFlight;
-        private Controls.TransparentPanel transparentPanel1;
         private SplitContainer MainV;
+        private SplitContainer splitContainer2;
+        private Panel panelCamCont;
+        private Label label7;
+        private Button buttonCamAuto;
+        private Button buttonCamFront;
+        private Button buttonCamUnder;
+        private Label label10;
+        private Label label9;
+        private Label label8;
     }
 }
