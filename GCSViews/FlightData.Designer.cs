@@ -252,6 +252,10 @@ namespace MissionPlanner.GCSViews
             this.auxOptions6 = new MissionPlanner.Controls.AuxOptions();
             this.auxOptions7 = new MissionPlanner.Controls.AuxOptions();
             this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.labelMode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -319,6 +323,7 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel1.SuspendLayout();
             this.MainV.Panel2.SuspendLayout();
             this.MainV.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainH
@@ -364,6 +369,7 @@ namespace MissionPlanner.GCSViews
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.panel3);
             this.splitContainer2.Panel2.Controls.Add(this.hud1);
             // 
             // panelCamCont
@@ -2496,7 +2502,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 2160D;
+            this.windDir1.Direction = 0D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -3056,6 +3062,50 @@ namespace MissionPlanner.GCSViews
             this.distanceBar1.totaldist = 100F;
             this.distanceBar1.traveleddist = 0F;
             // 
+            // panel3
+            // 
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.button2);
+            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.labelMode);
+            this.panel3.ForeColor = System.Drawing.SystemColors.Window;
+            this.panel3.Name = "panel3";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_front_off;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button2.ForeColor = System.Drawing.Color.Transparent;
+            this.button2.Name = "button2";
+            this.button2.TabStop = false;
+            this.button2.Tag = "custom";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_auto_on;
+            resources.ApplyResources(this.button3, "button3");
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button3.ForeColor = System.Drawing.Color.Transparent;
+            this.button3.Name = "button3";
+            this.button3.TabStop = false;
+            this.button3.Tag = "custom";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // labelMode
+            // 
+            resources.ApplyResources(this.labelMode, "labelMode");
+            this.labelMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
+            this.labelMode.Name = "labelMode";
+            // 
             // FlightData
             // 
             this.Controls.Add(this.MainV);
@@ -3146,6 +3196,7 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainV)).EndInit();
             this.MainV.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3395,5 +3446,9 @@ namespace MissionPlanner.GCSViews
         private Label label10;
         private Label label9;
         private Label label8;
+        private Panel panel3;
+        private Button button2;
+        private Button button3;
+        private Label labelMode;
     }
 }
