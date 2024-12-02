@@ -807,8 +807,11 @@ mc:Ignorable=""d""
             {
                 if (ctl.GetType() == typeof(Panel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
+                    }
                 }
                 else if (ctl.GetType() == typeof(GroupBox))
                 {
@@ -1129,8 +1132,11 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Panel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
+                    }
                 }
                 else if (ctl.GetType() == typeof(GroupBox))
                 {
