@@ -150,8 +150,8 @@ namespace MissionPlanner.Grid
 
             // set and angle that is good
             NUM_angle.Value = (decimal)((getAngleOfLongestSide(list) + 360) % 360);
-            TXT_headinghold.Text = (Math.Round(NUM_angle.Value)).ToString();
-            TXT_angle.Text = (Math.Round(NUM_angle.Value)).ToString();    // @eams add
+            TXT_headinghold.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();   //@eams change
+            TXT_angle.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();   //@eams add
 
             if (plugin.Host.cs.firmware == Firmwares.ArduPlane)
                 NUM_UpDownFlySpeed.Value = (decimal)(12 * CurrentState.multiplierspeed);
@@ -461,8 +461,8 @@ namespace MissionPlanner.Grid
             NUM_copter_delay.Value = griddata.copter_delay;
             CHK_copter_headinghold.Checked = griddata.copter_headinghold_chk;
             //TXT_headinghold.Text = griddata.copter_headinghold.ToString();    //@eams disabled
-            TXT_headinghold.Text = Decimal.Round(NUM_angle.Value, 0, MidpointRounding.AwayFromZero).ToString();   //@eams add
-            TXT_angle.Text = Decimal.Round(NUM_angle.Value, 0, MidpointRounding.AwayFromZero).ToString();   //@eams add
+            TXT_headinghold.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();   //@eams add
+            TXT_angle.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();   //@eams add
 
             // Plane Settings
             NUM_Lane_Dist.Value = griddata.minlaneseparation;
@@ -585,8 +585,8 @@ namespace MissionPlanner.Grid
                 // Copter Settings
                 loadsetting("grid_copter_delay", NUM_copter_delay);
                 loadsetting("grid_copter_headinghold_chk", CHK_copter_headinghold);   //@eams enabled
-                TXT_headinghold.Text = Decimal.Round(NUM_angle.Value, 0, MidpointRounding.AwayFromZero).ToString();   //@eams add
-                TXT_angle.Text = Decimal.Round(NUM_angle.Value, 0, MidpointRounding.AwayFromZero).ToString();   //@eams add
+                TXT_headinghold.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();   //@eams add
+                TXT_angle.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();   //@eams add
                 loadsetting("grid_offset", TXT_offset); //@eams add
 
                 // Plane Settings
@@ -868,9 +868,9 @@ namespace MissionPlanner.Grid
                 NUM_angle.Value = (decimal)angle;
                 if (CHK_copter_headinghold.Checked)
                 {
-                    TXT_headinghold.Text = (Math.Round(NUM_angle.Value)).ToString();
+                    TXT_headinghold.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();
                 }
-                TXT_angle.Text = (Math.Round(NUM_angle.Value)).ToString();
+                TXT_angle.Text = Decimal.Round(NUM_angle.Value, 1, MidpointRounding.AwayFromZero).ToString();
                 first_validate = false;
 
 #else
@@ -2508,9 +2508,10 @@ namespace MissionPlanner.Grid
                     {
                         value = 359;
                     }
-                    TXT_angle.Text = ((int)value).ToString();
-//                    TXT_headinghold.Text = value.ToString();
-//                    NUM_angle.Value = (decimal)value;
+                    //TXT_angle.Text = ((int)value).ToString();
+                    TXT_angle.Text = value.ToString("f1");
+                    //TXT_headinghold.Text = value.ToString();
+                    //NUM_angle.Value = (decimal)value;
                 }
                 else if(target == TXT_Distance)
                 {
@@ -2593,9 +2594,9 @@ namespace MissionPlanner.Grid
         private void BUT_angle_Down(object sender, MouseEventArgs e)
         {
             target = TXT_angle;
-            CurrentValue += (sender == BUT_angleplus) ? 1 : -1;
+            CurrentValue += (sender == BUT_angleplus) ? 0.1 : -0.1;
             timer1.Interval = def_interval;
-            incrementValue = (sender == BUT_angleplus) ? 1 : -1;
+            incrementValue = (sender == BUT_angleplus) ? 0.1 : -0.1;
             timer1.Start();
         }
 
@@ -2617,7 +2618,7 @@ namespace MissionPlanner.Grid
                 }
             }
             TXT_angle.TextChanged -= TXT_angle_TextChanged;
-            TXT_angle.Text = d.ToString();
+            TXT_angle.Text = d.ToString("f1");
             TXT_angle.TextChanged += TXT_angle_TextChanged;
             NUM_angle.Value = d;
         }

@@ -808,7 +808,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="lbl_area.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -823,7 +823,7 @@
     <value>NoControl</value>
   </data>
   <data name="lbl_area.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 1106</value>
+    <value>96, 1102</value>
   </data>
   <data name="lbl_area.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 16</value>
@@ -844,7 +844,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_area.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="label42.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3323,7 +3323,7 @@ Control-O to load form file</value>
     <value>Top, Right</value>
   </data>
   <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2000, 0</value>
+    <value>2100, 0</value>
   </data>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>253, 537</value>
@@ -3341,7 +3341,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -3359,7 +3359,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="label46.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 1106</value>
+    <value>44, 1102</value>
   </data>
   <data name="label46.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 16</value>
@@ -3380,7 +3380,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label46.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="BUT_Ok.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -3395,7 +3395,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_Ok.Location" type="System.Drawing.Point, System.Drawing">
-    <value>796, 1124</value>
+    <value>896, 1118</value>
   </data>
   <data name="BUT_Ok.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 42</value>
@@ -3413,7 +3413,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BUT_Ok.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="BUT_Close.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -3428,7 +3428,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_Close.Location" type="System.Drawing.Point, System.Drawing">
-    <value>888, 1124</value>
+    <value>988, 1118</value>
   </data>
   <data name="BUT_Close.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 42</value>
@@ -3446,7 +3446,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BUT_Close.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="BUT_zoomIn.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -3461,7 +3461,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_zoomIn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>610, 1112</value>
+    <value>710, 1106</value>
   </data>
   <data name="BUT_zoomIn.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 61</value>
@@ -3479,7 +3479,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BUT_zoomIn.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="BUT_zoomOut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -3494,7 +3494,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_zoomOut.Location" type="System.Drawing.Point, System.Drawing">
-    <value>699, 1112</value>
+    <value>799, 1106</value>
   </data>
   <data name="BUT_zoomOut.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 61</value>
@@ -3512,7 +3512,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BUT_zoomOut.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="lbl_distbetweenlines.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3527,7 +3527,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_distbetweenlines.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 1160</value>
+    <value>96, 1156</value>
   </data>
   <data name="lbl_distbetweenlines.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 16</value>
@@ -3548,7 +3548,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_distbetweenlines.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label52.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3563,7 +3563,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="label52.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 1160</value>
+    <value>9, 1156</value>
   </data>
   <data name="label52.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 16</value>
@@ -3584,7 +3584,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label52.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="label53.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3599,7 +3599,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="label53.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 1133</value>
+    <value>12, 1129</value>
   </data>
   <data name="label53.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 16</value>
@@ -3620,7 +3620,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label53.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="lbl_distance.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3635,7 +3635,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_distance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 1133</value>
+    <value>96, 1129</value>
   </data>
   <data name="lbl_distance.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 16</value>
@@ -3656,7 +3656,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_distance.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="label54.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3671,7 +3671,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 1106</value>
+    <value>187, 1102</value>
   </data>
   <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 16</value>
@@ -3692,7 +3692,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label54.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="lbl_flighttime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -3707,7 +3707,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="lbl_flighttime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 1106</value>
+    <value>271, 1102</value>
   </data>
   <data name="lbl_flighttime.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 16</value>
@@ -3728,7 +3728,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lbl_flighttime.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="flowLayoutPanel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -4763,7 +4763,7 @@ Control-O to load form file</value>
     <value>9, 28</value>
   </data>
   <data name="RBL_startfrom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 117</value>
+    <value>168, 114</value>
   </data>
   <data name="RBL_startfrom.TabIndex" type="System.Int32, mscorlib">
     <value>149</value>
@@ -5603,7 +5603,7 @@ Control-O to load form file</value>
     <value>TopDown</value>
   </data>
   <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>992, 0</value>
+    <value>1092, 0</value>
   </data>
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 1181</value>
@@ -5621,7 +5621,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="panelMode6.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -5759,7 +5759,7 @@ Control-O to load form file</value>
     <value>3</value>
   </data>
   <data name="panelMode6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 1131</value>
+    <value>168, 1127</value>
   </data>
   <data name="panelMode6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -5780,7 +5780,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panelMode6.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="panelMode6Easy.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -5918,7 +5918,7 @@ Control-O to load form file</value>
     <value>3</value>
   </data>
   <data name="panelMode6Easy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>354, 1131</value>
+    <value>354, 1127</value>
   </data>
   <data name="panelMode6Easy.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -5939,7 +5939,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panelMode6Easy.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="TRK_zoom.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
@@ -5948,7 +5948,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="TRK_zoom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>961, 1</value>
+    <value>1061, 1</value>
   </data>
   <data name="TRK_zoom.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Vertical</value>
@@ -5969,7 +5969,7 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TRK_zoom.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="map.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -5978,7 +5978,7 @@ Control-O to load form file</value>
     <value>0, 0</value>
   </data>
   <data name="map.Size" type="System.Drawing.Size, System.Drawing">
-    <value>955, 1096</value>
+    <value>1055, 1092</value>
   </data>
   <data name="map.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -5993,7 +5993,79 @@ Control-O to load form file</value>
     <value>$this</value>
   </data>
   <data name="&gt;&gt;map.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
+  </data>
+  <data name="label65.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="label65.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label65.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt, style=Bold</value>
+  </data>
+  <data name="label65.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label65.Location" type="System.Drawing.Point, System.Drawing">
+    <value>549, 1113</value>
+  </data>
+  <data name="label65.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 16</value>
+  </data>
+  <data name="label65.TabIndex" type="System.Int32, mscorlib">
+    <value>131</value>
+  </data>
+  <data name="label65.Text" xml:space="preserve">
+    <value>前進：黄色ライン</value>
+  </data>
+  <data name="&gt;&gt;label65.Name" xml:space="preserve">
+    <value>label65</value>
+  </data>
+  <data name="&gt;&gt;label65.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label65.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label65.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label66.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="label66.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label66.Font" type="System.Drawing.Font, System.Drawing">
+    <value>MS UI Gothic, 12pt, style=Bold</value>
+  </data>
+  <data name="label66.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label66.Location" type="System.Drawing.Point, System.Drawing">
+    <value>549, 1143</value>
+  </data>
+  <data name="label66.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 16</value>
+  </data>
+  <data name="label66.TabIndex" type="System.Int32, mscorlib">
+    <value>132</value>
+  </data>
+  <data name="label66.Text" xml:space="preserve">
+    <value>後進：赤色ライン</value>
+  </data>
+  <data name="&gt;&gt;label66.Name" xml:space="preserve">
+    <value>label66</value>
+  </data>
+  <data name="&gt;&gt;label66.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label66.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label66.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -6002,7 +6074,7 @@ Control-O to load form file</value>
     <value>Center</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1184, 1175</value>
+    <value>1284, 1175</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>飛行ルート設定</value>
