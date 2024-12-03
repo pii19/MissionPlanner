@@ -6041,17 +6041,19 @@ namespace MissionPlanner.GCSViews
 
             // @eamd add
             int no = 0;
-            if (int.TryParse(CurentRectMarker.InnerMarker.Tag.ToString(), out no))
+            if (CurentRectMarker != null)
             {
-                deleteWPToolStripMenuItem.Text = "ウェイポイントを削除";
-            }
-            else if (int.TryParse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", ""), out no))
-            {
-                deleteWPToolStripMenuItem.Text = "エリアポイントを削除";
+                if (int.TryParse(CurentRectMarker.InnerMarker.Tag.ToString(), out no))
+                {
+                    deleteWPToolStripMenuItem.Text = "ウェイポイントを削除";
+                }
+                else if (int.TryParse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", ""), out no))
+                {
+                    deleteWPToolStripMenuItem.Text = "エリアポイントを削除";
+                }
             }
 
-
-                isMouseClickOffMenu = false; // Just incase
+            isMouseClickOffMenu = false; // Just incase
 
             // @eamd add
             deleteWPToolStripMenuItem.Visible = true;
