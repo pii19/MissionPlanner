@@ -2501,13 +2501,13 @@ namespace MissionPlanner.Grid
                 }
                 if (target == TXT_angle)
                 {
-                    if (value > 359)
+                    if (value > 359.9)
                     {
                         value = 0;
                     }
                     if (value < 0)
                     {
-                        value = 359;
+                        value = 359.9;
                     }
                     //TXT_angle.Text = ((int)value).ToString();
                     TXT_angle.Text = value.ToString("f1");
@@ -2595,7 +2595,10 @@ namespace MissionPlanner.Grid
         private void BUT_angle_Down(object sender, MouseEventArgs e)
         {
             target = TXT_angle;
-            CurrentValue += (sender == BUT_angleplus) ? 0.1 : -0.1;
+            // double誤差対策
+            int intValue = (int)(CurrentValue * 10);
+            intValue += (sender == BUT_angleplus) ? 1 : -1;
+            CurrentValue = (double)intValue / 10;
             timer1.Interval = def_interval;
             incrementValue = (sender == BUT_angleplus) ? 0.1 : -0.1;
             timer1.Start();
