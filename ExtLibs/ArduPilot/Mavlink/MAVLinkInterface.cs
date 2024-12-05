@@ -3908,14 +3908,22 @@ Please check the following
 
                         // gymbals etc are a child/slave to the main sysid, this displays the children messages under the current displayed vehicle
                         if (sysid == sysidcurrent && compid != compidcurrent)
-                            MAVlist[sysidcurrent, compidcurrent].cs.messages.Add(compid + " : " + logdata);
+                            //MAVlist[sysidcurrent, compidcurrent].cs.messages.Add(compid + " : " + logdata);
+                            MAVlist[sysidcurrent, compidcurrent].cs.messages.Add(logdata);
 
                         bool printit = false;
 
                         // the change of severity and the autopilot version where introduced at the same time, so any version non 0 can be used
                         // copter 3.4+
                         // plane 3.4+
-                        if (MAVlist[sysid, compid].cs.version.Major > 0 || MAVlist[sysid, compid].cs.version.Minor >= 4)
+                        var major = MAVlist[sysid, compid].cs.version.Major;
+                        var minor = MAVlist[sysid, compid].cs.version.Minor;
+                        if (sysid == sysidcurrent && compid != compidcurrent)
+                        {
+                            major = MAVlist[sysid, compidcurrent].cs.version.Major;
+                            minor = MAVlist[sysid, compidcurrent].cs.version.Minor;
+                        }
+                        if (major > 0 || minor >= 4)
                         {
                             if (sev <= (byte) MAV_SEVERITY.WARNING)
                             {
@@ -3936,8 +3944,16 @@ Please check the following
 
                         if (printit)
                         {
-                            MAVlist[sysid, compid].cs.messageHigh = logdata;
-                            MAVlist[sysid, compid].cs.messageHighTime = DateTime.Now;
+                            if (sysid == sysidcurrent && compid != compidcurrent)
+                            {
+                                MAVlist[sysid, compidcurrent].cs.messageHigh = logdata;
+                                MAVlist[sysid, compidcurrent].cs.messageHighTime = DateTime.Now;
+                            }
+                            else
+                            {
+                                MAVlist[sysid, compid].cs.messageHigh = logdata;
+                                MAVlist[sysid, compid].cs.messageHighTime = DateTime.Now;
+                            }
 
                             if (Speech != null &&
                                 Speech.IsReady &&
