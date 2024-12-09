@@ -195,6 +195,7 @@
             this.TXT_PhotoEvery = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.RBL_startfrom = new MissionPlanner.Grid.RadioButtonList();
             this.label45 = new System.Windows.Forms.Label();
             this.TXT_angle = new System.Windows.Forms.TextBox();
             this.BUT_angleminus = new System.Windows.Forms.Button();
@@ -236,7 +237,6 @@
             this.map = new MissionPlanner.Controls.myGMAP();
             this.label65 = new System.Windows.Forms.Label();
             this.label66 = new System.Windows.Forms.Label();
-            this.RBL_startfrom = new MissionPlanner.Grid.RadioButtonList();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1718,6 +1718,15 @@
             resources.ApplyResources(this.panel6, "panel6");
             this.panel6.Name = "panel6";
             // 
+            // RBL_startfrom
+            // 
+            this.RBL_startfrom.BackColor = System.Drawing.SystemColors.Control;
+            this.RBL_startfrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.RBL_startfrom, "RBL_startfrom");
+            this.RBL_startfrom.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.RBL_startfrom.FormattingEnabled = true;
+            this.RBL_startfrom.Name = "RBL_startfrom";
+            // 
             // label45
             // 
             resources.ApplyResources(this.label45, "label45");
@@ -2031,15 +2040,6 @@
             this.label66.ForeColor = System.Drawing.Color.Red;
             this.label66.Name = "label66";
             this.label66.Tag = "custom";
-            // 
-            // RBL_startfrom
-            // 
-            this.RBL_startfrom.BackColor = System.Drawing.SystemColors.Control;
-            this.RBL_startfrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            resources.ApplyResources(this.RBL_startfrom, "RBL_startfrom");
-            this.RBL_startfrom.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.RBL_startfrom.FormattingEnabled = true;
-            this.RBL_startfrom.Name = "RBL_startfrom";
             // 
             // GridUI
             // 
