@@ -917,8 +917,12 @@ namespace MissionPlanner.Grid
             PointLatLngAlt prevprevpoint = grid[0];
             PointLatLngAlt prevpoint = grid[0];
             // distance to/from home
+#if false
             double routetotal = grid.First().GetDistance(MainV2.comPort.MAV.cs.HomeLocation) / 1000.0 +
                                grid.Last().GetDistance(MainV2.comPort.MAV.cs.HomeLocation) / 1000.0;
+#else
+            double routetotal = 0;
+#endif
             List<PointLatLng> segment = new List<PointLatLng>();
             double maxgroundelevation = double.MinValue;
             double mingroundelevation = double.MaxValue;
@@ -2591,7 +2595,7 @@ namespace MissionPlanner.Grid
             target = null;
         }
 
-        #region ライン角度
+#region ライン角度
         private void BUT_angle_Down(object sender, MouseEventArgs e)
         {
             target = TXT_angle;
@@ -2626,9 +2630,9 @@ namespace MissionPlanner.Grid
             TXT_angle.TextChanged += TXT_angle_TextChanged;
             NUM_angle.Value = d;
         }
-        #endregion
+#endregion
 
-        #region ラインオフセット
+#region ラインオフセット
         private void BUT_offset_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_offset;
@@ -2662,9 +2666,9 @@ namespace MissionPlanner.Grid
             TXT_offset.TextChanged += TXT_offset_TextChanged;
             domainUpDown1_ValueChanged(sender, e);
         }
-        #endregion
+#endregion
 
-        #region 飛行高度
+#region 飛行高度
         private void BUT_alt_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_altitude;
@@ -2698,9 +2702,9 @@ namespace MissionPlanner.Grid
             TXT_altitude.TextChanged += TXT_altitude_TextChanged;
             NUM_altitude.Value = d;
         }
-        #endregion
+#endregion
 
-        #region 飛行速度
+#region 飛行速度
         private void BUT_speed_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_FlySpeed;
@@ -2734,9 +2738,9 @@ namespace MissionPlanner.Grid
             TXT_FlySpeed.TextChanged += TXT_FlySpeed_TextChanged;
             NUM_UpDownFlySpeed.Value = d;
         }
-        #endregion
+#endregion
 
-        #region ライン間距離
+#region ライン間距離
         private void BUT_dist_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_Distance;
@@ -2770,9 +2774,9 @@ namespace MissionPlanner.Grid
             TXT_Distance.TextChanged += TXT_Distance_TextChanged;
             NUM_Distance.Value = d;
         }
-        #endregion
+#endregion
 
-        #region 機体前方角度
+#region 機体前方角度
         private void TXT_headinghold_TextChanged(object sender, EventArgs e)
         {
             decimal d = NUM_angle.Minimum;
@@ -2790,9 +2794,9 @@ namespace MissionPlanner.Grid
             TXT_headinghold.Text = d.ToString();
             TXT_headinghold.TextChanged += TXT_headinghold_TextChanged;
         }
-        #endregion
+#endregion
 
-        #region オーバーラップ
+#region オーバーラップ
         private void BUT_overlap_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_Overlap;
@@ -2826,9 +2830,9 @@ namespace MissionPlanner.Grid
             TXT_Overlap.TextChanged += TXT_Overlap_TextChanged;
             num_overlap.Value = d;
         }
-        #endregion
+#endregion
 
-        #region サイドラップ
+#region サイドラップ
         private void BUT_sidelap_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_Sidelap;
@@ -2862,9 +2866,9 @@ namespace MissionPlanner.Grid
             TXT_Sidelap.TextChanged += TXT_Sidelap_TextChanged;
             num_sidelap.Value = d;
         }
-        #endregion
+#endregion
 
-        #region 地上分解能
+#region 地上分解能
         private void BUT_grandres_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_GrandRes;
@@ -2922,9 +2926,9 @@ namespace MissionPlanner.Grid
             return flyalt;
         }
 
-        #endregion
+#endregion
 
-        #region シャッター間隔
+#region シャッター間隔
         private void BUT_photoevery_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_PhotoEvery;
@@ -2969,9 +2973,9 @@ namespace MissionPlanner.Grid
                 domainUpDown1_ValueChanged(this, null);
             }
         }
-        #endregion
+#endregion
 
-        #region グリッド位置調整
+#region グリッド位置調整
         private void grid_shift(int angle)
         {
             List<PointLatLngAlt> newgrid = new List<PointLatLngAlt>();
@@ -3006,9 +3010,9 @@ namespace MissionPlanner.Grid
         {
             grid_shift(270);
         }
-        #endregion
+#endregion
 
-        #region リードイン
+#region リードイン
         private void BUT_leadin_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_leadin;
@@ -3043,6 +3047,6 @@ namespace MissionPlanner.Grid
             NUM_leadin.Value = d;
 //            domainUpDown1_ValueChanged(sender, e);
         }
-        #endregion
+#endregion
     }
 }
