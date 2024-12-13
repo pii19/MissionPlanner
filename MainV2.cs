@@ -4361,10 +4361,8 @@ namespace MissionPlanner
 
                 // set start count & rooting flag off
                 MainV2.atex_rooting = 0x0000;
-                var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+                var servo = buildServoValue(true, false);
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
-                if (++MainV2.atex_start_cnt > 3)
-                    MainV2.atex_start_cnt = 0;
 
                 // polygonmode is disabled
                 MainV2.instance.FlightPlanner.clearPolygonMode(false);
@@ -4667,9 +4665,7 @@ namespace MissionPlanner
                 {
                     MainV2.comPort.MAV.cs.error_return_req_status = false;
                     CustomMessageBox.Show("自動運転を再開しますか？", "自動走行", MessageBoxButtons.OK);
-                    if (++MainV2.atex_err_cnt > 3)
-                        MainV2.atex_err_cnt = 0;
-                    var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+                    var servo = buildServoValue(false, true);
                     MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
                 }
 
@@ -4711,5 +4707,25 @@ namespace MissionPlanner
             flag_timer = false;
         }
         bool first = false;
+
+        public int buildServoValue(bool start_inc, bool err_inc)
+        {
+            float ch4out = MainV2.comPort.MAV.cs.ch4out;
+            MainV2.atex_start_cnt = (0x18 & (int)ch4out) >> 3;
+            if (start_inc)
+            {
+                if (++MainV2.atex_start_cnt > 3)
+                    MainV2.atex_start_cnt = 0;
+            }
+            MainV2.atex_err_cnt = (0x06 & (int)ch4out) >> 1;
+            if (err_inc)
+            {
+                if (++MainV2.atex_err_cnt > 3)
+                    MainV2.atex_err_cnt = 0;
+            }
+
+            var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+            return servo;
+        }
     }
 }

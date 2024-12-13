@@ -3381,7 +3381,7 @@ namespace MissionPlanner.GCSViews
                     if (MainV2.comPort.BaseStream.IsOpen)
                     {
                         MainV2.atex_rooting = 0x0001;
-                        var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+                        var servo = MainV2.instance.buildServoValue(false, false);
                         MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
                     }
 
@@ -3393,7 +3393,7 @@ namespace MissionPlanner.GCSViews
                     if (MainV2.comPort.BaseStream.IsOpen)
                     {
                         MainV2.atex_rooting = 0x0000;
-                        var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+                        var servo = MainV2.instance.buildServoValue(false, false);
                         MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
                     }
 
@@ -7741,7 +7741,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (flag && MainV2.comPort.BaseStream.IsOpen)
             {
                 MainV2.atex_rooting = 0x0000;
-                var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
+                var servo = MainV2.instance.buildServoValue(false, false);
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
             }
             if (drawnpolygon == null)
