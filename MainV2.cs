@@ -4359,14 +4359,15 @@ namespace MissionPlanner
                 int time = Settings.Instance.GetInt32("atex_timer_time");
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_timer_ch, time, 0, 0, 0, 0, 0);
 
-                // set start count
+                // set start count & rooting flag off
+                MainV2.atex_rooting = 0x0000;
                 var servo = (MainV2.atex_start_cnt << 3) + (MainV2.atex_err_cnt << 1) + MainV2.atex_rooting;
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
                 if (++MainV2.atex_start_cnt > 3)
                     MainV2.atex_start_cnt = 0;
 
-                // polygonmode is disabled (w/flag)
-                MainV2.instance.FlightPlanner.clearPolygonMode();
+                // polygonmode is disabled
+                MainV2.instance.FlightPlanner.clearPolygonMode(false);
 
                 // wait AUTO
                 //var act = new Action(() => System.Threading.Thread.Sleep(5000));
