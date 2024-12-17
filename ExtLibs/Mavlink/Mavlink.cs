@@ -259,6 +259,8 @@ public partial class MAVLink
 		new message_info(42001, "ICAROUS_KINEMATIC_BANDS", 239, 46, 46, typeof( mavlink_icarous_kinematic_bands_t )),
 
         new message_info(236, "ATEX_LAWNMOWER_INFO", 0, 5, 5, typeof( mavlink_atex_lawnmower_info_t )),
+        new message_info(237, "ATEX_LAWNMOWER_INFO", 0, 4, 4, typeof( mavlink_atex_lawnmower_info2_t )),
+        new message_info(238, "ATEX_LAWNMOWER_INFO", 0, 1, 1, typeof( mavlink_atex_lawnmower_info3_t )),
     };
 
     public const byte MAVLINK_VERSION = 2;
@@ -514,6 +516,8 @@ ESC_TELEMETRY_9_TO_12 = 11032,
 ICAROUS_HEARTBEAT = 42000,
 ICAROUS_KINEMATIC_BANDS = 42001,
 ATEX_LAWNMOWER_INFO = 236,
+ATEX_LAWNMOWER_INFO2 = 237,
+ATEX_LAWNMOWER_INFO3 = 238,
 
     }
 
@@ -12456,6 +12460,30 @@ ATEX_LAWNMOWER_INFO = 236,
         [Units("")]
         [Description("error message code")]
         public byte err_msg_code;   //uint8
+
+    };
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 4)]
+    ///<summary> custom message for atex </summary>
+    public struct mavlink_atex_lawnmower_info2_t
+    {
+        /// <summary>wp sw count</summary>
+        [Units("")]
+        [Description("for debug")]
+        public uint dbg1;           //uint32
+        /// <summary>dbg1</summary>
+
+    };
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 1)]
+    ///<summary> custom message for atex </summary>
+    public struct mavlink_atex_lawnmower_info3_t
+    {
+        /// <summary>wp sw count</summary>
+        [Units("")]
+        [Description("lte temp")]
+        public byte lte_temp;           //int8
+        /// <summary>lte temp</summary>
 
     };
 }
