@@ -3401,6 +3401,7 @@ namespace MissionPlanner.GCSViews
                     // clearPolygonToolStripMenuItem_Click(this, null);
                 }
 
+                isMouseDown = false;
                 return;
             }
 
@@ -3586,6 +3587,12 @@ namespace MissionPlanner.GCSViews
                 {
                     currentMarker.Position = MainMap.FromLocalToLatLng(e.X, e.Y);
                 }
+            }
+
+            if (polyicon.Rectangle.Contains(e.Location))
+            {
+                isMouseDown = false;
+                isMouseDraging = false;
             }
         }
 
