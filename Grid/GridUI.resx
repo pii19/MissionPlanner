@@ -4763,7 +4763,7 @@ Control-O to load form file</value>
     <value>9, 28</value>
   </data>
   <data name="RBL_startfrom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 114</value>
+    <value>168, 94</value>
   </data>
   <data name="RBL_startfrom.TabIndex" type="System.Int32, mscorlib">
     <value>149</value>

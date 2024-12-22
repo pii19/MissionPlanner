@@ -926,18 +926,18 @@
             65536});
             resources.ApplyResources(this.NUM_leadin, "NUM_leadin");
             this.NUM_leadin.Maximum = new decimal(new int[] {
-            9999,
+            50,
             0,
             0,
-            0});
+            65536});
             this.NUM_leadin.Minimum = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             65536});
             this.NUM_leadin.Name = "NUM_leadin";
             this.NUM_leadin.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             65536});
