@@ -13,6 +13,9 @@
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelMessage = new System.Windows.Forms.TableLayoutPanel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.labelMode = new System.Windows.Forms.Label();
@@ -221,9 +224,6 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
@@ -248,6 +248,7 @@
             this.SubMainLeft.Panel2.SuspendLayout();
             this.SubMainLeft.SuspendLayout();
             this.tableLayoutPanelMessage.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -295,7 +296,6 @@
             this.contextMenuStripHud.SuspendLayout();
             this.contextMenuStripactionstab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
-            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainH
@@ -338,6 +338,29 @@
             this.tableLayoutPanelMessage.Controls.Add(this.panel6, 0, 2);
             this.tableLayoutPanelMessage.Controls.Add(this.panel7, 0, 3);
             this.tableLayoutPanelMessage.Name = "tableLayoutPanelMessage";
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.label15);
+            this.panel8.Controls.Add(this.labelStatus);
+            resources.ApplyResources(this.panel8, "panel8");
+            this.panel8.Name = "panel8";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.BackColor = System.Drawing.Color.Silver;
+            this.label15.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label15.Name = "label15";
+            this.label15.Tag = "custom";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.BackColor = System.Drawing.Color.Silver;
+            resources.ApplyResources(this.labelStatus, "labelStatus");
+            this.labelStatus.ForeColor = System.Drawing.Color.Black;
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Tag = "custom";
             // 
             // panel4
             // 
@@ -2118,6 +2141,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.ButtonStop);
             this.panel3.Controls.Add(this.ButtonStartWpno);
             this.panel3.Controls.Add(this.ButtonResumeClear);
             this.panel3.Controls.Add(this.labelResume);
@@ -2125,16 +2149,15 @@
             this.panel3.Controls.Add(this.ButtonConnect);
             this.panel3.Controls.Add(this.LabelPreArm);
             this.panel3.Controls.Add(this.ButtonStart);
-            this.panel3.Controls.Add(this.ButtonStop);
             this.panel3.Controls.Add(this.ButtonReturn);
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
             // ButtonStartWpno
             // 
+            resources.ApplyResources(this.ButtonStartWpno, "ButtonStartWpno");
             this.ButtonStartWpno.BackColor = System.Drawing.SystemColors.Desktop;
             this.ButtonStartWpno.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_start_wpno;
-            resources.ApplyResources(this.ButtonStartWpno, "ButtonStartWpno");
             this.ButtonStartWpno.FlatAppearance.BorderSize = 0;
             this.ButtonStartWpno.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ButtonStartWpno.Name = "ButtonStartWpno";
@@ -2172,11 +2195,11 @@
             // 
             // ButtonConnect
             // 
-            this.ButtonConnect.BackColor = System.Drawing.Color.Transparent;
+            this.ButtonConnect.BackColor = System.Drawing.SystemColors.Desktop;
             this.ButtonConnect.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.ButtonConnect.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.ButtonConnect, "ButtonConnect");
-            this.ButtonConnect.ForeColor = System.Drawing.Color.Black;
+            this.ButtonConnect.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon;
             this.ButtonConnect.Name = "ButtonConnect";
             this.toolTip1.SetToolTip(this.ButtonConnect, resources.GetString("ButtonConnect.ToolTip"));
@@ -2207,9 +2230,9 @@
             // 
             // ButtonStop
             // 
+            resources.ApplyResources(this.ButtonStop, "ButtonStop");
             this.ButtonStop.BackColor = System.Drawing.SystemColors.Desktop;
             this.ButtonStop.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_stop_ugv;
-            resources.ApplyResources(this.ButtonStop, "ButtonStop");
             this.ButtonStop.FlatAppearance.BorderSize = 0;
             this.ButtonStop.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ButtonStop.Name = "ButtonStop";
@@ -2801,29 +2824,6 @@
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.label15);
-            this.panel8.Controls.Add(this.labelStatus);
-            resources.ApplyResources(this.panel8, "panel8");
-            this.panel8.Name = "panel8";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.BackColor = System.Drawing.Color.Silver;
-            this.label15.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label15.Name = "label15";
-            this.label15.Tag = "custom";
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.BackColor = System.Drawing.Color.Silver;
-            resources.ApplyResources(this.labelStatus, "labelStatus");
-            this.labelStatus.ForeColor = System.Drawing.Color.Black;
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Tag = "custom";
-            // 
             // modifyandSetLoiterRad
             // 
             this.modifyandSetLoiterRad.ButtonText = "Set Loiter Rad";
@@ -2983,6 +2983,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
             this.tableLayoutPanelMessage.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -3039,7 +3040,6 @@
             this.contextMenuStripHud.ResumeLayout(false);
             this.contextMenuStripactionstab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
-            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
