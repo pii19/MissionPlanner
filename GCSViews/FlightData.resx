@@ -4876,7 +4876,7 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonStop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>702, 2</value>
+    <value>704, 2</value>
   </data>
   <data name="ButtonStop.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 61</value>
@@ -4915,7 +4915,7 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonStartWpno.Location" type="System.Drawing.Point, System.Drawing">
-    <value>612, 2</value>
+    <value>604, 2</value>
   </data>
   <data name="ButtonStartWpno.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 61</value>
@@ -5146,7 +5146,7 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 2</value>
+    <value>123, 2</value>
   </data>
   <data name="ButtonStart.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 61</value>
@@ -5263,7 +5263,7 @@
     <value>zg1</value>
   </data>
   <data name="&gt;&gt;zg1.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.32899, Culture=neutral, PublicKeyToken=null</value>
+    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.36852, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zg1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
