@@ -3377,6 +3377,13 @@ namespace MissionPlanner.GCSViews
 
                 if (polyicon.IsSelected)
                 {
+                    // gpsstatus check
+                    if (MainV2.comPort.MAV.cs.gpsstatus < 6)
+                    {
+                        CustomMessageBox.Show("エリアポイント設定をする準備が整っていません。\n測位状態が【６】になるまでお待ちください。", "エリアポイント設定", MessageBoxButtons.OK);
+                        return;
+                    }
+
                     // @eams add
                     if (MainV2.comPort.BaseStream.IsOpen)
                     {

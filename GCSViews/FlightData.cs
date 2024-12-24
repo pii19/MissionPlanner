@@ -1153,9 +1153,16 @@ namespace MissionPlanner.GCSViews
 
                     // @eams update message display
                     string mes = "";
-                    if (MainV2.comPort.MAV.cs.message != null)
+                    if (MainV2.comPort.MAV.cs.gpsstatus >= 6)
                     {
-                        mes = MainV2.comPort.MAV.cs.message;
+                        if (MainV2.comPort.MAV.cs.message != null)
+                        {
+                            mes = MainV2.comPort.MAV.cs.message;
+                        }
+                    }
+                    else
+                    {
+                        mes = "測位状態が【６】になるまでお待ちください。";
                     }
                     if (labelMessage.InvokeRequired)
                     {

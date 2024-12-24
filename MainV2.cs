@@ -4244,6 +4244,13 @@ namespace MissionPlanner
             {
                 if (MainV2.instance.FlightData.resume_flag == 0)
                 {
+                    // gpsstatus check
+                    if (MainV2.comPort.MAV.cs.gpsstatus < 6)
+                    {
+                        CustomMessageBox.Show("自動走行を開始する準備が整っていません。\n測位状態が【６】になるまでお待ちください。", "自動走行", MessageBoxButtons.OK);
+                        return;
+                    }
+
                     // armable check
                     if (MainV2.comPort.MAV.cs.ekfflags != ekf_status_flags)
                     {
