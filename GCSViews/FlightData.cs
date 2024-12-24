@@ -5248,19 +5248,19 @@ namespace MissionPlanner.GCSViews
 
         /// <summary>
         /// 接続アイコンの更新
-        /// <param name="state">true:接続時＝iconは接続、Textは切断、false:切断時＝iconは切断、Textは接続</param>
+        /// <param name="state">true:接続時、false:切断時</param>
         /// </summary>
         public void ButtonConnect_ChangeState(bool state)
         {
             if (state)
             {
-                this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_disconnect_icon;
-                this.ButtonConnect.Image.Tag = "Disconnect";
+                this.ButtonConnect.BackgroundImage = global::MissionPlanner.Properties.Resources.light_connect_icon1;
+                this.ButtonConnect.BackgroundImage.Tag = "Connect";
             }
             else
             {
-                this.ButtonConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon;
-                this.ButtonConnect.Image.Tag = "Connect";
+                this.ButtonConnect.BackgroundImage = global::MissionPlanner.Properties.Resources.light_disconnect_icon1;
+                this.ButtonConnect.BackgroundImage.Tag = "Disconnect";
                 ButtonReturn_ChangeState(true);
                 ButtonStop_ChangeState(true);
             }

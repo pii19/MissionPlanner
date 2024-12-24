@@ -413,6 +413,26 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_poly_off {
+            get {
+                object obj = ResourceManager.GetObject("btn_poly_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_poly_on {
+            get {
+                object obj = ResourceManager.GetObject("btn_poly_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap btn_restart {
             get {
                 object obj = ResourceManager.GetObject("btn_restart", resourceCulture);
@@ -1287,9 +1307,29 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap light_connect_icon1 {
+            get {
+                object obj = ResourceManager.GetObject("light_connect_icon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap light_disconnect_icon {
             get {
                 object obj = ResourceManager.GetObject("light_disconnect_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap light_disconnect_icon1 {
+            get {
+                object obj = ResourceManager.GetObject("light_disconnect_icon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

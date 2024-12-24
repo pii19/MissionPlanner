@@ -127,6 +127,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_loadpolyfile = new System.Windows.Forms.Button();
             this.BUT_savepolyfile = new System.Windows.Forms.Button();
             this.panelMap = new System.Windows.Forms.Panel();
+            this.BUT_poly = new System.Windows.Forms.Button();
             this.lbl_homedist = new System.Windows.Forms.Label();
             this.lbl_prevdist = new System.Windows.Forms.Label();
             this.trackBar1 = new MissionPlanner.Controls.MyTrackBar();
@@ -823,6 +824,7 @@ namespace MissionPlanner.GCSViews
             // 
             // panelMap
             // 
+            this.panelMap.Controls.Add(this.BUT_poly);
             this.panelMap.Controls.Add(this.lbl_homedist);
             this.panelMap.Controls.Add(this.lbl_prevdist);
             this.panelMap.Controls.Add(this.trackBar1);
@@ -833,6 +835,18 @@ namespace MissionPlanner.GCSViews
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelMap.Name = "panelMap";
             this.panelMap.Resize += new System.EventHandler(this.panelMap_Resize);
+            // 
+            // BUT_poly
+            // 
+            this.BUT_poly.BackColor = System.Drawing.Color.Transparent;
+            this.BUT_poly.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_poly_off;
+            resources.ApplyResources(this.BUT_poly, "BUT_poly");
+            this.BUT_poly.FlatAppearance.BorderSize = 0;
+            this.BUT_poly.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BUT_poly.Name = "BUT_poly";
+            this.BUT_poly.Tag = "custom";
+            this.BUT_poly.UseVisualStyleBackColor = false;
+            this.BUT_poly.Click += new System.EventHandler(this.BUT_poly_Click);
             // 
             // lbl_homedist
             // 
@@ -1828,5 +1842,6 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.Button BUT_loadpolyfile;
         private System.Windows.Forms.Button BUT_savepolyfile;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button BUT_poly;
     }
 }

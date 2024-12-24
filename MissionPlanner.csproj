@@ -1786,6 +1786,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Properties\launchSettings.json" />
+    <None Include="Resources\btn_poly_on.jpg" />
+    <None Include="Resources\btn_poly_off.jpg" />
+    <None Include="Resources\light_disconnect_icon.jpg" />
+    <None Include="Resources\light_connect_icon.jpg" />
     <None Include="Resources\btn_start_wpno.jpg" />
     <None Include="Resources\btn_return_stop_ugv.jpg" />
     <None Include="Resources\btn_stop_ugv.jpg" />

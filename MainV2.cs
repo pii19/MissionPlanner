@@ -139,12 +139,12 @@ namespace MissionPlanner
 
             public override Image connect
             {
-                get { return global::MissionPlanner.Properties.Resources.light_connect_icon; }
+                get { return global::MissionPlanner.Properties.Resources.light_connect_icon1; }
             }
 
             public override Image disconnect
             {
-                get { return global::MissionPlanner.Properties.Resources.light_disconnect_icon; }
+                get { return global::MissionPlanner.Properties.Resources.light_disconnect_icon1; }
             }
 
             public override Image bg
@@ -1458,7 +1458,7 @@ namespace MissionPlanner
             {
             }
 
-            this.MenuConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon;
+            this.MenuConnect.Image = global::MissionPlanner.Properties.Resources.light_connect_icon1;
         }
 
         public void doConnect(MAVLinkInterface comPort, string portname, string baud, bool getparams = true)

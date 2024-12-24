@@ -3381,6 +3381,7 @@ namespace MissionPlanner.GCSViews
                     if (MainV2.comPort.MAV.cs.gpsstatus < 6)
                     {
                         CustomMessageBox.Show("エリアポイント設定をする準備が整っていません。\n測位状態が【６】になるまでお待ちください。", "エリアポイント設定", MessageBoxButtons.OK);
+                        polyicon.IsSelected = false;
                         return;
                     }
 
@@ -8002,6 +8003,43 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     CustomMessageBox.Show(Strings.ERROR);
                 }
+            }
+        }
+
+        private void BUT_poly_Click(object sender, EventArgs e)
+        {
+            if ((string)BUT_poly.BackgroundImage.Tag == "Off" || BUT_poly.BackgroundImage.Tag == null)
+            {
+                // gpsstatus check
+                if (MainV2.comPort.MAV.cs.gpsstatus < 6)
+                {
+                    CustomMessageBox.Show("エリアポイント設定をする準備が整っていません。\n測位状態が【６】になるまでお待ちください。", "エリアポイント設定", MessageBoxButtons.OK);
+                    return;
+                }
+
+                if (MainV2.comPort.BaseStream.IsOpen)
+                {
+                    MainV2.atex_rooting = 0x0001;
+                    var servo = MainV2.instance.buildServoValue(false, false);
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
+                }
+
+                polygongridmode = true;
+                BUT_poly.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_poly_on;
+                BUT_poly.BackgroundImage.Tag = "On";
+            }
+            else
+            {
+                if (MainV2.comPort.BaseStream.IsOpen)
+                {
+                    MainV2.atex_rooting = 0x0000;
+                    var servo = MainV2.instance.buildServoValue(false, false);
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, MainV2.atex_control_ch, servo, 0, 0, 0, 0, 0);
+                }
+
+                polygongridmode = false;
+                BUT_poly.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_poly_off;
+                BUT_poly.BackgroundImage.Tag = "Off";
             }
         }
     }
