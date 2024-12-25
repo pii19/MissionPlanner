@@ -1040,7 +1040,7 @@ namespace MissionPlanner
             toolStripConnectionControl.Visible = false; // for users
             toolStripTextBoxCom.Visible = false;
             MenuInitConfig.Visible = false;
-            MenuSimulation.Visible = false;
+            MenuSimulation.Visible = true;
 #if false
             MenuArduPilot.Visible = false;
 #endif
@@ -4705,6 +4705,13 @@ namespace MissionPlanner
                     );
                     CustomMessageBox.Show("プロポの自動運転SWをOFFにしてください", "自動走行", MessageBoxButtons.OK, null, act);
                 }
+                 
+                // check gpsstatus --> FP reset home at first
+                if (first_resethome && MainV2.comPort.MAV.cs.gpsstatus >= 6)
+                {
+                    first_resethome = false;
+                    MainV2.instance.FlightPlanner.resetHome();  // reset home position
+                }
             }
             catch (Exception ex)
             {
@@ -4714,6 +4721,7 @@ namespace MissionPlanner
             flag_timer = false;
         }
         bool first = false;
+        bool first_resethome = true;
 
         public int buildServoValue(bool start_inc, bool err_inc)
         {

@@ -7333,6 +7333,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 TXT_homealt.Text = (MainV2.comPort.MAV.cs.altasl).ToString("0");
                 TXT_homelat.Text = MainV2.comPort.MAV.cs.lat.ToString();
                 TXT_homelng.Text = MainV2.comPort.MAV.cs.lng.ToString();
+                writeKML();
             }
             else
             {
