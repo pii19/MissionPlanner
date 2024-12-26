@@ -713,6 +713,35 @@ namespace MissionPlanner.Utilities
                 utmpositions[i] = new utmpos(xp, yp, utmzone);
             }
 #endif
+            // pick start positon based on initial point rectangle
+            utmpos startposutm;
+
+            switch (startpos)
+            {
+                default:
+                case StartPosition.Home:
+                    startposutm = new utmpos(HomeLocation);
+                    break;
+                case StartPosition.BottomLeft:
+                    startposutm = new utmpos(area.Left, area.Bottom, utmzone);
+                    break;
+                case StartPosition.BottomRight:
+                    startposutm = new utmpos(area.Right, area.Bottom, utmzone);
+                    break;
+                case StartPosition.TopLeft:
+                    startposutm = new utmpos(area.Left, area.Top, utmzone);
+                    break;
+                case StartPosition.TopRight:
+                    startposutm = new utmpos(area.Right, area.Top, utmzone);
+                    break;
+                case StartPosition.Point:
+                    startposutm = new utmpos(StartPointLatLngAlt);
+                    break;
+            }
+
+            // find the closes polygon point based from our startpos selection
+            startposutm = findClosestPoint(startposutm, utmpositions);
+
             //初回のみポリゴンの最長辺に角度を自動的に合わせる @eams
             if (first)
             {
@@ -723,11 +752,14 @@ namespace MissionPlanner.Utilities
                     double dist = utmpositions[i].GetDistance(utmpositions[i - 1]);
                     if (dist > dist_max)
                     {
-                        dist_max = dist;
-                        index = i - 1;
+                        if (startposutm == utmpositions[i] || startposutm == utmpositions[i - 1])
+                        {
+                            dist_max = dist;
+                            index = i - 1;
+                        }
                     }
-                    angle = utmpositions[index].GetBearing(utmpositions[index + 1]);
                 }
+                angle = utmpositions[index].GetBearing(utmpositions[index + 1]);
             }
 
             // get left extent
@@ -888,7 +920,7 @@ namespace MissionPlanner.Utilities
 
             if (grid.Count == 0)
                 return ans;
-
+#if false
             // pick start positon based on initial point rectangle
             utmpos startposutm;
 
@@ -917,7 +949,7 @@ namespace MissionPlanner.Utilities
 
             // find the closes polygon point based from our startpos selection
             startposutm = findClosestPoint(startposutm, utmpositions);
-
+#endif
             // find closest line point to startpos
             linelatlng closest = findClosestLine(startposutm, grid, 0 /*Lane separation does not apply to starting point*/, angle);
 
