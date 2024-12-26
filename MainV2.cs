@@ -4242,6 +4242,8 @@ namespace MissionPlanner
             }
             try
             {
+                List<Locationwp> cmds = new List<Locationwp>();
+                cmds = MainV2.instance.FlightPlanner.GetCommandList();
                 if (MainV2.instance.FlightData.resume_flag == 0)
                 {
                     // gpsstatus check
@@ -4259,7 +4261,6 @@ namespace MissionPlanner
                     }
 
                     // mission alive check
-                    var cmds = MainV2.instance.FlightPlanner.GetCommandList();
                     if (cmds.Count == 0)
                     {
                         CustomMessageBox.Show("ミッションが設定されていないため自動走行が開始できません。", "自動走行", MessageBoxButtons.OK);
@@ -4346,15 +4347,22 @@ namespace MissionPlanner
                 var sender_name = ((Button)sender).Name;
                 int wpno = 0;
                 string wpno_str = "0";
-                if (string.Equals(sender_name, "ButtonStartWpno"))
+                while (true)
                 {
-                    if (InputBox.Show("走行開始WP指定", "途中から走行を開始したいウェイポイント番号を指定してください。", ref wpno_str) == DialogResult.OK)
+                    if (string.Equals(sender_name, "ButtonStartWpno"))
                     {
-                        ;
+                        if (InputBox.Show("走行開始WP指定", "途中から走行を開始したいウェイポイント番号を指定してください。", ref wpno_str) == DialogResult.OK)
+                        {
+                            ;
+                        }
+                    }
+                    int.TryParse(wpno_str, out wpno);
+                    if (wpno > 0 && cmds[wpno-1].id == (byte)MAVLink.MAV_CMD.WAYPOINT && cmds[wpno - 1].lat != 0)
+                    {
+                        MainV2.comPort.setWPCurrent((ushort)wpno); // set nav to
+                        break;
                     }
                 }
-                int.TryParse(wpno_str, out wpno);
-                MainV2.comPort.setWPCurrent((ushort)wpno); // set nav to
 
                 // auto save
                 MainV2.instance.FlightPlanner.autosave();
