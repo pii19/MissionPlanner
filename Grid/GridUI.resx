@@ -4763,7 +4763,7 @@ Control-O to load form file</value>
     <value>9, 28</value>
   </data>
   <data name="RBL_startfrom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 94</value>
+    <value>168, 117</value>
   </data>
   <data name="RBL_startfrom.TabIndex" type="System.Int32, mscorlib">
     <value>149</value>
@@ -4790,7 +4790,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="label45.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 168</value>
+    <value>5, 167</value>
   </data>
   <data name="label45.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 16</value>
@@ -4817,7 +4817,7 @@ Control-O to load form file</value>
     <value>MS UI Gothic, 20.25pt</value>
   </data>
   <data name="TXT_angle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 193</value>
+    <value>8, 192</value>
   </data>
   <data name="TXT_angle.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 34</value>
@@ -4847,7 +4847,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_angleminus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 189</value>
+    <value>136, 188</value>
   </data>
   <data name="BUT_angleminus.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 39</value>
@@ -4877,7 +4877,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_angleplus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 189</value>
+    <value>86, 188</value>
   </data>
   <data name="BUT_angleplus.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 39</value>
@@ -4907,7 +4907,7 @@ Control-O to load form file</value>
     <value>MS UI Gothic, 14.25pt</value>
   </data>
   <data name="TXT_headinghold.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 165</value>
+    <value>8, 198</value>
   </data>
   <data name="TXT_headinghold.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 26</value>
@@ -4940,7 +4940,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_headingholdminus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 162</value>
+    <value>122, 195</value>
   </data>
   <data name="BUT_headingholdminus.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 35</value>
@@ -4973,7 +4973,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="BUT_headingholdplus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 162</value>
+    <value>74, 195</value>
   </data>
   <data name="BUT_headingholdplus.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 35</value>
@@ -5042,7 +5042,7 @@ Control-O to load form file</value>
     <value>NoControl</value>
   </data>
   <data name="CHK_copter_headinghold.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 140</value>
+    <value>5, 173</value>
   </data>
   <data name="CHK_copter_headinghold.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 20</value>
@@ -5126,7 +5126,7 @@ Control-O to load form file</value>
     <value>3, 520</value>
   </data>
   <data name="panel6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 238</value>
+    <value>187, 235</value>
   </data>
   <data name="panel6.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -5264,7 +5264,7 @@ Control-O to load form file</value>
     <value>3</value>
   </data>
   <data name="panel10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 764</value>
+    <value>3, 761</value>
   </data>
   <data name="panel10.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 71</value>
@@ -5405,7 +5405,7 @@ Control-O to load form file</value>
     <value>3</value>
   </data>
   <data name="panel7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 841</value>
+    <value>3, 838</value>
   </data>
   <data name="panel7.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 71</value>
@@ -5579,7 +5579,7 @@ Control-O to load form file</value>
     <value>4</value>
   </data>
   <data name="panel8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 918</value>
+    <value>3, 915</value>
   </data>
   <data name="panel8.Size" type="System.Drawing.Size, System.Drawing">
     <value>187, 150</value>
