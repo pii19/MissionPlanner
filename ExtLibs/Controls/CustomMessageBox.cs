@@ -184,7 +184,14 @@ namespace MissionPlanner.MsgBox
                 // @eams add for wait task
                 if (waitTask != null)
                 {
-                    Task.Run(() => waitTask()).ContinueWith(_ => msgBoxFrm.Invoke((MethodInvoker)(() => msgBoxFrm.Close())));
+                    try
+                    {
+                        Task.Run(() => waitTask()).ContinueWith(_ => msgBoxFrm.Invoke((MethodInvoker)(() => msgBoxFrm.Close())));
+                    }
+                    catch
+                    {
+                        ;
+                    }
                 }
 
                 DialogResult test = msgBoxFrm.ShowDialog();
