@@ -810,6 +810,11 @@ namespace MissionPlanner.Grid
                 doCalc();
             }
 
+            if (sender == CMB_startfrom)
+            {
+                first_validate = true;
+            }
+
             // new grid system test
 
             if (chk_test.Checked)
@@ -3047,6 +3052,6 @@ namespace MissionPlanner.Grid
             NUM_leadin.Value = d;
 //            domainUpDown1_ValueChanged(sender, e);
         }
-#endregion
+        #endregion
     }
 }

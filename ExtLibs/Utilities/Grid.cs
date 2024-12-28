@@ -2239,7 +2239,7 @@ namespace MissionPlanner.Utilities
 
             return findClosestLine(start, filteredlist.Select(a => a.Value).ToList(), 0, angle);
         }
-#if false
+#if true
         static bool PointInPolygon(utmpos p, List<utmpos> poly)
         {
             utmpos p1, p2;
@@ -2256,20 +2256,32 @@ namespace MissionPlanner.Utilities
 
                 utmpos newPoint = new utmpos(poly[i]);
 
+                double variance = 0.0;
                 if (newPoint.y > oldPoint.y)
                 {
                     p1 = oldPoint;
                     p2 = newPoint;
+                    variance = -0.01;
                 }
                 else
                 {
                     p1 = newPoint;
                     p2 = oldPoint;
+                    variance = 0.01;
+                }
+
+                bool judge = false;
+                var a = (p.x - p1.x) * (p2.y - p1.y);
+                var b = (p2.x - p1.x) * (p.y - p1.y);
+                if (a < (b + variance) )
+                {
+                    judge = true;
                 }
 
                 if ((newPoint.y < p.y) == (p.y <= oldPoint.y)
-                    && ((double)p.x - (double)p1.x) * (double)(p2.y - p1.y)
-                    < ((double)p2.x - (double)p1.x) * (double)(p.y - p1.y))
+                    //&& ((double)p.x - (double)p1.x) * (double)(p2.y - p1.y)
+                    //< ((double)p2.x - (double)p1.x) * (double)(p.y - p1.y))
+                    && judge)
                 {
                     inside = !inside;
                 }
@@ -2278,22 +2290,34 @@ namespace MissionPlanner.Utilities
             return inside;
         }
 #else
-        // https://www.hiramine.com/programming/graphics/2d_ispointinpolygon.html
-        static bool PointInPolygon(utmpos p, List<utmpos> poly)
+                // https://www.hiramine.com/programming/graphics/2d_ispointinpolygon.html
+                static bool PointInPolygon(utmpos p, List<utmpos> poly)
         {
             int iCountCrossing = 0;
             int iCountPoint = poly.Count;
 
             utmpos point0 = poly[0];
-            bool bFlag0x = (p.x <= point0.x);
-            bool bFlag0y = (p.y <= point0.y);
+            var x = (decimal)p.x;
+            var y = (decimal)p.y;
+            var p0x = (decimal)point0.x;
+            var p0y = (decimal)point0.y;
+
+            //bool bFlag0x = (p.x <= point0.x);
+            //bool bFlag0y = (p.y <= point0.y);
+
+            bool bFlag0x = (x <= p0x);
+            bool bFlag0y = (y <= p0y);
 
             // レイの方向は、Ｘプラス方向
             for (int i = 1; i < iCountPoint + 1; i++)
             {
                 utmpos point1 = poly[i % iCountPoint];  // 最後は始点が入る（多角形データの始点と終点が一致していないデータ対応）
-                bool bFlag1x = (p.x <= point1.x);
-                bool bFlag1y = (p.y <= point1.y);
+                var p1x = (decimal)point1.x;
+                var p1y = (decimal)point1.y;
+                //bool bFlag1x = (p.x <= point1.x);
+                //bool bFlag1y = (p.y <= point1.y);
+                bool bFlag1x = (x <= p1x);
+                bool bFlag1y = (y <= p1y);
                 if (bFlag0y != bFlag1y)
                 {   // 線分はレイを横切る可能性あり。
                     if (bFlag0x == bFlag1x)
@@ -2305,7 +2329,9 @@ namespace MissionPlanner.Utilities
                     }
                     else
                     {   // レイと交差するかどうか、対象点と同じ高さで、対象点の右で交差するか、左で交差するかを求める。
-                        if (p.x <= (point0.x + (point1.x - point0.x) * (p.y - point0.y) / (point1.y - point0.y)))
+                        //if (p.x <= (point0.x + (point1.x - point0.x) * (p.y - point0.y) / (point1.y - point0.y)))
+                        //if (p.x < (point0.x + (point1.x - point0.x) * (p.y - point0.y) / (point1.y - point0.y)))
+                        if (x < (p0x + (p1x - p0x) * (y - p0y) / (p1y - p0y)))
                         {   // 線分は、対象点と同じ高さで、対象点の右で交差する。⇒線分はレイを横切る
                             iCountCrossing += (bFlag0y ? -1 : 1);   // 上から下にレイを横切るときには、交差回数を１引く、下から上は１足す。
                         }
@@ -2313,6 +2339,8 @@ namespace MissionPlanner.Utilities
                 }
                 // 次の判定のために、
                 point0 = point1;
+                p0x = (decimal)point0.x;
+                p0y = (decimal)point0.y;
                 bFlag0x = bFlag1x;
                 bFlag0y = bFlag1y;
             }
