@@ -2239,7 +2239,7 @@ namespace MissionPlanner.Utilities
 
             return findClosestLine(start, filteredlist.Select(a => a.Value).ToList(), 0, angle);
         }
-
+#if false
         static bool PointInPolygon(utmpos p, List<utmpos> poly)
         {
             utmpos p1, p2;
@@ -2277,7 +2277,50 @@ namespace MissionPlanner.Utilities
             }
             return inside;
         }
+#else
+        // https://www.hiramine.com/programming/graphics/2d_ispointinpolygon.html
+        static bool PointInPolygon(utmpos p, List<utmpos> poly)
+        {
+            int iCountCrossing = 0;
+            int iCountPoint = poly.Count;
 
+            utmpos point0 = poly[0];
+            bool bFlag0x = (p.x <= point0.x);
+            bool bFlag0y = (p.y <= point0.y);
+
+            // レイの方向は、Ｘプラス方向
+            for (int i = 1; i < iCountPoint + 1; i++)
+            {
+                utmpos point1 = poly[i % iCountPoint];  // 最後は始点が入る（多角形データの始点と終点が一致していないデータ対応）
+                bool bFlag1x = (p.x <= point1.x);
+                bool bFlag1y = (p.y <= point1.y);
+                if (bFlag0y != bFlag1y)
+                {   // 線分はレイを横切る可能性あり。
+                    if (bFlag0x == bFlag1x)
+                    {   // 線分の２端点は対象点に対して両方右か両方左にある
+                        if (bFlag0x)
+                        {   // 完全に右。⇒線分はレイを横切る
+                            iCountCrossing += (bFlag0y ? -1 : 1);   // 上から下にレイを横切るときには、交差回数を１引く、下から上は１足す。
+                        }
+                    }
+                    else
+                    {   // レイと交差するかどうか、対象点と同じ高さで、対象点の右で交差するか、左で交差するかを求める。
+                        if (p.x <= (point0.x + (point1.x - point0.x) * (p.y - point0.y) / (point1.y - point0.y)))
+                        {   // 線分は、対象点と同じ高さで、対象点の右で交差する。⇒線分はレイを横切る
+                            iCountCrossing += (bFlag0y ? -1 : 1);   // 上から下にレイを横切るときには、交差回数を１引く、下から上は１足す。
+                        }
+                    }
+                }
+                // 次の判定のために、
+                point0 = point1;
+                bFlag0x = bFlag1x;
+                bFlag0y = bFlag1y;
+            }
+
+            // クロスカウントがゼロのとき外、ゼロ以外のとき内。
+            return (0 != iCountCrossing);
+        }
+#endif
         static int CalcLineNumber(utmpos p, List<utmpos> poly, double angle, double distance)
         {
             int count = 0;
