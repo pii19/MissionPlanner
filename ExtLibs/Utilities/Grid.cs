@@ -702,15 +702,18 @@ namespace MissionPlanner.Utilities
             addtomap(new utmpos(x, y, utmzone), "Base");
 
 #if true
-            //グリッドライン方向へポリゴンを縮小する @eams
+            //重心方向へポリゴンを縮小する @eams
             utmpos gravity = new utmpos(x, y, utmzone);
-            for (int i = 0; i < utmpositions.Count(); i++)
+            if (offset > 0)
             {
-                double xp = utmpositions[i].x;
-                double yp = utmpositions[i].y;
-                double deg = utmpositions[i].GetBearing(gravity);
-                newpos(ref xp, ref yp, deg, offset);
-                utmpositions[i] = new utmpos(xp, yp, utmzone);
+                for (int i = 0; i < utmpositions.Count(); i++)
+                {
+                    double xp = utmpositions[i].x;
+                    double yp = utmpositions[i].y;
+                    double deg = utmpositions[i].GetBearing(gravity);
+                    newpos(ref xp, ref yp, deg, offset);
+                    utmpositions[i] = new utmpos(xp, yp, utmzone);
+                }
             }
 #endif
             // pick start positon based on initial point rectangle
@@ -1003,7 +1006,7 @@ namespace MissionPlanner.Utilities
                         newstart = newpos(closest.p1, angle, 0);
                         first_S = false;
                     }
-                    if (!PointInPolygon(newstart, utmpositions))
+                    if (!PointInPolygonOffset(newstart, utmpositions, gravity, 0.01))
                     {
                         utmpos tmpend = newpos(closest.p2, angle, overshoot1);
                         lastpnt = closest.p2;
@@ -1082,7 +1085,7 @@ namespace MissionPlanner.Utilities
                         newstart = newpos(closest.p2, angle, 0);
                         first_S = false;
                     }
-                    if (!PointInPolygon(newstart, utmpositions))
+                    if (!PointInPolygonOffset(newstart, utmpositions, gravity, 0.01))
                     {
                         utmpos tmpend = newpos(closest.p1, angle, -overshoot2);
                         lastpnt = closest.p1;
@@ -2240,6 +2243,20 @@ namespace MissionPlanner.Utilities
             return findClosestLine(start, filteredlist.Select(a => a.Value).ToList(), 0, angle);
         }
 #if true
+        static bool PointInPolygonOffset(utmpos p, List<utmpos> poly, utmpos gravity, double offset)
+        {
+            //重心と反対方向へポリゴンをoffset分拡大する
+            for (int i = 0; i < poly.Count(); i++)
+            {
+                double xp = poly[i].x;
+                double yp = poly[i].y;
+                double deg = poly[i].GetBearing(gravity);
+                newpos(ref xp, ref yp, deg, -offset);
+                poly[i] = new utmpos(xp, yp, p.zone);
+            }
+            return PointInPolygon(p, poly);
+        }
+
         static bool PointInPolygon(utmpos p, List<utmpos> poly)
         {
             utmpos p1, p2;
@@ -2256,32 +2273,20 @@ namespace MissionPlanner.Utilities
 
                 utmpos newPoint = new utmpos(poly[i]);
 
-                double variance = 0.0;
                 if (newPoint.y > oldPoint.y)
                 {
                     p1 = oldPoint;
                     p2 = newPoint;
-                    variance = -0.01;
                 }
                 else
                 {
                     p1 = newPoint;
                     p2 = oldPoint;
-                    variance = 0.01;
-                }
-
-                bool judge = false;
-                var a = (p.x - p1.x) * (p2.y - p1.y);
-                var b = (p2.x - p1.x) * (p.y - p1.y);
-                if (a < (b + variance) )
-                {
-                    judge = true;
                 }
 
                 if ((newPoint.y < p.y) == (p.y <= oldPoint.y)
-                    //&& ((double)p.x - (double)p1.x) * (double)(p2.y - p1.y)
-                    //< ((double)p2.x - (double)p1.x) * (double)(p.y - p1.y))
-                    && judge)
+                    && ((double)p.x - (double)p1.x) * (double)(p2.y - p1.y)
+                    < ((double)p2.x - (double)p1.x) * (double)(p.y - p1.y))
                 {
                     inside = !inside;
                 }
