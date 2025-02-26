@@ -35,11 +35,11 @@ namespace MissionPlanner.GCSViews
             this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setBatteryCellCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.panelMode = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.labelMode = new System.Windows.Forms.Label();
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -269,10 +269,9 @@ namespace MissionPlanner.GCSViews
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.panelCamCont.SuspendLayout();
-            this.hud1.SuspendLayout();
             this.contextMenuStripHud.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.panelMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
             this.tabControlactions.SuspendLayout();
             this.tabQuick.SuspendLayout();
@@ -370,6 +369,7 @@ namespace MissionPlanner.GCSViews
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.panelMode);
             this.splitContainer2.Panel2.Controls.Add(this.hud1);
             // 
             // panelCamCont
@@ -446,7 +446,6 @@ namespace MissionPlanner.GCSViews
             this.hud1.bgimage = null;
             this.hud1.connected = false;
             this.hud1.ContextMenuStrip = this.contextMenuStripHud;
-            this.hud1.Controls.Add(this.panelMode);
             this.hud1.critAOA = 25F;
             this.hud1.criticalvoltagealert = false;
             this.hud1.critSSA = 30F;
@@ -668,14 +667,10 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.showIconsToolStripMenuItem, "showIconsToolStripMenuItem");
             this.showIconsToolStripMenuItem.Click += new System.EventHandler(this.showIconsToolStripMenuItem_Click);
             // 
-            // bindingSourceHud
-            // 
-            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // panelMode
             // 
             resources.ApplyResources(this.panelMode, "panelMode");
-            this.panelMode.BackColor = System.Drawing.Color.Transparent;
+            this.panelMode.BackColor = System.Drawing.Color.Black;
             this.panelMode.Controls.Add(this.button2);
             this.panelMode.Controls.Add(this.button3);
             this.panelMode.Controls.Add(this.labelMode);
@@ -686,7 +681,7 @@ namespace MissionPlanner.GCSViews
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_front_off;
+            this.button2.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_loiter_off;
             resources.ApplyResources(this.button2, "button2");
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -700,7 +695,7 @@ namespace MissionPlanner.GCSViews
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::MissionPlanner.Properties.Resources.cam_auto_on;
+            this.button3.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_auto_on;
             resources.ApplyResources(this.button3, "button3");
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -717,6 +712,10 @@ namespace MissionPlanner.GCSViews
             this.labelMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
             this.labelMode.Name = "labelMode";
             this.labelMode.Tag = "custom";
+            // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // contextMenuStripactionstab
             // 
@@ -3137,10 +3136,9 @@ namespace MissionPlanner.GCSViews
             this.splitContainer2.ResumeLayout(false);
             this.panelCamCont.ResumeLayout(false);
             this.panelCamCont.PerformLayout();
-            this.hud1.ResumeLayout(false);
             this.contextMenuStripHud.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.panelMode.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
