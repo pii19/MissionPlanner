@@ -8,7 +8,6 @@ namespace MissionPlanner.GCSViews
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
@@ -18,8 +17,12 @@ namespace MissionPlanner.GCSViews
             this.buttonCamFront = new System.Windows.Forms.Button();
             this.buttonCamAuto = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.panelMode = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.labelMode = new System.Windows.Forms.Label();
             this.hud1 = new MissionPlanner.Controls.HUD();
-            this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip();
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recordHudToAVIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,22 +38,18 @@ namespace MissionPlanner.GCSViews
             this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setBatteryCellCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelMode = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.labelMode = new System.Windows.Forms.Label();
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
-            this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource();
+            this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlactions = new System.Windows.Forms.TabControl();
             this.tabQuick = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelQuick = new System.Windows.Forms.TableLayoutPanel();
             this.quickView6 = new MissionPlanner.Controls.QuickView();
-            this.contextMenuStripQuickView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripQuickView = new System.Windows.Forms.ContextMenuStrip();
             this.setViewCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource();
             this.quickView5 = new MissionPlanner.Controls.QuickView();
             this.quickView4 = new MissionPlanner.Controls.QuickView();
             this.quickView3 = new MissionPlanner.Controls.QuickView();
@@ -91,7 +90,7 @@ namespace MissionPlanner.GCSViews
             this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
-            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource();
             this.Gheading = new MissionPlanner.Controls.HSI();
             this.Galt = new AGaugeApp.AGauge();
             this.Gspeed = new AGaugeApp.AGauge();
@@ -163,7 +162,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_PayloadFolder = new MissionPlanner.Controls.MyButton();
             this.groupBoxRoll = new System.Windows.Forms.GroupBox();
             this.TXT_gimbalRollPos = new System.Windows.Forms.TextBox();
-            this.bindingSourcePayloadTab = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourcePayloadTab = new System.Windows.Forms.BindingSource();
             this.trackBarRoll = new System.Windows.Forms.TrackBar();
             this.groupBoxYaw = new System.Windows.Forms.GroupBox();
             this.TXT_gimbalYawPos = new System.Windows.Forms.TextBox();
@@ -202,7 +201,7 @@ namespace MissionPlanner.GCSViews
             this.panel_persistent = new System.Windows.Forms.Panel();
             this.tableMap = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip();
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToCoordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -227,7 +226,7 @@ namespace MissionPlanner.GCSViews
             this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSource1 = new System.Windows.Forms.BindingSource();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -240,12 +239,12 @@ namespace MissionPlanner.GCSViews
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CB_tuning = new System.Windows.Forms.CheckBox();
-            this.ZedGraphTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.ZedGraphTimer = new System.Windows.Forms.Timer();
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.openScriptDialog = new System.Windows.Forms.OpenFileDialog();
-            this.scriptChecker = new System.Windows.Forms.Timer(this.components);
-            this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
-            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.scriptChecker = new System.Windows.Forms.Timer();
+            this.Messagetabtimer = new System.Windows.Forms.Timer();
+            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -269,8 +268,8 @@ namespace MissionPlanner.GCSViews
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.panelCamCont.SuspendLayout();
-            this.contextMenuStripHud.SuspendLayout();
             this.panelMode.SuspendLayout();
+            this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
             this.tabControlactions.SuspendLayout();
@@ -429,6 +428,52 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
+            // 
+            // panelMode
+            // 
+            resources.ApplyResources(this.panelMode, "panelMode");
+            this.panelMode.BackColor = System.Drawing.Color.Black;
+            this.panelMode.Controls.Add(this.button2);
+            this.panelMode.Controls.Add(this.button3);
+            this.panelMode.Controls.Add(this.labelMode);
+            this.panelMode.ForeColor = System.Drawing.SystemColors.Window;
+            this.panelMode.Name = "panelMode";
+            this.panelMode.Tag = "custom";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_loiter_off;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button2.ForeColor = System.Drawing.Color.Transparent;
+            this.button2.Name = "button2";
+            this.button2.TabStop = false;
+            this.button2.Tag = "custom";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_auto_on;
+            resources.ApplyResources(this.button3, "button3");
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.button3.ForeColor = System.Drawing.Color.Transparent;
+            this.button3.Name = "button3";
+            this.button3.TabStop = false;
+            this.button3.Tag = "custom";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // labelMode
+            // 
+            resources.ApplyResources(this.labelMode, "labelMode");
+            this.labelMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
+            this.labelMode.Name = "labelMode";
+            this.labelMode.Tag = "custom";
             // 
             // hud1
             // 
@@ -666,52 +711,6 @@ namespace MissionPlanner.GCSViews
             this.showIconsToolStripMenuItem.Name = "showIconsToolStripMenuItem";
             resources.ApplyResources(this.showIconsToolStripMenuItem, "showIconsToolStripMenuItem");
             this.showIconsToolStripMenuItem.Click += new System.EventHandler(this.showIconsToolStripMenuItem_Click);
-            // 
-            // panelMode
-            // 
-            resources.ApplyResources(this.panelMode, "panelMode");
-            this.panelMode.BackColor = System.Drawing.Color.Black;
-            this.panelMode.Controls.Add(this.button2);
-            this.panelMode.Controls.Add(this.button3);
-            this.panelMode.Controls.Add(this.labelMode);
-            this.panelMode.ForeColor = System.Drawing.SystemColors.Window;
-            this.panelMode.Name = "panelMode";
-            this.panelMode.Tag = "custom";
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_loiter_off;
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button2.ForeColor = System.Drawing.Color.Transparent;
-            this.button2.Name = "button2";
-            this.button2.TabStop = false;
-            this.button2.Tag = "custom";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_auto_on;
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button3.ForeColor = System.Drawing.Color.Transparent;
-            this.button3.Name = "button3";
-            this.button3.TabStop = false;
-            this.button3.Tag = "custom";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // labelMode
-            // 
-            resources.ApplyResources(this.labelMode, "labelMode");
-            this.labelMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
-            this.labelMode.Name = "labelMode";
-            this.labelMode.Tag = "custom";
             // 
             // bindingSourceHud
             // 
@@ -2853,7 +2852,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -3136,8 +3135,8 @@ namespace MissionPlanner.GCSViews
             this.splitContainer2.ResumeLayout(false);
             this.panelCamCont.ResumeLayout(false);
             this.panelCamCont.PerformLayout();
-            this.contextMenuStripHud.ResumeLayout(false);
             this.panelMode.ResumeLayout(false);
+            this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);

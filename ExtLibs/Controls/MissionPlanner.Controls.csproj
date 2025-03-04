@@ -55,6 +55,9 @@
       <LastGenOutput>HUDT.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MissionPlanner.Controls</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="HUDT.zh-Hans.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
