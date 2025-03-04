@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Remove="APMPlannerXplanes\**" />
     <Compile Remove="ExtLibs\**" />
+    <Compile Remove="FlightPlanningSoftware\**" />
     <Compile Remove="MissionPlannerTests\**" />
     <Compile Remove="Msi\**" />
     <Compile Remove="plugins\**" />
@@ -62,6 +63,7 @@
     <Compile Remove="wix\**" />
     <EmbeddedResource Remove="APMPlannerXplanes\**" />
     <EmbeddedResource Remove="ExtLibs\**" />
+    <EmbeddedResource Remove="FlightPlanningSoftware\**" />
     <EmbeddedResource Remove="MissionPlannerTests\**" />
     <EmbeddedResource Remove="Msi\**" />
     <EmbeddedResource Remove="plugins\**" />
@@ -71,6 +73,7 @@
     <EmbeddedResource Remove="wix\**" />
     <None Remove="APMPlannerXplanes\**" />
     <None Remove="ExtLibs\**" />
+    <None Remove="FlightPlanningSoftware\**" />
     <None Remove="MissionPlannerTests\**" />
     <None Remove="Msi\**" />
     <None Remove="plugins\**" />
