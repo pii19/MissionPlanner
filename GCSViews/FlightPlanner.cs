@@ -7190,6 +7190,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             else
             {
+                //既存グリッド強制クリア
+                quickadd = true;
+                Commands.Rows.Clear();
+                selectedrow = 0;
+                quickadd = false;
+                writeKML();
+
                 GridPlugin grid = new GridPlugin();
                 grid.Host = new PluginHost();
                 grid.but_Click(sender, e);
