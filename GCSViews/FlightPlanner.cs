@@ -7761,6 +7761,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         {
             polyicon.IsSelected = false;
             polygongridmode = false;
+            BUT_poly.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_poly_off;
+            BUT_poly.BackgroundImage.Tag = "Off";
             if (flag && MainV2.comPort.BaseStream.IsOpen)
             {
                 MainV2.atex_rooting = 0x0000;
