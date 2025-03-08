@@ -27,18 +27,19 @@ namespace MissionPlanner.Utilities
 
         public enum StartPosition
         {
-            [EnumDisplayName("ホーム")]
+            //[EnumDisplayName("ホーム")]
+            [EnumDisplayName("オート")]
             Home = 0,
+            [EnumDisplayName("フリー")]
+            Point = 1,
             [EnumDisplayName("左下")]
-            BottomLeft = 1,
+            BottomLeft = 2,
             [EnumDisplayName("左上")]
-            TopLeft = 2,
+            TopLeft = 3,
             [EnumDisplayName("右下")]
-            BottomRight = 3,
+            BottomRight = 4,
             [EnumDisplayName("右上")]
-            TopRight = 4,
-            [EnumDisplayName("ポイント")]
-            Point = 5
+            TopRight = 5,
         }
 
         public static PointLatLngAlt StartPointLatLngAlt = PointLatLngAlt.Zero;
@@ -2123,7 +2124,7 @@ namespace MissionPlanner.Utilities
             return result;
         }
 
-        static utmpos findClosestPoint(utmpos start, List<utmpos> list)
+        public static utmpos findClosestPoint(utmpos start, List<utmpos> list)
         {
             utmpos answer = utmpos.Zero;
             double currentbest = double.MaxValue;

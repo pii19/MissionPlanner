@@ -139,7 +139,10 @@ namespace MissionPlanner.Grid
                 var name = val.GetEnumDisplayName();
                 names.Add(name);
             }
-            names.Remove("ポイント");
+            names.Remove("左下");
+            names.Remove("左上");
+            names.Remove("右下");
+            names.Remove("右上");
 
             CMB_startfrom.DataSource = names;
             RBL_startfrom.DataSource = names;
@@ -325,6 +328,14 @@ namespace MissionPlanner.Grid
             loading = false;
 
             first_validate = true;
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                Utilities.Grid.StartPointLatLngAlt = MainV2.comPort.MAV.cs.Location;
+            }
+            else
+            {
+                Utilities.Grid.StartPointLatLngAlt = MainV2.comPort.MAV.cs.HomeLocation;
+            }
             domainUpDown1_ValueChanged(this, null);
 
             // @eams add for mode6 easy
@@ -436,7 +447,7 @@ namespace MissionPlanner.Grid
             NUM_leadin.Value = griddata.leadin;
             TXT_leadin.Text = Decimal.Round(NUM_leadin.Value, 1, MidpointRounding.AwayFromZero).ToString("f1");   //@eams add
             //CMB_startfrom.Text = griddata.startfrom;
-            CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), griddata.startfrom);
+            //CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), griddata.startfrom);
             num_overlap.Value = griddata.overlap;
             TXT_Overlap.Text = Decimal.Round(num_overlap.Value, 1, MidpointRounding.AwayFromZero).ToString("f0");   //@eams add
             num_sidelap.Value = griddata.sidelap;
@@ -551,8 +562,8 @@ namespace MissionPlanner.Grid
                 loadsetting("grid_leadin", NUM_leadin);
                 TXT_leadin.Text = Decimal.Round(NUM_leadin.Value, 1, MidpointRounding.AwayFromZero).ToString("f1");   //@eams add
 #if true
-                var val = plugin.Host.config["grid_startfrom"].ToString();
-                CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), val);
+                //var val = plugin.Host.config["grid_startfrom"].ToString();
+                //CMB_startfrom.SelectedIndex = (int)(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), val);
 #else
                 loadsetting("grid_startfrom", CMB_startfrom);
 #endif
@@ -853,12 +864,21 @@ namespace MissionPlanner.Grid
                             (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate, area_unit);
                         break;
                     case 22:
+                        PointLatLngAlt pos;
+                        if (MainV2.comPort.BaseStream.IsOpen)
+                        {
+                            pos = MainV2.comPort.MAV.cs.Location;
+                        }
+                        else
+                        {
+                            pos = MainV2.comPort.MAV.cs.HomeLocation;
+                        }
                         grid = Utilities.Grid.CreateGrid22(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
                             (double)NUM_Distance.Value, (double)NUM_spacing.Value, ref angle,
                             (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
                             //(Utilities.Grid.StartPosition)Enum.Parse(typeof(Utilities.Grid.StartPosition), CMB_startfrom.Text), false,
                             (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex), false,
-                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, MainV2.comPort.MAV.cs.HomeLocation, double.Parse(TXT_offset.Text), first_validate);
+                            (float)NUM_Lane_Dist.Value, (float)NUM_leadin.Value, pos, double.Parse(TXT_offset.Text), first_validate);
                         break;
                     default:
                         grid = Utilities.Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
@@ -1020,7 +1040,16 @@ namespace MissionPlanner.Grid
 
                     if (CHK_markers.Checked)
                     {
-                        var marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                        GMapMarkerWP marker;
+                        if (strips == 1)
+                        {
+                            //marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.lightblue_pushpin) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                            marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.red) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                        }
+                        else
+                        {
+                            marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                        }
                         routesOverlay.Markers.Add(marker);
                     }
 
@@ -1159,7 +1188,6 @@ namespace MissionPlanner.Grid
                 map.ZoomAndCenterMarkers("routes");
 
 //            CalcHeadingHold();    // @eams diabled
-
             map.Invalidate();
         }
 
@@ -1268,10 +1296,20 @@ namespace MissionPlanner.Grid
 
             routesOverlay.Polygons.Add(poly);
 
+            List<utmpos> list3 = new List<utmpos>();
+            list.ForEach(x => { list3.Add(new utmpos(x)); });
+            var closest = Utilities.Grid.findClosestPoint(new utmpos(Utilities.Grid.StartPointLatLngAlt), list3);
             foreach (var item in list)
             {
-                //routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red));
-                routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red_big_stop));
+                if (new utmpos(item) == closest)
+                {
+                    routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.green_big_go));
+                }
+                else
+                {
+                    //routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red));
+                    routesOverlay.Markers.Add(new GMarkerGoogle(item, GMarkerGoogleType.red_big_stop));
+                }
             }
         }
 
@@ -1556,6 +1594,13 @@ namespace MissionPlanner.Grid
                     {
                         // Redraw polygon
                         //AddDrawPolygon();
+                    }
+                    // @eams add
+                    var index = (Utilities.Grid.StartPosition)Enum.ToObject(typeof(Utilities.Grid.StartPosition), CMB_startfrom.SelectedIndex);
+                    if (index == Utilities.Grid.StartPosition.Point)
+                    {
+                        Utilities.Grid.StartPointLatLngAlt = MouseDownEnd;
+                        domainUpDown1_ValueChanged(sender, e);
                     }
                 }
             }
