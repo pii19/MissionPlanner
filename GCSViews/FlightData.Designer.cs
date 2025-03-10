@@ -14,6 +14,13 @@ namespace MissionPlanner.GCSViews
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panelCamCont = new System.Windows.Forms.Panel();
+            this.buttonPropo = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.buttonModeLoiter = new System.Windows.Forms.Button();
+            this.buttonModeAuto = new System.Windows.Forms.Button();
+            this.labelMode = new System.Windows.Forms.Label();
             this.buttonCamUnder = new System.Windows.Forms.Button();
             this.buttonCamFront = new System.Windows.Forms.Button();
             this.buttonCamAuto = new System.Windows.Forms.Button();
@@ -35,10 +42,6 @@ namespace MissionPlanner.GCSViews
             this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setBatteryCellCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelMode = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.labelMode = new System.Windows.Forms.Label();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -269,8 +272,8 @@ namespace MissionPlanner.GCSViews
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.panelCamCont.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.contextMenuStripHud.SuspendLayout();
-            this.panelMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
             this.tabControlactions.SuspendLayout();
@@ -369,12 +372,15 @@ namespace MissionPlanner.GCSViews
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.panelMode);
             this.splitContainer2.Panel2.Controls.Add(this.hud1);
             // 
             // panelCamCont
             // 
             this.panelCamCont.BackColor = System.Drawing.Color.Transparent;
+            this.panelCamCont.Controls.Add(this.buttonPropo);
+            this.panelCamCont.Controls.Add(this.label13);
+            this.panelCamCont.Controls.Add(this.label12);
+            this.panelCamCont.Controls.Add(this.panel3);
             this.panelCamCont.Controls.Add(this.buttonCamUnder);
             this.panelCamCont.Controls.Add(this.buttonCamFront);
             this.panelCamCont.Controls.Add(this.buttonCamAuto);
@@ -382,6 +388,82 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelCamCont, "panelCamCont");
             this.panelCamCont.ForeColor = System.Drawing.SystemColors.Window;
             this.panelCamCont.Name = "panelCamCont";
+            // 
+            // buttonPropo
+            // 
+            resources.ApplyResources(this.buttonPropo, "buttonPropo");
+            this.buttonPropo.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.BackgroundImage = global::MissionPlanner.Properties.Resources.propo_on;
+            this.buttonPropo.FlatAppearance.BorderSize = 0;
+            this.buttonPropo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.Name = "buttonPropo";
+            this.buttonPropo.TabStop = false;
+            this.buttonPropo.Tag = "custom";
+            this.buttonPropo.UseVisualStyleBackColor = false;
+            this.buttonPropo.Click += new System.EventHandler(this.buttonPropo_Click);
+            // 
+            // label13
+            // 
+            this.label13.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            this.label13.Tag = "custom";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.buttonModeLoiter);
+            this.panel3.Controls.Add(this.buttonModeAuto);
+            this.panel3.Controls.Add(this.labelMode);
+            this.panel3.ForeColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Name = "panel3";
+            this.panel3.Tag = "custom";
+            // 
+            // buttonModeLoiter
+            // 
+            this.buttonModeLoiter.BackColor = System.Drawing.Color.Transparent;
+            this.buttonModeLoiter.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_loiter_off;
+            resources.ApplyResources(this.buttonModeLoiter, "buttonModeLoiter");
+            this.buttonModeLoiter.FlatAppearance.BorderSize = 0;
+            this.buttonModeLoiter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonModeLoiter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonModeLoiter.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonModeLoiter.Name = "buttonModeLoiter";
+            this.buttonModeLoiter.TabStop = false;
+            this.buttonModeLoiter.Tag = "custom";
+            this.buttonModeLoiter.UseVisualStyleBackColor = false;
+            this.buttonModeLoiter.Click += new System.EventHandler(this.buttonModeLoiter_Click);
+            // 
+            // buttonModeAuto
+            // 
+            this.buttonModeAuto.BackColor = System.Drawing.Color.Transparent;
+            this.buttonModeAuto.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_auto_on;
+            resources.ApplyResources(this.buttonModeAuto, "buttonModeAuto");
+            this.buttonModeAuto.FlatAppearance.BorderSize = 0;
+            this.buttonModeAuto.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonModeAuto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonModeAuto.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonModeAuto.Name = "buttonModeAuto";
+            this.buttonModeAuto.TabStop = false;
+            this.buttonModeAuto.Tag = "custom";
+            this.buttonModeAuto.UseVisualStyleBackColor = false;
+            this.buttonModeAuto.Click += new System.EventHandler(this.buttonModeAuto_Click);
+            // 
+            // labelMode
+            // 
+            resources.ApplyResources(this.labelMode, "labelMode");
+            this.labelMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
+            this.labelMode.Name = "labelMode";
+            this.labelMode.Tag = "custom";
             // 
             // buttonCamUnder
             // 
@@ -396,6 +478,7 @@ namespace MissionPlanner.GCSViews
             this.buttonCamUnder.TabStop = false;
             this.buttonCamUnder.Tag = "custom";
             this.buttonCamUnder.UseVisualStyleBackColor = false;
+            this.buttonCamUnder.Click += new System.EventHandler(this.buttonCamUnder_Click);
             // 
             // buttonCamFront
             // 
@@ -410,6 +493,7 @@ namespace MissionPlanner.GCSViews
             this.buttonCamFront.TabStop = false;
             this.buttonCamFront.Tag = "custom";
             this.buttonCamFront.UseVisualStyleBackColor = false;
+            this.buttonCamFront.Click += new System.EventHandler(this.buttonCamFront_Click);
             // 
             // buttonCamAuto
             // 
@@ -424,6 +508,7 @@ namespace MissionPlanner.GCSViews
             this.buttonCamAuto.TabStop = false;
             this.buttonCamAuto.Tag = "custom";
             this.buttonCamAuto.UseVisualStyleBackColor = false;
+            this.buttonCamAuto.Click += new System.EventHandler(this.buttonCamAuto_Click);
             // 
             // label7
             // 
@@ -666,52 +751,6 @@ namespace MissionPlanner.GCSViews
             this.showIconsToolStripMenuItem.Name = "showIconsToolStripMenuItem";
             resources.ApplyResources(this.showIconsToolStripMenuItem, "showIconsToolStripMenuItem");
             this.showIconsToolStripMenuItem.Click += new System.EventHandler(this.showIconsToolStripMenuItem_Click);
-            // 
-            // panelMode
-            // 
-            resources.ApplyResources(this.panelMode, "panelMode");
-            this.panelMode.BackColor = System.Drawing.Color.Black;
-            this.panelMode.Controls.Add(this.button2);
-            this.panelMode.Controls.Add(this.button3);
-            this.panelMode.Controls.Add(this.labelMode);
-            this.panelMode.ForeColor = System.Drawing.SystemColors.Window;
-            this.panelMode.Name = "panelMode";
-            this.panelMode.Tag = "custom";
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_loiter_off;
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button2.ForeColor = System.Drawing.Color.Transparent;
-            this.button2.Name = "button2";
-            this.button2.TabStop = false;
-            this.button2.Tag = "custom";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BackgroundImage = global::MissionPlanner.Properties.Resources.mode_auto_on;
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.button3.ForeColor = System.Drawing.Color.Transparent;
-            this.button3.Name = "button3";
-            this.button3.TabStop = false;
-            this.button3.Tag = "custom";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // labelMode
-            // 
-            resources.ApplyResources(this.labelMode, "labelMode");
-            this.labelMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
-            this.labelMode.Name = "labelMode";
-            this.labelMode.Tag = "custom";
             // 
             // bindingSourceHud
             // 
@@ -3136,8 +3175,8 @@ namespace MissionPlanner.GCSViews
             this.splitContainer2.ResumeLayout(false);
             this.panelCamCont.ResumeLayout(false);
             this.panelCamCont.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.contextMenuStripHud.ResumeLayout(false);
-            this.panelMode.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);
@@ -3452,9 +3491,12 @@ namespace MissionPlanner.GCSViews
         private Label label10;
         private Label label9;
         private Label label8;
-        private Panel panelMode;
-        private Button button2;
-        private Button button3;
+        private Label label12;
+        private Panel panel3;
+        private Button buttonModeLoiter;
+        private Button buttonModeAuto;
         private Label labelMode;
+        private Label label13;
+        private Button buttonPropo;
     }
 }

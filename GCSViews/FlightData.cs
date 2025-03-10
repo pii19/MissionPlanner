@@ -3517,6 +3517,54 @@ namespace MissionPlanner.GCSViews
 
                 try
                 {
+                    // @eams update mode display
+                    switch (MainV2.comPort.MAV.cs.mode.ToUpper())
+                    {
+                        case "AUTO":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_on;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "";
+                            });
+                            break;
+                        case "LOITER":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_on;
+                                labelMode.Text = "";
+                            });
+                            break;
+                        case "ALTHOLD":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "ALTHOLD";
+                            });
+                            break;
+                        case "RTL":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "RTL";
+                            });
+                            break;
+                        default:
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "";
+                            });
+                            break;
+                    }
+
+                    // @eams update camera display
+
+
                     //CheckAndBindPreFlightData();
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
@@ -6385,6 +6433,45 @@ namespace MissionPlanner.GCSViews
             {
                 CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
             }
+        }
+
+        private void buttonModeAuto_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setMode("Auto");
+        }
+
+        private void buttonModeLoiter_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setMode("Loiter");
+        }
+
+        private void buttonPropo_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void buttonCamAuto_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setParam("MOUNT1_DIRECTION", 0);
+            buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_on;
+            buttonCamFront.BackgroundImage = Properties.Resources.cam_front_off;
+            buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_off;
+        }
+
+        private void buttonCamFront_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setParam("MOUNT1_DIRECTION", 1);
+            buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_off;
+            buttonCamFront.BackgroundImage = Properties.Resources.cam_front_on;
+            buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_off;
+        }
+
+        private void buttonCamUnder_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setParam("MOUNT1_DIRECTION", 2);
+            buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_off;
+            buttonCamFront.BackgroundImage = Properties.Resources.cam_front_off;
+            buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_on;
         }
     }
 }
