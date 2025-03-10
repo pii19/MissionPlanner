@@ -209,6 +209,11 @@ namespace MissionPlanner.GCSViews
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.batteryStatus1 = new MissionPlanner.Controls.BatteryStatus();
+            this.label11 = new System.Windows.Forms.Label();
+            this.motorStatus1 = new MissionPlanner.Controls.MotorStatus();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonPreFlight = new System.Windows.Forms.Button();
@@ -217,11 +222,7 @@ namespace MissionPlanner.GCSViews
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainV = new System.Windows.Forms.SplitContainer();
-            this.motorStatus1 = new MissionPlanner.Controls.MotorStatus();
-            this.label11 = new System.Windows.Forms.Label();
-            this.batteryStatus1 = new MissionPlanner.Controls.BatteryStatus();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.buttonPropo = new System.Windows.Forms.Button();
             this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
@@ -380,6 +381,7 @@ namespace MissionPlanner.GCSViews
             // panelCamCont
             // 
             this.panelCamCont.BackColor = System.Drawing.Color.Transparent;
+            this.panelCamCont.Controls.Add(this.buttonPropo);
             this.panelCamCont.Controls.Add(this.label13);
             this.panelCamCont.Controls.Add(this.label12);
             this.panelCamCont.Controls.Add(this.panel3);
@@ -2523,13 +2525,16 @@ namespace MissionPlanner.GCSViews
             // 
             // but_disablejoystick
             // 
+            this.but_disablejoystick.BackColor = System.Drawing.Color.IndianRed;
+            this.but_disablejoystick.BackgroundImage = global::MissionPlanner.Properties.Resources.propo_on;
+            resources.ApplyResources(this.but_disablejoystick, "but_disablejoystick");
             this.but_disablejoystick.ColorMouseDown = System.Drawing.Color.Empty;
             this.but_disablejoystick.ColorMouseOver = System.Drawing.Color.Empty;
             this.but_disablejoystick.ColorNotEnabled = System.Drawing.Color.Empty;
-            resources.ApplyResources(this.but_disablejoystick, "but_disablejoystick");
             this.but_disablejoystick.Name = "but_disablejoystick";
+            this.but_disablejoystick.Tag = "custom";
             this.but_disablejoystick.TextColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
-            this.but_disablejoystick.UseVisualStyleBackColor = true;
+            this.but_disablejoystick.UseVisualStyleBackColor = false;
             this.but_disablejoystick.Click += new System.EventHandler(this.but_disablejoystick_Click);
             // 
             // Zoomlevel
@@ -2578,7 +2583,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2760,6 +2765,74 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Name = "panelBottom";
             // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label8.Name = "label8";
+            this.label8.Tag = "custom";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label14.Name = "label14";
+            this.label14.Tag = "custom";
+            // 
+            // batteryStatus1
+            // 
+            this.batteryStatus1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.batteryStatus1, "batteryStatus1");
+            this.batteryStatus1.Batt1charge = 0F;
+            this.batteryStatus1.Batt1temp = 0F;
+            this.batteryStatus1.Batt1volt = 0F;
+            this.batteryStatus1.Batt2charge = 0F;
+            this.batteryStatus1.Batt2temp = 0F;
+            this.batteryStatus1.Batt2volt = 0F;
+            this.batteryStatus1.charge_crt = 10F;
+            this.batteryStatus1.charge_warn = 30F;
+            this.batteryStatus1.Name = "batteryStatus1";
+            this.batteryStatus1.temp_high_crt = 60F;
+            this.batteryStatus1.temp_high_warn = 50F;
+            this.batteryStatus1.temp_low_crt = -10F;
+            this.batteryStatus1.temp_low_warn = 0F;
+            this.batteryStatus1.volt_crt = 42F;
+            this.batteryStatus1.volt_warn = 43.4F;
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label11.Name = "label11";
+            this.label11.Tag = "custom";
+            // 
+            // motorStatus1
+            // 
+            this.motorStatus1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.motorStatus1, "motorStatus1");
+            this.motorStatus1.Esc1rpm = 0F;
+            this.motorStatus1.Esc1temp = 0F;
+            this.motorStatus1.Esc2rpm = 0F;
+            this.motorStatus1.Esc2temp = 0F;
+            this.motorStatus1.Esc3rpm = 0F;
+            this.motorStatus1.Esc3temp = 0F;
+            this.motorStatus1.Esc4rpm = 0F;
+            this.motorStatus1.Esc4temp = 0F;
+            this.motorStatus1.Esc5rpm = 0F;
+            this.motorStatus1.Esc5temp = 0F;
+            this.motorStatus1.Esc6rpm = 0F;
+            this.motorStatus1.Esc6temp = 0F;
+            this.motorStatus1.Name = "motorStatus1";
+            this.motorStatus1.rpm_high_crt = 5000F;
+            this.motorStatus1.rpm_high_warn = 4800F;
+            this.motorStatus1.rpm_low_crt = 1300F;
+            this.motorStatus1.rpm_low_warn = 1500F;
+            this.motorStatus1.temp_crt = 60F;
+            this.motorStatus1.temp_warn = 50F;
+            // 
             // label10
             // 
             resources.ApplyResources(this.label10, "label10");
@@ -2834,73 +2907,20 @@ namespace MissionPlanner.GCSViews
             // 
             this.MainV.Panel2.Controls.Add(this.panelBottom);
             // 
-            // motorStatus1
+            // buttonPropo
             // 
-            this.motorStatus1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.motorStatus1, "motorStatus1");
-            this.motorStatus1.Esc1rpm = 0F;
-            this.motorStatus1.Esc1temp = 0F;
-            this.motorStatus1.Esc2rpm = 0F;
-            this.motorStatus1.Esc2temp = 0F;
-            this.motorStatus1.Esc3rpm = 0F;
-            this.motorStatus1.Esc3temp = 0F;
-            this.motorStatus1.Esc4rpm = 0F;
-            this.motorStatus1.Esc4temp = 0F;
-            this.motorStatus1.Esc5rpm = 0F;
-            this.motorStatus1.Esc5temp = 0F;
-            this.motorStatus1.Esc6rpm = 0F;
-            this.motorStatus1.Esc6temp = 0F;
-            this.motorStatus1.Name = "motorStatus1";
-            this.motorStatus1.rpm_high_crt = 5000F;
-            this.motorStatus1.rpm_high_warn = 4800F;
-            this.motorStatus1.rpm_low_crt = 1300F;
-            this.motorStatus1.rpm_low_warn = 1500F;
-            this.motorStatus1.temp_crt = 60F;
-            this.motorStatus1.temp_warn = 50F;
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label11.Name = "label11";
-            this.label11.Tag = "custom";
-            // 
-            // batteryStatus1
-            // 
-            this.batteryStatus1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.batteryStatus1, "batteryStatus1");
-            this.batteryStatus1.Batt1charge = 0F;
-            this.batteryStatus1.Batt1temp = 0F;
-            this.batteryStatus1.Batt1volt = 0F;
-            this.batteryStatus1.Batt2charge = 0F;
-            this.batteryStatus1.Batt2temp = 0F;
-            this.batteryStatus1.Batt2volt = 0F;
-            this.batteryStatus1.charge_crt = 10F;
-            this.batteryStatus1.charge_warn = 30F;
-            this.batteryStatus1.Name = "batteryStatus1";
-            this.batteryStatus1.temp_high_crt = 60F;
-            this.batteryStatus1.temp_high_warn = 50F;
-            this.batteryStatus1.temp_low_crt = -10F;
-            this.batteryStatus1.temp_low_warn = 0F;
-            this.batteryStatus1.volt_crt = 42F;
-            this.batteryStatus1.volt_warn = 43.4F;
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label14.Name = "label14";
-            this.label14.Tag = "custom";
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label8.Name = "label8";
-            this.label8.Tag = "custom";
+            resources.ApplyResources(this.buttonPropo, "buttonPropo");
+            this.buttonPropo.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.BackgroundImage = global::MissionPlanner.Properties.Resources.propo_on;
+            this.buttonPropo.FlatAppearance.BorderSize = 0;
+            this.buttonPropo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.Name = "buttonPropo";
+            this.buttonPropo.TabStop = false;
+            this.buttonPropo.Tag = "custom";
+            this.buttonPropo.UseVisualStyleBackColor = false;
+            this.buttonPropo.Click += new System.EventHandler(this.buttonPropo_Click);
             // 
             // modifyandSetLoiterRad
             // 
@@ -3553,5 +3573,6 @@ namespace MissionPlanner.GCSViews
         private Controls.BatteryStatus batteryStatus1;
         private Label label11;
         private Label label8;
+        private Button buttonPropo;
     }
 }

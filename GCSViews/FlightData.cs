@@ -3721,9 +3721,9 @@ namespace MissionPlanner.GCSViews
                         tracklast.AddSeconds(2) < DateTime.Now)
                     {
                         // show disable joystick button
-                        if (MainV2.joystick != null && MainV2.joystick.enabled)
+                        //if (MainV2.joystick != null && MainV2.joystick.enabled)
                         {
-                            this.BeginInvoke((MethodInvoker) delegate { but_disablejoystick.Visible = true; });
+                            //this.BeginInvoke((MethodInvoker) delegate { but_disablejoystick.Visible = true; });
                         }
 
                         if (MainV2.comPort.MAV.cs.Location != PointLatLngAlt.Zero)
@@ -6467,6 +6467,20 @@ namespace MissionPlanner.GCSViews
             buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_off;
             buttonCamFront.BackgroundImage = Properties.Resources.cam_front_off;
             buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_on;
+        }
+
+        private void buttonPropo_Click(object sender, EventArgs e)
+        {
+#if false
+            if (MainV2.joystick != null && MainV2.joystick.enabled)
+            {
+                MainV2.joystick.enabled = false;
+
+                MainV2.joystick.clearRCOverride();
+
+                //but_disablejoystick.Visible = false;
+            }
+#endif
         }
     }
 }
