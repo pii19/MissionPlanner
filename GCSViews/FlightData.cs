@@ -6445,11 +6445,6 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.setMode("Loiter");
         }
 
-        private void buttonPropo_Click(object sender, EventArgs e)
-        {
-            ;
-        }
-
         private void buttonCamAuto_Click(object sender, EventArgs e)
         {
             MainV2.comPort.setParam("MOUNT1_DIRECTION", 0);
