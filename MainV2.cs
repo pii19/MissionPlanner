@@ -912,6 +912,7 @@ namespace MissionPlanner
             }
 
             LayoutChanged += updateLayout;
+            //DisplayConfiguration.autoHideMenuForce = true;
             LayoutChanged(null, EventArgs.Empty);
 
             if (Settings.Instance["CHK_GDIPlus"] != null)
@@ -4525,8 +4526,8 @@ protected override void OnLoad(EventArgs e)
                 MainMenu.MouseLeave += MainMenu_MouseLeave;
                 panel1.MouseLeave += MainMenu_MouseLeave;
                 toolStripConnectionControl.MouseLeave += MainMenu_MouseLeave;
-                menu.Visible = true;
-                menu.SendToBack();
+                menu.Visible = false;
+                //menu.SendToBack();
                 this.ResumeLayout();
             }
         }
