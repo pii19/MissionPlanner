@@ -4516,6 +4516,10 @@ protected override void OnLoad(EventArgs e)
                 MainMenu.MouseLeave -= MainMenu_MouseLeave;
                 panel1.MouseLeave -= MainMenu_MouseLeave;
                 toolStripConnectionControl.MouseLeave -= MainMenu_MouseLeave;
+
+                this.TopMost = false;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+                this.WindowState = FormWindowState.Normal;
                 this.ResumeLayout();
             }
             else
@@ -4528,6 +4532,11 @@ protected override void OnLoad(EventArgs e)
                 toolStripConnectionControl.MouseLeave += MainMenu_MouseLeave;
                 menu.Visible = false;
                 //menu.SendToBack();
+
+                this.TopMost = true;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.WindowState = FormWindowState.Normal;
+                this.WindowState = FormWindowState.Maximized;
                 this.ResumeLayout();
             }
         }
