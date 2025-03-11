@@ -310,6 +310,7 @@ namespace MissionPlanner.Grid
 
         bool deleteLastLAND = false;    // @eams add
         bool first_validate = false;    // @eams add
+        bool angle_error = false;       // @eams add
 
         private void GridUI_Load(object sender, EventArgs e)
         {
@@ -825,6 +826,7 @@ namespace MissionPlanner.Grid
             {
                 first_validate = true;
             }
+            angle_error = false;
 
             // new grid system test
 
@@ -960,7 +962,7 @@ namespace MissionPlanner.Grid
                 mingroundelevation = Math.Min(mingroundelevation, currentalt);
                 maxgroundelevation = Math.Max(maxgroundelevation, currentalt);
 
-                prevprevpoint = prevpoint;
+                //prevprevpoint = prevpoint;
 
                 if (item.Tag == "M")
                 {
@@ -1045,16 +1047,44 @@ namespace MissionPlanner.Grid
                         {
                             //marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.lightblue_pushpin) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
                             marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.red) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                            routesOverlay.Markers.Add(marker);
                         }
                         else
                         {
-                            marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                            if (item.Tag == "SM" || item.Tag == "E")
+                            {
+                                if (a + 1 < grid.Count)
+                                {
+                                    var bearing1 = prevprevpoint.GetBearing(item);
+                                    var bearing2 = item.GetBearing(grid[a + 1]);
+                                    var bear = Math.Abs(bearing1 - bearing2);
+                                    if (item.Tag == "SM" && bear >= 90)
+                                    {
+                                        marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.purple) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                                        angle_error = true;
+                                    }
+                                    else if (item.Tag == "E" && bear <= 90)
+                                    {
+                                        marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.purple) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                                        angle_error = true;
+                                    }
+                                    else
+                                    {
+                                        marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                                    }
+                                }
+                                else
+                                {
+                                    marker = new GMapMarkerWP(item, a.ToString()) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                                }
+                                routesOverlay.Markers.Add(marker);
+                            }
                         }
-                        routesOverlay.Markers.Add(marker);
                     }
 
                     segment.Add(prevpoint);
                     segment.Add(item);
+                    prevprevpoint = prevpoint;
                     prevpoint = item;
                     a++;
                 }
@@ -1974,6 +2004,12 @@ namespace MissionPlanner.Grid
 
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
+            if (angle_error)
+            {
+                CustomMessageBox.Show("90度以上の前進後進転換または90度以下の方向転換が含まれるため、\n走行ルートが生成できません。", Strings.ERROR);
+                return;
+            }
+
             addwp_firsttime = true;
             addconditiondelay_firsttime = true;
             if (grid != null && grid.Count > 0)
