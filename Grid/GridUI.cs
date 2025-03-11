@@ -1646,6 +1646,7 @@ namespace MissionPlanner.Grid
 
                 if (CurrentGMapMarker != null)
                 {
+#if false
                     if (CurrentGMapMarkerIndex == -1)
                     {
                         isMouseDraging = false;
@@ -1658,6 +1659,7 @@ namespace MissionPlanner.Grid
 
                     list[CurrentGMapMarkerIndex] = new PointLatLngAlt(pnew);
                     domainUpDown1_ValueChanged(sender, e);
+#endif
                 }
                 else // left click pan
                 {
@@ -3098,6 +3100,6 @@ namespace MissionPlanner.Grid
             NUM_leadin.Value = d;
 //            domainUpDown1_ValueChanged(sender, e);
         }
-        #endregion
+#endregion
     }
 }
