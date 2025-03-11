@@ -1600,6 +1600,7 @@ namespace MissionPlanner.Grid
                     if (index == Utilities.Grid.StartPosition.Point)
                     {
                         Utilities.Grid.StartPointLatLngAlt = MouseDownEnd;
+                        first_validate = true;
                         domainUpDown1_ValueChanged(sender, e);
                     }
                 }
