@@ -1864,6 +1864,7 @@ namespace MissionPlanner
             }
             else
             {
+#if false
                 // @eams add
                 PopulateSerialportList();
                 _connectionControl.CMB_serialport.SelectedIndex = _connectionControl.CMB_serialport.Items.IndexOf(detect_com);
@@ -1873,7 +1874,7 @@ namespace MissionPlanner
                     _connectionControl.CMB_baudrate.Text =
                         Settings.Instance[_connectionControl.CMB_serialport.Text + "_BAUD"];
                 }
-
+#endif
                 doConnect(comPort, _connectionControl.CMB_serialport.Text, _connectionControl.CMB_baudrate.Text);
             }
 
@@ -4351,9 +4352,9 @@ namespace MissionPlanner
                 {
                     while (true)
                     {
-                        if (InputBox.Show("走行開始WP指定", "途中から走行を開始したいウェイポイント番号を指定してください。", ref wpno_str) == DialogResult.OK)
+                        if (InputBox.Show("走行開始WP指定", "途中から走行を開始したいウェイポイント番号を指定してください。", ref wpno_str) == DialogResult.Cancel)
                         {
-                            ;
+                            return;
                         }
                         int.TryParse(wpno_str, out wpno);
                         if (wpno > 0 && cmds[wpno - 1].id == (byte)MAVLink.MAV_CMD.WAYPOINT && cmds[wpno - 1].lat != 0)
