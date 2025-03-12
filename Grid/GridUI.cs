@@ -2006,7 +2006,7 @@ namespace MissionPlanner.Grid
         {
             if (angle_error)
             {
-                CustomMessageBox.Show("90度以上の前進後進転換または90度以下の方向転換が含まれるため、\n走行ルートが生成できません。", Strings.ERROR);
+                CustomMessageBox.Show("90度以上の旋回動作が含まれています。", Strings.ERROR);
                 return;
             }
 
