@@ -302,6 +302,10 @@
   <ItemGroup>
     <None Include="Resources\btn_ok.jpg" />
     <None Include="Resources\btn_cancel.jpg" />
+    <None Include="Resources\btn_act_reboot.jpg" />
+    <None Include="Resources\btn_cancel_big.jpg" />
+    <None Include="Resources\btn_confirm.jpg" />
+    <None Include="Resources\btn_ok_big.jpg" />
     <Content Include="Resources\guagebg.jpg" />
     <Content Include="Resources\iconWarning32.png" />
     <Content Include="Resources\iconWarning48.png" />

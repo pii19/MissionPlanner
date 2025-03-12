@@ -59,45 +59,15 @@ namespace MissionPlanner.Controls.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap guagebg {
-            get {
-                object obj = ResourceManager.GetObject("guagebg", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap iconWarning32 {
-            get {
-                object obj = ResourceManager.GetObject("iconWarning32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap iconWarning48 {
-            get {
-                object obj = ResourceManager.GetObject("iconWarning48", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
 
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap btn_ok
+        internal static System.Drawing.Bitmap btn_act_reboot
         {
             get
             {
-                object obj = ResourceManager.GetObject("btn_ok", resourceCulture);
+                object obj = ResourceManager.GetObject("btn_act_reboot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -110,6 +80,90 @@ namespace MissionPlanner.Controls.Properties {
             get
             {
                 object obj = ResourceManager.GetObject("btn_cancel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_cancel_big
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("btn_cancel_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_confirm
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("btn_confirm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_ok
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("btn_ok", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_ok_big
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("btn_ok_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap guagebg
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("guagebg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconWarning32
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("iconWarning32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap iconWarning48
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("iconWarning48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
