@@ -101,65 +101,70 @@ namespace MissionPlanner.Controls
             {
                 rpm1.ForeColor = error;
             }
+
             if (rpm_low_warn <= _esc2rpm && _esc2rpm <= rpm_high_warn)
             {
                 rpm2.ForeColor = normal;
             }
             else if (rpm_low_crt <= _esc2rpm && _esc2rpm <= rpm_high_crt)
             {
-                rpm2.ForeColor = normal;
+                rpm2.ForeColor = caution;
             }
             else
             {
-                rpm2.ForeColor = caution;
+                rpm2.ForeColor = error;
             }
+
             if (rpm_low_warn <= _esc3rpm && _esc3rpm <= rpm_high_warn)
             {
                 rpm3.ForeColor = normal;
             }
             else if (rpm_low_crt <= _esc3rpm && _esc3rpm <= rpm_high_crt)
             {
-                rpm3.ForeColor = normal;
+                rpm3.ForeColor = caution;
             }
             else
             {
-                rpm3.ForeColor = caution;
+                rpm3.ForeColor = error;
             }
+
             if (rpm_low_warn <= _esc4rpm && _esc4rpm <= rpm_high_warn)
             {
                 rpm4.ForeColor = normal;
             }
             else if (rpm_low_crt <= _esc4rpm && _esc4rpm <= rpm_high_crt)
             {
-                rpm4.ForeColor = normal;
+                rpm4.ForeColor = caution;
             }
             else
             {
-                rpm4.ForeColor = caution;
+                rpm4.ForeColor = error;
             }
+
             if (rpm_low_warn <= _esc5rpm && _esc5rpm <= rpm_high_warn)
             {
                 rpm5.ForeColor = normal;
             }
             else if (rpm_low_crt <= _esc5rpm && _esc5rpm <= rpm_high_crt)
             {
-                rpm5.ForeColor = normal;
+                rpm5.ForeColor = caution;
             }
             else
             {
-                rpm5.ForeColor = caution;
+                rpm5.ForeColor = error;
             }
+
             if (rpm_low_warn <= _esc6rpm && _esc6rpm <= rpm_high_warn)
             {
                 rpm6.ForeColor = normal;
             }
             else if (rpm_low_crt <= _esc6rpm && _esc6rpm <= rpm_high_crt)
             {
-                rpm6.ForeColor = normal;
+                rpm6.ForeColor = caution;
             }
             else
             {
-                rpm6.ForeColor = caution;
+                rpm6.ForeColor = error;
             }
 
             if (_esc1temp <= temp_warn)
@@ -174,6 +179,7 @@ namespace MissionPlanner.Controls
             {
                 temp1.ForeColor = error;
             }
+
             if (_esc2temp <= temp_warn)
             {
                 temp2.ForeColor = normal;
@@ -186,6 +192,7 @@ namespace MissionPlanner.Controls
             {
                 temp2.ForeColor = error;
             }
+
             if (_esc3temp <= temp_warn)
             {
                 temp3.ForeColor = normal;
@@ -198,6 +205,7 @@ namespace MissionPlanner.Controls
             {
                 temp3.ForeColor = error;
             }
+
             if (_esc4temp <= temp_warn)
             {
                 temp4.ForeColor = normal;
@@ -210,6 +218,7 @@ namespace MissionPlanner.Controls
             {
                 temp4.ForeColor = error;
             }
+
             if (_esc5temp <= temp_warn)
             {
                 temp5.ForeColor = normal;
@@ -222,6 +231,7 @@ namespace MissionPlanner.Controls
             {
                 temp5.ForeColor = error;
             }
+
             if (_esc6temp <= temp_warn)
             {
                 temp6.ForeColor = normal;
