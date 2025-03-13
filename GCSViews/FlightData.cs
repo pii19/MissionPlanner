@@ -1428,13 +1428,13 @@ namespace MissionPlanner.GCSViews
                                     {
                                         overlay.CreateOverlay((MAVLink.MAV_FRAME)wps[0].frame, homeplla,
                                             mission_items,
-                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt);
+                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt, MainV2.comPort.MAV.cs.Location);
                                     }
                                     else
                                     {
                                         overlay.CreateOverlay((MAVLink.MAV_FRAME)wps[1].frame, homeplla,
                                             mission_items,
-                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt);
+                                            0 / CurrentState.multiplieralt, 0 / CurrentState.multiplieralt, MainV2.comPort.MAV.cs.Location);
 
                                     }
                                 }

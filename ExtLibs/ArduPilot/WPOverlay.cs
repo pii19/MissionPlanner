@@ -26,6 +26,11 @@ namespace MissionPlanner.ArduPilot
 
         public void CreateOverlay(MAVLink.MAV_FRAME altmode, PointLatLngAlt home, List<Locationwp> missionitems, double wpradius, double loiterradius)
         {
+            CreateOverlay(altmode, home, missionitems, wpradius, loiterradius, PointLatLngAlt.Zero);
+        }
+
+        public void CreateOverlay(MAVLink.MAV_FRAME altmode, PointLatLngAlt home, List<Locationwp> missionitems, double wpradius, double loiterradius, PointLatLngAlt mavpos)
+        {
             overlay.Clear();
 
             double maxlat = -180;
@@ -191,8 +196,14 @@ namespace MissionPlanner.ArduPilot
                 a++;
             }
 
-            RegenerateWPRoute(fullpointlist, home);
-
+            if (mavpos.Lat == 0)
+            {
+                RegenerateWPRoute(fullpointlist, home);
+            }
+            else
+            {
+                RegenerateWPRoute(fullpointlist, mavpos);
+            }
         }
 
         private double GetHomeAlt(MAVLink.MAV_FRAME altmode, double homealt, double lat, double lng)
@@ -353,7 +364,8 @@ namespace MissionPlanner.ArduPilot
                     counter++;
                     if (counter == 1)
                     {
-                        homepoint = x;
+                        //homepoint = x;
+                        homepoint = HomeLocation;
                         return;
                     }
                     if (counter == 2)
@@ -366,7 +378,7 @@ namespace MissionPlanner.ArduPilot
                     }
                     if (counter == count)
                     {
-                        homeroute.Points.Add(lastpoint);
+                        //homeroute.Points.Add(lastpoint);
                         homeroute.Points.Add(homepoint);
                         homeroute.Points.Add(firstpoint);
                         return;
@@ -374,7 +386,7 @@ namespace MissionPlanner.ArduPilot
                     route.Points.Add(x);
                 });
 
-                homeroute.Stroke = new Pen(Color.Yellow, 2);
+                homeroute.Stroke = new Pen(Color.Red, 2);
                 // if we have a large distance between home and the first/last point, it hangs on the draw of a the dashed line.
                 if (homepoint.GetDistance(lastpoint) < 5000 && homepoint.GetDistance(firstpoint) < 5000)
                     homeroute.Stroke.DashStyle = DashStyle.Dash;
