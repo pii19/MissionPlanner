@@ -2725,7 +2725,7 @@ namespace MissionPlanner.Grid
         private void BUT_offset_MouseDown(object sender, MouseEventArgs e)
         {
             target = TXT_offset;
-            MaximumValue = 999;
+            MaximumValue = 5;
             MinimumValue = 0;
             CurrentValue += (sender == BUT_offsetplus) ? 0.1 : -0.1;
             timer1.Interval = def_interval;
@@ -2740,9 +2740,9 @@ namespace MissionPlanner.Grid
             {
                 if (decimal.TryParse(TXT_offset.Text, out d))
                 {
-                    if (d > 999)
+                    if (d > 5)
                     {
-                        d = 999;
+                        d = 5;
                     }
                     if (d < 0)
                     {
