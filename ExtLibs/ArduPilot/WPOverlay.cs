@@ -48,6 +48,8 @@ namespace MissionPlanner.ArduPilot
             addpolygonmarker("H", home.Lng, home.Lat, home.Alt, null, 0);
 
             int a = 0;
+            bool first = true;
+            bool first_turn = true;
             foreach (var itemtuple in missionitems.PrevNowNext())
             {
                 var itemprev = itemtuple.Item1;
@@ -137,7 +139,8 @@ namespace MissionPlanner.ArduPilot
                             fullpointlist.Add(pointlist[pointlist.Count - 1]);
 
                         addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
-                            item.alt, Color.LightBlue, loiterradius);
+                            item.alt, Color.LightBlue, loiterradius, first_turn);
+                        first_turn = false;
                     }
                     else if (command == (ushort)MAVLink.MAV_CMD.SPLINE_WAYPOINT)
                     {
@@ -158,7 +161,8 @@ namespace MissionPlanner.ArduPilot
                             item.alt + gethomealt(item.lat, item.lng), (a + 1).ToString()));
                         fullpointlist.Add(pointlist[pointlist.Count - 1]);
                         addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
-                            item.alt, null, wpradius);
+                            item.alt, null, wpradius, first);
+                        first = false;
                     }
 
                     maxlong = Math.Max(item.lng, maxlong);
@@ -229,12 +233,20 @@ namespace MissionPlanner.ArduPilot
         /// <param name="lat"></param>
         /// <param name="alt"></param>
         /// <param name="color"></param>
-        private void addpolygonmarker(string tag, double lng, double lat, double alt, Color? color, double wpradius)
+        private void addpolygonmarker(string tag, double lng, double lat, double alt, Color? color, double wpradius, bool first = false)
         {
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMapMarkerWP m = new GMapMarkerWP(point, tag);
+                GMapMarkerWP m;
+                if (first)
+                {
+                    m = new GMapMarkerWP(point, tag, GMarkerGoogleType.lightblue);
+                }
+                else
+                {
+                    m = new GMapMarkerWP(point, tag);
+                }
                 m.ToolTipMode = MarkerTooltipMode.OnMouseOver;
                 m.ToolTipText = "Alt: " + alt.ToString("0");
                 m.Tag = tag;
