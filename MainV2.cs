@@ -1864,7 +1864,6 @@ namespace MissionPlanner
             }
             else
             {
-#if false
                 // @eams add
                 PopulateSerialportList();
                 _connectionControl.CMB_serialport.SelectedIndex = _connectionControl.CMB_serialport.Items.IndexOf(detect_com);
@@ -1874,7 +1873,7 @@ namespace MissionPlanner
                     _connectionControl.CMB_baudrate.Text =
                         Settings.Instance[_connectionControl.CMB_serialport.Text + "_BAUD"];
                 }
-#endif
+
                 doConnect(comPort, _connectionControl.CMB_serialport.Text, _connectionControl.CMB_baudrate.Text);
             }
 
