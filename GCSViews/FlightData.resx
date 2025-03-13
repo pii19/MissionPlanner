@@ -5835,6 +5835,9 @@
   <data name="LabelTime.Text" xml:space="preserve">
     <value>0.0 (h)</value>
   </data>
+  <data name="LabelTime.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;LabelTime.Name" xml:space="preserve">
     <value>LabelTime</value>
   </data>
@@ -5870,6 +5873,9 @@
   </data>
   <data name="label12.Text" xml:space="preserve">
     <value>積算飛行時間：</value>
+  </data>
+  <data name="label12.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;label12.Name" xml:space="preserve">
     <value>label12</value>
