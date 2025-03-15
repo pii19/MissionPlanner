@@ -1055,9 +1055,17 @@ namespace MissionPlanner.Grid
                             {
                                 if (a + 1 < grid.Count)
                                 {
-                                    var bearing1 = prevprevpoint.GetBearing(item);
-                                    var bearing2 = item.GetBearing(grid[a + 1]);
-                                    var bear = Math.Abs(bearing1 - bearing2);
+                                    var b1 = prevprevpoint.GetBearing(item);
+                                    var b2 = item.GetBearing(grid[a + 1]);
+                                    double bear = 0;
+                                    if (Math.Abs(b1 - b2) > 180)
+                                    {
+                                        bear = 360 - Math.Abs(b1 - b2);
+                                    }
+                                    else
+                                    {
+                                        bear = Math.Abs(b1 - b2);
+                                    }
                                     if (item.Tag == "SM" && bear >= 90)
                                     {
                                         marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.purple) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
