@@ -4611,7 +4611,7 @@ namespace MissionPlanner
                 // update flight start button state
                 //MainV2.instance.FlightData.ButtonStart_ChangeState(!(MainV2.comPort.MAV.cs.armed && MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO"));
 #if EAMS_UGV
-                MainV2.instance.FlightData.ButtonStart_ChangeState(true);
+                //MainV2.instance.FlightData.ButtonStart_ChangeState(true);
 #else
                 MainV2.instance.FlightData.ButtonStart_ChangeState(!MainV2.comPort.MAV.cs.armed);
 #endif

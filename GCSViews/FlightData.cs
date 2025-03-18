@@ -1103,6 +1103,23 @@ namespace MissionPlanner.GCSViews
                         labelResume.Text = mode_jp_resume;
                     }
 
+                    if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
+                    {
+                        MainV2.instance.Invoke((MethodInvoker)delegate
+                        {
+                            ButtonStart_ChangeState(false);
+                            ButtonStartWpno_ChangeState(false);
+                        });
+                    }
+                    else
+                    {
+                        MainV2.instance.Invoke((MethodInvoker)delegate
+                        {
+                            ButtonStart_ChangeState(true);
+                            ButtonStartWpno_ChangeState(true);
+                        });
+                    }
+
                     // @eams update arming display
                     if (MainV2.comPort.MAV.cs.armed)
                     {
@@ -5055,6 +5072,41 @@ namespace MissionPlanner.GCSViews
 
             g.Dispose();    //リソースを解放する
             ButtonStart.BackgroundImage = canvas; //表示する
+        }
+
+        /// <summary>
+        /// WP番号指定飛行開始ボタンの更新
+        /// <param name="state">true:enabled、false:disabled</param>
+        /// </summary>
+        public void ButtonStartWpno_ChangeState(bool state)
+        {
+            ButtonStartWpno.Enabled = state;
+
+            //描画先とするImageオブジェクトを作成する
+            Bitmap canvas = new Bitmap(ButtonStartWpno.Width, ButtonStartWpno.Height);
+            //ImageオブジェクトのGraphicsオブジェクトを作成する
+            Graphics g = Graphics.FromImage(canvas);
+
+            //画像を取得
+#if EAMS_UGV
+            Bitmap img = global::MissionPlanner.Properties.Resources.btn_start_wpno;
+#else
+            Bitmap img = global::MissionPlanner.Properties.Resources.btn_start;
+#endif
+
+            if (state)
+            {
+                //画像を普通に表示
+                g.DrawImage(img, 0, 0);
+            }
+            else
+            {
+                //画像を無効状態で表示
+                ControlPaint.DrawImageDisabled(g, img, 0, 0, ButtonStartWpno.BackColor);
+            }
+
+            g.Dispose();    //リソースを解放する
+            ButtonStartWpno.BackgroundImage = canvas; //表示する
         }
 
         async private void ButtonStop_Click(object sender, EventArgs e)
