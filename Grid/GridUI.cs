@@ -1043,10 +1043,9 @@ namespace MissionPlanner.Grid
                     if (CHK_markers.Checked)
                     {
                         GMapMarkerWP marker;
-                        if (strips == 1)
+                        if (a == 2)
                         {
-                            //marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.lightblue_pushpin) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
-                            marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.red) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
+                            marker = new GMapMarkerWP(item, a.ToString(), GMarkerGoogleType.yellow_pushpin) { ToolTipText = a.ToString(), ToolTipMode = MarkerTooltipMode.OnMouseOver };
                             routesOverlay.Markers.Add(marker);
                         }
                         else
