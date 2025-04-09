@@ -4547,7 +4547,7 @@ namespace MissionPlanner
 #endif
                 // set mode Loiter
                 MainV2.comPort.setMode("GUIDED");
-                MainV2.instance.FlightData.ButtonStop_ChangeState(false);
+                //MainV2.instance.FlightData.ButtonStop_ChangeState(false);
             }
             catch
             {
