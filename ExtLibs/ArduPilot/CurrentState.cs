@@ -2788,12 +2788,18 @@ namespace MissionPlanner
                         if (wp_sw_cnt != (int)atex.wp_sw_cnt)
                         {
                             wp_sw_cnt = (int)atex.wp_sw_cnt;
-                            wp_sw_cnt_status = true;
+                            if (wp_sw_cnt != 0)
+                            {
+                                wp_sw_cnt_status = true;
+                            }
                         }
                         if (error_return_req != (int)atex.error_return_req)
                         {
                             error_return_req = (int)atex.error_return_req;
-                            error_return_req_status = true;
+                            if (error_return_req != 0)
+                            {
+                                error_return_req_status = true;
+                            }
                         }
 
                         err_code_main = (int)atex.err_code_main;
