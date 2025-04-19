@@ -5926,7 +5926,7 @@ namespace MissionPlanner.GCSViews
             switch (MainV2.comPort.MAV.cs.err_msg_code)
             {
                 case 0x01:
-                    mes = "中断(自動運転スイッチOFF)";
+                    mes = "中断(運転切替SW　手動)";
                     break;
                 case 0x02:
                     mes = "中断(レバー操作)";

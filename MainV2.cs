@@ -4395,7 +4395,7 @@ namespace MissionPlanner
                 }
                 );
 
-                CustomMessageBox.Show("プロポの自動運転SWをONにしてください", "自動走行", MessageBoxButtons.OK, null, act);
+                CustomMessageBox.Show("プロポの運転切替SWを自動にしてください", "自動走行", MessageBoxButtons.OK, null, act);
 #if false
                 // arm the MAV
                 try
@@ -4712,7 +4712,7 @@ namespace MissionPlanner
                         System.Threading.Thread.Sleep(500);
                     }
                     );
-                    CustomMessageBox.Show("プロポの自動運転SWをOFFにしてください", "自動走行", MessageBoxButtons.OK, null, act);
+                    CustomMessageBox.Show("プロポの運転切替SWを手動にしてください", "自動走行", MessageBoxButtons.OK, null, act);
                 }
                  
                 // check gpsstatus --> FP reset home at first
