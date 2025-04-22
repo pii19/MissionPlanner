@@ -2714,6 +2714,8 @@ namespace MissionPlanner.GCSViews
 
             splitContainer1.Panel2Collapsed = true;
 
+            //richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
+
             try
             {
                 thisthread = new Thread(mainloop);

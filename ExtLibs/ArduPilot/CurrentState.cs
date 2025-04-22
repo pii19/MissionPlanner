@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using static MAVLink;
 
 namespace MissionPlanner
 {
@@ -1203,7 +1204,7 @@ namespace MissionPlanner
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public List<(DateTime time, string message)> messages { get; set; } = new List<(DateTime, string)>();
+        public List<(DateTime time, string message, MAV_SEVERITY severity)> messages { get; set; } = new List<(DateTime, string, MAV_SEVERITY)>();
 
         /// <summary>
         /// a message that originates from the mav
@@ -4142,7 +4143,7 @@ namespace MissionPlanner
             {
                 mode = "Unknown";
                 _mode = 99999;
-                messages = new List<(DateTime time, string message)>();
+                messages = new List<(DateTime time, string message, MAV_SEVERITY severity)>();
                 useLocation = false;
                 rateattitude = rateattitudebackup;
                 rateposition = ratepositionbackup;

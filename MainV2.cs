@@ -4518,7 +4518,7 @@ protected override void OnLoad(EventArgs e)
                 toolStripConnectionControl.MouseLeave -= MainMenu_MouseLeave;
 
                 this.TopMost = false;
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+                //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
                 this.WindowState = FormWindowState.Normal;
                 this.ResumeLayout();
             }
