@@ -14,6 +14,7 @@ namespace MissionPlanner.GCSViews
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panelCamCont = new System.Windows.Forms.Panel();
+            this.buttonPropo = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -207,8 +208,8 @@ namespace MissionPlanner.GCSViews
             this.openScriptDialog = new System.Windows.Forms.OpenFileDialog();
             this.scriptChecker = new System.Windows.Forms.Timer(this.components);
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
-            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.batteryStatus1 = new MissionPlanner.Controls.BatteryStatus();
@@ -222,7 +223,8 @@ namespace MissionPlanner.GCSViews
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainV = new System.Windows.Forms.SplitContainer();
-            this.buttonPropo = new System.Windows.Forms.Button();
+            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.timerLog = new System.Windows.Forms.Timer(this.components);
             this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
@@ -323,7 +325,6 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -331,6 +332,7 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel1.SuspendLayout();
             this.MainV.Panel2.SuspendLayout();
             this.MainV.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
             this.SuspendLayout();
             // 
             // MainH
@@ -392,6 +394,21 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.panelCamCont, "panelCamCont");
             this.panelCamCont.ForeColor = System.Drawing.SystemColors.Window;
             this.panelCamCont.Name = "panelCamCont";
+            // 
+            // buttonPropo
+            // 
+            resources.ApplyResources(this.buttonPropo, "buttonPropo");
+            this.buttonPropo.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.BackgroundImage = global::MissionPlanner.Properties.Resources.propo_on;
+            this.buttonPropo.FlatAppearance.BorderSize = 0;
+            this.buttonPropo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonPropo.Name = "buttonPropo";
+            this.buttonPropo.TabStop = false;
+            this.buttonPropo.Tag = "custom";
+            this.buttonPropo.UseVisualStyleBackColor = false;
+            this.buttonPropo.Click += new System.EventHandler(this.buttonPropo_Click);
             // 
             // label13
             // 
@@ -2583,7 +2600,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 540D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2744,12 +2761,9 @@ namespace MissionPlanner.GCSViews
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
             // 
-            // bindingSourceStatusTab
-            // 
-            this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // panelBottom
             // 
+            this.panelBottom.Controls.Add(this.richTextBoxLog);
             this.panelBottom.Controls.Add(this.label8);
             this.panelBottom.Controls.Add(this.label14);
             this.panelBottom.Controls.Add(this.batteryStatus1);
@@ -2764,6 +2778,13 @@ namespace MissionPlanner.GCSViews
             this.panelBottom.Controls.Add(this.pictureBox1);
             resources.ApplyResources(this.panelBottom, "panelBottom");
             this.panelBottom.Name = "panelBottom";
+            // 
+            // richTextBoxLog
+            // 
+            this.richTextBoxLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.richTextBoxLog, "richTextBoxLog");
+            this.richTextBoxLog.Name = "richTextBoxLog";
+            this.richTextBoxLog.ReadOnly = true;
             // 
             // label8
             // 
@@ -2907,20 +2928,15 @@ namespace MissionPlanner.GCSViews
             // 
             this.MainV.Panel2.Controls.Add(this.panelBottom);
             // 
-            // buttonPropo
+            // bindingSourceStatusTab
             // 
-            resources.ApplyResources(this.buttonPropo, "buttonPropo");
-            this.buttonPropo.BackColor = System.Drawing.Color.Transparent;
-            this.buttonPropo.BackgroundImage = global::MissionPlanner.Properties.Resources.propo_on;
-            this.buttonPropo.FlatAppearance.BorderSize = 0;
-            this.buttonPropo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonPropo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonPropo.ForeColor = System.Drawing.Color.Transparent;
-            this.buttonPropo.Name = "buttonPropo";
-            this.buttonPropo.TabStop = false;
-            this.buttonPropo.Tag = "custom";
-            this.buttonPropo.UseVisualStyleBackColor = false;
-            this.buttonPropo.Click += new System.EventHandler(this.buttonPropo_Click);
+            this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // timerLog
+            // 
+            this.timerLog.Enabled = true;
+            this.timerLog.Interval = 200;
+            this.timerLog.Tick += new System.EventHandler(this.timerLog_Tick);
             // 
             // modifyandSetLoiterRad
             // 
@@ -3306,7 +3322,6 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
             this.panelBottom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -3314,6 +3329,7 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainV)).EndInit();
             this.MainV.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3574,5 +3590,7 @@ namespace MissionPlanner.GCSViews
         private Label label11;
         private Label label8;
         private Button buttonPropo;
+        private RichTextBox richTextBoxLog;
+        private Timer timerLog;
     }
 }
