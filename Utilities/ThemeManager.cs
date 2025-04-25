@@ -948,9 +948,15 @@ mc:Ignorable=""d""
                         txtr.ForeColor = Color.White;
                         txtr.BackColor = Color.Black;
                     }
+                    else if (ctl.Name == "richTextBoxLog")
+                    {
+                        RichTextBox txtr = (RichTextBox)ctl;
+                        txtr.BorderStyle = BorderStyle.None;
+                        txtr.ForeColor = TextColor;
+                        txtr.BackColor = BGColor;
+                    }
                     else
                     {
-
                         ctl.BackColor = ControlBGColor;
                         ctl.ForeColor = TextColor;
                         RichTextBox txtr = (RichTextBox)ctl;
@@ -1254,6 +1260,13 @@ mc:Ignorable=""d""
                         txtr.BorderStyle = BorderStyle.None;
                         txtr.ForeColor = Color.White;
                         txtr.BackColor = Color.Black;
+                    }
+                    else if (ctl.Name == "richTextBoxLog")
+                    {
+                        RichTextBox txtr = (RichTextBox)ctl;
+                        txtr.BorderStyle = BorderStyle.None;
+                        txtr.ForeColor = TextColor;
+                        txtr.BackColor = BGColor;
                     }
                     else
                     {

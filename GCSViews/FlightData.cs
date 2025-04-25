@@ -2714,7 +2714,7 @@ namespace MissionPlanner.GCSViews
 
             splitContainer1.Panel2Collapsed = true;
 
-            //richTextBox1.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
+            //richTextBoxLog.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
 
             try
             {
@@ -6483,6 +6483,46 @@ namespace MissionPlanner.GCSViews
                 //but_disablejoystick.Visible = false;
             }
 #endif
+        }
+
+        private void timerLog_Tick(object sender, EventArgs e)
+        {
+            var messagetime = MainV2.comPort.MAV.cs.messages.LastOrDefault().time;
+            if (messagecount != messagetime.toUnixTime())
+            {
+                try
+                {
+                    StringBuilder message = new StringBuilder();
+                    MainV2.comPort.MAV.cs.messages.ForEach(x =>
+                    {
+                        //richTextBoxLog.SelectionLength = 0;
+                        richTextBoxLog.Select(0, 0);    // キャレットを先頭にし、選択解除
+                        switch (x.severity)
+                        {
+                            case MAVLink.MAV_SEVERITY.EMERGENCY:
+                            case MAVLink.MAV_SEVERITY.ALERT:
+                            case MAVLink.MAV_SEVERITY.CRITICAL:
+                            case MAVLink.MAV_SEVERITY.ERROR:
+                                richTextBoxLog.SelectionColor = Color.FromArgb(255, 75, 0);
+                                break;
+                            case MAVLink.MAV_SEVERITY.WARNING:
+                            case MAVLink.MAV_SEVERITY.NOTICE:
+                                richTextBoxLog.SelectionColor = Color.FromArgb(246, 170, 0);
+                                break;
+                            default:
+                                richTextBoxLog.SelectionColor = Color.FromArgb(25, 113, 255);
+                                break;
+                        }
+                        richTextBoxLog.SelectedText = x.Item1.ToLongTimeString() + " : " + x.Item2 + "\r\n";
+                        //message.Insert(0, x.Item1 + " : " + x.Item2 + "\r\n");
+                    });
+                    messagecount = messagetime.toUnixTime();
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
         }
     }
 }
