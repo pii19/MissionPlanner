@@ -39,42 +39,71 @@ namespace MissionPlanner.Controls
         Color caution = Color.FromArgb(246, 170, 0);
         Color error = Color.FromArgb(255, 75, 0);
 
-        float _motor1temp = 0;
-        float _motor2temp = 0;
-        float _motor1charge = 0;
-        float _motor2charge = 0;
-        float _motor1volt = 0;
-        float _motor2volt = 0;
+        float _batt1temp = 0;
+        float _batt2temp = 0;
+        float _batt1charge = 0;
+        float _batt2charge = 0;
+        float _batt1volt = 0;
+        float _batt2volt = 0;
 
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
-        public float Batt1temp { get { return _motor1temp; } set { if (_motor1temp == value) return; _motor1temp = value; this.Invalidate(); } }
+        public float Batt1temp { get { return _batt1temp; } set { if (_batt1temp == value) return; _batt1temp = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
-        public float Batt2temp { get { return _motor2temp; } set { if (_motor2temp == value) return; _motor2temp = value; this.Invalidate(); } }
+        public float Batt2temp { get { return _batt2temp; } set { if (_batt2temp == value) return; _batt2temp = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
-        public float Batt1charge { get { return _motor1charge; } set { if (_motor1charge == value) return; _motor1charge = value; this.Invalidate(); } }
+        public float Batt1charge { get { return _batt1charge; } set { if (_batt1charge == value) return; _batt1charge = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
-        public float Batt2charge { get { return _motor2charge; } set { if (_motor2charge == value) return; _motor2charge = value; this.Invalidate(); } }
+        public float Batt2charge { get { return _batt2charge; } set { if (_batt2charge == value) return; _batt2charge = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
-        public float Batt1volt { get { return _motor1volt; } set { if (_motor1volt == value) return; _motor1volt = value; this.Invalidate(); } }
+        public float Batt1volt { get { return _batt1volt; } set { if (_batt1volt == value) return; _batt1volt = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
-        public float Batt2volt { get { return _motor2volt; } set { if (_motor2volt == value) return; _motor2volt = value; this.Invalidate(); } }
+        public float Batt2volt { get { return _batt2volt; } set { if (_batt2volt == value) return; _batt2volt = value; this.Invalidate(); } }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            temp1.Text = _motor1temp.ToString("F0");
-            temp2.Text = _motor2temp.ToString("F0");
+            if (_batt1temp == 32767)
+            {
+                temp1.Text = "--";
+                volt1.Text = "--";
+            }
+            else
+            {
+                temp1.Text = _batt1temp.ToString("F0");
+                volt1.Text = _batt1volt.ToString("F1");
+            }
+            if (_batt2temp == 32767)
+            {
+                temp2.Text = "--";
+                volt2.Text = "--";
+            }
+            else
+            {
+                temp2.Text = _batt2temp.ToString("F0");
+                volt2.Text = _batt2volt.ToString("F1");
+            }
 
-            charge1.Text = _motor1charge.ToString("F0");
-            charge2.Text = _motor2charge.ToString("F0");
+            if (_batt1charge == -1)
+            {
+                charge1.Text = "--";
+            }
+            else
+            {
+                charge1.Text = _batt1charge.ToString("F0");
+            }
+            if (_batt2charge == -1)
+            {
+                charge2.Text = "--";
+            }
+            else
+            {
+                charge2.Text = _batt2charge.ToString("F0");
+            }
 
-            volt1.Text = _motor1volt.ToString("F1");
-            volt2.Text = _motor2volt.ToString("F1");
-
-            if (temp_low_warn <= _motor1temp && _motor1temp <= temp_high_warn)
+            if (temp_low_warn <= _batt1temp && _batt1temp <= temp_high_warn)
             {
                 temp1.ForeColor = normal;
             }
-            else if (temp_low_crt <= _motor1temp && _motor1temp <= temp_high_crt)
+            else if (temp_low_crt <= _batt1temp && _batt1temp <= temp_high_crt)
             {
                 temp1.ForeColor = caution;
             }
@@ -82,11 +111,11 @@ namespace MissionPlanner.Controls
             {
                 temp1.ForeColor = error;
             }
-            if (temp_low_warn <= _motor2temp && _motor2temp <= temp_high_warn)
+            if (temp_low_warn <= _batt2temp && _batt2temp <= temp_high_warn)
             {
                 temp2.ForeColor = normal;
             }
-            else if (temp_low_crt <= _motor2temp && _motor2temp <= temp_high_crt)
+            else if (temp_low_crt <= _batt2temp && _batt2temp <= temp_high_crt)
             {
                 temp2.ForeColor = caution;
             }
@@ -95,11 +124,11 @@ namespace MissionPlanner.Controls
                 temp2.ForeColor = error;
             }
 
-            if (charge_warn <= _motor1charge )
+            if (charge_warn <= _batt1charge )
             {
                 charge1.ForeColor = normal;
             }
-            else if (charge_crt <= _motor1charge)
+            else if (charge_crt <= _batt1charge)
             {
                 charge1.ForeColor = caution;
             }
@@ -107,11 +136,11 @@ namespace MissionPlanner.Controls
             {
                 charge1.ForeColor = error;
             }
-            if (charge_warn < _motor2charge)
+            if (charge_warn < _batt2charge)
             {
                 charge2.ForeColor = normal;
             }
-            else if (charge_crt <= _motor2charge)
+            else if (charge_crt <= _batt2charge)
             {
                 charge2.ForeColor = caution;
             }
@@ -120,11 +149,11 @@ namespace MissionPlanner.Controls
                 charge2.ForeColor = error;
             }
 
-            if (volt_warn <= _motor1volt)
+            if (volt_warn <= _batt1volt)
             {
                 volt1.ForeColor = normal;
             }
-            else if (volt_crt <= _motor1volt)
+            else if (volt_crt <= _batt1volt)
             {
                 volt1.ForeColor = caution;
             }
@@ -132,11 +161,11 @@ namespace MissionPlanner.Controls
             {
                 volt1.ForeColor = error;
             }
-            if (volt_warn <= _motor2volt)
+            if (volt_warn <= _batt2volt)
             {
                 volt2.ForeColor = normal;
             }
-            if (volt_crt <= _motor2volt)
+            if (volt_crt <= _batt2volt)
             {
                 volt2.ForeColor = caution;
             }
