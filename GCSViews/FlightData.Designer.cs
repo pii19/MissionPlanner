@@ -46,6 +46,23 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelMasterCont = new System.Windows.Forms.Panel();
+            this.buttonCAUTION = new System.Windows.Forms.Button();
+            this.buttonWARNING = new System.Windows.Forms.Button();
+            this.panelIndicate = new System.Windows.Forms.Panel();
+            this.buttonLINK = new System.Windows.Forms.Button();
+            this.buttonGNSS2 = new System.Windows.Forms.Button();
+            this.buttonGNSS1 = new System.Windows.Forms.Button();
+            this.buttonEKF = new System.Windows.Forms.Button();
+            this.buttonVIBE = new System.Windows.Forms.Button();
+            this.buttonMOTOR = new System.Windows.Forms.Button();
+            this.buttonCONT2 = new System.Windows.Forms.Button();
+            this.buttonGCSCON = new System.Windows.Forms.Button();
+            this.buttonCONT1 = new System.Windows.Forms.Button();
+            this.buttonDGPS = new System.Windows.Forms.Button();
+            this.buttonATS = new System.Windows.Forms.Button();
+            this.buttonBATTERY = new System.Windows.Forms.Button();
+            this.panel_persistent = new System.Windows.Forms.Panel();
             this.tabControlactions = new System.Windows.Forms.TabControl();
             this.tabQuick = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelQuick = new System.Windows.Forms.TableLayoutPanel();
@@ -63,10 +80,13 @@ namespace MissionPlanner.GCSViews
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_SendMSG = new MissionPlanner.Controls.MyButton();
             this.BUT_abortland = new MissionPlanner.Controls.MyButton();
+            this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
             this.CMB_action = new System.Windows.Forms.ComboBox();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
             this.BUT_resumemis = new MissionPlanner.Controls.MyButton();
+            this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
+            this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
             this.CMB_setwp = new System.Windows.Forms.ComboBox();
             this.BUT_ARM = new MissionPlanner.Controls.MyButton();
             this.BUT_mountmode = new MissionPlanner.Controls.MyButton();
@@ -88,6 +108,7 @@ namespace MissionPlanner.GCSViews
             this.myButton2 = new MissionPlanner.Controls.MyButton();
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.tabPagePreFlight = new System.Windows.Forms.TabPage();
+            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
             this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
@@ -113,8 +134,43 @@ namespace MissionPlanner.GCSViews
             this.tabStatus = new System.Windows.Forms.TabPage();
             this.tabServo = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelServos = new System.Windows.Forms.FlowLayoutPanel();
+            this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions4 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions5 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions6 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions7 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions8 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions9 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions10 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions11 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions12 = new MissionPlanner.Controls.ServoOptions();
+            this.relayOptions1 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions2 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions3 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions4 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions5 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions6 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions7 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions8 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions9 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions10 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions11 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions12 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions13 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions14 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions15 = new MissionPlanner.Controls.RelayOptions();
+            this.relayOptions16 = new MissionPlanner.Controls.RelayOptions();
             this.tabAuxFunction = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.auxOptions1 = new MissionPlanner.Controls.AuxOptions();
+            this.auxOptions2 = new MissionPlanner.Controls.AuxOptions();
+            this.auxOptions3 = new MissionPlanner.Controls.AuxOptions();
+            this.auxOptions4 = new MissionPlanner.Controls.AuxOptions();
+            this.auxOptions5 = new MissionPlanner.Controls.AuxOptions();
+            this.auxOptions6 = new MissionPlanner.Controls.AuxOptions();
+            this.auxOptions7 = new MissionPlanner.Controls.AuxOptions();
             this.tabScripts = new System.Windows.Forms.TabPage();
             this.checkBoxRedirectOutput = new System.Windows.Forms.CheckBox();
             this.BUT_edit_selected = new MissionPlanner.Controls.MyButton();
@@ -163,7 +219,6 @@ namespace MissionPlanner.GCSViews
             this.but_bintolog = new MissionPlanner.Controls.MyButton();
             this.but_dflogtokml = new MissionPlanner.Controls.MyButton();
             this.BUT_loganalysis = new MissionPlanner.Controls.MyButton();
-            this.panel_persistent = new System.Windows.Forms.Panel();
             this.tableMap = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -188,6 +243,7 @@ namespace MissionPlanner.GCSViews
             this.label1 = new System.Windows.Forms.Label();
             this.but_disablejoystick = new MissionPlanner.Controls.MyButton();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
+            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -225,46 +281,6 @@ namespace MissionPlanner.GCSViews
             this.MainV = new System.Windows.Forms.SplitContainer();
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
             this.timerLog = new System.Windows.Forms.Timer(this.components);
-            this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
-            this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
-            this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
-            this.checkListControl1 = new MissionPlanner.Controls.PreFlight.CheckListControl();
-            this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions4 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions5 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions6 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions7 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions8 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions9 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions10 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions11 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions12 = new MissionPlanner.Controls.ServoOptions();
-            this.relayOptions1 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions2 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions3 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions4 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions5 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions6 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions7 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions8 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions9 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions10 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions11 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions12 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions13 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions14 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions15 = new MissionPlanner.Controls.RelayOptions();
-            this.relayOptions16 = new MissionPlanner.Controls.RelayOptions();
-            this.auxOptions1 = new MissionPlanner.Controls.AuxOptions();
-            this.auxOptions2 = new MissionPlanner.Controls.AuxOptions();
-            this.auxOptions3 = new MissionPlanner.Controls.AuxOptions();
-            this.auxOptions4 = new MissionPlanner.Controls.AuxOptions();
-            this.auxOptions5 = new MissionPlanner.Controls.AuxOptions();
-            this.auxOptions6 = new MissionPlanner.Controls.AuxOptions();
-            this.auxOptions7 = new MissionPlanner.Controls.AuxOptions();
-            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -282,6 +298,8 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
+            this.panelMasterCont.SuspendLayout();
+            this.panelIndicate.SuspendLayout();
             this.tabControlactions.SuspendLayout();
             this.tabQuick.SuspendLayout();
             this.tableLayoutPanelQuick.SuspendLayout();
@@ -362,9 +380,13 @@ namespace MissionPlanner.GCSViews
             // 
             // SubMainLeft.Panel2
             // 
+            this.SubMainLeft.Panel2.BackColor = System.Drawing.Color.Transparent;
             this.SubMainLeft.Panel2.ContextMenuStrip = this.contextMenuStripactionstab;
-            this.SubMainLeft.Panel2.Controls.Add(this.tabControlactions);
+            this.SubMainLeft.Panel2.Controls.Add(this.panelMasterCont);
+            this.SubMainLeft.Panel2.Controls.Add(this.panelIndicate);
             this.SubMainLeft.Panel2.Controls.Add(this.panel_persistent);
+            this.SubMainLeft.Panel2.Controls.Add(this.tabControlactions);
+            this.SubMainLeft.Panel2.Tag = "SMLP2";
             // 
             // splitContainer2
             // 
@@ -442,7 +464,7 @@ namespace MissionPlanner.GCSViews
             this.buttonModeLoiter.FlatAppearance.BorderSize = 0;
             this.buttonModeLoiter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.buttonModeLoiter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonModeLoiter.ForeColor = System.Drawing.Color.Transparent;
+            this.buttonModeLoiter.ForeColor = System.Drawing.Color.RosyBrown;
             this.buttonModeLoiter.Name = "buttonModeLoiter";
             this.buttonModeLoiter.TabStop = false;
             this.buttonModeLoiter.Tag = "custom";
@@ -531,7 +553,8 @@ namespace MissionPlanner.GCSViews
             this.hud1.batterycellcount = 4;
             this.hud1.batterylevel = 0F;
             this.hud1.batterylevel2 = 0F;
-            this.hud1.batteryon2 = true;
+            this.hud1.batteryon = false;
+            this.hud1.batteryon2 = false;
             this.hud1.batteryremaining = 0F;
             this.hud1.batteryremaining2 = 0F;
             this.hud1.bgimage = null;
@@ -591,7 +614,12 @@ namespace MissionPlanner.GCSViews
             this.hud1.datetime = new System.DateTime(((long)(0)));
             this.hud1.displayAOASSA = false;
             this.hud1.displayCellVoltage = false;
+            this.hud1.displayekf = false;
+            this.hud1.displayheading = false;
             this.hud1.displayicons = false;
+            this.hud1.displayprearm = false;
+            this.hud1.displayvibe = false;
+            this.hud1.displayxtrack = false;
             this.hud1.disttowp = 0F;
             this.hud1.distunit = null;
             resources.ApplyResources(this.hud1, "hud1");
@@ -782,6 +810,221 @@ namespace MissionPlanner.GCSViews
             this.multiLineToolStripMenuItem.Name = "multiLineToolStripMenuItem";
             resources.ApplyResources(this.multiLineToolStripMenuItem, "multiLineToolStripMenuItem");
             this.multiLineToolStripMenuItem.Click += new System.EventHandler(this.multiLineToolStripMenuItem_Click);
+            // 
+            // panelMasterCont
+            // 
+            resources.ApplyResources(this.panelMasterCont, "panelMasterCont");
+            this.panelMasterCont.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panelMasterCont.Controls.Add(this.buttonCAUTION);
+            this.panelMasterCont.Controls.Add(this.buttonWARNING);
+            this.panelMasterCont.Name = "panelMasterCont";
+            this.panelMasterCont.Tag = "custom";
+            // 
+            // buttonCAUTION
+            // 
+            this.buttonCAUTION.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonCAUTION, "buttonCAUTION");
+            this.buttonCAUTION.FlatAppearance.BorderSize = 0;
+            this.buttonCAUTION.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonCAUTION.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonCAUTION.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonCAUTION.Name = "buttonCAUTION";
+            this.buttonCAUTION.TabStop = false;
+            this.buttonCAUTION.Tag = "custom";
+            this.buttonCAUTION.UseVisualStyleBackColor = false;
+            // 
+            // buttonWARNING
+            // 
+            this.buttonWARNING.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonWARNING, "buttonWARNING");
+            this.buttonWARNING.FlatAppearance.BorderSize = 0;
+            this.buttonWARNING.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonWARNING.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonWARNING.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonWARNING.Name = "buttonWARNING";
+            this.buttonWARNING.TabStop = false;
+            this.buttonWARNING.Tag = "custom";
+            this.buttonWARNING.UseVisualStyleBackColor = false;
+            // 
+            // panelIndicate
+            // 
+            resources.ApplyResources(this.panelIndicate, "panelIndicate");
+            this.panelIndicate.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panelIndicate.Controls.Add(this.buttonLINK);
+            this.panelIndicate.Controls.Add(this.buttonGNSS2);
+            this.panelIndicate.Controls.Add(this.buttonGNSS1);
+            this.panelIndicate.Controls.Add(this.buttonEKF);
+            this.panelIndicate.Controls.Add(this.buttonVIBE);
+            this.panelIndicate.Controls.Add(this.buttonMOTOR);
+            this.panelIndicate.Controls.Add(this.buttonCONT2);
+            this.panelIndicate.Controls.Add(this.buttonGCSCON);
+            this.panelIndicate.Controls.Add(this.buttonCONT1);
+            this.panelIndicate.Controls.Add(this.buttonDGPS);
+            this.panelIndicate.Controls.Add(this.buttonATS);
+            this.panelIndicate.Controls.Add(this.buttonBATTERY);
+            this.panelIndicate.Name = "panelIndicate";
+            this.panelIndicate.Tag = "custom";
+            // 
+            // buttonLINK
+            // 
+            this.buttonLINK.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonLINK, "buttonLINK");
+            this.buttonLINK.FlatAppearance.BorderSize = 0;
+            this.buttonLINK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonLINK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonLINK.ForeColor = System.Drawing.Color.White;
+            this.buttonLINK.Name = "buttonLINK";
+            this.buttonLINK.TabStop = false;
+            this.buttonLINK.Tag = "custom";
+            this.buttonLINK.UseVisualStyleBackColor = false;
+            // 
+            // buttonGNSS2
+            // 
+            this.buttonGNSS2.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonGNSS2, "buttonGNSS2");
+            this.buttonGNSS2.FlatAppearance.BorderSize = 0;
+            this.buttonGNSS2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonGNSS2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonGNSS2.ForeColor = System.Drawing.Color.White;
+            this.buttonGNSS2.Name = "buttonGNSS2";
+            this.buttonGNSS2.TabStop = false;
+            this.buttonGNSS2.Tag = "custom";
+            this.buttonGNSS2.UseVisualStyleBackColor = false;
+            // 
+            // buttonGNSS1
+            // 
+            this.buttonGNSS1.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonGNSS1, "buttonGNSS1");
+            this.buttonGNSS1.FlatAppearance.BorderSize = 0;
+            this.buttonGNSS1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonGNSS1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonGNSS1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonGNSS1.Name = "buttonGNSS1";
+            this.buttonGNSS1.TabStop = false;
+            this.buttonGNSS1.Tag = "custom";
+            this.buttonGNSS1.UseVisualStyleBackColor = false;
+            // 
+            // buttonEKF
+            // 
+            this.buttonEKF.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonEKF, "buttonEKF");
+            this.buttonEKF.FlatAppearance.BorderSize = 0;
+            this.buttonEKF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonEKF.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonEKF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonEKF.Name = "buttonEKF";
+            this.buttonEKF.TabStop = false;
+            this.buttonEKF.Tag = "custom";
+            this.buttonEKF.UseVisualStyleBackColor = false;
+            // 
+            // buttonVIBE
+            // 
+            this.buttonVIBE.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonVIBE, "buttonVIBE");
+            this.buttonVIBE.FlatAppearance.BorderSize = 0;
+            this.buttonVIBE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonVIBE.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonVIBE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonVIBE.Name = "buttonVIBE";
+            this.buttonVIBE.TabStop = false;
+            this.buttonVIBE.Tag = "custom";
+            this.buttonVIBE.UseVisualStyleBackColor = false;
+            // 
+            // buttonMOTOR
+            // 
+            this.buttonMOTOR.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonMOTOR, "buttonMOTOR");
+            this.buttonMOTOR.FlatAppearance.BorderSize = 0;
+            this.buttonMOTOR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonMOTOR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonMOTOR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonMOTOR.Name = "buttonMOTOR";
+            this.buttonMOTOR.TabStop = false;
+            this.buttonMOTOR.Tag = "custom";
+            this.buttonMOTOR.UseVisualStyleBackColor = false;
+            // 
+            // buttonCONT2
+            // 
+            this.buttonCONT2.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonCONT2, "buttonCONT2");
+            this.buttonCONT2.FlatAppearance.BorderSize = 0;
+            this.buttonCONT2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonCONT2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonCONT2.ForeColor = System.Drawing.Color.White;
+            this.buttonCONT2.Name = "buttonCONT2";
+            this.buttonCONT2.TabStop = false;
+            this.buttonCONT2.Tag = "custom";
+            this.buttonCONT2.UseVisualStyleBackColor = false;
+            // 
+            // buttonGCSCON
+            // 
+            this.buttonGCSCON.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonGCSCON, "buttonGCSCON");
+            this.buttonGCSCON.FlatAppearance.BorderSize = 0;
+            this.buttonGCSCON.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonGCSCON.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonGCSCON.ForeColor = System.Drawing.Color.White;
+            this.buttonGCSCON.Name = "buttonGCSCON";
+            this.buttonGCSCON.TabStop = false;
+            this.buttonGCSCON.Tag = "custom";
+            this.buttonGCSCON.UseVisualStyleBackColor = false;
+            // 
+            // buttonCONT1
+            // 
+            this.buttonCONT1.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonCONT1, "buttonCONT1");
+            this.buttonCONT1.FlatAppearance.BorderSize = 0;
+            this.buttonCONT1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonCONT1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonCONT1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonCONT1.Name = "buttonCONT1";
+            this.buttonCONT1.TabStop = false;
+            this.buttonCONT1.Tag = "custom";
+            this.buttonCONT1.UseVisualStyleBackColor = false;
+            // 
+            // buttonDGPS
+            // 
+            this.buttonDGPS.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonDGPS, "buttonDGPS");
+            this.buttonDGPS.FlatAppearance.BorderSize = 0;
+            this.buttonDGPS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonDGPS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonDGPS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonDGPS.Name = "buttonDGPS";
+            this.buttonDGPS.TabStop = false;
+            this.buttonDGPS.Tag = "custom";
+            this.buttonDGPS.UseVisualStyleBackColor = false;
+            // 
+            // buttonATS
+            // 
+            this.buttonATS.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonATS, "buttonATS");
+            this.buttonATS.FlatAppearance.BorderSize = 0;
+            this.buttonATS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonATS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonATS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonATS.Name = "buttonATS";
+            this.buttonATS.TabStop = false;
+            this.buttonATS.Tag = "custom";
+            this.buttonATS.UseVisualStyleBackColor = false;
+            // 
+            // buttonBATTERY
+            // 
+            this.buttonBATTERY.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.buttonBATTERY, "buttonBATTERY");
+            this.buttonBATTERY.FlatAppearance.BorderSize = 0;
+            this.buttonBATTERY.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.buttonBATTERY.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.buttonBATTERY.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonBATTERY.Name = "buttonBATTERY";
+            this.buttonBATTERY.TabStop = false;
+            this.buttonBATTERY.Tag = "custom";
+            this.buttonBATTERY.UseVisualStyleBackColor = false;
+            // 
+            // panel_persistent
+            // 
+            resources.ApplyResources(this.panel_persistent, "panel_persistent");
+            this.panel_persistent.Name = "panel_persistent";
             // 
             // tabControlactions
             // 
@@ -988,6 +1231,34 @@ namespace MissionPlanner.GCSViews
             this.BUT_abortland.UseVisualStyleBackColor = true;
             this.BUT_abortland.Click += new System.EventHandler(this.BUT_abortland_Click);
             // 
+            // modifyandSetLoiterRad
+            // 
+            resources.ApplyResources(this.modifyandSetLoiterRad, "modifyandSetLoiterRad");
+            this.modifyandSetLoiterRad.ButtonText = "Set Loiter Rad";
+            this.modifyandSetLoiterRad.DecimalPlaces = 0;
+            this.modifyandSetLoiterRad.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.modifyandSetLoiterRad.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.modifyandSetLoiterRad.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.modifyandSetLoiterRad.Name = "modifyandSetLoiterRad";
+            this.modifyandSetLoiterRad.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetLoiterRad.Click += new System.EventHandler(this.modifyandSetLoiterRad_Click);
+            // 
             // BUT_clear_track
             // 
             this.BUT_clear_track.ColorMouseDown = System.Drawing.Color.Empty;
@@ -1030,6 +1301,63 @@ namespace MissionPlanner.GCSViews
             this.BUT_resumemis.TextColorNotEnabled = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
             this.BUT_resumemis.UseVisualStyleBackColor = true;
             this.BUT_resumemis.Click += new System.EventHandler(this.BUT_resumemis_Click);
+            // 
+            // modifyandSetAlt
+            // 
+            resources.ApplyResources(this.modifyandSetAlt, "modifyandSetAlt");
+            this.modifyandSetAlt.ButtonText = "Change Alt";
+            this.modifyandSetAlt.DecimalPlaces = 1;
+            this.modifyandSetAlt.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Name = "modifyandSetAlt";
+            this.modifyandSetAlt.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Click += new System.EventHandler(this.modifyandSetAlt_Click);
+            // 
+            // modifyandSetSpeed
+            // 
+            resources.ApplyResources(this.modifyandSetSpeed, "modifyandSetSpeed");
+            this.modifyandSetSpeed.ButtonText = "Change Speed";
+            this.modifyandSetSpeed.DecimalPlaces = 1;
+            this.modifyandSetSpeed.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Name = "modifyandSetSpeed";
+            this.modifyandSetSpeed.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
+            this.modifyandSetSpeed.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
             // 
             // CMB_setwp
             // 
@@ -1254,6 +1582,11 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.tabPagePreFlight, "tabPagePreFlight");
             this.tabPagePreFlight.Name = "tabPagePreFlight";
             this.tabPagePreFlight.UseVisualStyleBackColor = true;
+            // 
+            // checkListControl1
+            // 
+            resources.ApplyResources(this.checkListControl1, "checkListControl1");
+            this.checkListControl1.Name = "checkListControl1";
             // 
             // tabGauges
             // 
@@ -1894,6 +2227,174 @@ namespace MissionPlanner.GCSViews
             this.flowLayoutPanelServos.Controls.Add(this.relayOptions16);
             this.flowLayoutPanelServos.Name = "flowLayoutPanelServos";
             // 
+            // servoOptions1
+            // 
+            resources.ApplyResources(this.servoOptions1, "servoOptions1");
+            this.servoOptions1.Name = "servoOptions1";
+            this.servoOptions1.thisservo = 5;
+            // 
+            // servoOptions2
+            // 
+            resources.ApplyResources(this.servoOptions2, "servoOptions2");
+            this.servoOptions2.Name = "servoOptions2";
+            this.servoOptions2.thisservo = 6;
+            // 
+            // servoOptions3
+            // 
+            resources.ApplyResources(this.servoOptions3, "servoOptions3");
+            this.servoOptions3.Name = "servoOptions3";
+            this.servoOptions3.thisservo = 7;
+            // 
+            // servoOptions4
+            // 
+            resources.ApplyResources(this.servoOptions4, "servoOptions4");
+            this.servoOptions4.Name = "servoOptions4";
+            this.servoOptions4.thisservo = 8;
+            // 
+            // servoOptions5
+            // 
+            resources.ApplyResources(this.servoOptions5, "servoOptions5");
+            this.servoOptions5.Name = "servoOptions5";
+            this.servoOptions5.thisservo = 9;
+            // 
+            // servoOptions6
+            // 
+            resources.ApplyResources(this.servoOptions6, "servoOptions6");
+            this.servoOptions6.Name = "servoOptions6";
+            this.servoOptions6.thisservo = 10;
+            // 
+            // servoOptions7
+            // 
+            resources.ApplyResources(this.servoOptions7, "servoOptions7");
+            this.servoOptions7.Name = "servoOptions7";
+            this.servoOptions7.thisservo = 11;
+            // 
+            // servoOptions8
+            // 
+            resources.ApplyResources(this.servoOptions8, "servoOptions8");
+            this.servoOptions8.Name = "servoOptions8";
+            this.servoOptions8.thisservo = 12;
+            // 
+            // servoOptions9
+            // 
+            resources.ApplyResources(this.servoOptions9, "servoOptions9");
+            this.servoOptions9.Name = "servoOptions9";
+            this.servoOptions9.thisservo = 13;
+            // 
+            // servoOptions10
+            // 
+            resources.ApplyResources(this.servoOptions10, "servoOptions10");
+            this.servoOptions10.Name = "servoOptions10";
+            this.servoOptions10.thisservo = 14;
+            // 
+            // servoOptions11
+            // 
+            resources.ApplyResources(this.servoOptions11, "servoOptions11");
+            this.servoOptions11.Name = "servoOptions11";
+            this.servoOptions11.thisservo = 15;
+            // 
+            // servoOptions12
+            // 
+            resources.ApplyResources(this.servoOptions12, "servoOptions12");
+            this.servoOptions12.Name = "servoOptions12";
+            this.servoOptions12.thisservo = 16;
+            // 
+            // relayOptions1
+            // 
+            resources.ApplyResources(this.relayOptions1, "relayOptions1");
+            this.relayOptions1.Name = "relayOptions1";
+            this.relayOptions1.thisrelay = 0;
+            // 
+            // relayOptions2
+            // 
+            resources.ApplyResources(this.relayOptions2, "relayOptions2");
+            this.relayOptions2.Name = "relayOptions2";
+            this.relayOptions2.thisrelay = 1;
+            // 
+            // relayOptions3
+            // 
+            resources.ApplyResources(this.relayOptions3, "relayOptions3");
+            this.relayOptions3.Name = "relayOptions3";
+            this.relayOptions3.thisrelay = 2;
+            // 
+            // relayOptions4
+            // 
+            resources.ApplyResources(this.relayOptions4, "relayOptions4");
+            this.relayOptions4.Name = "relayOptions4";
+            this.relayOptions4.thisrelay = 3;
+            // 
+            // relayOptions5
+            // 
+            resources.ApplyResources(this.relayOptions5, "relayOptions5");
+            this.relayOptions5.Name = "relayOptions5";
+            this.relayOptions5.thisrelay = 4;
+            // 
+            // relayOptions6
+            // 
+            resources.ApplyResources(this.relayOptions6, "relayOptions6");
+            this.relayOptions6.Name = "relayOptions6";
+            this.relayOptions6.thisrelay = 5;
+            // 
+            // relayOptions7
+            // 
+            resources.ApplyResources(this.relayOptions7, "relayOptions7");
+            this.relayOptions7.Name = "relayOptions7";
+            this.relayOptions7.thisrelay = 6;
+            // 
+            // relayOptions8
+            // 
+            resources.ApplyResources(this.relayOptions8, "relayOptions8");
+            this.relayOptions8.Name = "relayOptions8";
+            this.relayOptions8.thisrelay = 7;
+            // 
+            // relayOptions9
+            // 
+            resources.ApplyResources(this.relayOptions9, "relayOptions9");
+            this.relayOptions9.Name = "relayOptions9";
+            this.relayOptions9.thisrelay = 8;
+            // 
+            // relayOptions10
+            // 
+            resources.ApplyResources(this.relayOptions10, "relayOptions10");
+            this.relayOptions10.Name = "relayOptions10";
+            this.relayOptions10.thisrelay = 9;
+            // 
+            // relayOptions11
+            // 
+            resources.ApplyResources(this.relayOptions11, "relayOptions11");
+            this.relayOptions11.Name = "relayOptions11";
+            this.relayOptions11.thisrelay = 10;
+            // 
+            // relayOptions12
+            // 
+            resources.ApplyResources(this.relayOptions12, "relayOptions12");
+            this.relayOptions12.Name = "relayOptions12";
+            this.relayOptions12.thisrelay = 11;
+            // 
+            // relayOptions13
+            // 
+            resources.ApplyResources(this.relayOptions13, "relayOptions13");
+            this.relayOptions13.Name = "relayOptions13";
+            this.relayOptions13.thisrelay = 12;
+            // 
+            // relayOptions14
+            // 
+            resources.ApplyResources(this.relayOptions14, "relayOptions14");
+            this.relayOptions14.Name = "relayOptions14";
+            this.relayOptions14.thisrelay = 13;
+            // 
+            // relayOptions15
+            // 
+            resources.ApplyResources(this.relayOptions15, "relayOptions15");
+            this.relayOptions15.Name = "relayOptions15";
+            this.relayOptions15.thisrelay = 14;
+            // 
+            // relayOptions16
+            // 
+            resources.ApplyResources(this.relayOptions16, "relayOptions16");
+            this.relayOptions16.Name = "relayOptions16";
+            this.relayOptions16.thisrelay = 15;
+            // 
             // tabAuxFunction
             // 
             this.tabAuxFunction.Controls.Add(this.flowLayoutPanel1);
@@ -1912,6 +2413,41 @@ namespace MissionPlanner.GCSViews
             this.flowLayoutPanel1.Controls.Add(this.auxOptions7);
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
+            // auxOptions1
+            // 
+            resources.ApplyResources(this.auxOptions1, "auxOptions1");
+            this.auxOptions1.Name = "auxOptions1";
+            // 
+            // auxOptions2
+            // 
+            resources.ApplyResources(this.auxOptions2, "auxOptions2");
+            this.auxOptions2.Name = "auxOptions2";
+            // 
+            // auxOptions3
+            // 
+            resources.ApplyResources(this.auxOptions3, "auxOptions3");
+            this.auxOptions3.Name = "auxOptions3";
+            // 
+            // auxOptions4
+            // 
+            resources.ApplyResources(this.auxOptions4, "auxOptions4");
+            this.auxOptions4.Name = "auxOptions4";
+            // 
+            // auxOptions5
+            // 
+            resources.ApplyResources(this.auxOptions5, "auxOptions5");
+            this.auxOptions5.Name = "auxOptions5";
+            // 
+            // auxOptions6
+            // 
+            resources.ApplyResources(this.auxOptions6, "auxOptions6");
+            this.auxOptions6.Name = "auxOptions6";
+            // 
+            // auxOptions7
+            // 
+            resources.ApplyResources(this.auxOptions7, "auxOptions7");
+            this.auxOptions7.Name = "auxOptions7";
             // 
             // tabScripts
             // 
@@ -2362,11 +2898,6 @@ namespace MissionPlanner.GCSViews
             this.BUT_loganalysis.UseVisualStyleBackColor = true;
             this.BUT_loganalysis.Click += new System.EventHandler(this.BUT_loganalysis_Click);
             // 
-            // panel_persistent
-            // 
-            resources.ApplyResources(this.panel_persistent, "panel_persistent");
-            this.panel_persistent.Name = "panel_persistent";
-            // 
             // tableMap
             // 
             resources.ApplyResources(this.tableMap, "tableMap");
@@ -2582,6 +3113,14 @@ namespace MissionPlanner.GCSViews
             0});
             this.Zoomlevel.ValueChanged += new System.EventHandler(this.Zoomlevel_ValueChanged);
             // 
+            // distanceBar1
+            // 
+            resources.ApplyResources(this.distanceBar1, "distanceBar1");
+            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
+            this.distanceBar1.Name = "distanceBar1";
+            this.distanceBar1.totaldist = 100F;
+            this.distanceBar1.traveleddist = 0F;
+            // 
             // TRK_zoom
             // 
             resources.ApplyResources(this.TRK_zoom, "TRK_zoom");
@@ -2600,7 +3139,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 540D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2938,307 +3477,6 @@ namespace MissionPlanner.GCSViews
             this.timerLog.Interval = 200;
             this.timerLog.Tick += new System.EventHandler(this.timerLog_Tick);
             // 
-            // modifyandSetLoiterRad
-            // 
-            resources.ApplyResources(this.modifyandSetLoiterRad, "modifyandSetLoiterRad");
-            this.modifyandSetLoiterRad.ButtonText = "Set Loiter Rad";
-            this.modifyandSetLoiterRad.DecimalPlaces = 0;
-            this.modifyandSetLoiterRad.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.modifyandSetLoiterRad.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.modifyandSetLoiterRad.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
-            this.modifyandSetLoiterRad.Name = "modifyandSetLoiterRad";
-            this.modifyandSetLoiterRad.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetLoiterRad.Click += new System.EventHandler(this.modifyandSetLoiterRad_Click);
-            // 
-            // modifyandSetAlt
-            // 
-            resources.ApplyResources(this.modifyandSetAlt, "modifyandSetAlt");
-            this.modifyandSetAlt.ButtonText = "Change Alt";
-            this.modifyandSetAlt.DecimalPlaces = 1;
-            this.modifyandSetAlt.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Name = "modifyandSetAlt";
-            this.modifyandSetAlt.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Click += new System.EventHandler(this.modifyandSetAlt_Click);
-            // 
-            // modifyandSetSpeed
-            // 
-            resources.ApplyResources(this.modifyandSetSpeed, "modifyandSetSpeed");
-            this.modifyandSetSpeed.ButtonText = "Change Speed";
-            this.modifyandSetSpeed.DecimalPlaces = 1;
-            this.modifyandSetSpeed.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Name = "modifyandSetSpeed";
-            this.modifyandSetSpeed.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
-            this.modifyandSetSpeed.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
-            // 
-            // checkListControl1
-            // 
-            resources.ApplyResources(this.checkListControl1, "checkListControl1");
-            this.checkListControl1.Name = "checkListControl1";
-            // 
-            // servoOptions1
-            // 
-            resources.ApplyResources(this.servoOptions1, "servoOptions1");
-            this.servoOptions1.Name = "servoOptions1";
-            this.servoOptions1.thisservo = 5;
-            // 
-            // servoOptions2
-            // 
-            resources.ApplyResources(this.servoOptions2, "servoOptions2");
-            this.servoOptions2.Name = "servoOptions2";
-            this.servoOptions2.thisservo = 6;
-            // 
-            // servoOptions3
-            // 
-            resources.ApplyResources(this.servoOptions3, "servoOptions3");
-            this.servoOptions3.Name = "servoOptions3";
-            this.servoOptions3.thisservo = 7;
-            // 
-            // servoOptions4
-            // 
-            resources.ApplyResources(this.servoOptions4, "servoOptions4");
-            this.servoOptions4.Name = "servoOptions4";
-            this.servoOptions4.thisservo = 8;
-            // 
-            // servoOptions5
-            // 
-            resources.ApplyResources(this.servoOptions5, "servoOptions5");
-            this.servoOptions5.Name = "servoOptions5";
-            this.servoOptions5.thisservo = 9;
-            // 
-            // servoOptions6
-            // 
-            resources.ApplyResources(this.servoOptions6, "servoOptions6");
-            this.servoOptions6.Name = "servoOptions6";
-            this.servoOptions6.thisservo = 10;
-            // 
-            // servoOptions7
-            // 
-            resources.ApplyResources(this.servoOptions7, "servoOptions7");
-            this.servoOptions7.Name = "servoOptions7";
-            this.servoOptions7.thisservo = 11;
-            // 
-            // servoOptions8
-            // 
-            resources.ApplyResources(this.servoOptions8, "servoOptions8");
-            this.servoOptions8.Name = "servoOptions8";
-            this.servoOptions8.thisservo = 12;
-            // 
-            // servoOptions9
-            // 
-            resources.ApplyResources(this.servoOptions9, "servoOptions9");
-            this.servoOptions9.Name = "servoOptions9";
-            this.servoOptions9.thisservo = 13;
-            // 
-            // servoOptions10
-            // 
-            resources.ApplyResources(this.servoOptions10, "servoOptions10");
-            this.servoOptions10.Name = "servoOptions10";
-            this.servoOptions10.thisservo = 14;
-            // 
-            // servoOptions11
-            // 
-            resources.ApplyResources(this.servoOptions11, "servoOptions11");
-            this.servoOptions11.Name = "servoOptions11";
-            this.servoOptions11.thisservo = 15;
-            // 
-            // servoOptions12
-            // 
-            resources.ApplyResources(this.servoOptions12, "servoOptions12");
-            this.servoOptions12.Name = "servoOptions12";
-            this.servoOptions12.thisservo = 16;
-            // 
-            // relayOptions1
-            // 
-            resources.ApplyResources(this.relayOptions1, "relayOptions1");
-            this.relayOptions1.Name = "relayOptions1";
-            this.relayOptions1.thisrelay = 0;
-            // 
-            // relayOptions2
-            // 
-            resources.ApplyResources(this.relayOptions2, "relayOptions2");
-            this.relayOptions2.Name = "relayOptions2";
-            this.relayOptions2.thisrelay = 1;
-            // 
-            // relayOptions3
-            // 
-            resources.ApplyResources(this.relayOptions3, "relayOptions3");
-            this.relayOptions3.Name = "relayOptions3";
-            this.relayOptions3.thisrelay = 2;
-            // 
-            // relayOptions4
-            // 
-            resources.ApplyResources(this.relayOptions4, "relayOptions4");
-            this.relayOptions4.Name = "relayOptions4";
-            this.relayOptions4.thisrelay = 3;
-            // 
-            // relayOptions5
-            // 
-            resources.ApplyResources(this.relayOptions5, "relayOptions5");
-            this.relayOptions5.Name = "relayOptions5";
-            this.relayOptions5.thisrelay = 4;
-            // 
-            // relayOptions6
-            // 
-            resources.ApplyResources(this.relayOptions6, "relayOptions6");
-            this.relayOptions6.Name = "relayOptions6";
-            this.relayOptions6.thisrelay = 5;
-            // 
-            // relayOptions7
-            // 
-            resources.ApplyResources(this.relayOptions7, "relayOptions7");
-            this.relayOptions7.Name = "relayOptions7";
-            this.relayOptions7.thisrelay = 6;
-            // 
-            // relayOptions8
-            // 
-            resources.ApplyResources(this.relayOptions8, "relayOptions8");
-            this.relayOptions8.Name = "relayOptions8";
-            this.relayOptions8.thisrelay = 7;
-            // 
-            // relayOptions9
-            // 
-            resources.ApplyResources(this.relayOptions9, "relayOptions9");
-            this.relayOptions9.Name = "relayOptions9";
-            this.relayOptions9.thisrelay = 8;
-            // 
-            // relayOptions10
-            // 
-            resources.ApplyResources(this.relayOptions10, "relayOptions10");
-            this.relayOptions10.Name = "relayOptions10";
-            this.relayOptions10.thisrelay = 9;
-            // 
-            // relayOptions11
-            // 
-            resources.ApplyResources(this.relayOptions11, "relayOptions11");
-            this.relayOptions11.Name = "relayOptions11";
-            this.relayOptions11.thisrelay = 10;
-            // 
-            // relayOptions12
-            // 
-            resources.ApplyResources(this.relayOptions12, "relayOptions12");
-            this.relayOptions12.Name = "relayOptions12";
-            this.relayOptions12.thisrelay = 11;
-            // 
-            // relayOptions13
-            // 
-            resources.ApplyResources(this.relayOptions13, "relayOptions13");
-            this.relayOptions13.Name = "relayOptions13";
-            this.relayOptions13.thisrelay = 12;
-            // 
-            // relayOptions14
-            // 
-            resources.ApplyResources(this.relayOptions14, "relayOptions14");
-            this.relayOptions14.Name = "relayOptions14";
-            this.relayOptions14.thisrelay = 13;
-            // 
-            // relayOptions15
-            // 
-            resources.ApplyResources(this.relayOptions15, "relayOptions15");
-            this.relayOptions15.Name = "relayOptions15";
-            this.relayOptions15.thisrelay = 14;
-            // 
-            // relayOptions16
-            // 
-            resources.ApplyResources(this.relayOptions16, "relayOptions16");
-            this.relayOptions16.Name = "relayOptions16";
-            this.relayOptions16.thisrelay = 15;
-            // 
-            // auxOptions1
-            // 
-            resources.ApplyResources(this.auxOptions1, "auxOptions1");
-            this.auxOptions1.Name = "auxOptions1";
-            // 
-            // auxOptions2
-            // 
-            resources.ApplyResources(this.auxOptions2, "auxOptions2");
-            this.auxOptions2.Name = "auxOptions2";
-            // 
-            // auxOptions3
-            // 
-            resources.ApplyResources(this.auxOptions3, "auxOptions3");
-            this.auxOptions3.Name = "auxOptions3";
-            // 
-            // auxOptions4
-            // 
-            resources.ApplyResources(this.auxOptions4, "auxOptions4");
-            this.auxOptions4.Name = "auxOptions4";
-            // 
-            // auxOptions5
-            // 
-            resources.ApplyResources(this.auxOptions5, "auxOptions5");
-            this.auxOptions5.Name = "auxOptions5";
-            // 
-            // auxOptions6
-            // 
-            resources.ApplyResources(this.auxOptions6, "auxOptions6");
-            this.auxOptions6.Name = "auxOptions6";
-            // 
-            // auxOptions7
-            // 
-            resources.ApplyResources(this.auxOptions7, "auxOptions7");
-            this.auxOptions7.Name = "auxOptions7";
-            // 
-            // distanceBar1
-            // 
-            resources.ApplyResources(this.distanceBar1, "distanceBar1");
-            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
-            this.distanceBar1.Name = "distanceBar1";
-            this.distanceBar1.totaldist = 100F;
-            this.distanceBar1.traveleddist = 0F;
-            // 
             // FlightData
             // 
             this.Controls.Add(this.MainV);
@@ -3267,6 +3505,8 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
+            this.panelMasterCont.ResumeLayout(false);
+            this.panelIndicate.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.ResumeLayout(false);
@@ -3592,5 +3832,21 @@ namespace MissionPlanner.GCSViews
         private Button buttonPropo;
         private RichTextBox richTextBoxLog;
         private Timer timerLog;
+        private Panel panelIndicate;
+        private Button buttonLINK;
+        private Button buttonGNSS2;
+        private Button buttonGNSS1;
+        private Button buttonEKF;
+        private Button buttonVIBE;
+        private Button buttonMOTOR;
+        private Button buttonCONT2;
+        private Button buttonGCSCON;
+        private Button buttonCONT1;
+        private Button buttonDGPS;
+        private Button buttonATS;
+        private Button buttonBATTERY;
+        private Panel panelMasterCont;
+        private Button buttonCAUTION;
+        private Button buttonWARNING;
     }
 }

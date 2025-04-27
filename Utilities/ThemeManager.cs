@@ -916,8 +916,16 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(BSE.Windows.Forms.Panel) || ctl.GetType() == typeof(SplitterPanel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "SMLP2"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
+                    }
+                    else
+                    {
+                        ctl.BackColor = Color.FromArgb(0x41, 0x4f, 0x07);
+                        ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
+                    }
                 }
                 else if (ctl.GetType() == typeof(RadialGradientBG))
                 {
@@ -1230,8 +1238,16 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(BSE.Windows.Forms.Panel) || ctl.GetType() == typeof(SplitterPanel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "SMLP2"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
+                    }
+                    else
+                    {
+                        ctl.BackColor = Color.FromArgb(0x41, 0x4f, 0x07);
+                        ctl.ForeColor = TextColor;
+                    }
                 }
                 else if (ctl.GetType() == typeof(RadialGradientBG)) //not included in original burntkermit theme
                 {

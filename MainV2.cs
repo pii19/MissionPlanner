@@ -4213,6 +4213,12 @@ protected override void OnLoad(EventArgs e)
                 return true;
             }
 
+            if (keyData == (Keys.Control | Keys.Q)) // fin
+            {
+                this.Close();
+                return true;
+            }
+
             if (keyData == (Keys.Control | Keys.F)) // temp
             {
                 Form frm = new temp();
@@ -4533,7 +4539,7 @@ protected override void OnLoad(EventArgs e)
                 menu.Visible = false;
                 //menu.SendToBack();
 
-                this.TopMost = true;
+                //this.TopMost = true;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 this.WindowState = FormWindowState.Normal;
                 this.WindowState = FormWindowState.Maximized;
