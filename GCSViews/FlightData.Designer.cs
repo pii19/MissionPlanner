@@ -46,22 +46,12 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indicator1 = new MissionPlanner.Controls.Indicator();
+            this.bindingSourceBattery = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceMotor = new System.Windows.Forms.BindingSource(this.components);
             this.panelMasterCont = new System.Windows.Forms.Panel();
             this.buttonCAUTION = new System.Windows.Forms.Button();
             this.buttonWARNING = new System.Windows.Forms.Button();
-            this.panelIndicate = new System.Windows.Forms.Panel();
-            this.buttonLINK = new System.Windows.Forms.Button();
-            this.buttonGNSS2 = new System.Windows.Forms.Button();
-            this.buttonGNSS1 = new System.Windows.Forms.Button();
-            this.buttonEKF = new System.Windows.Forms.Button();
-            this.buttonVIBE = new System.Windows.Forms.Button();
-            this.buttonMOTOR = new System.Windows.Forms.Button();
-            this.buttonCONT2 = new System.Windows.Forms.Button();
-            this.buttonGCSCON = new System.Windows.Forms.Button();
-            this.buttonCONT1 = new System.Windows.Forms.Button();
-            this.buttonDGPS = new System.Windows.Forms.Button();
-            this.buttonATS = new System.Windows.Forms.Button();
-            this.buttonBATTERY = new System.Windows.Forms.Button();
             this.panel_persistent = new System.Windows.Forms.Panel();
             this.tabControlactions = new System.Windows.Forms.TabControl();
             this.tabQuick = new System.Windows.Forms.TabPage();
@@ -279,8 +269,9 @@ namespace MissionPlanner.GCSViews
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainV = new System.Windows.Forms.SplitContainer();
-            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
             this.timerLog = new System.Windows.Forms.Timer(this.components);
+            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.batteryStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -298,8 +289,9 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceBattery)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMotor)).BeginInit();
             this.panelMasterCont.SuspendLayout();
-            this.panelIndicate.SuspendLayout();
             this.tabControlactions.SuspendLayout();
             this.tabQuick.SuspendLayout();
             this.tableLayoutPanelQuick.SuspendLayout();
@@ -351,6 +343,7 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel2.SuspendLayout();
             this.MainV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batteryStatusBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // MainH
@@ -382,8 +375,8 @@ namespace MissionPlanner.GCSViews
             // 
             this.SubMainLeft.Panel2.BackColor = System.Drawing.Color.Transparent;
             this.SubMainLeft.Panel2.ContextMenuStrip = this.contextMenuStripactionstab;
+            this.SubMainLeft.Panel2.Controls.Add(this.indicator1);
             this.SubMainLeft.Panel2.Controls.Add(this.panelMasterCont);
-            this.SubMainLeft.Panel2.Controls.Add(this.panelIndicate);
             this.SubMainLeft.Panel2.Controls.Add(this.panel_persistent);
             this.SubMainLeft.Panel2.Controls.Add(this.tabControlactions);
             this.SubMainLeft.Panel2.Tag = "SMLP2";
@@ -813,6 +806,41 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.multiLineToolStripMenuItem, "multiLineToolStripMenuItem");
             this.multiLineToolStripMenuItem.Click += new System.EventHandler(this.multiLineToolStripMenuItem_Click);
             // 
+            // indicator1
+            // 
+            this.indicator1.BackColor = System.Drawing.SystemColors.ControlLight;
+            resources.ApplyResources(this.indicator1, "indicator1");
+            this.indicator1.battery_crt = 60F;
+            this.indicator1.battery_warn = 30F;
+            this.indicator1.batterystatus = MissionPlanner.Controls.MasterStatus.Normal;
+            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("batterystatus", this.bindingSourceBattery, "masterstatus", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("ekfstatus", this.bindingSourceHud, "ekfstatus", true));
+            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("linkstatus", this.bindingSourceHud, "linkqualitygcs", true));
+            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("motorstatus", this.bindingSourceMotor, "masterstatus", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("vibestatus", this.bindingSourceHud, "vibestatus", true));
+            this.indicator1.ekf_crt = 0.8F;
+            this.indicator1.ekf_warn = 0.5F;
+            this.indicator1.ekfstatus = 0F;
+            this.indicator1.link_crt = 50F;
+            this.indicator1.link_warn = 80F;
+            this.indicator1.linkstatus = 0F;
+            this.indicator1.masterstatus = MissionPlanner.Controls.MasterStatus.Error;
+            this.indicator1.motor_crt = 60F;
+            this.indicator1.motor_warn = 30F;
+            this.indicator1.motorstatus = MissionPlanner.Controls.MasterStatus.Normal;
+            this.indicator1.Name = "indicator1";
+            this.indicator1.vibe_crt = 60F;
+            this.indicator1.vibe_warn = 30F;
+            this.indicator1.vibestatus = 0F;
+            // 
+            // bindingSourceBattery
+            // 
+            this.bindingSourceBattery.DataSource = typeof(MissionPlanner.Controls.BatteryStatus);
+            // 
+            // bindingSourceMotor
+            // 
+            this.bindingSourceMotor.DataSource = typeof(MissionPlanner.Controls.MotorStatus);
+            // 
             // panelMasterCont
             // 
             resources.ApplyResources(this.panelMasterCont, "panelMasterCont");
@@ -847,181 +875,6 @@ namespace MissionPlanner.GCSViews
             this.buttonWARNING.TabStop = false;
             this.buttonWARNING.Tag = "custom";
             this.buttonWARNING.UseVisualStyleBackColor = false;
-            // 
-            // panelIndicate
-            // 
-            resources.ApplyResources(this.panelIndicate, "panelIndicate");
-            this.panelIndicate.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panelIndicate.Controls.Add(this.buttonLINK);
-            this.panelIndicate.Controls.Add(this.buttonGNSS2);
-            this.panelIndicate.Controls.Add(this.buttonGNSS1);
-            this.panelIndicate.Controls.Add(this.buttonEKF);
-            this.panelIndicate.Controls.Add(this.buttonVIBE);
-            this.panelIndicate.Controls.Add(this.buttonMOTOR);
-            this.panelIndicate.Controls.Add(this.buttonCONT2);
-            this.panelIndicate.Controls.Add(this.buttonGCSCON);
-            this.panelIndicate.Controls.Add(this.buttonCONT1);
-            this.panelIndicate.Controls.Add(this.buttonDGPS);
-            this.panelIndicate.Controls.Add(this.buttonATS);
-            this.panelIndicate.Controls.Add(this.buttonBATTERY);
-            this.panelIndicate.Name = "panelIndicate";
-            this.panelIndicate.Tag = "custom";
-            // 
-            // buttonLINK
-            // 
-            this.buttonLINK.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonLINK, "buttonLINK");
-            this.buttonLINK.FlatAppearance.BorderSize = 0;
-            this.buttonLINK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonLINK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonLINK.ForeColor = System.Drawing.Color.White;
-            this.buttonLINK.Name = "buttonLINK";
-            this.buttonLINK.TabStop = false;
-            this.buttonLINK.Tag = "custom";
-            this.buttonLINK.UseVisualStyleBackColor = false;
-            // 
-            // buttonGNSS2
-            // 
-            this.buttonGNSS2.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonGNSS2, "buttonGNSS2");
-            this.buttonGNSS2.FlatAppearance.BorderSize = 0;
-            this.buttonGNSS2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonGNSS2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonGNSS2.ForeColor = System.Drawing.Color.White;
-            this.buttonGNSS2.Name = "buttonGNSS2";
-            this.buttonGNSS2.TabStop = false;
-            this.buttonGNSS2.Tag = "custom";
-            this.buttonGNSS2.UseVisualStyleBackColor = false;
-            // 
-            // buttonGNSS1
-            // 
-            this.buttonGNSS1.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonGNSS1, "buttonGNSS1");
-            this.buttonGNSS1.FlatAppearance.BorderSize = 0;
-            this.buttonGNSS1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonGNSS1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonGNSS1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonGNSS1.Name = "buttonGNSS1";
-            this.buttonGNSS1.TabStop = false;
-            this.buttonGNSS1.Tag = "custom";
-            this.buttonGNSS1.UseVisualStyleBackColor = false;
-            // 
-            // buttonEKF
-            // 
-            this.buttonEKF.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonEKF, "buttonEKF");
-            this.buttonEKF.FlatAppearance.BorderSize = 0;
-            this.buttonEKF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonEKF.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonEKF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonEKF.Name = "buttonEKF";
-            this.buttonEKF.TabStop = false;
-            this.buttonEKF.Tag = "custom";
-            this.buttonEKF.UseVisualStyleBackColor = false;
-            // 
-            // buttonVIBE
-            // 
-            this.buttonVIBE.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonVIBE, "buttonVIBE");
-            this.buttonVIBE.FlatAppearance.BorderSize = 0;
-            this.buttonVIBE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonVIBE.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonVIBE.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonVIBE.Name = "buttonVIBE";
-            this.buttonVIBE.TabStop = false;
-            this.buttonVIBE.Tag = "custom";
-            this.buttonVIBE.UseVisualStyleBackColor = false;
-            // 
-            // buttonMOTOR
-            // 
-            this.buttonMOTOR.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonMOTOR, "buttonMOTOR");
-            this.buttonMOTOR.FlatAppearance.BorderSize = 0;
-            this.buttonMOTOR.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonMOTOR.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonMOTOR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonMOTOR.Name = "buttonMOTOR";
-            this.buttonMOTOR.TabStop = false;
-            this.buttonMOTOR.Tag = "custom";
-            this.buttonMOTOR.UseVisualStyleBackColor = false;
-            // 
-            // buttonCONT2
-            // 
-            this.buttonCONT2.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonCONT2, "buttonCONT2");
-            this.buttonCONT2.FlatAppearance.BorderSize = 0;
-            this.buttonCONT2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonCONT2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonCONT2.ForeColor = System.Drawing.Color.White;
-            this.buttonCONT2.Name = "buttonCONT2";
-            this.buttonCONT2.TabStop = false;
-            this.buttonCONT2.Tag = "custom";
-            this.buttonCONT2.UseVisualStyleBackColor = false;
-            // 
-            // buttonGCSCON
-            // 
-            this.buttonGCSCON.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonGCSCON, "buttonGCSCON");
-            this.buttonGCSCON.FlatAppearance.BorderSize = 0;
-            this.buttonGCSCON.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonGCSCON.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonGCSCON.ForeColor = System.Drawing.Color.White;
-            this.buttonGCSCON.Name = "buttonGCSCON";
-            this.buttonGCSCON.TabStop = false;
-            this.buttonGCSCON.Tag = "custom";
-            this.buttonGCSCON.UseVisualStyleBackColor = false;
-            // 
-            // buttonCONT1
-            // 
-            this.buttonCONT1.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonCONT1, "buttonCONT1");
-            this.buttonCONT1.FlatAppearance.BorderSize = 0;
-            this.buttonCONT1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonCONT1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonCONT1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonCONT1.Name = "buttonCONT1";
-            this.buttonCONT1.TabStop = false;
-            this.buttonCONT1.Tag = "custom";
-            this.buttonCONT1.UseVisualStyleBackColor = false;
-            // 
-            // buttonDGPS
-            // 
-            this.buttonDGPS.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonDGPS, "buttonDGPS");
-            this.buttonDGPS.FlatAppearance.BorderSize = 0;
-            this.buttonDGPS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonDGPS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonDGPS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonDGPS.Name = "buttonDGPS";
-            this.buttonDGPS.TabStop = false;
-            this.buttonDGPS.Tag = "custom";
-            this.buttonDGPS.UseVisualStyleBackColor = false;
-            // 
-            // buttonATS
-            // 
-            this.buttonATS.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonATS, "buttonATS");
-            this.buttonATS.FlatAppearance.BorderSize = 0;
-            this.buttonATS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonATS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonATS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonATS.Name = "buttonATS";
-            this.buttonATS.TabStop = false;
-            this.buttonATS.Tag = "custom";
-            this.buttonATS.UseVisualStyleBackColor = false;
-            // 
-            // buttonBATTERY
-            // 
-            this.buttonBATTERY.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.buttonBATTERY, "buttonBATTERY");
-            this.buttonBATTERY.FlatAppearance.BorderSize = 0;
-            this.buttonBATTERY.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.buttonBATTERY.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.buttonBATTERY.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonBATTERY.Name = "buttonBATTERY";
-            this.buttonBATTERY.TabStop = false;
-            this.buttonBATTERY.Tag = "custom";
-            this.buttonBATTERY.UseVisualStyleBackColor = false;
             // 
             // panel_persistent
             // 
@@ -3141,7 +2994,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -3355,6 +3208,13 @@ namespace MissionPlanner.GCSViews
             this.batteryStatus1.Batt2volt = 0F;
             this.batteryStatus1.charge_crt = 10F;
             this.batteryStatus1.charge_warn = 30F;
+            this.batteryStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Batt1charge", this.bindingSourceHud, "battery_remaining", true));
+            this.batteryStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Batt1temp", this.bindingSourceHud, "battery_temp", true));
+            this.batteryStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Batt1volt", this.bindingSourceHud, "battery_voltage", true));
+            this.batteryStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Batt2charge", this.bindingSourceHud, "battery_remaining2", true));
+            this.batteryStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Batt2temp", this.bindingSourceHud, "battery_temp2", true));
+            this.batteryStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Batt2volt", this.bindingSourceHud, "battery_voltage2", true));
+            this.batteryStatus1.masterstatus = MissionPlanner.Controls.MasterStatus.Error;
             this.batteryStatus1.Name = "batteryStatus1";
             this.batteryStatus1.temp_high_crt = 60F;
             this.batteryStatus1.temp_high_warn = 50F;
@@ -3375,6 +3235,18 @@ namespace MissionPlanner.GCSViews
             // 
             this.motorStatus1.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.motorStatus1, "motorStatus1");
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc1rpm", this.bindingSourceHud, "esc1_rpm", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc1temp", this.bindingSourceHud, "esc1_temp", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc2rpm", this.bindingSourceHud, "esc2_rpm", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc2temp", this.bindingSourceHud, "esc2_temp", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc3rpm", this.bindingSourceHud, "esc3_rpm", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc3temp", this.bindingSourceHud, "esc3_temp", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc4rpm", this.bindingSourceHud, "esc4_rpm", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc4temp", this.bindingSourceHud, "esc4_temp", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc5rpm", this.bindingSourceHud, "esc5_rpm", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc5temp", this.bindingSourceHud, "esc5_temp", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc6rpm", this.bindingSourceHud, "esc6_rpm", true));
+            this.motorStatus1.DataBindings.Add(new System.Windows.Forms.Binding("Esc6temp", this.bindingSourceHud, "esc6_temp", true));
             this.motorStatus1.Esc1rpm = 0F;
             this.motorStatus1.Esc1temp = 0F;
             this.motorStatus1.Esc2rpm = 0F;
@@ -3387,6 +3259,7 @@ namespace MissionPlanner.GCSViews
             this.motorStatus1.Esc5temp = 0F;
             this.motorStatus1.Esc6rpm = 0F;
             this.motorStatus1.Esc6temp = 0F;
+            this.motorStatus1.masterstatus = MissionPlanner.Controls.MasterStatus.Error;
             this.motorStatus1.Name = "motorStatus1";
             this.motorStatus1.rpm_high_crt = 5000F;
             this.motorStatus1.rpm_high_warn = 4800F;
@@ -3420,6 +3293,7 @@ namespace MissionPlanner.GCSViews
             this.buttonPreFlight.Name = "buttonPreFlight";
             this.buttonPreFlight.TabStop = false;
             this.buttonPreFlight.UseVisualStyleBackColor = false;
+            this.buttonPreFlight.Click += new System.EventHandler(this.buttonPreFlight_Click);
             // 
             // buttonARM
             // 
@@ -3429,6 +3303,7 @@ namespace MissionPlanner.GCSViews
             this.buttonARM.Name = "buttonARM";
             this.buttonARM.TabStop = false;
             this.buttonARM.UseVisualStyleBackColor = false;
+            this.buttonARM.Click += new System.EventHandler(this.buttonARM_Click);
             // 
             // buttonRTL
             // 
@@ -3439,6 +3314,7 @@ namespace MissionPlanner.GCSViews
             this.buttonRTL.TabStop = false;
             this.buttonRTL.Tag = "custom";
             this.buttonRTL.UseVisualStyleBackColor = false;
+            this.buttonRTL.Click += new System.EventHandler(this.buttonRTL_Click);
             // 
             // pictureBox2
             // 
@@ -3469,15 +3345,19 @@ namespace MissionPlanner.GCSViews
             // 
             this.MainV.Panel2.Controls.Add(this.panelBottom);
             // 
-            // bindingSourceStatusTab
-            // 
-            this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // timerLog
             // 
             this.timerLog.Enabled = true;
             this.timerLog.Interval = 200;
             this.timerLog.Tick += new System.EventHandler(this.timerLog_Tick);
+            // 
+            // bindingSourceStatusTab
+            // 
+            this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // batteryStatusBindingSource
+            // 
+            this.batteryStatusBindingSource.DataSource = typeof(MissionPlanner.Controls.BatteryStatus);
             // 
             // FlightData
             // 
@@ -3507,8 +3387,9 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceBattery)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMotor)).EndInit();
             this.panelMasterCont.ResumeLayout(false);
-            this.panelIndicate.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.ResumeLayout(false);
@@ -3572,6 +3453,7 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.MainV)).EndInit();
             this.MainV.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batteryStatusBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3834,21 +3716,12 @@ namespace MissionPlanner.GCSViews
         private Button buttonPropo;
         private RichTextBox richTextBoxLog;
         private Timer timerLog;
-        private Panel panelIndicate;
-        private Button buttonLINK;
-        private Button buttonGNSS2;
-        private Button buttonGNSS1;
-        private Button buttonEKF;
-        private Button buttonVIBE;
-        private Button buttonMOTOR;
-        private Button buttonCONT2;
-        private Button buttonGCSCON;
-        private Button buttonCONT1;
-        private Button buttonDGPS;
-        private Button buttonATS;
-        private Button buttonBATTERY;
         private Panel panelMasterCont;
         private Button buttonCAUTION;
         private Button buttonWARNING;
+        private Controls.Indicator indicator1;
+        private BindingSource bindingSourceMotor;
+        private BindingSource bindingSourceBattery;
+        private BindingSource batteryStatusBindingSource;
     }
 }

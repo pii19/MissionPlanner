@@ -66,6 +66,7 @@
             this.temp1.Name = "temp1";
             this.temp1.Size = new System.Drawing.Size(91, 46);
             this.temp1.TabIndex = 4;
+            this.temp1.Tag = "custom";
             this.temp1.Text = "45.0";
             this.temp1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -77,6 +78,7 @@
             this.temp2.Name = "temp2";
             this.temp2.Size = new System.Drawing.Size(91, 46);
             this.temp2.TabIndex = 5;
+            this.temp2.Tag = "custom";
             this.temp2.Text = "52.0";
             this.temp2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -88,6 +90,7 @@
             this.charge2.Name = "charge2";
             this.charge2.Size = new System.Drawing.Size(91, 46);
             this.charge2.TabIndex = 11;
+            this.charge2.Tag = "custom";
             this.charge2.Text = "83.3";
             this.charge2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -99,6 +102,7 @@
             this.charge1.Name = "charge1";
             this.charge1.Size = new System.Drawing.Size(91, 46);
             this.charge1.TabIndex = 10;
+            this.charge1.Tag = "custom";
             this.charge1.Text = "88.8";
             this.charge1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -143,6 +147,7 @@
             this.volt1.Name = "volt1";
             this.volt1.Size = new System.Drawing.Size(91, 46);
             this.volt1.TabIndex = 19;
+            this.volt1.Tag = "custom";
             this.volt1.Text = "48.7";
             this.volt1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -154,6 +159,7 @@
             this.volt2.Name = "volt2";
             this.volt2.Size = new System.Drawing.Size(91, 46);
             this.volt2.TabIndex = 21;
+            this.volt2.Tag = "custom";
             this.volt2.Text = "48.8";
             this.volt2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

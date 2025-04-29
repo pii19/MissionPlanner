@@ -3567,6 +3567,34 @@ namespace MissionPlanner.GCSViews
                     // @eams update camera display
 
 
+                    // @eams update masterstatus
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (indicator1.masterstatus == MasterStatus.Normal)
+                        {
+                            buttonWARNING.BackColor = Color.Black;
+                            buttonWARNING.ForeColor = Color.FromArgb(64, 64, 64);
+                            buttonCAUTION.BackColor = Color.Black;
+                            buttonCAUTION.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                        else if (indicator1.masterstatus == MasterStatus.Caution)
+                        {
+                            buttonWARNING.BackColor = Color.Black;
+                            buttonWARNING.ForeColor = Color.FromArgb(64, 64, 64);
+                            buttonCAUTION.BackColor = Color.FromArgb(246, 170, 0);
+                            buttonCAUTION.ForeColor = Color.White;
+                        }
+                        else
+                        {
+                            buttonWARNING.BackColor = Color.FromArgb(255, 75, 0);
+                            buttonWARNING.ForeColor = Color.White;
+                            buttonCAUTION.BackColor = Color.Black;
+                            buttonCAUTION.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                    });
+                    break;
+
+
                     //CheckAndBindPreFlightData();
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
@@ -6523,6 +6551,21 @@ namespace MissionPlanner.GCSViews
                     log.Error(ex);
                 }
             }
+        }
+
+        private void buttonARM_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void buttonRTL_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void buttonPreFlight_Click(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }

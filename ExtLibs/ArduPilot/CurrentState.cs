@@ -1254,6 +1254,19 @@ namespace MissionPlanner
         }
 
         [GroupText("Battery")]
+        [DisplayFieldName("battery_voltage2.Field")]
+        [DisplayText("Bat2 Voltage (V)")]
+        public double battery_voltage2
+        {
+            get => _battery_voltage2;
+            set
+            {
+                if (_battery_voltage2 == 0) _battery_voltage2 = value;
+                _battery_voltage2 = value * 0.4f + _battery_voltage2 * 0.6f;
+            }
+        }
+
+        [GroupText("Battery")]
         [DisplayFieldName("battery_voltage3.Field")]
         [DisplayText("Bat Voltage (V)")]
         public double battery_voltage3 { get; set; }
@@ -1501,19 +1514,6 @@ namespace MissionPlanner
         [GroupText("Battery")]
         [DisplayText("Bat used EST (mah)")]
         public double battery_usedmah9 { get; set; }
-
-        [GroupText("Battery")]
-        [DisplayFieldName("battery_voltage2.Field")]
-        [DisplayText("Bat2 Voltage (V)")]
-        public double battery_voltage2
-        {
-            get => _battery_voltage2;
-            set
-            {
-                if (_battery_voltage2 == 0) _battery_voltage2 = value;
-                _battery_voltage2 = value * 0.4f + _battery_voltage2 * 0.6f;
-            }
-        }
 
         [GroupText("Position")]
         public double HomeAlt
@@ -2083,6 +2083,8 @@ namespace MissionPlanner
 
         [GroupText("Vibe")] public float vibez { get; set; }
 
+        [GroupText("Vibe")] public float vibestatus { get; set; }
+
         [GroupText("Software")] public Version version { get; set; }
         [GroupText("Software")] public ulong uid { get; set; }
         [GroupText("Software")] public string uid2 { get; set; }
@@ -2523,6 +2525,9 @@ namespace MissionPlanner
                             vibex = vibe.vibration_x;
                             vibey = vibe.vibration_y;
                             vibez = vibe.vibration_z;
+
+                            vibestatus =
+                                Math.Max(vibex,Math.Max(vibey, vibez));
                         }
 
                         break;

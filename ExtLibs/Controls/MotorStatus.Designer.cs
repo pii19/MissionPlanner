@@ -68,6 +68,7 @@
             this.rpm1.Name = "rpm1";
             this.rpm1.Size = new System.Drawing.Size(60, 25);
             this.rpm1.TabIndex = 4;
+            this.rpm1.Tag = "custom";
             this.rpm1.Text = "8";
             this.rpm1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -79,6 +80,7 @@
             this.rpm2.Name = "rpm2";
             this.rpm2.Size = new System.Drawing.Size(60, 24);
             this.rpm2.TabIndex = 5;
+            this.rpm2.Tag = "custom";
             this.rpm2.Text = "8888";
             this.rpm2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -90,6 +92,7 @@
             this.rpm3.Name = "rpm3";
             this.rpm3.Size = new System.Drawing.Size(60, 24);
             this.rpm3.TabIndex = 6;
+            this.rpm3.Tag = "custom";
             this.rpm3.Text = "8888";
             this.rpm3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -101,6 +104,7 @@
             this.rpm6.Name = "rpm6";
             this.rpm6.Size = new System.Drawing.Size(60, 24);
             this.rpm6.TabIndex = 7;
+            this.rpm6.Tag = "custom";
             this.rpm6.Text = "8888";
             this.rpm6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -112,6 +116,7 @@
             this.rpm5.Name = "rpm5";
             this.rpm5.Size = new System.Drawing.Size(60, 24);
             this.rpm5.TabIndex = 8;
+            this.rpm5.Tag = "custom";
             this.rpm5.Text = "8888";
             this.rpm5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -123,6 +128,7 @@
             this.rpm4.Name = "rpm4";
             this.rpm4.Size = new System.Drawing.Size(60, 24);
             this.rpm4.TabIndex = 9;
+            this.rpm4.Tag = "custom";
             this.rpm4.Text = "8888";
             this.rpm4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -134,6 +140,7 @@
             this.temp4.Name = "temp4";
             this.temp4.Size = new System.Drawing.Size(38, 24);
             this.temp4.TabIndex = 15;
+            this.temp4.Tag = "custom";
             this.temp4.Text = "77";
             this.temp4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -145,6 +152,7 @@
             this.temp5.Name = "temp5";
             this.temp5.Size = new System.Drawing.Size(38, 24);
             this.temp5.TabIndex = 14;
+            this.temp5.Tag = "custom";
             this.temp5.Text = "77";
             this.temp5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -156,6 +164,7 @@
             this.temp6.Name = "temp6";
             this.temp6.Size = new System.Drawing.Size(38, 24);
             this.temp6.TabIndex = 13;
+            this.temp6.Tag = "custom";
             this.temp6.Text = "77";
             this.temp6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -167,6 +176,7 @@
             this.temp3.Name = "temp3";
             this.temp3.Size = new System.Drawing.Size(38, 24);
             this.temp3.TabIndex = 12;
+            this.temp3.Tag = "custom";
             this.temp3.Text = "77";
             this.temp3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -178,6 +188,7 @@
             this.temp2.Name = "temp2";
             this.temp2.Size = new System.Drawing.Size(38, 24);
             this.temp2.TabIndex = 11;
+            this.temp2.Tag = "custom";
             this.temp2.Text = "77";
             this.temp2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -189,6 +200,7 @@
             this.temp1.Name = "temp1";
             this.temp1.Size = new System.Drawing.Size(38, 25);
             this.temp1.TabIndex = 10;
+            this.temp1.Tag = "custom";
             this.temp1.Text = "77";
             this.temp1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

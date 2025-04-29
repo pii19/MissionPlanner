@@ -38,6 +38,9 @@
 
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Indicator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="HUDT.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

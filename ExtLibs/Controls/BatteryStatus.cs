@@ -18,6 +18,13 @@ namespace MissionPlanner.Controls
             this.DoubleBuffered = true;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
+
+        private void NotifyPropertyChanged(string propertyName = "")
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
         public float temp_high_warn { get; set; } = 50.0f;
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
@@ -45,6 +52,8 @@ namespace MissionPlanner.Controls
         float _batt2charge = 0;
         float _batt1volt = 0;
         float _batt2volt = 0;
+        MasterStatus _masterstatus = MasterStatus.Normal;
+
 
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float Batt1temp { get { return _batt1temp; } set { if (_batt1temp == value) return; _batt1temp = value; this.Invalidate(); } }
@@ -59,12 +68,24 @@ namespace MissionPlanner.Controls
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float Batt2volt { get { return _batt2volt; } set { if (_batt2volt == value) return; _batt2volt = value; this.Invalidate(); } }
 
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public MasterStatus masterstatus {
+            get { return _masterstatus; }
+            set {
+                _masterstatus = value;
+                NotifyPropertyChanged("masterstatus");
+            }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
+            MasterStatus mst = MasterStatus.Normal;
+
             if (_batt1temp == 32767)
             {
                 temp1.Text = "--";
                 volt1.Text = "--";
+                mst = MasterStatus.Error;
             }
             else
             {
@@ -75,6 +96,7 @@ namespace MissionPlanner.Controls
             {
                 temp2.Text = "--";
                 volt2.Text = "--";
+                mst = MasterStatus.Error;
             }
             else
             {
@@ -85,6 +107,7 @@ namespace MissionPlanner.Controls
             if (_batt1charge == -1)
             {
                 charge1.Text = "--";
+                mst = MasterStatus.Error;
             }
             else
             {
@@ -93,12 +116,14 @@ namespace MissionPlanner.Controls
             if (_batt2charge == -1)
             {
                 charge2.Text = "--";
+                mst = MasterStatus.Error;
             }
             else
             {
                 charge2.Text = _batt2charge.ToString("F0");
             }
 
+            // temp
             if (temp_low_warn <= _batt1temp && _batt1temp <= temp_high_warn)
             {
                 temp1.ForeColor = normal;
@@ -106,6 +131,10 @@ namespace MissionPlanner.Controls
             else if (temp_low_crt <= _batt1temp && _batt1temp <= temp_high_crt)
             {
                 temp1.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
             else
             {
@@ -118,12 +147,18 @@ namespace MissionPlanner.Controls
             else if (temp_low_crt <= _batt2temp && _batt2temp <= temp_high_crt)
             {
                 temp2.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
             else
             {
                 temp2.ForeColor = error;
+                mst = MasterStatus.Error;
             }
 
+            // charge
             if (charge_warn <= _batt1charge )
             {
                 charge1.ForeColor = normal;
@@ -131,10 +166,15 @@ namespace MissionPlanner.Controls
             else if (charge_crt <= _batt1charge)
             {
                 charge1.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
             else
             {
                 charge1.ForeColor = error;
+                mst = MasterStatus.Error;
             }
             if (charge_warn < _batt2charge)
             {
@@ -143,12 +183,18 @@ namespace MissionPlanner.Controls
             else if (charge_crt <= _batt2charge)
             {
                 charge2.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
             else
             {
                 charge2.ForeColor = error;
+                mst = MasterStatus.Error;
             }
 
+            // volt
             if (volt_warn <= _batt1volt)
             {
                 volt1.ForeColor = normal;
@@ -156,10 +202,15 @@ namespace MissionPlanner.Controls
             else if (volt_crt <= _batt1volt)
             {
                 volt1.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
             else
             {
                 volt1.ForeColor = error;
+                mst = MasterStatus.Error;
             }
             if (volt_warn <= _batt2volt)
             {
@@ -168,11 +219,19 @@ namespace MissionPlanner.Controls
             if (volt_crt <= _batt2volt)
             {
                 volt2.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
             else
             {
                 volt2.ForeColor = error;
+                mst = MasterStatus.Error;
             }
+
+            // Master
+            _masterstatus = mst;
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
