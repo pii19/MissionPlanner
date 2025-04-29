@@ -31,9 +31,9 @@ using SkiaSharp;
 
 namespace MissionPlanner.Controls
 {
-    public class HUD2 : HUD
+    public class graphicsObject : HUD
     {
-        public HUD2() : base()
+        public graphicsObject() : base()
         {
             started = true;
             opengl = false;
@@ -108,12 +108,12 @@ namespace MissionPlanner.Controls
         {
             this.SuspendLayout();
             // 
-            // HUD2
+            // graphicsObject
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.hudcolor = System.Drawing.Color.LightGray;
-            this.Name = "HUD2";
-            this.Size = new System.Drawing.Size(466, 354);
+            this.Name = "graphicsObject";
+            this.Size = new System.Drawing.Size(466, 327);
             this.VSync = false;
             this.ResumeLayout(false);
 
@@ -179,7 +179,7 @@ namespace MissionPlanner.Controls
 
         [Browsable(false)] public bool npotSupported { get; private set; }
 
-        public bool SixteenXNine = false;
+        public bool SixteenXNine = true;
 
         [System.ComponentModel.Browsable(true), DefaultValue(true)]
         public bool displayheading { get; set; }
@@ -234,6 +234,10 @@ namespace MissionPlanner.Controls
         private static EncoderParameters eps = new EncoderParameters(1);
 
         internal bool started = false;
+
+        private readonly SolidBrush _normalBrush = new SolidBrush(Color.FromArgb(0, 176, 107));
+        private readonly SolidBrush _cautionBrush = new SolidBrush(Color.FromArgb(246, 170, 0));
+        private readonly SolidBrush _errorBrush = new SolidBrush(Color.FromArgb(255, 75, 0));
 
         static HUD()
         {
@@ -317,8 +321,10 @@ namespace MissionPlanner.Controls
         private float _batteryremaining = 0;
         private float _gpsfix = 0;
         private float _gpshdop = 0;
+        private float _satcount = 0;
         private float _gpsfix2 = 0;
         private float _gpshdop2 = 0;
+        private float _satcount2 = 0;
         private float _disttowp = 0;
         private float _groundcourse = 0;
         private float _xtrack_error = 0;
@@ -667,6 +673,20 @@ namespace MissionPlanner.Controls
         }
 
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public float satcount
+        {
+            get { return _satcount; }
+            set
+            {
+                if (_satcount != value)
+                {
+                    _satcount = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float gpsfix2
         {
             get { return _gpsfix2; }
@@ -689,6 +709,20 @@ namespace MissionPlanner.Controls
                 if (_gpshdop2 != value)
                 {
                     _gpshdop2 = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public float satcount2
+        {
+            get { return _satcount2; }
+            set
+            {
+                if (_satcount2 != value)
+                {
+                    _satcount2 = value;
                     this.Invalidate();
                 }
             }
@@ -2532,7 +2566,7 @@ namespace MissionPlanner.Controls
                         drawstring(HUDT.AS + _airspeed.ToString("0.0") + speedunit, font, fontsize, _whiteBrush, 1,
                             scrollbg.Bottom + 5);
                     }
-
+#if false
                     if (_lowgroundspeed)
                     {
                         drawstring(HUDT.GS + _groundspeed.ToString("0.0") + speedunit, font, fontsize,
@@ -2543,6 +2577,29 @@ namespace MissionPlanner.Controls
                         drawstring(HUDT.GS + _groundspeed.ToString("0.0") + speedunit, font, fontsize, _whiteBrush,
                             1, scrollbg.Bottom + fontsize + 2 + 10);
                     }
+#endif
+                    var newdist = _disttowp;
+                    var newdistunit = distunit;
+                    if (newdist >= 1000)
+                    {
+                        if (distunit == "m")
+                        {
+                            newdistunit = "k";
+                            newdist = (float)Math.Round(newdist / 1000.0, 1);
+                        }
+                        else
+                        {
+                            newdistunit = "mi";
+                            newdist = (float)Math.Round(newdist / 5280.0, 1);
+                        }
+                    }
+                    else
+                    {
+                        newdist = (int)newdist;
+                    }
+
+                    drawstring(newdist + newdistunit + ">" + _wpno, font, fontsize, _whiteBrush,
+                        1, scrollbg.Bottom + fontsize + 2 + 10);
                 }
 
                 //drawstring(e,, new Font("Arial", fontsize + 2), whiteBrush, 1, scrollbg.Bottom + fontsize + 2 + 10);
@@ -2712,7 +2769,7 @@ namespace MissionPlanner.Controls
                         drawstring(_mode, font, fontsize, _whiteBrush, scrollbg.Left - 30,
                             scrollbg.Bottom + 5);
                     }
-
+#if false
                     var newdist = _disttowp;
                     var newdistunit = distunit;
                     if (newdist >= 1000)
@@ -2735,10 +2792,12 @@ namespace MissionPlanner.Controls
 
                     drawstring(newdist + newdistunit + ">" + _wpno, font, fontsize, _whiteBrush,
                         scrollbg.Left - 30, scrollbg.Bottom + fontsize + 2 + 10);
+#endif
                 }
 
                 if (displayconninfo)
                 {
+#if false
                     if (_linkqualitygcs > 80)
                         graphicsObject.DrawLine(this._greenPen, scrollbg.Left - 5,
                         scrollbg.Top - (int) (fontsize * 2.2) - 2 - 20, scrollbg.Left - 5,
@@ -2763,9 +2822,24 @@ namespace MissionPlanner.Controls
                         graphicsObject.DrawLine(this._redPen, scrollbg.Left, scrollbg.Top - (int) (fontsize * 2.2) - 2,
                             scrollbg.Left + 50, scrollbg.Top - (int) (fontsize * 2.2) - 2 - 20);
                     }
+#else
+                    SolidBrush linkq_brush = _normalBrush;
+                    if (_linkqualitygcs < 80)
+                        linkq_brush = _cautionBrush;
+                    if (_linkqualitygcs < 50)
+                        linkq_brush = _errorBrush;
+
+                    //drawstring(_linkqualitygcs.ToString("0") + "%", font, fontsize, linkq_brush,
+                    //scrollbg.Left, scrollbg.Top - (int)(fontsize * 2.2) - 2 - 20);
+                    drawstring(_linkqualitygcs.ToString("0"), font, fontsize, linkq_brush,
+                        50, scrollbg.Top - (int)(fontsize + 2 + 10)*3);
+#endif
+                    drawstring(_satcount.ToString("0") + " / " + _gpshdop.ToString("0.0"), font, fontsize, linkq_brush,
+                        50, scrollbg.Top - (int)(fontsize + 2 + 10)*2);
 
                     drawstring(_datetime.ToString("HH:mm:ss"), font, fontsize, _whiteBrush,
-                        scrollbg.Left - 30, scrollbg.Top - fontsize - 2 - 20);
+                        //scrollbg.Left - 30, scrollbg.Top - fontsize - 2 - 20);
+                        scrollbg.Left - 30 , scrollbg.Top - (int)(fontsize + 2 + 10)*4);
                 }
 
                 // AOA
@@ -2867,7 +2941,7 @@ namespace MissionPlanner.Controls
                     }
                     else
                     {
-
+#if false
                         if (displayCellVoltage & (_batterycellcount != 0))
                             drawstring(HUDT.Cell + " " + (_batterylevel / _batterycellcount).ToString("0.00v"), font, fontsize + 2, textcolor, xPos, yPos[1]);
                         else if (_batterylevel2 > 0 && batteryon2)
@@ -2885,7 +2959,7 @@ namespace MissionPlanner.Controls
                         text = HUDT.Bat + "1 " + _batterylevel.ToString("0.00v") + " " + _current.ToString("0.0 A") + " " + (_batteryremaining) + "%";
                         
                         drawstring(text, font, fontsize, textcolor, xPos, yPos[textIdx]);
-
+#endif
 
                     }
                 }
@@ -2977,8 +3051,8 @@ namespace MissionPlanner.Controls
                         }
                         else
                         {
-
-                            drawstring(gps, font, fontsize, col, this.Width - 13 * fontsize, yPos[textIdx]);
+                            //drawstring(gps, font, fontsize, col, this.Width - 13 * fontsize, yPos[textIdx]);
+                            drawstring(gps, font, fontsize, col, 1, scrollbg.Bottom + (fontsize + 2 + 10)*2);
                         }
 
                         a++;
@@ -3022,8 +3096,10 @@ namespace MissionPlanner.Controls
                             //stime = mins * 60;
                             int secs = (int) (stime % 60);
                             drawstring(
-                                item.Header + hrs.ToString("00") + ":" + mins.ToString("00") + ":" +
-                                secs.ToString("00"), font, fontsize + 2, _whiteBrush, this.Width / 8, height);
+                                //item.Header + hrs.ToString("00") + ":" + mins.ToString("00") + ":" +
+                                //secs.ToString("00"), font, fontsize + 2, _whiteBrush, this.Width / 8, height);
+                                item.Header + mins.ToString("00") + ":" + secs.ToString("00"), font, fontsize, _whiteBrush,
+                                scrollbg.Left + 5, scrollbg.Top - (int)(fontsize + 2 + 10) * 2);
                         }
                         else
                         {

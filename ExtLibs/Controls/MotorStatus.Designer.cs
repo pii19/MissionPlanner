@@ -62,132 +62,132 @@
             // 
             // rpm1
             // 
-            this.rpm1.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpm1.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rpm1.ForeColor = System.Drawing.Color.SpringGreen;
-            this.rpm1.Location = new System.Drawing.Point(126, 20);
+            this.rpm1.Location = new System.Drawing.Point(126, 19);
             this.rpm1.Name = "rpm1";
-            this.rpm1.Size = new System.Drawing.Size(60, 21);
+            this.rpm1.Size = new System.Drawing.Size(60, 25);
             this.rpm1.TabIndex = 4;
             this.rpm1.Text = "8";
             this.rpm1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rpm2
             // 
-            this.rpm2.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpm2.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rpm2.ForeColor = System.Drawing.Color.SpringGreen;
-            this.rpm2.Location = new System.Drawing.Point(239, 75);
+            this.rpm2.Location = new System.Drawing.Point(239, 74);
             this.rpm2.Name = "rpm2";
-            this.rpm2.Size = new System.Drawing.Size(60, 21);
+            this.rpm2.Size = new System.Drawing.Size(60, 24);
             this.rpm2.TabIndex = 5;
             this.rpm2.Text = "8888";
             this.rpm2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rpm3
             // 
-            this.rpm3.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpm3.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rpm3.ForeColor = System.Drawing.Color.SpringGreen;
-            this.rpm3.Location = new System.Drawing.Point(239, 140);
+            this.rpm3.Location = new System.Drawing.Point(239, 139);
             this.rpm3.Name = "rpm3";
-            this.rpm3.Size = new System.Drawing.Size(60, 21);
+            this.rpm3.Size = new System.Drawing.Size(60, 24);
             this.rpm3.TabIndex = 6;
             this.rpm3.Text = "8888";
             this.rpm3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rpm6
             // 
-            this.rpm6.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpm6.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rpm6.ForeColor = System.Drawing.Color.SpringGreen;
-            this.rpm6.Location = new System.Drawing.Point(24, 75);
+            this.rpm6.Location = new System.Drawing.Point(24, 73);
             this.rpm6.Name = "rpm6";
-            this.rpm6.Size = new System.Drawing.Size(60, 21);
+            this.rpm6.Size = new System.Drawing.Size(60, 24);
             this.rpm6.TabIndex = 7;
             this.rpm6.Text = "8888";
             this.rpm6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rpm5
             // 
-            this.rpm5.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpm5.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rpm5.ForeColor = System.Drawing.Color.SpringGreen;
-            this.rpm5.Location = new System.Drawing.Point(24, 140);
+            this.rpm5.Location = new System.Drawing.Point(24, 139);
             this.rpm5.Name = "rpm5";
-            this.rpm5.Size = new System.Drawing.Size(60, 21);
+            this.rpm5.Size = new System.Drawing.Size(60, 24);
             this.rpm5.TabIndex = 8;
             this.rpm5.Text = "8888";
             this.rpm5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rpm4
             // 
-            this.rpm4.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rpm4.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rpm4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.rpm4.Location = new System.Drawing.Point(127, 185);
             this.rpm4.Name = "rpm4";
-            this.rpm4.Size = new System.Drawing.Size(60, 21);
+            this.rpm4.Size = new System.Drawing.Size(60, 24);
             this.rpm4.TabIndex = 9;
             this.rpm4.Text = "8888";
             this.rpm4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // temp4
             // 
-            this.temp4.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp4.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp4.ForeColor = System.Drawing.Color.SpringGreen;
-            this.temp4.Location = new System.Drawing.Point(138, 215);
+            this.temp4.Location = new System.Drawing.Point(138, 212);
             this.temp4.Name = "temp4";
-            this.temp4.Size = new System.Drawing.Size(38, 21);
+            this.temp4.Size = new System.Drawing.Size(38, 24);
             this.temp4.TabIndex = 15;
             this.temp4.Text = "77";
             this.temp4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // temp5
             // 
-            this.temp5.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp5.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp5.ForeColor = System.Drawing.Color.SpringGreen;
-            this.temp5.Location = new System.Drawing.Point(35, 167);
+            this.temp5.Location = new System.Drawing.Point(35, 166);
             this.temp5.Name = "temp5";
-            this.temp5.Size = new System.Drawing.Size(38, 21);
+            this.temp5.Size = new System.Drawing.Size(38, 24);
             this.temp5.TabIndex = 14;
             this.temp5.Text = "77";
             this.temp5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // temp6
             // 
-            this.temp6.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp6.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp6.ForeColor = System.Drawing.Color.SpringGreen;
-            this.temp6.Location = new System.Drawing.Point(35, 101);
+            this.temp6.Location = new System.Drawing.Point(35, 100);
             this.temp6.Name = "temp6";
-            this.temp6.Size = new System.Drawing.Size(38, 21);
+            this.temp6.Size = new System.Drawing.Size(38, 24);
             this.temp6.TabIndex = 13;
             this.temp6.Text = "77";
             this.temp6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // temp3
             // 
-            this.temp3.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp3.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp3.ForeColor = System.Drawing.Color.SpringGreen;
-            this.temp3.Location = new System.Drawing.Point(250, 167);
+            this.temp3.Location = new System.Drawing.Point(250, 166);
             this.temp3.Name = "temp3";
-            this.temp3.Size = new System.Drawing.Size(38, 21);
+            this.temp3.Size = new System.Drawing.Size(38, 24);
             this.temp3.TabIndex = 12;
             this.temp3.Text = "77";
             this.temp3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // temp2
             // 
-            this.temp2.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp2.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp2.ForeColor = System.Drawing.Color.SpringGreen;
-            this.temp2.Location = new System.Drawing.Point(250, 102);
+            this.temp2.Location = new System.Drawing.Point(250, 101);
             this.temp2.Name = "temp2";
-            this.temp2.Size = new System.Drawing.Size(38, 21);
+            this.temp2.Size = new System.Drawing.Size(38, 24);
             this.temp2.TabIndex = 11;
             this.temp2.Text = "77";
             this.temp2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // temp1
             // 
-            this.temp1.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp1.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp1.ForeColor = System.Drawing.Color.SpringGreen;
-            this.temp1.Location = new System.Drawing.Point(137, 50);
+            this.temp1.Location = new System.Drawing.Point(137, 47);
             this.temp1.Name = "temp1";
-            this.temp1.Size = new System.Drawing.Size(38, 21);
+            this.temp1.Size = new System.Drawing.Size(38, 25);
             this.temp1.TabIndex = 10;
             this.temp1.Text = "77";
             this.temp1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

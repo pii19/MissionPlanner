@@ -650,6 +650,8 @@ namespace MissionPlanner.GCSViews
             this.hud1.roll = 0F;
             this.hud1.Russian = false;
             this.hud1.safetyactive = false;
+            this.hud1.satcount = 0F;
+            this.hud1.satcount2 = 0F;
             this.hud1.skyColor1 = System.Drawing.Color.Blue;
             this.hud1.skyColor2 = System.Drawing.Color.LightBlue;
             this.hud1.speedunit = null;
