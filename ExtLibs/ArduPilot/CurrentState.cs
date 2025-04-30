@@ -4052,6 +4052,10 @@ namespace MissionPlanner
                         }
                         break;
                     case (uint)MAVLink.MAVLINK_MSG_ID.CAN_FRAME:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.SIMSTATE:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.TIMESYNC:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.COMMAND_ACK:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.PARAM_VALUE:
                         {
                         }
                         break;

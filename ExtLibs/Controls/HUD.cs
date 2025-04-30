@@ -2832,14 +2832,14 @@ namespace MissionPlanner.Controls
                     //drawstring(_linkqualitygcs.ToString("0") + "%", font, fontsize, linkq_brush,
                     //scrollbg.Left, scrollbg.Top - (int)(fontsize * 2.2) - 2 - 20);
                     drawstring(_linkqualitygcs.ToString("0"), font, fontsize, linkq_brush,
-                        50, scrollbg.Top - (int)(fontsize + 2 + 10)*3);
+                        50, scrollbg.Top - (int)((fontsize + 2 + 10)*3.5));
 #endif
-                    drawstring(_satcount.ToString("0") + " / " + _gpshdop.ToString("0.0"), font, fontsize, linkq_brush,
-                        50, scrollbg.Top - (int)(fontsize + 2 + 10)*2);
-
                     drawstring(_datetime.ToString("HH:mm:ss"), font, fontsize, _whiteBrush,
                         //scrollbg.Left - 30, scrollbg.Top - fontsize - 2 - 20);
                         scrollbg.Left - 30 , scrollbg.Top - (int)(fontsize + 2 + 10)*4);
+
+                    // antenna image
+                    DrawImage(HUDT.antenna, 3, scrollbg.Top - (int)((fontsize + 4 + 10) * 3.5), 48, 36);
                 }
 
                 // AOA
@@ -3052,11 +3052,38 @@ namespace MissionPlanner.Controls
                         else
                         {
                             //drawstring(gps, font, fontsize, col, this.Width - 13 * fontsize, yPos[textIdx]);
-                            drawstring(gps, font, fontsize, col, 1, scrollbg.Bottom + (fontsize + 2 + 10)*2);
+                            drawstring(gps, font, fontsize, col, 1, scrollbg.Bottom + (fontsize + 2 + 10) * (2 + textIdx));
                         }
 
                         a++;
                     }
+
+                    // satcount
+                    col = _normalBrush;
+                    if (_satcount < 15)
+                        col = _cautionBrush;
+                    if (_satcount < 10)
+                        col = _errorBrush;
+
+                    drawstring(_satcount.ToString("00"), font, fontsize, col,
+                        50, scrollbg.Top - (int)(fontsize + 2 + 10) * 2);
+
+                    // separater
+                    drawstring("/", font, fontsize, _whiteBrush,
+                        80, scrollbg.Top - (int)(fontsize + 2 + 10) * 2);
+
+                    // hdop
+                    col = _normalBrush;
+                    if (_gpshdop >= 0.7)
+                        col = _cautionBrush;
+                    if (_gpshdop >= 1.0)
+                        col = _errorBrush;
+
+                    drawstring(_gpshdop.ToString("0.0"), font, fontsize, col,
+                        95, scrollbg.Top - (int)(fontsize + 2 + 10) * 2);
+
+                    // satellite image
+                    DrawImage(HUDT.satellite, 3, scrollbg.Top - (int)(fontsize + 4 + 10) * 2, 48, 36);
                 }
 
                 //var bottomsize = ((fontsize + 2) * 3) + fontoffset - 2;
