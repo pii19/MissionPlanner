@@ -18,13 +18,6 @@ namespace MissionPlanner.Controls
             this.DoubleBuffered = true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
-
-        private void NotifyPropertyChanged(string propertyName = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
         public float rpm_high_warn { get; set; } = 4800.0f;
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
@@ -86,7 +79,6 @@ namespace MissionPlanner.Controls
             get { return _masterstatus; }
             set {
                 _masterstatus = value;
-                NotifyPropertyChanged("masterstatus");
             }
         }
 

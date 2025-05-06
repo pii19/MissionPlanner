@@ -47,8 +47,6 @@ namespace MissionPlanner.GCSViews
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indicator1 = new MissionPlanner.Controls.Indicator();
-            this.bindingSourceBattery = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceMotor = new System.Windows.Forms.BindingSource(this.components);
             this.panelMasterCont = new System.Windows.Forms.Panel();
             this.buttonCAUTION = new System.Windows.Forms.Button();
             this.buttonWARNING = new System.Windows.Forms.Button();
@@ -271,7 +269,6 @@ namespace MissionPlanner.GCSViews
             this.MainV = new System.Windows.Forms.SplitContainer();
             this.timerLog = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.batteryStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -289,8 +286,6 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceBattery)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMotor)).BeginInit();
             this.panelMasterCont.SuspendLayout();
             this.tabControlactions.SuspendLayout();
             this.tabQuick.SuspendLayout();
@@ -343,7 +338,6 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel2.SuspendLayout();
             this.MainV.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.batteryStatusBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // MainH
@@ -815,10 +809,8 @@ namespace MissionPlanner.GCSViews
             this.indicator1.battery_crt = 60F;
             this.indicator1.battery_warn = 30F;
             this.indicator1.batterystatus = MissionPlanner.Controls.MasterStatus.Normal;
-            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("batterystatus", this.bindingSourceBattery, "masterstatus", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("ekfstatus", this.bindingSourceHud, "ekfstatus", true));
             this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("linkstatus", this.bindingSourceHud, "linkqualitygcs", true));
-            this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("motorstatus", this.bindingSourceMotor, "masterstatus", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.indicator1.DataBindings.Add(new System.Windows.Forms.Binding("vibestatus", this.bindingSourceHud, "vibestatus", true));
             this.indicator1.ekf_crt = 0.8F;
             this.indicator1.ekf_warn = 0.5F;
@@ -834,14 +826,6 @@ namespace MissionPlanner.GCSViews
             this.indicator1.vibe_crt = 60F;
             this.indicator1.vibe_warn = 30F;
             this.indicator1.vibestatus = 0F;
-            // 
-            // bindingSourceBattery
-            // 
-            this.bindingSourceBattery.DataSource = typeof(MissionPlanner.Controls.BatteryStatus);
-            // 
-            // bindingSourceMotor
-            // 
-            this.bindingSourceMotor.DataSource = typeof(MissionPlanner.Controls.MotorStatus);
             // 
             // panelMasterCont
             // 
@@ -3357,10 +3341,6 @@ namespace MissionPlanner.GCSViews
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // batteryStatusBindingSource
-            // 
-            this.batteryStatusBindingSource.DataSource = typeof(MissionPlanner.Controls.BatteryStatus);
-            // 
             // FlightData
             // 
             this.Controls.Add(this.MainV);
@@ -3389,8 +3369,6 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceBattery)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceMotor)).EndInit();
             this.panelMasterCont.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
@@ -3455,7 +3433,6 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.MainV)).EndInit();
             this.MainV.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.batteryStatusBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3722,8 +3699,5 @@ namespace MissionPlanner.GCSViews
         private Button buttonCAUTION;
         private Button buttonWARNING;
         private Controls.Indicator indicator1;
-        private BindingSource bindingSourceMotor;
-        private BindingSource bindingSourceBattery;
-        private BindingSource batteryStatusBindingSource;
     }
 }

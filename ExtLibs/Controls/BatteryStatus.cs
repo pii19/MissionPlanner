@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
 
 namespace MissionPlanner.Controls
 {
@@ -16,13 +17,6 @@ namespace MissionPlanner.Controls
             InitializeComponent();
             this.BackColor = Color.Transparent;
             this.DoubleBuffered = true;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged = (_, __) => { };
-
-        private void NotifyPropertyChanged(string propertyName = "")
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
@@ -54,7 +48,6 @@ namespace MissionPlanner.Controls
         float _batt2volt = 0;
         MasterStatus _masterstatus = MasterStatus.Normal;
 
-
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float Batt1temp { get { return _batt1temp; } set { if (_batt1temp == value) return; _batt1temp = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
@@ -73,7 +66,6 @@ namespace MissionPlanner.Controls
             get { return _masterstatus; }
             set {
                 _masterstatus = value;
-                NotifyPropertyChanged("masterstatus");
             }
         }
 

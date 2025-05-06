@@ -3519,6 +3519,12 @@ namespace MissionPlanner.GCSViews
 
                 try
                 {
+                    //CheckAndBindPreFlightData();
+                    //Console.WriteLine(DateTime.Now.Millisecond);
+                    //int fixme;
+                    updateBindingSource();
+                    // Console.WriteLine(DateTime.Now.Millisecond + " done ");
+
                     // @eams update mode display
                     switch (MainV2.comPort.MAV.cs.mode.ToUpper())
                     {
@@ -3592,14 +3598,6 @@ namespace MissionPlanner.GCSViews
                             buttonCAUTION.ForeColor = Color.FromArgb(64, 64, 64);
                         }
                     });
-                    break;
-
-
-                    //CheckAndBindPreFlightData();
-                    //Console.WriteLine(DateTime.Now.Millisecond);
-                    //int fixme;
-                    updateBindingSource();
-                    // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
                     // battery warning.
                     // Use speech settings only if the following parameters are not set
@@ -5486,7 +5484,11 @@ namespace MissionPlanner.GCSViews
                 }
                 //if the tab detached wi have to update it
                 if (tabQuickDetached) MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-
+#if true
+                // @eams
+                indicator1.batterystatus = batteryStatus1.masterstatus;
+                indicator1.motorstatus = motorStatus1.masterstatus;
+#endif
                 lastscreenupdate = DateTime.Now;
             }
             catch (Exception ex)

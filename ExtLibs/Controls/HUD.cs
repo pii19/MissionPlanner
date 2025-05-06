@@ -2836,7 +2836,7 @@ namespace MissionPlanner.Controls
 #endif
                     drawstring(_datetime.ToString("HH:mm:ss"), font, fontsize, _whiteBrush,
                         //scrollbg.Left - 30, scrollbg.Top - fontsize - 2 - 20);
-                        scrollbg.Left - 30 , scrollbg.Top - (int)(fontsize + 2 + 10)*4);
+                        scrollbg.Left - 30 , scrollbg.Top - (int)((fontsize + 2 + 10)*3.5));
 
                     // antenna image
                     DrawImage(HUDT.antenna, 3, scrollbg.Top - (int)((fontsize + 4 + 10) * 3.5), 48, 36);
