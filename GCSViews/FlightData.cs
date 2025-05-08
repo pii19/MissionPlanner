@@ -6562,7 +6562,29 @@ namespace MissionPlanner.GCSViews
 
         private void buttonRTL_Click(object sender, EventArgs e)
         {
-            ;
+            ((Control)sender).Enabled = false;
+
+            try
+            {
+                if (CustomMessageBox.Show("RTLを実行してもよろしいですか？", "RTL実行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                {
+                    return;
+                }
+                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                {
+                    CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+                    return;
+                }
+                MainV2.comPort.setMode("RTL");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            finally
+            {
+                ((Control)sender).Enabled = true;
+            }
         }
 
         private void buttonPreFlight_Click(object sender, EventArgs e)

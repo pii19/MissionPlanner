@@ -2167,13 +2167,16 @@ namespace MissionPlanner.Controls
                     pointlist[2] = new Point(lengthlongex, -lengthlongex - extra);
 
                     this._redPen.Width = 2;
+                    this._blackPen.Width = 2;
 
                     if (Math.Abs(_roll) > 45)
                     {
                         this._redPen.Width = 4;
+                        this._blackPen.Width = 4;
                     }
 
-                    graphicsObject.DrawPolygon(this._redPen, pointlist);
+                    //graphicsObject.DrawPolygon(this._redPen, pointlist);
+                    graphicsObject.DrawPolygon(this._blackPen, pointlist);
 
                     this._redPen.Width = 2;
 
@@ -2215,18 +2218,32 @@ namespace MissionPlanner.Controls
 
                     //  graphicsObject.DrawEllipse(redPen, centercircle);
                     using (Pen redtemp =
-                        new Pen(Color.FromArgb(200, this._redPen.Color.R, this._redPen.Color.G, this._redPen.Color.B),
-                            4.0f))
+                        new Pen(Color.FromArgb(200, this._blackPen.Color.R, this._redPen.Color.G, this._redPen.Color.B), 4.0f))
                     {
+#if false
                         // left
                         graphicsObject.DrawLine(redtemp, centercircle.Left - halfwidth / 5, 0, centercircle.Left, 0);
                         // right
                         graphicsObject.DrawLine(redtemp, centercircle.Right, 0, centercircle.Right + halfwidth / 5, 0);
+
                         // center point
                         graphicsObject.DrawLine(redtemp, 0 - 1, 0, centercircle.Right - halfwidth / 3,
                             0 + halfheight / 10);
                         graphicsObject.DrawLine(redtemp, 0 + 1, 0, centercircle.Left + halfwidth / 3,
                             0 + halfheight / 10);
+#else
+                        float dd = halfwidth / 9;
+                        // left
+                        graphicsObject.DrawLine(redtemp, centercircle.Left - halfwidth / 5, 0, centercircle.Left + dd, 0);
+                        graphicsObject.DrawLine(redtemp, centercircle.Left + dd, -2, centercircle.Left + dd, 15);
+
+                        // right
+                        graphicsObject.DrawLine(redtemp, centercircle.Right - dd, 0, centercircle.Right + halfwidth / 5, 0);
+                        graphicsObject.DrawLine(redtemp, centercircle.Right - dd, -2, centercircle.Right - dd, 15);
+
+                        // center
+                        graphicsObject.DrawLine(redtemp, -10, 0, 10, 0);
+#endif
                     }
                 }
 

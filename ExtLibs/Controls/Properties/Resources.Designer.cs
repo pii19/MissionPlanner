@@ -73,6 +73,46 @@ namespace MissionPlanner.Controls.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap btn_act_reboot {
+            get {
+                object obj = ResourceManager.GetObject("btn_act_reboot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap btn_cancel_big {
+            get {
+                object obj = ResourceManager.GetObject("btn_cancel_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap btn_confirm {
+            get {
+                object obj = ResourceManager.GetObject("btn_confirm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap btn_ok_big {
+            get {
+                object obj = ResourceManager.GetObject("btn_ok_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap guagebg {
             get {
                 object obj = ResourceManager.GetObject("guagebg", resourceCulture);
