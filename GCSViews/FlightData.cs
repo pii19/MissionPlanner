@@ -33,6 +33,7 @@ using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using TableLayoutPanelCellPosition = System.Windows.Forms.TableLayoutPanelCellPosition;
 using UnauthorizedAccessException = System.UnauthorizedAccessException;
 using static MissionPlanner.GCSViews.FlightPlanner;
+using static MAVLink;
 
 // written by michael oborne
 
@@ -2716,6 +2717,11 @@ namespace MissionPlanner.GCSViews
 
             //richTextBoxLog.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
 
+            buttonARM.BackColor = Color.Black;
+            buttonARM.ForeColor = Color.FromArgb(64, 64, 64);
+            buttonRTL.BackColor = Color.Black;
+            buttonRTL.ForeColor = Color.FromArgb(64, 64, 64);
+
             try
             {
                 thisthread = new Thread(mainloop);
@@ -3596,6 +3602,26 @@ namespace MissionPlanner.GCSViews
                             buttonWARNING.ForeColor = Color.White;
                             buttonCAUTION.BackColor = Color.Black;
                             buttonCAUTION.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                    });
+
+                    // @eams update ARM & RTL button display
+                    var ekf_status_flags = Settings.Instance.GetInt32("ekf_status_flags", 895);
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (MainV2.comPort.MAV.cs.ekfflags == ekf_status_flags && MainV2.comPort.BaseStream.IsOpen)
+                        {
+                            buttonARM.BackColor = Color.FromArgb(0, 176, 107);
+                            buttonARM.ForeColor = Color.White;
+                            buttonRTL.BackColor = Color.FromArgb(255, 75, 0);
+                            buttonRTL.ForeColor = Color.White;
+                        }
+                        else
+                        {
+                            buttonARM.BackColor = Color.Black;
+                            buttonARM.ForeColor = Color.FromArgb(64, 64, 64);
+                            buttonRTL.BackColor = Color.Black;
+                            buttonRTL.ForeColor = Color.FromArgb(64, 64, 64);
                         }
                     });
 
@@ -6555,9 +6581,30 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void buttonARM_Click(object sender, EventArgs e)
+        private async void buttonARM_Click(object sender, EventArgs e)
         {
-            ;
+            ((Control)sender).Enabled = false;
+
+            try
+            {
+                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                {
+                    return;
+                }
+                MainV2.comPort.setMode("LOITER");
+                await Task.Delay(200);
+                MainV2.comPort.setMode("AUTO");
+                await Task.Delay(200);
+                MainV2.comPort.doARM(true);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            finally
+            {
+                ((Control)sender).Enabled = true;
+            }
         }
 
         private void buttonRTL_Click(object sender, EventArgs e)
@@ -6566,6 +6613,10 @@ namespace MissionPlanner.GCSViews
 
             try
             {
+                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                {
+                    return;
+                }
                 if (CustomMessageBox.Show("RTLを実行してもよろしいですか？", "RTL実行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
                 {
                     return;
@@ -6590,6 +6641,46 @@ namespace MissionPlanner.GCSViews
         private void buttonPreFlight_Click(object sender, EventArgs e)
         {
             ;
+        }
+
+        private void BUT_zoomIn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Zoomlevel.Value += (decimal)0.5;
+                if (gMapControl1.MaxZoom < (double)Zoomlevel.Value)
+                {
+                    Zoomlevel.Value = gMapControl1.MaxZoom;
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+                else
+                {
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void BUT_zoomOut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Zoomlevel.Value -= (decimal)0.5;
+                if (gMapControl1.MinZoom > (double)Zoomlevel.Value)
+                {
+                    Zoomlevel.Value = gMapControl1.MinZoom;
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+                else
+                {
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+            }
+            catch
+            {
+            }
         }
     }
 }

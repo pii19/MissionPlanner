@@ -333,6 +333,26 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap btn_zoomin {
+            get {
+                object obj = ResourceManager.GetObject("btn_zoomin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_zoomout {
+            get {
+                object obj = ResourceManager.GetObject("btn_zoomout", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap calibration01 {
             get {
                 object obj = ResourceManager.GetObject("calibration01", resourceCulture);

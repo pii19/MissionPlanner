@@ -42,6 +42,7 @@ namespace MissionPlanner.GCSViews
             this.groundColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setBatteryCellCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multiLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +58,7 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripQuickView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setViewCountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.quickView5 = new MissionPlanner.Controls.QuickView();
             this.quickView4 = new MissionPlanner.Controls.QuickView();
             this.quickView3 = new MissionPlanner.Controls.QuickView();
@@ -93,6 +95,7 @@ namespace MissionPlanner.GCSViews
             this.tabPagePreFlight = new System.Windows.Forms.TabPage();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
+            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.Gheading = new MissionPlanner.Controls.HSI();
             this.Galt = new AGaugeApp.AGauge();
             this.Gspeed = new AGaugeApp.AGauge();
@@ -129,6 +132,7 @@ namespace MissionPlanner.GCSViews
             this.BUT_PayloadFolder = new MissionPlanner.Controls.MyButton();
             this.groupBoxRoll = new System.Windows.Forms.GroupBox();
             this.TXT_gimbalRollPos = new System.Windows.Forms.TextBox();
+            this.bindingSourcePayloadTab = new System.Windows.Forms.BindingSource(this.components);
             this.trackBarRoll = new System.Windows.Forms.TrackBar();
             this.groupBoxYaw = new System.Windows.Forms.GroupBox();
             this.TXT_gimbalYawPos = new System.Windows.Forms.TextBox();
@@ -190,13 +194,13 @@ namespace MissionPlanner.GCSViews
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lbl_hdop = new MissionPlanner.Controls.MyLabel();
             this.lbl_sats = new MissionPlanner.Controls.MyLabel();
-            this.gMapControl1 = new MissionPlanner.Controls.myGMAP();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.coords1 = new MissionPlanner.Controls.Coords();
@@ -223,8 +227,9 @@ namespace MissionPlanner.GCSViews
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainV = new System.Windows.Forms.SplitContainer();
             this.timerLog = new System.Windows.Forms.Timer(this.components);
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.BUT_zoomIn = new System.Windows.Forms.Button();
+            this.BUT_zoomOut = new System.Windows.Forms.Button();
             this.modifyandSetLoiterRad = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
@@ -265,10 +270,7 @@ namespace MissionPlanner.GCSViews
             this.auxOptions6 = new MissionPlanner.Controls.AuxOptions();
             this.auxOptions7 = new MissionPlanner.Controls.AuxOptions();
             this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
-            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourcePayloadTab = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.gMapControl1 = new MissionPlanner.Controls.myGMAP();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
@@ -284,18 +286,21 @@ namespace MissionPlanner.GCSViews
             this.panelCamCont.SuspendLayout();
             this.panel3.SuspendLayout();
             this.contextMenuStripHud.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.contextMenuStripactionstab.SuspendLayout();
             this.panelMasterCont.SuspendLayout();
             this.tabControlactions.SuspendLayout();
             this.tabQuick.SuspendLayout();
             this.tableLayoutPanelQuick.SuspendLayout();
             this.contextMenuStripQuickView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             this.tabActions.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPagemessages.SuspendLayout();
             this.tabActionsSimple.SuspendLayout();
             this.tabPagePreFlight.SuspendLayout();
             this.tabGauges.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.tabTransponder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Squawk_nud)).BeginInit();
             this.tabServo.SuspendLayout();
@@ -305,6 +310,7 @@ namespace MissionPlanner.GCSViews
             this.tabScripts.SuspendLayout();
             this.tabPayload.SuspendLayout();
             this.groupBoxRoll.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePayloadTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRoll)).BeginInit();
             this.groupBoxYaw.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarYaw)).BeginInit();
@@ -324,6 +330,7 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -332,11 +339,6 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel1.SuspendLayout();
             this.MainV.Panel2.SuspendLayout();
             this.MainV.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePayloadTab)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
             this.SuspendLayout();
             // 
@@ -777,6 +779,10 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.showIconsToolStripMenuItem, "showIconsToolStripMenuItem");
             this.showIconsToolStripMenuItem.Click += new System.EventHandler(this.showIconsToolStripMenuItem_Click);
             // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
             // contextMenuStripactionstab
             // 
             this.contextMenuStripactionstab.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -938,6 +944,10 @@ namespace MissionPlanner.GCSViews
             this.undockToolStripMenuItem.Name = "undockToolStripMenuItem";
             resources.ApplyResources(this.undockToolStripMenuItem, "undockToolStripMenuItem");
             this.undockToolStripMenuItem.Click += new System.EventHandler(this.undockDockToolStripMenuItem_Click);
+            // 
+            // bindingSourceQuickTab
+            // 
+            this.bindingSourceQuickTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // quickView5
             // 
@@ -1483,6 +1493,10 @@ namespace MissionPlanner.GCSViews
             this.Gvspeed.Value1 = 0F;
             this.Gvspeed.Value2 = 0F;
             this.Gvspeed.Value3 = 0F;
+            // 
+            // bindingSourceGaugesTab
+            // 
+            this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // Gheading
             // 
@@ -2092,6 +2106,10 @@ namespace MissionPlanner.GCSViews
             resources.ApplyResources(this.TXT_gimbalRollPos, "TXT_gimbalRollPos");
             this.TXT_gimbalRollPos.Name = "TXT_gimbalRollPos";
             // 
+            // bindingSourcePayloadTab
+            // 
+            this.bindingSourcePayloadTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
             // trackBarRoll
             // 
             resources.ApplyResources(this.trackBarRoll, "trackBarRoll");
@@ -2445,6 +2463,8 @@ namespace MissionPlanner.GCSViews
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.ContextMenuStrip = this.contextMenuStripMap;
+            this.splitContainer1.Panel1.Controls.Add(this.BUT_zoomOut);
+            this.splitContainer1.Panel1.Controls.Add(this.BUT_zoomIn);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.but_disablejoystick);
             this.splitContainer1.Panel1.Controls.Add(this.Zoomlevel);
@@ -2663,10 +2683,14 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 1620D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // label6
             // 
@@ -2712,38 +2736,6 @@ namespace MissionPlanner.GCSViews
             this.lbl_sats.Name = "lbl_sats";
             this.lbl_sats.resize = true;
             this.toolTip1.SetToolTip(this.lbl_sats, resources.GetString("lbl_sats.ToolTip"));
-            // 
-            // gMapControl1
-            // 
-            this.gMapControl1.BackColor = System.Drawing.Color.Black;
-            this.gMapControl1.Bearing = 0F;
-            this.gMapControl1.CanDragMap = true;
-            this.gMapControl1.ContextMenuStrip = this.contextMenuStripMap;
-            resources.ApplyResources(this.gMapControl1, "gMapControl1");
-            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Gray;
-            this.gMapControl1.GrayScaleMode = false;
-            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
-            this.gMapControl1.HoldInvalidation = false;
-            this.gMapControl1.LevelsKeepInMemmory = 5;
-            this.gMapControl1.MarkersEnabled = true;
-            this.gMapControl1.MaxZoom = 24;
-            this.gMapControl1.MinZoom = 0;
-            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
-            this.gMapControl1.Name = "gMapControl1";
-            this.gMapControl1.NegativeMode = false;
-            this.gMapControl1.PolygonsEnabled = true;
-            this.gMapControl1.RetryLoadTile = 0;
-            this.gMapControl1.RoutesEnabled = true;
-            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Fractional;
-            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
-            this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Zoom = 3D;
-            this.gMapControl1.OnPositionChanged += new GMap.NET.PositionChanged(this.gMapControl1_OnPositionChanged);
-            this.gMapControl1.Click += new System.EventHandler(this.gMapControl1_Click);
-            this.gMapControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDown);
-            this.gMapControl1.MouseLeave += new System.EventHandler(this.gMapControl1_MouseLeave);
-            this.gMapControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseMove);
-            this.gMapControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseUp);
             // 
             // zg1
             // 
@@ -2964,9 +2956,10 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.buttonARM, "buttonARM");
             this.buttonARM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonARM.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonARM.ForeColor = System.Drawing.Color.White;
             this.buttonARM.Name = "buttonARM";
             this.buttonARM.TabStop = false;
+            this.buttonARM.Tag = "";
             this.buttonARM.UseVisualStyleBackColor = false;
             this.buttonARM.Click += new System.EventHandler(this.buttonARM_Click);
             // 
@@ -2974,7 +2967,7 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.buttonRTL, "buttonRTL");
             this.buttonRTL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(75)))), ((int)(((byte)(0)))));
-            this.buttonRTL.ForeColor = System.Drawing.SystemColors.Control;
+            this.buttonRTL.ForeColor = System.Drawing.Color.White;
             this.buttonRTL.Name = "buttonRTL";
             this.buttonRTL.TabStop = false;
             this.buttonRTL.Tag = "custom";
@@ -3016,13 +3009,25 @@ namespace MissionPlanner.GCSViews
             this.timerLog.Interval = 200;
             this.timerLog.Tick += new System.EventHandler(this.timerLog_Tick);
             // 
-            // bindingSourceHud
+            // bindingSourceStatusTab
             // 
-            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
+            this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
-            // bindingSourceQuickTab
+            // BUT_zoomIn
             // 
-            this.bindingSourceQuickTab.DataSource = typeof(MissionPlanner.CurrentState);
+            resources.ApplyResources(this.BUT_zoomIn, "BUT_zoomIn");
+            this.BUT_zoomIn.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_zoomin;
+            this.BUT_zoomIn.Name = "BUT_zoomIn";
+            this.BUT_zoomIn.UseVisualStyleBackColor = true;
+            this.BUT_zoomIn.Click += new System.EventHandler(this.BUT_zoomIn_Click);
+            // 
+            // BUT_zoomOut
+            // 
+            resources.ApplyResources(this.BUT_zoomOut, "BUT_zoomOut");
+            this.BUT_zoomOut.BackgroundImage = global::MissionPlanner.Properties.Resources.btn_zoomout;
+            this.BUT_zoomOut.Name = "BUT_zoomOut";
+            this.BUT_zoomOut.UseVisualStyleBackColor = true;
+            this.BUT_zoomOut.Click += new System.EventHandler(this.BUT_zoomOut_Click);
             // 
             // modifyandSetLoiterRad
             // 
@@ -3325,21 +3330,37 @@ namespace MissionPlanner.GCSViews
             this.distanceBar1.totaldist = 100F;
             this.distanceBar1.traveleddist = 0F;
             // 
-            // bindingSourceGaugesTab
+            // gMapControl1
             // 
-            this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // bindingSourcePayloadTab
-            // 
-            this.bindingSourcePayloadTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // bindingSourceStatusTab
-            // 
-            this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
+            this.gMapControl1.BackColor = System.Drawing.Color.Black;
+            this.gMapControl1.Bearing = 0F;
+            this.gMapControl1.CanDragMap = true;
+            this.gMapControl1.ContextMenuStrip = this.contextMenuStripMap;
+            resources.ApplyResources(this.gMapControl1, "gMapControl1");
+            this.gMapControl1.EmptyTileColor = System.Drawing.Color.Gray;
+            this.gMapControl1.GrayScaleMode = false;
+            this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gMapControl1.HoldInvalidation = false;
+            this.gMapControl1.LevelsKeepInMemmory = 5;
+            this.gMapControl1.MarkersEnabled = true;
+            this.gMapControl1.MaxZoom = 24;
+            this.gMapControl1.MinZoom = 0;
+            this.gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
+            this.gMapControl1.Name = "gMapControl1";
+            this.gMapControl1.NegativeMode = false;
+            this.gMapControl1.PolygonsEnabled = true;
+            this.gMapControl1.RetryLoadTile = 0;
+            this.gMapControl1.RoutesEnabled = true;
+            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Fractional;
+            this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gMapControl1.ShowTileGridLines = false;
+            this.gMapControl1.Zoom = 3D;
+            this.gMapControl1.OnPositionChanged += new GMap.NET.PositionChanged(this.gMapControl1_OnPositionChanged);
+            this.gMapControl1.Click += new System.EventHandler(this.gMapControl1_Click);
+            this.gMapControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDown);
+            this.gMapControl1.MouseLeave += new System.EventHandler(this.gMapControl1_MouseLeave);
+            this.gMapControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseMove);
+            this.gMapControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseUp);
             // 
             // FlightData
             // 
@@ -3367,12 +3388,14 @@ namespace MissionPlanner.GCSViews
             this.panelCamCont.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.contextMenuStripHud.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.contextMenuStripactionstab.ResumeLayout(false);
             this.panelMasterCont.ResumeLayout(false);
             this.tabControlactions.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.ResumeLayout(false);
             this.contextMenuStripQuickView.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
             this.tabActions.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -3381,6 +3404,7 @@ namespace MissionPlanner.GCSViews
             this.tabActionsSimple.ResumeLayout(false);
             this.tabPagePreFlight.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.tabTransponder.ResumeLayout(false);
             this.tabTransponder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Squawk_nud)).EndInit();
@@ -3393,6 +3417,7 @@ namespace MissionPlanner.GCSViews
             this.tabPayload.ResumeLayout(false);
             this.groupBoxRoll.ResumeLayout(false);
             this.groupBoxRoll.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePayloadTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRoll)).EndInit();
             this.groupBoxYaw.ResumeLayout(false);
             this.groupBoxYaw.PerformLayout();
@@ -3418,6 +3443,7 @@ namespace MissionPlanner.GCSViews
             this.contextMenuStripMap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelBottom.ResumeLayout(false);
@@ -3427,11 +3453,6 @@ namespace MissionPlanner.GCSViews
             this.MainV.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainV)).EndInit();
             this.MainV.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePayloadTab)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
             this.ResumeLayout(false);
 
@@ -3699,5 +3720,7 @@ namespace MissionPlanner.GCSViews
         private Button buttonCAUTION;
         private Button buttonWARNING;
         private Controls.Indicator indicator1;
+        private Button BUT_zoomIn;
+        private Button BUT_zoomOut;
     }
 }
