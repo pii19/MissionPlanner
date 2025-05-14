@@ -334,6 +334,7 @@ namespace MissionPlanner.Controls
         private DateTime _datetime;
         private string _mode = "Manual";
         private DateTime _modechanged = DateTime.MinValue;
+        private float _sonarrange = 0;
         private int _wpno = 0;
 
         float _AOA = 0;
@@ -752,6 +753,20 @@ namespace MissionPlanner.Controls
                 {
                     _mode = value;
                     _modechanged = datetime;
+                    this.Invalidate();
+                }
+            }
+        }
+
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public float sonarrange
+        {
+            get { return _sonarrange; }
+            set
+            {
+                if (_sonarrange != value)
+                {
+                    _sonarrange = value;
                     this.Invalidate();
                 }
             }
@@ -2774,7 +2789,7 @@ namespace MissionPlanner.Controls
                     drawstring(((int) _alt).ToString("0 ") + altunit, font, 10, (SolidBrush) Brushes.AliceBlue,
                         scrollbg.Left + 10, -9);
                     graphicsObject.ResetTransform();
-
+#if false
                     // mode and wp dist and wp
                     if (_modechanged.AddSeconds(2) > datetime)
                     {
@@ -2785,6 +2800,13 @@ namespace MissionPlanner.Controls
                     {
                         drawstring(_mode, font, fontsize, _whiteBrush, scrollbg.Left - 30,
                             scrollbg.Bottom + 5);
+                    }
+#endif
+                    // sonarrange
+                    if (_sonarrange <= 30.0)
+                    {
+                        drawstring("Radar " + _sonarrange.ToString("0") + "m", font, fontsize, _redBrush, scrollbg.Left - 40,
+                            scrollbg.Bottom + 5 + fontsize + 2 + 10);
                     }
 #if false
                     var newdist = _disttowp;
