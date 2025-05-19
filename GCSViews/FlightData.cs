@@ -3607,9 +3607,10 @@ namespace MissionPlanner.GCSViews
 
                     // @eams update ARM & RTL button display
                     var ekf_status_flags = Settings.Instance.GetInt32("ekf_status_flags", 895);
+                    var flags = MainV2.comPort.MAV.cs.ekfflags;
                     this.BeginInvoke((MethodInvoker)delegate
                     {
-                        if (MainV2.comPort.MAV.cs.ekfflags == ekf_status_flags && MainV2.comPort.BaseStream.IsOpen)
+                        if ( (flags == ekf_status_flags || flags == 831) && MainV2.comPort.BaseStream.IsOpen)
                         {
                             buttonARM.BackColor = Color.FromArgb(0, 176, 107);
                             buttonARM.ForeColor = Color.White;

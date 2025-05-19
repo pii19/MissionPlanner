@@ -645,6 +645,7 @@ namespace MissionPlanner.GCSViews
             this.hud1.satcount2 = 0F;
             this.hud1.skyColor1 = System.Drawing.Color.Blue;
             this.hud1.skyColor2 = System.Drawing.Color.LightBlue;
+            this.hud1.sonarrange = 0F;
             this.hud1.speedunit = null;
             this.hud1.SSA = 0F;
             this.hud1.status = false;
@@ -3000,7 +3001,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 1800D;
+            this.windDir1.Direction = 0D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
