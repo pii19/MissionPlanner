@@ -208,7 +208,7 @@ namespace MissionPlanner.Controls
             {
                 volt2.ForeColor = normal;
             }
-            if (volt_crt <= _batt2volt)
+            else if (volt_crt <= _batt2volt)
             {
                 volt2.ForeColor = caution;
                 if (mst == MasterStatus.Normal)
