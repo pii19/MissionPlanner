@@ -807,8 +807,11 @@ mc:Ignorable=""d""
             {
                 if (ctl.GetType() == typeof(Panel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
+                    }
                 }
                 else if (ctl.GetType() == typeof(GroupBox))
                 {
@@ -842,8 +845,8 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Button))
                 {
-                    ctl.ForeColor = TextColor;
-                    ctl.BackColor = ButBG;
+                    //ctl.ForeColor = Color.Black;  // @eams disabled
+                    //ctl.BackColor = ButBG;    // @eams disabled
                 }
                 else if (ctl.GetType() == typeof(MyButton))
                 {
@@ -913,8 +916,16 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(BSE.Windows.Forms.Panel) || ctl.GetType() == typeof(SplitterPanel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "SMLP2"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
+                    }
+                    else
+                    {
+                        ctl.BackColor = Color.FromArgb(0x41, 0x4f, 0x07);
+                        ctl.ForeColor = TextColor; // Color.FromArgb(0xe6, 0xe8, 0xea);
+                    }
                 }
                 else if (ctl.GetType() == typeof(RadialGradientBG))
                 {
@@ -945,9 +956,15 @@ mc:Ignorable=""d""
                         txtr.ForeColor = Color.White;
                         txtr.BackColor = Color.Black;
                     }
+                    else if (ctl.Name == "richTextBoxLog")
+                    {
+                        RichTextBox txtr = (RichTextBox)ctl;
+                        txtr.BorderStyle = BorderStyle.None;
+                        txtr.ForeColor = TextColor;
+                        txtr.BackColor = BGColor;
+                    }
                     else
                     {
-
                         ctl.BackColor = ControlBGColor;
                         ctl.ForeColor = TextColor;
                         RichTextBox txtr = (RichTextBox)ctl;
@@ -1129,8 +1146,11 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Panel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
+                    }
                 }
                 else if (ctl.GetType() == typeof(GroupBox))
                 {
@@ -1144,8 +1164,8 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(Button))
                 {
-                    ctl.ForeColor = Color.Black;
-                    ctl.BackColor = ButBG;
+                    //ctl.ForeColor = Color.Black;  // @eams disabled
+                    //ctl.BackColor = ButBG;    // @eams disabled
                 }
                 else if (ctl.GetType() == typeof(MyButton))
                 {
@@ -1218,8 +1238,16 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(BSE.Windows.Forms.Panel) || ctl.GetType() == typeof(SplitterPanel))
                 {
-                    ctl.BackColor = BGColor;
-                    ctl.ForeColor = TextColor;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "SMLP2"))
+                    {
+                        ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
+                    }
+                    else
+                    {
+                        ctl.BackColor = Color.FromArgb(0x41, 0x4f, 0x07);
+                        ctl.ForeColor = TextColor;
+                    }
                 }
                 else if (ctl.GetType() == typeof(RadialGradientBG)) //not included in original burntkermit theme
                 {
@@ -1248,6 +1276,13 @@ mc:Ignorable=""d""
                         txtr.BorderStyle = BorderStyle.None;
                         txtr.ForeColor = Color.White;
                         txtr.BackColor = Color.Black;
+                    }
+                    else if (ctl.Name == "richTextBoxLog")
+                    {
+                        RichTextBox txtr = (RichTextBox)ctl;
+                        txtr.BorderStyle = BorderStyle.None;
+                        txtr.ForeColor = TextColor;
+                        txtr.BackColor = BGColor;
                     }
                     else
                     {

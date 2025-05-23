@@ -5,7 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using MissionPlanner.Controls;
 using System.Threading;
-using TextBox = System.Windows.Forms.TextBox;
+using System.Threading.Tasks;
+using MissionPlanner.Utilities;
 
 namespace MissionPlanner.MsgBox
 {
@@ -19,6 +20,11 @@ namespace MissionPlanner.MsgBox
         public static event ThemeManager ApplyTheme;
 
         static DialogResult _state = DialogResult.None;
+
+        static Image img_ok = global::MissionPlanner.Controls.Properties.Resources.btn_ok_big;
+        static Image img_cancel = global::MissionPlanner.Controls.Properties.Resources.btn_cancel_big;
+        static Image img_reboot = global::MissionPlanner.Controls.Properties.Resources.btn_act_reboot;
+        static Image img_confirm = global::MissionPlanner.Controls.Properties.Resources.btn_confirm;
 
         public static DialogResult Show(string text)
         {
@@ -46,7 +52,7 @@ namespace MissionPlanner.MsgBox
             {
                 try
                 {
-                    Application.OpenForms[0].Invoke((Action) delegate
+                    Application.OpenForms[0].Invoke((Action)delegate
                     {
                         Console.WriteLine("CustomMessageBox thread running invoke " +
                                           System.Threading.Thread.CurrentThread.Name);
@@ -64,7 +70,7 @@ namespace MissionPlanner.MsgBox
             else
             {
                 Console.WriteLine("CustomMessageBox thread running " + System.Threading.Thread.CurrentThread.Name);
-                answer =  ShowUI(text, caption, buttons, icon, YesText, NoText);
+                answer = ShowUI(text, caption, buttons, icon, YesText, NoText);
             }
 
             return answer;
@@ -72,6 +78,9 @@ namespace MissionPlanner.MsgBox
 
         static DialogResult ShowUI(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, string YesText = "Yes", string NoText = "No", bool label = true)
         {
+            float fontmag = Settings.Instance.GetFloat("custom_msgbox_fontmag", 1.5f);
+            double opacity = Settings.Instance.GetDouble("custom_msgbox_opacity", 0.85);
+
             DialogResult answer = DialogResult.Abort;
 
             if (text == null)
@@ -95,13 +104,13 @@ namespace MissionPlanner.MsgBox
 
             // ensure we are always in a known state
             _state = DialogResult.None;
-            
-            SizeF sz = TextRenderer.MeasureText ("The quick brown Fox", SystemFonts.DefaultFont);
-            var perchar = sz.Width / 20;
+
             // convert to nice wrapped lines.
-            text = AddNewLinesToText(text, Screen.PrimaryScreen.Bounds.Width / (int)perchar);
+            text = AddNewLinesToText(text);
             // get pixel width and height
-            Size textSize = TextRenderer.MeasureText(text, SystemFonts.DefaultFont);
+            //Size textSize = TextRenderer.MeasureText(text, SystemFonts.DefaultFont);
+            Font font = new Font(SystemFonts.DefaultFont.FontFamily, SystemFonts.DefaultFont.Size * fontmag);
+            Size textSize = TextRenderer.MeasureText(text, font);
             // allow for icon
             if (icon != MessageBoxIcon.None)
                 textSize.Width += SystemIcons.Question.Width;
@@ -114,10 +123,11 @@ namespace MissionPlanner.MsgBox
                 Text = caption,
                 MaximizeBox = false,
                 MinimizeBox = false,
-                Width = textSize.Width + 20,
-                Height = textSize.Height + 120,
+                Width = textSize.Width + 50,
+                Height = textSize.Height + 125,
                 TopMost = true,
                 AutoScaleMode = AutoScaleMode.None,
+                Opacity = opacity,
             })
             {
 
@@ -132,9 +142,10 @@ namespace MissionPlanner.MsgBox
                     {
                         Left = 58,
                         Top = 15,
-                        Width = textSize.Width + 10,
+                        Width = textSize.Width + (int)(10 * fontmag),
                         Height = textSize.Height + 10,
                         Text = text,
+                        Font = font,
                         AutoSize = true
                     };
                 }
@@ -146,9 +157,10 @@ namespace MissionPlanner.MsgBox
                         Multiline = true,
                         Left = 58,
                         Top = 15,
-                        Width = textSize.Width + 10,
-                        Height = Math.Min( textSize.Height + 10, 500),
+                        Width = textSize.Width + (int)(10 * fontmag),
+                        Height = Math.Min(textSize.Height + 10, 500),
                         Text = text,
+                        Font = font,
                         AutoSize = true,
                         ScrollBars = ScrollBars.Vertical
                     };
@@ -228,12 +240,13 @@ namespace MissionPlanner.MsgBox
         }
 
         // from http://stackoverflow.com/questions/2512781/winforms-big-paragraph-tooltip/2512895#2512895
+        private static int maximumSingleLineTooltipLength = 85;
 
-        private static string AddNewLinesToText(string text, int length = 85)
+        private static string AddNewLinesToText(string text)
         {
-            if (text.Length < length)
+            if (text.Length < maximumSingleLineTooltipLength)
                 return text;
-            int lineLength = length;
+            int lineLength = maximumSingleLineTooltipLength;
             StringBuilder sb = new StringBuilder();
             int currentLinePosition = 0;
             for (int textIndex = 0; textIndex < text.Length; textIndex++)
@@ -274,13 +287,16 @@ namespace MissionPlanner.MsgBox
             switch (buttons)
             {
                 case MessageBoxButtons.OK:
-                    var but = new MyButton
-                                  {
-                                      Size = new Size(75, 23),
-                                      Text = "OK",
-                                      Left = msgBoxFrm.Width - 100 - FORM_X_MARGIN,
-                                      Top = msgBoxFrm.Height - 40 - FORM_Y_MARGIN - titleHeight
-                                  };
+//                    var but = new MyButton
+                    var but = new Button
+                    {
+//                        Size = new Size(75, 23),
+                        BackgroundImage = img_ok,
+                        Size = new Size(113, 63),
+//                        Text = "OK",
+                        Left = msgBoxFrm.Width - 113 - FORM_X_MARGIN,
+                        Top = msgBoxFrm.Height - 63 - FORM_Y_MARGIN - titleHeight
+                    };
 
                     but.Click += delegate { _state = DialogResult.OK; msgBoxFrm.Close(); };
                     msgBoxFrm.Controls.Add(but);
@@ -292,24 +308,32 @@ namespace MissionPlanner.MsgBox
                     if (msgBoxFrm.Width < (75 * 2 + FORM_X_MARGIN * 3))
                         msgBoxFrm.Width = (75 * 2 + FORM_X_MARGIN * 3);
 
-                    var butyes = new MyButton
+//                    var butyes = new MyButton
+                    var butyes = new Button
                     {
-                        Size = new Size(75, 23),
-                        Text = YesText,
-                        Left = msgBoxFrm.Width - 75 * 2 - FORM_X_MARGIN * 2,
-                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+//                        Size = new Size(75, 23),
+                        BackgroundImage = img_ok,
+                        Size = new Size(113, 63),
+                        //Text = YesText,
+                        Left = msgBoxFrm.Width - 113 * 2 - FORM_X_MARGIN * 2,
+//                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+                        Top = msgBoxFrm.Height - 63 - FORM_Y_MARGIN - titleHeight
                     };
 
                     butyes.Click += delegate { _state = DialogResult.Yes; msgBoxFrm.Close(); };
                     msgBoxFrm.Controls.Add(butyes);
                     msgBoxFrm.AcceptButton = butyes;
 
-                    var butno = new MyButton
+//                    var butno = new MyButton
+                    var butno = new Button
                     {
-                        Size = new Size(75, 23),
-                        Text = NoText,
-                        Left = msgBoxFrm.Width - 75 - FORM_X_MARGIN,
-                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+//                        Size = new Size(75, 23),
+                        BackgroundImage = img_cancel,
+                        Size = new Size(113, 63),
+                        //Text = NoText,
+                        Left = msgBoxFrm.Width - 113 - FORM_X_MARGIN,
+//                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+                        Top = msgBoxFrm.Height - 63 - FORM_Y_MARGIN - titleHeight
                     };
 
                     butno.Click += delegate { _state = DialogResult.No; msgBoxFrm.Close(); };
@@ -322,29 +346,67 @@ namespace MissionPlanner.MsgBox
                     if (msgBoxFrm.Width < (75 * 2 + FORM_X_MARGIN * 3))
                         msgBoxFrm.Width = (75 * 2 + FORM_X_MARGIN * 3);
 
-                    var butok = new MyButton
+//                    var butok = new MyButton
+                    var butok = new Button
                     {
-                        Size = new Size(75, 23),
-                        Text = "OK",
-                        Left = msgBoxFrm.Width - 75 * 2 - FORM_X_MARGIN * 2,
-                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+//                        Size = new Size(75, 23),
+                        BackgroundImage = img_ok,
+                        Size = new Size(113, 63),
+//                        Text = "OK",
+                        Left = msgBoxFrm.Width - 113 * 2 - FORM_X_MARGIN * 2,
+//                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+                        Top = msgBoxFrm.Height - 63 - FORM_Y_MARGIN - titleHeight
                     };
 
                     butok.Click += delegate { _state = DialogResult.OK; msgBoxFrm.Close(); };
                     msgBoxFrm.Controls.Add(butok);
                     msgBoxFrm.AcceptButton = butok;
 
-                    var butcancel = new MyButton
+//                    var butcancel = new MyButton
+                    var butcancel = new Button
                     {
-                        Size = new Size(75, 23),
-                        Text = "Cancel",
-                        Left = msgBoxFrm.Width - 75 - FORM_X_MARGIN,
-                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+//                        Size = new Size(75, 23),
+                        BackgroundImage = img_cancel,
+                        Size = new Size(113, 63),
+//                        Text = "Cancel",
+                        Left = msgBoxFrm.Width - 113 - FORM_X_MARGIN,
+//                        Top = msgBoxFrm.Height - 23 - FORM_Y_MARGIN - titleHeight
+                        Top = msgBoxFrm.Height - 63 - FORM_Y_MARGIN - titleHeight
                     };
 
                     butcancel.Click += delegate { _state = DialogResult.Cancel; msgBoxFrm.Close(); };
                     msgBoxFrm.Controls.Add(butcancel);
                     msgBoxFrm.CancelButton = butcancel;
+                    break;
+
+                case MessageBoxButtons.RetryCancel:  // @eams add
+                    var butretry = new Button
+                    {
+                        //                        Size = new Size(75, 23),
+                        BackgroundImage = img_reboot,
+                        Size = new Size(130, 48),
+                        Left = msgBoxFrm.Width - 135 - FORM_X_MARGIN,
+                        Top = msgBoxFrm.Height - 48 - FORM_Y_MARGIN - titleHeight
+                    };
+
+                    butretry.Click += delegate { _state = DialogResult.Retry; msgBoxFrm.Close(); };
+                    msgBoxFrm.Controls.Add(butretry);
+                    msgBoxFrm.AcceptButton = butretry;
+                    break;
+
+                case MessageBoxButtons.AbortRetryIgnore:  // @eams add
+                    var butconfirm = new Button
+                    {
+                        //                        Size = new Size(75, 23),
+                        BackgroundImage = img_confirm,
+                        Size = new Size(113, 63),
+                        Left = msgBoxFrm.Width - 113 - FORM_X_MARGIN,
+                        Top = msgBoxFrm.Height - 63 - FORM_Y_MARGIN - titleHeight
+                    };
+
+                    butconfirm.Click += delegate { _state = DialogResult.Retry; msgBoxFrm.Close(); };
+                    msgBoxFrm.Controls.Add(butconfirm);
+                    msgBoxFrm.AcceptButton = butconfirm;
                     break;
 
                 default:

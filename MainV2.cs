@@ -912,6 +912,7 @@ namespace MissionPlanner
             }
 
             LayoutChanged += updateLayout;
+            //DisplayConfiguration.autoHideMenuForce = true;
             LayoutChanged(null, EventArgs.Empty);
 
             if (Settings.Instance["CHK_GDIPlus"] != null)
@@ -4212,6 +4213,12 @@ protected override void OnLoad(EventArgs e)
                 return true;
             }
 
+            if (keyData == (Keys.Control | Keys.Q)) // fin
+            {
+                this.Close();
+                return true;
+            }
+
             if (keyData == (Keys.Control | Keys.F)) // temp
             {
                 Form frm = new temp();
@@ -4515,6 +4522,10 @@ protected override void OnLoad(EventArgs e)
                 MainMenu.MouseLeave -= MainMenu_MouseLeave;
                 panel1.MouseLeave -= MainMenu_MouseLeave;
                 toolStripConnectionControl.MouseLeave -= MainMenu_MouseLeave;
+
+                this.TopMost = false;
+                //this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+                this.WindowState = FormWindowState.Normal;
                 this.ResumeLayout();
             }
             else
@@ -4525,8 +4536,13 @@ protected override void OnLoad(EventArgs e)
                 MainMenu.MouseLeave += MainMenu_MouseLeave;
                 panel1.MouseLeave += MainMenu_MouseLeave;
                 toolStripConnectionControl.MouseLeave += MainMenu_MouseLeave;
-                menu.Visible = true;
-                menu.SendToBack();
+                menu.Visible = false;
+                //menu.SendToBack();
+
+                //this.TopMost = true;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.WindowState = FormWindowState.Normal;
+                this.WindowState = FormWindowState.Maximized;
                 this.ResumeLayout();
             }
         }

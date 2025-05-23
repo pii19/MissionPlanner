@@ -259,7 +259,7 @@
     <value>ズームレベルの変更</value>
   </data>
   <data name="CB_tuning.Text" xml:space="preserve">
-    <value>チューニング</value>
+    <value>高度表示</value>
   </data>
   <data name="BUT_speed10.Text" xml:space="preserve">
     <value>10x</value>

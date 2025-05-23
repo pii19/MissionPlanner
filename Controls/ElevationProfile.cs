@@ -64,13 +64,13 @@ namespace MissionPlanner.Controls
 
             this.homealt = homealt;
 
-            Form frm = Common.LoadingBox("Loading", "using alt data");
+            //Form frm = Common.LoadingBox("Loading", "using alt data");
 
             //gelocs = getGEAltPath(planlocs);
 
             srtmlocs = getSRTMAltPath(planlocs);
 
-            frm.Close();
+            //frm.Close();
 
             MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }

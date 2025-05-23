@@ -32,6 +32,8 @@ using ZedGraph;
 using LogAnalyzer = MissionPlanner.Utilities.LogAnalyzer;
 using TableLayoutPanelCellPosition = System.Windows.Forms.TableLayoutPanelCellPosition;
 using UnauthorizedAccessException = System.UnauthorizedAccessException;
+using static MissionPlanner.GCSViews.FlightPlanner;
+using static MAVLink;
 
 // written by michael oborne
 
@@ -591,7 +593,8 @@ namespace MissionPlanner.GCSViews
             GraphPane myPane = zgc.GraphPane;
 
             // Set the titles and axis labels
-            myPane.Title.Text = "Tuning - Double click to change items";
+            //myPane.Title.Text = "Tuning - Double click to change items";
+            myPane.Title.Text = "フライトプランをロードしていると標高グラフが表示されます。";
             myPane.XAxis.Title.Text = "Time (s)";
             myPane.YAxis.Title.Text = "Unit";
             myPane.YAxis.Title.FontSpec.Size += 2;
@@ -1088,8 +1091,8 @@ namespace MissionPlanner.GCSViews
             {
                 if (sc.Name == "FlightPlanner")
                 {
-                    splitContainer1.Panel2.Controls.Remove(sc.Control);
-                    splitContainer1.Panel2.Controls.Remove((Control) sender);
+                    splitContainer1.Panel1.Controls.Remove(sc.Control);
+                    splitContainer1.Panel1.Controls.Remove((Control) sender);
                     sc.Control.Visible = false;
 
                     if (sc.Control is IDeactivate)
@@ -1101,7 +1104,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
-            foreach (Control ctl in splitContainer1.Panel2.Controls)
+            foreach (Control ctl in splitContainer1.Panel1.Controls)
             {
                 ctl.Visible = true;
             }
@@ -1824,22 +1827,49 @@ namespace MissionPlanner.GCSViews
             hud1.bgimage = camimage;
         }
 
+        ElevationProfile formElevation;
         private void CB_tuning_CheckedChanged(object sender, EventArgs e)
         {
             if (CB_tuning.Checked)
             {
-                splitContainer1.Panel1Collapsed = false;
+                splitContainer1.Panel2Collapsed = false;
+                double homealt = MainV2.comPort.MAV.cs.HomeAlt;
+                var pointlist = MainV2.instance.FlightPlanner.pointlist;
+                if (pointlist.Count < 1)
+                {
+                    return;
+                } 
+                Form formElevation = new ElevationProfile(pointlist, homealt,
+                    (altmode)Enum.Parse(typeof(altmode), MainV2.instance.FlightPlanner.CMB_altmode.Text));
+                ThemeManager.ApplyThemeTo(formElevation);
+                formElevation.TopLevel = false;
+                formElevation.FormBorderStyle = FormBorderStyle.None;
+                formElevation.Dock = DockStyle.Fill;
+                splitContainer1.Panel2.Controls.Add(formElevation);
+                formElevation.Show();
+                formElevation.BringToFront();
+#if false
                 ZedGraphTimer.Enabled = true;
                 ZedGraphTimer.Start();
                 zg1.Visible = true;
                 zg1.Refresh();
+#endif
             }
             else
             {
-                splitContainer1.Panel1Collapsed = true;
+                splitContainer1.Panel2Collapsed = true;
+                if (formElevation != null)
+                {
+                    formElevation.Close();
+                    splitContainer1.Controls.Remove(formElevation);
+                    formElevation.Dispose();
+
+                }
+#if false
                 ZedGraphTimer.Enabled = false;
                 ZedGraphTimer.Stop();
                 zg1.Visible = false;
+#endif
             }
         }
 
@@ -2683,7 +2713,14 @@ namespace MissionPlanner.GCSViews
 
             prop = new Propagation(gMapControl1);
 
-            splitContainer1.Panel1Collapsed = true;
+            splitContainer1.Panel2Collapsed = true;
+
+            //richTextBoxLog.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
+
+            buttonARM.BackColor = Color.Black;
+            buttonARM.ForeColor = Color.FromArgb(64, 64, 64);
+            buttonRTL.BackColor = Color.Black;
+            buttonRTL.ForeColor = Color.FromArgb(64, 64, 64);
 
             try
             {
@@ -2791,7 +2828,7 @@ namespace MissionPlanner.GCSViews
 
         private void flightPlannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (Control ctl in splitContainer1.Panel2.Controls)
+            foreach (Control ctl in splitContainer1.Panel1.Controls)
             {
                 ctl.Visible = false;
             }
@@ -2802,13 +2839,13 @@ namespace MissionPlanner.GCSViews
                 {
                     MyButton but = new MyButton
                     {
-                        Location = new Point(splitContainer1.Panel2.Width / 2, 0),
+                        Location = new Point(splitContainer1.Panel1.Width / 2, 0),
                         Text = "Close"
                     };
                     but.Click += but_Click;
 
-                    splitContainer1.Panel2.Controls.Add(but);
-                    splitContainer1.Panel2.Controls.Add(sc.Control);
+                    splitContainer1.Panel1.Controls.Add(but);
+                    splitContainer1.Panel1.Controls.Add(sc.Control);
                     ThemeManager.ApplyThemeTo(sc.Control);
                     ThemeManager.ApplyThemeTo(this);
 
@@ -3494,6 +3531,101 @@ namespace MissionPlanner.GCSViews
                     updateBindingSource();
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
+                    // @eams update mode display
+                    switch (MainV2.comPort.MAV.cs.mode.ToUpper())
+                    {
+                        case "AUTO":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_on;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "";
+                            });
+                            break;
+                        case "LOITER":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_on;
+                                labelMode.Text = "";
+                            });
+                            break;
+                        case "ALTHOLD":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "ALTHOLD";
+                            });
+                            break;
+                        case "RTL":
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "RTL";
+                            });
+                            break;
+                        default:
+                            this.BeginInvoke((MethodInvoker)delegate
+                            {
+                                buttonModeAuto.BackgroundImage = Properties.Resources.mode_auto_off;
+                                buttonModeLoiter.BackgroundImage = Properties.Resources.mode_loiter_off;
+                                labelMode.Text = "";
+                            });
+                            break;
+                    }
+
+                    // @eams update camera display
+
+
+                    // @eams update masterstatus
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (indicator1.masterstatus == MasterStatus.Normal)
+                        {
+                            buttonWARNING.BackColor = Color.Black;
+                            buttonWARNING.ForeColor = Color.FromArgb(64, 64, 64);
+                            buttonCAUTION.BackColor = Color.Black;
+                            buttonCAUTION.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                        else if (indicator1.masterstatus == MasterStatus.Caution)
+                        {
+                            buttonWARNING.BackColor = Color.Black;
+                            buttonWARNING.ForeColor = Color.FromArgb(64, 64, 64);
+                            buttonCAUTION.BackColor = Color.FromArgb(246, 170, 0);
+                            buttonCAUTION.ForeColor = Color.White;
+                        }
+                        else
+                        {
+                            buttonWARNING.BackColor = Color.FromArgb(255, 75, 0);
+                            buttonWARNING.ForeColor = Color.White;
+                            buttonCAUTION.BackColor = Color.Black;
+                            buttonCAUTION.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                    });
+
+                    // @eams update ARM & RTL button display
+                    var ekf_status_flags = Settings.Instance.GetInt32("ekf_status_flags", 895);
+                    var flags = MainV2.comPort.MAV.cs.ekfflags;
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if ( (flags == ekf_status_flags || flags == 831) && MainV2.comPort.BaseStream.IsOpen)
+                        {
+                            buttonARM.BackColor = Color.FromArgb(0, 176, 107);
+                            buttonARM.ForeColor = Color.White;
+                            buttonRTL.BackColor = Color.FromArgb(255, 75, 0);
+                            buttonRTL.ForeColor = Color.White;
+                        }
+                        else
+                        {
+                            buttonARM.BackColor = Color.Black;
+                            buttonARM.ForeColor = Color.FromArgb(64, 64, 64);
+                            buttonRTL.BackColor = Color.Black;
+                            buttonRTL.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                    });
+
                     // battery warning.
                     // Use speech settings only if the following parameters are not set
                     // BATT_LOW_VOLT
@@ -3644,9 +3776,9 @@ namespace MissionPlanner.GCSViews
                         tracklast.AddSeconds(2) < DateTime.Now)
                     {
                         // show disable joystick button
-                        if (MainV2.joystick != null && MainV2.joystick.enabled)
+                        //if (MainV2.joystick != null && MainV2.joystick.enabled)
                         {
-                            this.BeginInvoke((MethodInvoker) delegate { but_disablejoystick.Visible = true; });
+                            //this.BeginInvoke((MethodInvoker) delegate { but_disablejoystick.Visible = true; });
                         }
 
                         if (MainV2.comPort.MAV.cs.Location != PointLatLngAlt.Zero)
@@ -5379,7 +5511,11 @@ namespace MissionPlanner.GCSViews
                 }
                 //if the tab detached wi have to update it
                 if (tabQuickDetached) MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab.UpdateDataSource(MainV2.comPort.MAV.cs));
-
+#if true
+                // @eams
+                indicator1.batterystatus = batteryStatus1.masterstatus;
+                indicator1.motorstatus = motorStatus1.masterstatus;
+#endif
                 lastscreenupdate = DateTime.Now;
             }
             catch (Exception ex)
@@ -6355,6 +6491,196 @@ namespace MissionPlanner.GCSViews
             catch (Exception ex)
             {
                 CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR);
+            }
+        }
+
+        private void buttonModeAuto_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setMode("Auto");
+        }
+
+        private void buttonModeLoiter_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setMode("Loiter");
+        }
+
+        private void buttonCamAuto_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setParam("MOUNT1_DIRECTION", 0);
+            buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_on;
+            buttonCamFront.BackgroundImage = Properties.Resources.cam_front_off;
+            buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_off;
+        }
+
+        private void buttonCamFront_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setParam("MOUNT1_DIRECTION", 1);
+            buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_off;
+            buttonCamFront.BackgroundImage = Properties.Resources.cam_front_on;
+            buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_off;
+        }
+
+        private void buttonCamUnder_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.setParam("MOUNT1_DIRECTION", 2);
+            buttonCamAuto.BackgroundImage = Properties.Resources.cam_auto_off;
+            buttonCamFront.BackgroundImage = Properties.Resources.cam_front_off;
+            buttonCamUnder.BackgroundImage = Properties.Resources.cam_under_on;
+        }
+
+        private void buttonPropo_Click(object sender, EventArgs e)
+        {
+#if false
+            if (MainV2.joystick != null && MainV2.joystick.enabled)
+            {
+                MainV2.joystick.enabled = false;
+
+                MainV2.joystick.clearRCOverride();
+
+                //but_disablejoystick.Visible = false;
+            }
+#endif
+        }
+
+        private void timerLog_Tick(object sender, EventArgs e)
+        {
+            var messagetime = MainV2.comPort.MAV.cs.messages.LastOrDefault().time;
+            if (messagecount != messagetime.toUnixTime())
+            {
+                try
+                {
+                    StringBuilder message = new StringBuilder();
+                    MainV2.comPort.MAV.cs.messages.ForEach(x =>
+                    {
+                        //richTextBoxLog.SelectionLength = 0;
+                        richTextBoxLog.Select(0, 0);    // キャレットを先頭にし、選択解除
+                        switch (x.severity)
+                        {
+                            case MAVLink.MAV_SEVERITY.EMERGENCY:
+                            case MAVLink.MAV_SEVERITY.ALERT:
+                            case MAVLink.MAV_SEVERITY.CRITICAL:
+                            case MAVLink.MAV_SEVERITY.ERROR:
+                                richTextBoxLog.SelectionColor = Color.FromArgb(255, 75, 0);
+                                break;
+                            case MAVLink.MAV_SEVERITY.WARNING:
+                            case MAVLink.MAV_SEVERITY.NOTICE:
+                                richTextBoxLog.SelectionColor = Color.FromArgb(246, 170, 0);
+                                break;
+                            default:
+                                richTextBoxLog.SelectionColor = Color.FromArgb(25, 113, 255);
+                                break;
+                        }
+                        richTextBoxLog.SelectedText = x.Item1.ToLongTimeString() + " : " + x.Item2 + "\r\n";
+                        //message.Insert(0, x.Item1 + " : " + x.Item2 + "\r\n");
+                    });
+                    messagecount = messagetime.toUnixTime();
+                }
+                catch (Exception ex)
+                {
+                    log.Error(ex);
+                }
+            }
+        }
+
+        private async void buttonARM_Click(object sender, EventArgs e)
+        {
+            ((Control)sender).Enabled = false;
+
+            try
+            {
+                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                {
+                    return;
+                }
+                MainV2.comPort.setMode("LOITER");
+                await Task.Delay(200);
+                MainV2.comPort.setMode("AUTO");
+                await Task.Delay(200);
+                MainV2.comPort.doARM(true);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            finally
+            {
+                ((Control)sender).Enabled = true;
+            }
+        }
+
+        private void buttonRTL_Click(object sender, EventArgs e)
+        {
+            ((Control)sender).Enabled = false;
+
+            try
+            {
+                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                {
+                    return;
+                }
+                if (CustomMessageBox.Show("RTLを実行してもよろしいですか？", "RTL実行", MessageBoxButtons.YesNo) != (int)DialogResult.Yes)
+                {
+                    return;
+                }
+                if (MainV2.comPort.BaseStream == null || !MainV2.comPort.BaseStream.IsOpen)
+                {
+                    CustomMessageBox.Show("機体に接続していません。", Strings.ERROR);
+                    return;
+                }
+                MainV2.comPort.setMode("RTL");
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
+            }
+            finally
+            {
+                ((Control)sender).Enabled = true;
+            }
+        }
+
+        private void buttonPreFlight_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void BUT_zoomIn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Zoomlevel.Value += (decimal)0.5;
+                if (gMapControl1.MaxZoom < (double)Zoomlevel.Value)
+                {
+                    Zoomlevel.Value = gMapControl1.MaxZoom;
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+                else
+                {
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void BUT_zoomOut_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Zoomlevel.Value -= (decimal)0.5;
+                if (gMapControl1.MinZoom > (double)Zoomlevel.Value)
+                {
+                    Zoomlevel.Value = gMapControl1.MinZoom;
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+                else
+                {
+                    gMapControl1.Zoom = (double)Zoomlevel.Value;
+                }
+            }
+            catch
+            {
             }
         }
     }

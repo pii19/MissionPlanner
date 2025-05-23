@@ -38,15 +38,24 @@
 
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Indicator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="HUDT.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HUDT.resx</DependentUpon>
     </Compile>
+    <Compile Update="BatteryStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="MotorStatus.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +63,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HUDT.Designer.cs</LastGenOutput>
       <CustomToolNamespace>MissionPlanner.Controls</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="HUDT.zh-Hans.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

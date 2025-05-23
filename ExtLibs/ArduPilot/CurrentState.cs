@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using static MAVLink;
 
 namespace MissionPlanner
 {
@@ -1203,7 +1204,7 @@ namespace MissionPlanner
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public List<(DateTime time, string message)> messages { get; set; } = new List<(DateTime, string)>();
+        public List<(DateTime time, string message, MAV_SEVERITY severity)> messages { get; set; } = new List<(DateTime, string, MAV_SEVERITY)>();
 
         /// <summary>
         /// a message that originates from the mav
@@ -1249,6 +1250,19 @@ namespace MissionPlanner
             {
                 if (_battery_voltage == 0) _battery_voltage = value;
                 _battery_voltage = value * 0.4f + _battery_voltage * 0.6f;
+            }
+        }
+
+        [GroupText("Battery")]
+        [DisplayFieldName("battery_voltage2.Field")]
+        [DisplayText("Bat2 Voltage (V)")]
+        public double battery_voltage2
+        {
+            get => _battery_voltage2;
+            set
+            {
+                if (_battery_voltage2 == 0) _battery_voltage2 = value;
+                _battery_voltage2 = value * 0.4f + _battery_voltage2 * 0.6f;
             }
         }
 
@@ -1500,19 +1514,6 @@ namespace MissionPlanner
         [GroupText("Battery")]
         [DisplayText("Bat used EST (mah)")]
         public double battery_usedmah9 { get; set; }
-
-        [GroupText("Battery")]
-        [DisplayFieldName("battery_voltage2.Field")]
-        [DisplayText("Bat2 Voltage (V)")]
-        public double battery_voltage2
-        {
-            get => _battery_voltage2;
-            set
-            {
-                if (_battery_voltage2 == 0) _battery_voltage2 = value;
-                _battery_voltage2 = value * 0.4f + _battery_voltage2 * 0.6f;
-            }
-        }
 
         [GroupText("Position")]
         public double HomeAlt
@@ -2082,6 +2083,8 @@ namespace MissionPlanner
 
         [GroupText("Vibe")] public float vibez { get; set; }
 
+        [GroupText("Vibe")] public float vibestatus { get; set; }
+
         [GroupText("Software")] public Version version { get; set; }
         [GroupText("Software")] public ulong uid { get; set; }
         [GroupText("Software")] public string uid2 { get; set; }
@@ -2522,6 +2525,9 @@ namespace MissionPlanner
                             vibex = vibe.vibration_x;
                             vibey = vibe.vibration_y;
                             vibez = vibe.vibration_z;
+
+                            vibestatus =
+                                Math.Max(vibex,Math.Max(vibey, vibez));
                         }
 
                         break;
@@ -4046,6 +4052,10 @@ namespace MissionPlanner
                         }
                         break;
                     case (uint)MAVLink.MAVLINK_MSG_ID.CAN_FRAME:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.SIMSTATE:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.TIMESYNC:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.COMMAND_ACK:
+                    case (uint)MAVLink.MAVLINK_MSG_ID.PARAM_VALUE:
                         {
                         }
                         break;
@@ -4142,7 +4152,7 @@ namespace MissionPlanner
             {
                 mode = "Unknown";
                 _mode = 99999;
-                messages = new List<(DateTime time, string message)>();
+                messages = new List<(DateTime time, string message, MAV_SEVERITY severity)>();
                 useLocation = false;
                 rateattitude = rateattitudebackup;
                 rateposition = ratepositionbackup;
