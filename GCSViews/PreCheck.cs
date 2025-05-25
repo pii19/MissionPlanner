@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace MissionPlanner.GCSViews
 {
-    public partial class PreCheck : MyUserControl, IActivate
+    public partial class PreCheck : MyUserControl, IActivate, IDeactivate
     {
         private bool CheckAll = false;
 
@@ -22,7 +22,32 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
+                timer1.Enabled = true;
+                ParamBattVolt.Text = "";
+                ParamBattCharge.Text = "";
+                ParamBattTemp.Text = "";
+                ParamSatCount1.Text = "";
+                ParamSatCount2.Text = "";
+                ParamGpsStatus.Text = "";
+                ParamPitch.Text = "";
+                ParamRoll.Text = "";
+                ParamRTLALT.Text = "";
+            }
+            catch
+            {
+            }
+
+            if (Program.WindowsStoreApp)
+            {
                 ;
+            }
+        }
+
+        public void Deactivate()
+        {
+            try
+            {
+                timer1.Enabled = false;
             }
             catch
             {
@@ -36,8 +61,6 @@ namespace MissionPlanner.GCSViews
 
         private void PreCheck_Load(object sender, EventArgs e)
         {
-            ;
-            //ThemeManager.ApplyThemeTo(richTextBox1);
             buttonOK.BackColor = Color.Black;
             buttonOK.ForeColor = Color.FromArgb(64, 64, 64);
         }
@@ -79,6 +102,44 @@ namespace MissionPlanner.GCSViews
             }
 
             MainV2.instance.FlightDataOpen();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.BaseStream != null && MainV2.comPort.BaseStream.IsOpen)
+            {
+                var cs = MainV2.comPort.MAV.cs;
+                ParamBattVolt.Text = cs.battery_voltage.ToString("0.0");
+                ParamBattCharge.Text = cs.battery_remaining.ToString("0.0");
+                ParamBattTemp.Text = cs.battery_temp.ToString("0.0");
+                ParamSatCount1.Text = cs.satcount.ToString("0");
+                ParamSatCount2.Text = cs.satcount2.ToString("0");
+                ParamGpsStatus.Text = cs.gpsstatus.ToString("0");
+                ParamPitch.Text = cs.pitch.ToString("0.00");
+                ParamRoll.Text = cs.roll.ToString("0.00");
+
+                if (MainV2.comPort.MAV.param["RTL_ALT"] != null)
+                {
+                    int value;
+                    string str = MainV2.comPort.MAV.param["RTL_ALT"].ToString();
+                    if (int.TryParse(str, out value))
+                    {
+                        ParamRTLALT.Text = str;
+                    }
+                }
+            }
+            else
+            {
+                ParamBattVolt.Text = "";
+                ParamBattCharge.Text = "";
+                ParamBattTemp.Text = "";
+                ParamSatCount1.Text = "";
+                ParamSatCount2.Text = "";
+                ParamGpsStatus.Text = "";
+                ParamPitch.Text = "";
+                ParamRoll.Text = "";
+                ParamRTLALT.Text = "";
+            }
         }
     }
 }

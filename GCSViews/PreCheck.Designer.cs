@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreCheck));
             this.cbBody1 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -54,11 +55,32 @@
             this.cbParamSatCount1 = new System.Windows.Forms.CheckBox();
             this.cbParamBattCell = new System.Windows.Forms.CheckBox();
             this.cbParamBattTemp = new System.Windows.Forms.CheckBox();
-            this.cbParamBattRemain = new System.Windows.Forms.CheckBox();
+            this.cbParamBattCharge = new System.Windows.Forms.CheckBox();
             this.cbParamRoll = new System.Windows.Forms.CheckBox();
             this.cbParamPitch = new System.Windows.Forms.CheckBox();
             this.cbParamGpsStatus = new System.Windows.Forms.CheckBox();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ParamRTLALT = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.ParamPitch = new System.Windows.Forms.Label();
+            this.ParamGpsStatus = new System.Windows.Forms.Label();
+            this.ParamSatCount2 = new System.Windows.Forms.Label();
+            this.ParamSatCount1 = new System.Windows.Forms.Label();
+            this.ParamBattCell = new System.Windows.Forms.Label();
+            this.ParamBattTemp = new System.Windows.Forms.Label();
+            this.ParamBattCharge = new System.Windows.Forms.Label();
+            this.ParamBattVolt = new System.Windows.Forms.Label();
+            this.ParamRoll = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // cbBody1
@@ -437,20 +459,20 @@
             this.cbParamBattTemp.UseVisualStyleBackColor = false;
             this.cbParamBattTemp.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamBattRemain
+            // cbParamBattCharge
             // 
-            resources.ApplyResources(this.cbParamBattRemain, "cbParamBattRemain");
-            this.cbParamBattRemain.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattRemain.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattRemain.FlatAppearance.BorderSize = 0;
-            this.cbParamBattRemain.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattRemain.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattRemain.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattRemain.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamBattRemain.Name = "cbParamBattRemain";
-            this.cbParamBattRemain.Tag = "custom";
-            this.cbParamBattRemain.UseVisualStyleBackColor = false;
-            this.cbParamBattRemain.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbParamBattCharge, "cbParamBattCharge");
+            this.cbParamBattCharge.BackColor = System.Drawing.SystemColors.Control;
+            this.cbParamBattCharge.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbParamBattCharge.FlatAppearance.BorderSize = 0;
+            this.cbParamBattCharge.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbParamBattCharge.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbParamBattCharge.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbParamBattCharge.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbParamBattCharge.Name = "cbParamBattCharge";
+            this.cbParamBattCharge.Tag = "custom";
+            this.cbParamBattCharge.UseVisualStyleBackColor = false;
+            this.cbParamBattCharge.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
             // cbParamRoll
             // 
@@ -509,15 +531,200 @@
             this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label1.Name = "label1";
+            this.label1.Tag = "custom";
+            // 
+            // ParamRTLALT
+            // 
+            this.ParamRTLALT.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamRTLALT, "ParamRTLALT");
+            this.ParamRTLALT.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamRTLALT.Name = "ParamRTLALT";
+            this.ParamRTLALT.Tag = "custom";
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label2.Name = "label2";
+            this.label2.Tag = "custom";
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label3.Name = "label3";
+            this.label3.Tag = "custom";
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label4.Name = "label4";
+            this.label4.Tag = "custom";
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label5.Name = "label5";
+            this.label5.Tag = "custom";
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label6.Name = "label6";
+            this.label6.Tag = "custom";
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label7.Name = "label7";
+            this.label7.Tag = "custom";
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label8.Name = "label8";
+            this.label8.Tag = "custom";
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label9.Name = "label9";
+            this.label9.Tag = "custom";
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label10.Name = "label10";
+            this.label10.Tag = "custom";
+            // 
+            // ParamPitch
+            // 
+            this.ParamPitch.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamPitch, "ParamPitch");
+            this.ParamPitch.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamPitch.Name = "ParamPitch";
+            this.ParamPitch.Tag = "custom";
+            // 
+            // ParamGpsStatus
+            // 
+            this.ParamGpsStatus.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamGpsStatus, "ParamGpsStatus");
+            this.ParamGpsStatus.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamGpsStatus.Name = "ParamGpsStatus";
+            this.ParamGpsStatus.Tag = "custom";
+            // 
+            // ParamSatCount2
+            // 
+            this.ParamSatCount2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamSatCount2, "ParamSatCount2");
+            this.ParamSatCount2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamSatCount2.Name = "ParamSatCount2";
+            this.ParamSatCount2.Tag = "custom";
+            // 
+            // ParamSatCount1
+            // 
+            this.ParamSatCount1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamSatCount1, "ParamSatCount1");
+            this.ParamSatCount1.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamSatCount1.Name = "ParamSatCount1";
+            this.ParamSatCount1.Tag = "custom";
+            // 
+            // ParamBattCell
+            // 
+            this.ParamBattCell.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamBattCell, "ParamBattCell");
+            this.ParamBattCell.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamBattCell.Name = "ParamBattCell";
+            this.ParamBattCell.Tag = "custom";
+            // 
+            // ParamBattTemp
+            // 
+            this.ParamBattTemp.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamBattTemp, "ParamBattTemp");
+            this.ParamBattTemp.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamBattTemp.Name = "ParamBattTemp";
+            this.ParamBattTemp.Tag = "custom";
+            // 
+            // ParamBattCharge
+            // 
+            this.ParamBattCharge.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamBattCharge, "ParamBattCharge");
+            this.ParamBattCharge.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamBattCharge.Name = "ParamBattCharge";
+            this.ParamBattCharge.Tag = "custom";
+            // 
+            // ParamBattVolt
+            // 
+            this.ParamBattVolt.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamBattVolt, "ParamBattVolt");
+            this.ParamBattVolt.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamBattVolt.Name = "ParamBattVolt";
+            this.ParamBattVolt.Tag = "custom";
+            // 
+            // ParamRoll
+            // 
+            this.ParamRoll.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamRoll, "ParamRoll");
+            this.ParamRoll.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamRoll.Name = "ParamRoll";
+            this.ParamRoll.Tag = "custom";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // PreCheck
             // 
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.ParamRoll);
+            this.Controls.Add(this.ParamBattVolt);
+            this.Controls.Add(this.ParamBattCharge);
+            this.Controls.Add(this.ParamBattTemp);
+            this.Controls.Add(this.ParamBattCell);
+            this.Controls.Add(this.ParamSatCount1);
+            this.Controls.Add(this.ParamSatCount2);
+            this.Controls.Add(this.ParamGpsStatus);
+            this.Controls.Add(this.ParamPitch);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.ParamRTLALT);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.cbParamGpsStatus);
             this.Controls.Add(this.cbParamPitch);
             this.Controls.Add(this.cbParamRoll);
-            this.Controls.Add(this.cbParamBattRemain);
+            this.Controls.Add(this.cbParamBattCharge);
             this.Controls.Add(this.cbParamBattTemp);
             this.Controls.Add(this.cbParamBattCell);
             this.Controls.Add(this.cbParamSatCount1);
@@ -576,10 +783,31 @@
         private System.Windows.Forms.CheckBox cbParamSatCount1;
         private System.Windows.Forms.CheckBox cbParamBattCell;
         private System.Windows.Forms.CheckBox cbParamBattTemp;
-        private System.Windows.Forms.CheckBox cbParamBattRemain;
+        private System.Windows.Forms.CheckBox cbParamBattCharge;
         private System.Windows.Forms.CheckBox cbParamRoll;
         private System.Windows.Forms.CheckBox cbParamPitch;
         private System.Windows.Forms.CheckBox cbParamGpsStatus;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ParamRTLALT;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label ParamPitch;
+        private System.Windows.Forms.Label ParamGpsStatus;
+        private System.Windows.Forms.Label ParamSatCount2;
+        private System.Windows.Forms.Label ParamSatCount1;
+        private System.Windows.Forms.Label ParamBattCell;
+        private System.Windows.Forms.Label ParamBattTemp;
+        private System.Windows.Forms.Label ParamBattCharge;
+        private System.Windows.Forms.Label ParamBattVolt;
+        private System.Windows.Forms.Label ParamRoll;
+        private System.Windows.Forms.Timer timer1;
     }
 }
