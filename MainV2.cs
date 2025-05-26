@@ -1935,7 +1935,7 @@ namespace MissionPlanner
             SaveConfig();
         }
 
-        private void Connect()
+        public void Connect()  // @eams change public
         {
             comPort.giveComport = false;
 

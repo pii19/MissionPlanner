@@ -150,6 +150,8 @@ namespace MissionPlanner.GCSViews
                 ParamRoll.Text = "";
                 ParamRTLALT.Text = "";
             }
+
+            cbConnect.Checked = MainV2.comPort.BaseStream.IsOpen;
         }
 
         // https://note.nkmk.me/c-sharp-max-min-params-generics/
@@ -175,6 +177,29 @@ namespace MissionPlanner.GCSViews
                 max = max.CompareTo(nums[i]) < 0 ? max : nums[i];
             }
             return max;
+        }
+
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                MainV2.instance.Connect();
+            }
+        }
+
+        private void buttonMotorTest_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void buttonLoadPlan_Click(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void buttonDispMap_Click(object sender, EventArgs e)
+        {
+            ;
         }
     }
 }

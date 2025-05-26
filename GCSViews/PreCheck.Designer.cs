@@ -81,6 +81,10 @@
             this.ParamBattVolt = new System.Windows.Forms.Label();
             this.ParamRoll = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonConnect = new System.Windows.Forms.Button();
+            this.buttonMotorTest = new System.Windows.Forms.Button();
+            this.buttonLoadPlan = new System.Windows.Forms.Button();
+            this.buttonDispMap = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cbBody1
@@ -696,10 +700,62 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // buttonConnect
+            // 
+            this.buttonConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonConnect.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonConnect, "buttonConnect");
+            this.buttonConnect.ForeColor = System.Drawing.Color.White;
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.TabStop = false;
+            this.buttonConnect.Tag = "";
+            this.buttonConnect.UseVisualStyleBackColor = false;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            // 
+            // buttonMotorTest
+            // 
+            this.buttonMotorTest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonMotorTest.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonMotorTest, "buttonMotorTest");
+            this.buttonMotorTest.ForeColor = System.Drawing.Color.White;
+            this.buttonMotorTest.Name = "buttonMotorTest";
+            this.buttonMotorTest.TabStop = false;
+            this.buttonMotorTest.Tag = "";
+            this.buttonMotorTest.UseVisualStyleBackColor = false;
+            this.buttonMotorTest.Click += new System.EventHandler(this.buttonMotorTest_Click);
+            // 
+            // buttonLoadPlan
+            // 
+            this.buttonLoadPlan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonLoadPlan.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonLoadPlan, "buttonLoadPlan");
+            this.buttonLoadPlan.ForeColor = System.Drawing.Color.White;
+            this.buttonLoadPlan.Name = "buttonLoadPlan";
+            this.buttonLoadPlan.TabStop = false;
+            this.buttonLoadPlan.Tag = "";
+            this.buttonLoadPlan.UseVisualStyleBackColor = false;
+            this.buttonLoadPlan.Click += new System.EventHandler(this.buttonLoadPlan_Click);
+            // 
+            // buttonDispMap
+            // 
+            this.buttonDispMap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.buttonDispMap.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.buttonDispMap, "buttonDispMap");
+            this.buttonDispMap.ForeColor = System.Drawing.Color.White;
+            this.buttonDispMap.Name = "buttonDispMap";
+            this.buttonDispMap.TabStop = false;
+            this.buttonDispMap.Tag = "";
+            this.buttonDispMap.UseVisualStyleBackColor = false;
+            this.buttonDispMap.Click += new System.EventHandler(this.buttonDispMap_Click);
+            // 
             // PreCheck
             // 
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.buttonDispMap);
+            this.Controls.Add(this.buttonLoadPlan);
+            this.Controls.Add(this.buttonMotorTest);
+            this.Controls.Add(this.buttonConnect);
             this.Controls.Add(this.ParamRoll);
             this.Controls.Add(this.ParamBattVolt);
             this.Controls.Add(this.ParamBattCharge);
@@ -809,5 +865,9 @@
         private System.Windows.Forms.Label ParamBattVolt;
         private System.Windows.Forms.Label ParamRoll;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonConnect;
+        private System.Windows.Forms.Button buttonMotorTest;
+        private System.Windows.Forms.Button buttonLoadPlan;
+        private System.Windows.Forms.Button buttonDispMap;
     }
 }

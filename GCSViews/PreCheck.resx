@@ -151,7 +151,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody1.ZOrder" xml:space="preserve">
-    <value>49</value>
+    <value>53</value>
   </data>
   <data name="checkBox1.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -187,7 +187,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;checkBox1.ZOrder" xml:space="preserve">
-    <value>48</value>
+    <value>52</value>
   </data>
   <data name="cbBody2.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -223,7 +223,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody2.ZOrder" xml:space="preserve">
-    <value>47</value>
+    <value>51</value>
   </data>
   <data name="cbBody3.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -259,7 +259,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody3.ZOrder" xml:space="preserve">
-    <value>46</value>
+    <value>50</value>
   </data>
   <data name="cbBody4.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -295,7 +295,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody4.ZOrder" xml:space="preserve">
-    <value>45</value>
+    <value>49</value>
   </data>
   <data name="cbBody5.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -331,7 +331,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody5.ZOrder" xml:space="preserve">
-    <value>44</value>
+    <value>48</value>
   </data>
   <data name="cbBody6.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -367,7 +367,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody6.ZOrder" xml:space="preserve">
-    <value>43</value>
+    <value>47</value>
   </data>
   <data name="cbBody7.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -403,7 +403,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody7.ZOrder" xml:space="preserve">
-    <value>42</value>
+    <value>46</value>
   </data>
   <data name="cbBody8.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -439,7 +439,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody8.ZOrder" xml:space="preserve">
-    <value>41</value>
+    <value>45</value>
   </data>
   <data name="cbBody9.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -475,7 +475,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody9.ZOrder" xml:space="preserve">
-    <value>40</value>
+    <value>44</value>
   </data>
   <data name="cbBody10.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -511,7 +511,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbBody10.ZOrder" xml:space="preserve">
-    <value>39</value>
+    <value>43</value>
   </data>
   <data name="cbConnect.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -544,7 +544,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbConnect.ZOrder" xml:space="preserve">
-    <value>38</value>
+    <value>42</value>
   </data>
   <data name="cbMotorTest.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -577,7 +577,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbMotorTest.ZOrder" xml:space="preserve">
-    <value>37</value>
+    <value>41</value>
   </data>
   <data name="cbPlan.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -613,7 +613,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbPlan.ZOrder" xml:space="preserve">
-    <value>36</value>
+    <value>40</value>
   </data>
   <data name="cbMap.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -649,7 +649,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbMap.ZOrder" xml:space="preserve">
-    <value>35</value>
+    <value>39</value>
   </data>
   <data name="cbCamFront.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -685,7 +685,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbCamFront.ZOrder" xml:space="preserve">
-    <value>34</value>
+    <value>38</value>
   </data>
   <data name="cbCamUnder.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -721,7 +721,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbCamUnder.ZOrder" xml:space="preserve">
-    <value>33</value>
+    <value>37</value>
   </data>
   <data name="cbPropo1.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -757,7 +757,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbPropo1.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>36</value>
   </data>
   <data name="cbPropo2.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -793,7 +793,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbPropo2.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>35</value>
   </data>
   <data name="cbParamRTLALT.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -829,7 +829,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamRTLALT.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>34</value>
   </data>
   <data name="cbParamBattVolt.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -865,7 +865,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamBattVolt.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>33</value>
   </data>
   <data name="cbParamSatCount2.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -901,7 +901,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamSatCount2.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>32</value>
   </data>
   <data name="cbParamSatCount1.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -937,7 +937,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamSatCount1.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>31</value>
   </data>
   <data name="cbParamBattCell.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -973,7 +973,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamBattCell.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>30</value>
   </data>
   <data name="cbParamBattTemp.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1009,7 +1009,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamBattTemp.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>29</value>
   </data>
   <data name="cbParamBattCharge.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1045,7 +1045,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamBattCharge.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>28</value>
   </data>
   <data name="cbParamRoll.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1081,7 +1081,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamRoll.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>27</value>
   </data>
   <data name="cbParamPitch.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1117,7 +1117,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamPitch.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>26</value>
   </data>
   <data name="cbParamGpsStatus.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1153,7 +1153,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cbParamGpsStatus.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>25</value>
   </data>
   <data name="buttonOK.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1186,7 +1186,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>24</value>
   </data>
   <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1219,7 +1219,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>23</value>
   </data>
   <data name="ParamRTLALT.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1252,7 +1252,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamRTLALT.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>22</value>
   </data>
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1285,7 +1285,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>21</value>
   </data>
   <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1318,7 +1318,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>20</value>
   </data>
   <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1351,7 +1351,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>19</value>
   </data>
   <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1384,7 +1384,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>18</value>
   </data>
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1417,7 +1417,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>17</value>
   </data>
   <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1450,7 +1450,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>16</value>
   </data>
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1483,7 +1483,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>15</value>
   </data>
   <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1516,7 +1516,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>14</value>
   </data>
   <data name="label10.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1549,7 +1549,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>13</value>
   </data>
   <data name="ParamPitch.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1582,7 +1582,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamPitch.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>12</value>
   </data>
   <data name="ParamGpsStatus.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1615,7 +1615,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamGpsStatus.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="ParamSatCount2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1648,7 +1648,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamSatCount2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>10</value>
   </data>
   <data name="ParamSatCount1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1681,7 +1681,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamSatCount1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
   <data name="ParamBattCell.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1714,7 +1714,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamBattCell.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
   </data>
   <data name="ParamBattTemp.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1747,7 +1747,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamBattTemp.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="ParamBattCharge.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1780,7 +1780,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamBattCharge.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <data name="ParamBattVolt.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1813,7 +1813,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamBattVolt.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="ParamRoll.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 18pt, style=Bold</value>
@@ -1846,13 +1846,148 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParamRoll.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>4</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="buttonConnect.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="buttonConnect.Font" type="System.Drawing.Font, System.Drawing">
+    <value>游ゴシック, 18pt, style=Bold</value>
+  </data>
+  <data name="buttonConnect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonConnect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 836</value>
+  </data>
+  <data name="buttonConnect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 49</value>
+  </data>
+  <data name="buttonConnect.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="buttonConnect.Text" xml:space="preserve">
+    <value>機体接続</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.Name" xml:space="preserve">
+    <value>buttonConnect</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonConnect.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonMotorTest.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="buttonMotorTest.Font" type="System.Drawing.Font, System.Drawing">
+    <value>游ゴシック, 18pt, style=Bold</value>
+  </data>
+  <data name="buttonMotorTest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonMotorTest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 899</value>
+  </data>
+  <data name="buttonMotorTest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 49</value>
+  </data>
+  <data name="buttonMotorTest.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="buttonMotorTest.Text" xml:space="preserve">
+    <value>モータテスト</value>
+  </data>
+  <data name="&gt;&gt;buttonMotorTest.Name" xml:space="preserve">
+    <value>buttonMotorTest</value>
+  </data>
+  <data name="&gt;&gt;buttonMotorTest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonMotorTest.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonMotorTest.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="buttonLoadPlan.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="buttonLoadPlan.Font" type="System.Drawing.Font, System.Drawing">
+    <value>游ゴシック, 18pt, style=Bold</value>
+  </data>
+  <data name="buttonLoadPlan.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonLoadPlan.Location" type="System.Drawing.Point, System.Drawing">
+    <value>730, 158</value>
+  </data>
+  <data name="buttonLoadPlan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 49</value>
+  </data>
+  <data name="buttonLoadPlan.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="buttonLoadPlan.Text" xml:space="preserve">
+    <value>読み込み</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadPlan.Name" xml:space="preserve">
+    <value>buttonLoadPlan</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadPlan.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadPlan.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonLoadPlan.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonDispMap.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="buttonDispMap.Font" type="System.Drawing.Font, System.Drawing">
+    <value>游ゴシック, 18pt, style=Bold</value>
+  </data>
+  <data name="buttonDispMap.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonDispMap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>730, 223</value>
+  </data>
+  <data name="buttonDispMap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 49</value>
+  </data>
+  <data name="buttonDispMap.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="buttonDispMap.Text" xml:space="preserve">
+    <value>地図表示</value>
+  </data>
+  <data name="&gt;&gt;buttonDispMap.Name" xml:space="preserve">
+    <value>buttonDispMap</value>
+  </data>
+  <data name="&gt;&gt;buttonDispMap.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDispMap.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonDispMap.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>53</value>
   </metadata>
   <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
