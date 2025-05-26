@@ -23,15 +23,16 @@ namespace MissionPlanner.GCSViews
             try
             {
                 timer1.Enabled = true;
+                ParamRTLALT.Text = "";
                 ParamBattVolt.Text = "";
                 ParamBattCharge.Text = "";
                 ParamBattTemp.Text = "";
+                ParamBattCell.Text = "";
                 ParamSatCount1.Text = "";
                 ParamSatCount2.Text = "";
                 ParamGpsStatus.Text = "";
                 ParamPitch.Text = "";
                 ParamRoll.Text = "";
-                ParamRTLALT.Text = "";
             }
             catch
             {
@@ -118,6 +119,14 @@ namespace MissionPlanner.GCSViews
                 ParamPitch.Text = cs.pitch.ToString("0.00");
                 ParamRoll.Text = cs.roll.ToString("0.00");
 
+                double[] cells = { cs.battery_cell1, cs.battery_cell2, cs.battery_cell3, cs.battery_cell4,
+                    cs.battery_cell5, cs.battery_cell6, cs.battery_cell7, cs.battery_cell8,
+                    cs.battery_cell9, cs.battery_cell10, cs.battery_cell11, cs.battery_cell12
+                };
+                var max = this.Max(cells);
+                double celldiff = this.Max(cells) - this.Min(cells);
+                ParamBattCell.Text = celldiff.ToString("0.00");
+
                 if (MainV2.comPort.MAV.param["RTL_ALT"] != null)
                 {
                     int value;
@@ -133,6 +142,7 @@ namespace MissionPlanner.GCSViews
                 ParamBattVolt.Text = "";
                 ParamBattCharge.Text = "";
                 ParamBattTemp.Text = "";
+                ParamBattCell.Text = "";
                 ParamSatCount1.Text = "";
                 ParamSatCount2.Text = "";
                 ParamGpsStatus.Text = "";
@@ -140,6 +150,31 @@ namespace MissionPlanner.GCSViews
                 ParamRoll.Text = "";
                 ParamRTLALT.Text = "";
             }
+        }
+
+        // https://note.nkmk.me/c-sharp-max-min-params-generics/
+        private T Max<T>(params T[] nums) where T : IComparable
+        {
+            if (nums.Length == 0) return default(T);
+
+            T max = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                max = max.CompareTo(nums[i]) > 0 ? max : nums[i];
+            }
+            return max;
+        }
+
+        private T Min<T>(params T[] nums) where T : IComparable
+        {
+            if (nums.Length == 0) return default(T);
+
+            T max = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                max = max.CompareTo(nums[i]) < 0 ? max : nums[i];
+            }
+            return max;
         }
     }
 }

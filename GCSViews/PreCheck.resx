@@ -1204,7 +1204,7 @@
     <value>30</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>XXX</value>
+    <value>8000</value>
   </data>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1369,7 +1369,7 @@
     <value>35</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>XXX</value>
+    <value>≦0.05</value>
   </data>
   <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1468,7 +1468,7 @@
     <value>38</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>XXX</value>
+    <value>±10°</value>
   </data>
   <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1501,7 +1501,7 @@
     <value>39</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>XXX</value>
+    <value>±10°</value>
   </data>
   <data name="label9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -1699,7 +1699,7 @@
     <value>45</value>
   </data>
   <data name="ParamBattCell.Text" xml:space="preserve">
-    <value>XXX</value>
+    <value>0.05</value>
   </data>
   <data name="ParamBattCell.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
