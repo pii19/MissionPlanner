@@ -47,8 +47,8 @@
             this.cbMap = new System.Windows.Forms.CheckBox();
             this.cbCamFront = new System.Windows.Forms.CheckBox();
             this.cbCamUnder = new System.Windows.Forms.CheckBox();
-            this.cbPropo1 = new System.Windows.Forms.CheckBox();
-            this.cbPropo2 = new System.Windows.Forms.CheckBox();
+            this.cbPropo = new System.Windows.Forms.CheckBox();
+            this.cbMode = new System.Windows.Forms.CheckBox();
             this.cbParamRTLALT = new System.Windows.Forms.CheckBox();
             this.cbParamBattVolt = new System.Windows.Forms.CheckBox();
             this.cbParamSatCount2 = new System.Windows.Forms.CheckBox();
@@ -88,6 +88,7 @@
             this.ParamMode = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.tbRTLALT = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cbBody1
@@ -346,35 +347,35 @@
             this.cbCamUnder.UseVisualStyleBackColor = false;
             this.cbCamUnder.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbPropo1
+            // cbPropo
             // 
-            resources.ApplyResources(this.cbPropo1, "cbPropo1");
-            this.cbPropo1.BackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbPropo1.FlatAppearance.BorderSize = 0;
-            this.cbPropo1.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo1.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo1.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbPropo1.Name = "cbPropo1";
-            this.cbPropo1.Tag = "custom";
-            this.cbPropo1.UseVisualStyleBackColor = false;
-            this.cbPropo1.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbPropo, "cbPropo");
+            this.cbPropo.BackColor = System.Drawing.SystemColors.Control;
+            this.cbPropo.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbPropo.FlatAppearance.BorderSize = 0;
+            this.cbPropo.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbPropo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbPropo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbPropo.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbPropo.Name = "cbPropo";
+            this.cbPropo.Tag = "custom";
+            this.cbPropo.UseVisualStyleBackColor = false;
+            this.cbPropo.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbPropo2
+            // cbMode
             // 
-            resources.ApplyResources(this.cbPropo2, "cbPropo2");
-            this.cbPropo2.BackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbPropo2.FlatAppearance.BorderSize = 0;
-            this.cbPropo2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo2.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbPropo2.Name = "cbPropo2";
-            this.cbPropo2.Tag = "custom";
-            this.cbPropo2.UseVisualStyleBackColor = false;
-            this.cbPropo2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbMode, "cbMode");
+            this.cbMode.BackColor = System.Drawing.SystemColors.Control;
+            this.cbMode.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbMode.FlatAppearance.BorderSize = 0;
+            this.cbMode.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbMode.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbMode.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbMode.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbMode.Name = "cbMode";
+            this.cbMode.Tag = "custom";
+            this.cbMode.UseVisualStyleBackColor = false;
+            this.cbMode.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
             // cbParamRTLALT
             // 
@@ -775,10 +776,20 @@
             this.label13.Name = "label13";
             this.label13.Tag = "custom";
             // 
+            // tbRTLALT
+            // 
+            this.tbRTLALT.BackColor = System.Drawing.SystemColors.Control;
+            this.tbRTLALT.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.tbRTLALT, "tbRTLALT");
+            this.tbRTLALT.Name = "tbRTLALT";
+            this.tbRTLALT.Tag = "custom";
+            this.tbRTLALT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbRTLALT_KeyDown);
+            // 
             // PreCheck
             // 
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.tbRTLALT);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.ParamMode);
@@ -817,8 +828,8 @@
             this.Controls.Add(this.cbParamSatCount2);
             this.Controls.Add(this.cbParamBattVolt);
             this.Controls.Add(this.cbParamRTLALT);
-            this.Controls.Add(this.cbPropo2);
-            this.Controls.Add(this.cbPropo1);
+            this.Controls.Add(this.cbMode);
+            this.Controls.Add(this.cbPropo);
             this.Controls.Add(this.cbCamUnder);
             this.Controls.Add(this.cbCamFront);
             this.Controls.Add(this.cbMap);
@@ -839,6 +850,7 @@
             this.Name = "PreCheck";
             this.Load += new System.EventHandler(this.PreCheck_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -861,8 +873,8 @@
         private System.Windows.Forms.CheckBox cbMap;
         private System.Windows.Forms.CheckBox cbCamFront;
         private System.Windows.Forms.CheckBox cbCamUnder;
-        private System.Windows.Forms.CheckBox cbPropo1;
-        private System.Windows.Forms.CheckBox cbPropo2;
+        private System.Windows.Forms.CheckBox cbPropo;
+        private System.Windows.Forms.CheckBox cbMode;
         private System.Windows.Forms.CheckBox cbParamRTLALT;
         private System.Windows.Forms.CheckBox cbParamBattVolt;
         private System.Windows.Forms.CheckBox cbParamSatCount2;
@@ -902,5 +914,6 @@
         private System.Windows.Forms.Label ParamMode;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbRTLALT;
     }
 }
