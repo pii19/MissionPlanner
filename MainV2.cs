@@ -1935,7 +1935,7 @@ namespace MissionPlanner
             SaveConfig();
         }
 
-        private void Connect()
+        public void Connect()  // @eams change public
         {
             comPort.giveComport = false;
 
@@ -3269,6 +3269,7 @@ protected override void OnLoad(EventArgs e)
             MyView.AddScreen(new MainSwitcher.Screen("SWConfig", typeof(GCSViews.SoftwareConfig), false));
             MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
             MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
+            MyView.AddScreen(new MainSwitcher.Screen("PreCheck", typeof(GCSViews.PreCheck), false));
 
             try
             {
@@ -4946,6 +4947,16 @@ protected override void OnLoad(EventArgs e)
                     break;
                 }
             }
+        }
+
+        public void PreCheckOpen()
+        {
+            MyView.ShowScreen("PreCheck");
+        }
+
+        public void FlightDataOpen()
+        {
+            MyView.ShowScreen("FlightData");
         }
     }
 }
