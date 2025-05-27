@@ -24,6 +24,7 @@ namespace MissionPlanner.GCSViews
             {
                 timer1.Enabled = true;
                 ParamRTLALT.Text = "";
+                ParamMode.Text = "";
                 ParamBattVolt.Text = "";
                 ParamBattCharge.Text = "";
                 ParamBattTemp.Text = "";
@@ -118,6 +119,8 @@ namespace MissionPlanner.GCSViews
                 ParamGpsStatus.Text = cs.gpsstatus.ToString("0");
                 ParamPitch.Text = cs.pitch.ToString("0.00");
                 ParamRoll.Text = cs.roll.ToString("0.00");
+
+                ParamMode.Text = cs.mode;
 
                 double[] cells = { cs.battery_cell1, cs.battery_cell2, cs.battery_cell3, cs.battery_cell4,
                     cs.battery_cell5, cs.battery_cell6, cs.battery_cell7, cs.battery_cell8,

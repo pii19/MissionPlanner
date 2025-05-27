@@ -85,6 +85,9 @@
             this.buttonMotorTest = new System.Windows.Forms.Button();
             this.buttonLoadPlan = new System.Windows.Forms.Button();
             this.buttonDispMap = new System.Windows.Forms.Button();
+            this.ParamMode = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbBody1
@@ -748,10 +751,37 @@
             this.buttonDispMap.UseVisualStyleBackColor = false;
             this.buttonDispMap.Click += new System.EventHandler(this.buttonDispMap_Click);
             // 
+            // ParamMode
+            // 
+            this.ParamMode.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamMode, "ParamMode");
+            this.ParamMode.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamMode.Name = "ParamMode";
+            this.ParamMode.Tag = "custom";
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label12.Name = "label12";
+            this.label12.Tag = "custom";
+            // 
+            // label13
+            // 
+            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label13.Name = "label13";
+            this.label13.Tag = "custom";
+            // 
             // PreCheck
             // 
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.ParamMode);
             this.Controls.Add(this.buttonDispMap);
             this.Controls.Add(this.buttonLoadPlan);
             this.Controls.Add(this.buttonMotorTest);
@@ -869,5 +899,8 @@
         private System.Windows.Forms.Button buttonMotorTest;
         private System.Windows.Forms.Button buttonLoadPlan;
         private System.Windows.Forms.Button buttonDispMap;
+        private System.Windows.Forms.Label ParamMode;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
     }
 }
