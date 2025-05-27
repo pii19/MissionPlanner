@@ -20,7 +20,7 @@ namespace MissionPlanner.Comms
         private bool closed;
         private DateTime lastReconnectTime = DateTime.MinValue;
 
-        private bool reconnectnoprompt;
+        private bool reconnectnoprompt = true;
         private IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
         public int retrys = 3;
