@@ -1688,41 +1688,53 @@ namespace GMap.NET.WindowsForms
                 if (MapRenderTransform.HasValue)
                     transform = MapRenderTransform.Value;
 
-                if (Width > Core.pxRes5000km)
+                // スケール描画位置の基準 (右下から積み上げる)
+                int margin = 10;         // 端とのマージン
+                int scaleHeight = 12;    // スケールの高さ(描く長方形の縦サイズ)
+                int xBase = Width;  // 右端
+                int yPos = Height - margin;  // 下端
+
+                // スケールを描画するためのローカル関数
+                void DrawScale(double pxRes, string label)
                 {
-                    g.DrawRectangle(ScalePen, 10, 10, (int) (Core.pxRes5000km * transform), 10);
-                    g.DrawString("5000Km", ScaleFont, brush, (int) (Core.pxRes5000km * transform) + 10, 11);
+                    int scaleWidth = (int)(pxRes * transform);
+                    if (scaleWidth <= 0) return;
+
+                    // 下辺(横線)の太さ
+                    int lineWidth = scaleHeight;  // 縦線の長さを scaleHeight で描く
+                                                  // 左下基準の座標を計算 (右下から scaleWidth + 少しの余白ぶん手前)
+                    int leftX = xBase - scaleWidth - 10;
+                    int leftY = yPos;     // 下端
+
+                    // ========== U字形の線を引く ==========
+                    // 左の縦線 (上辺は描かず、下から上へ)
+                    g.DrawLine(ScalePen, leftX, leftY, leftX, leftY - lineWidth);
+                    // 下の横線
+                    g.DrawLine(ScalePen, leftX, leftY - 1, leftX + scaleWidth, leftY - 1);
+                    // 右の縦線
+                    g.DrawLine(ScalePen, leftX + scaleWidth, leftY, leftX + scaleWidth, leftY - lineWidth);
+
+                    // ========== 文字(ラベル)を左側に描く ==========
+                    // 文字サイズを測って、ちょうど左Xの少し左側に書く
+                    SizeF txtSize = g.MeasureString(label, ScaleFont);
+                    float textX = leftX - txtSize.Width - 5; // 横線の左端よりさらに左へ5px分の余白
+                    float textY = leftY - txtSize.Height + 3;    // 下端に揃える
+                    g.DrawString(label, ScaleFont, brush, textX, textY);
                 }
 
-                if (Width > Core.pxRes1000km)
-                {
-                    g.DrawRectangle(ScalePen, 10, 10, (int) (Core.pxRes1000km * transform), 10);
-                    g.DrawString("1000Km", ScaleFont, brush, (int) (Core.pxRes1000km * transform) + 10, 11);
-                }
-
-                if (Width > Core.pxRes100km && Zoom > 2)
-                {
-                    g.DrawRectangle(ScalePen, 10, 10, (int) (Core.pxRes100km * transform), 10);
-                    g.DrawString("100Km", ScaleFont, brush, (int) (Core.pxRes100km * transform) + 10, 11);
-                }
-
-                if (Width > Core.pxRes10km && Zoom > 5)
-                {
-                    g.DrawRectangle(ScalePen, 10, 10, (int) (Core.pxRes10km * transform), 10);
-                    g.DrawString("10Km", ScaleFont, brush, (int) (Core.pxRes10km * transform) + 10, 11);
-                }
-
-                if (Width > Core.pxRes1000m && Zoom >= 10)
-                {
-                    g.DrawRectangle(ScalePen, 10, 10, (int) (Core.pxRes1000m * transform), 10);
-                    g.DrawString("1000m", ScaleFont, brush, (int) (Core.pxRes1000m * transform) + 10, 11);
-                }
-
-                if (Width > Core.pxRes100m && Zoom > 11)
-                {
-                    g.DrawRectangle(ScalePen, 10, 10, (int) (Core.pxRes100m * transform), 10);
-                    g.DrawString("100m", ScaleFont, brush, (int) (Core.pxRes100m * transform) + 9, 11);
-                }
+                // 大きい順で判定しながら描画
+                if (Width > Core.pxRes2m && Zoom > 22) DrawScale(Core.pxRes2m, "2m");
+                else if (Width > Core.pxRes5m && Zoom > 20) DrawScale(Core.pxRes5m, "5m");
+                else if (Width > Core.pxRes20m && Zoom > 18) DrawScale(Core.pxRes20m, "20m");
+                else if (Width > Core.pxRes100m && Zoom > 16) DrawScale(Core.pxRes100m, "100m");
+                else if (Width > Core.pxRes200m && Zoom > 14) DrawScale(Core.pxRes200m, "200m");
+                else if (Width > Core.pxRes1000m && Zoom > 12) DrawScale(Core.pxRes1000m, "1km");
+                else if (Width > Core.pxRes2000m && Zoom > 10) DrawScale(Core.pxRes2000m, "2km");
+                else if (Width > Core.pxRes10km && Zoom > 9) DrawScale(Core.pxRes10km, "10Km");
+                else if (Width > Core.pxRes20km && Zoom > 7) DrawScale(Core.pxRes20km, "20Km");
+                else if (Width > Core.pxRes100km && Zoom > 4) DrawScale(Core.pxRes100km, "100Km");
+                else if (Width > Core.pxRes1000km && Zoom > 1) DrawScale(Core.pxRes1000km, "1000Km");
+                else if (Width > Core.pxRes5000km) DrawScale(Core.pxRes5000km, "5000Km");
             }
 #endif
 

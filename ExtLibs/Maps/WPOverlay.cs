@@ -41,14 +41,6 @@ namespace MissionPlanner.ArduPilot
             Func<MAVLink.MAV_FRAME, double, double, double> gethomealt = (altmode, lat, lng) =>
                 GetHomeAlt(altmode, home.Alt, lat, lng);
 
-            if (home != PointLatLngAlt.Zero)
-            {
-                home.Tag = "H";
-                pointlist.Add(home);
-                route.Add(pointlist[pointlist.Count - 1]);
-                addpolygonmarker("H", home.Lng, home.Lat, home.Alt * altunitmultiplier, null, 0);
-            }
-
             for (int a = 0; a < missionitems.Count; a++)
             {
                 var item = missionitems[a];
@@ -77,7 +69,16 @@ namespace MissionPlanner.ArduPilot
                         continue;
                     }
 
-                    if (command == (ushort) MAVLink.MAV_CMD.DO_LAND_START && item.lat != 0 && item.lng != 0)
+                    if (item.Tag != null && (item.Tag.ToString() == "H" || item.Tag.ToString() == "G"))
+                    {
+                        pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
+                            item.alt + gethomealt((MAVLink.MAV_FRAME)item.frame, item.lat, item.lng),
+                            item.Tag.ToString()));
+                        route.Add(pointlist[pointlist.Count - 1]);
+                        addpolygonmarker(item.Tag.ToString(), item.lng, item.lat,
+                            item.alt * altunitmultiplier, null, wpradius);
+                    }
+                    else if (command == (ushort) MAVLink.MAV_CMD.DO_LAND_START && item.lat != 0 && item.lng != 0)
                     {     
                         pointlist.Add(new PointLatLngAlt(item.lat, item.lng,
                             item.alt + gethomealt((MAVLink.MAV_FRAME) item.frame, item.lat, item.lng),
@@ -323,7 +324,7 @@ namespace MissionPlanner.ArduPilot
                 {
                     pointlist.Add(new PointLatLngAlt(item.lat, item.lng, 0, (a + 1).ToString()));
                     addpolygonmarker((a + 1).ToString(), item.lng, item.lat,
-                        null, Color.Red, item.p1, MAVLink.MAV_MISSION_TYPE.FENCE, Color.FromArgb(30, 255, 0, 0));
+                        null, Color.Pink, item.p1, MAVLink.MAV_MISSION_TYPE.FENCE, Color.FromArgb(30, 255, 0, 0));
                 }
                 else if (command == (ushort)MAVLink.MAV_CMD.FENCE_CIRCLE_INCLUSION) // fence
                 {
@@ -351,7 +352,7 @@ namespace MissionPlanner.ArduPilot
                 //a++;
             }
 
-            RegenerateWPRoute(route, home);
+            RegenerateWPRoute(route, home, false);
 
         }
 
@@ -399,7 +400,7 @@ namespace MissionPlanner.ArduPilot
                 }
                 else if (type == MAVLink.MAV_MISSION_TYPE.FENCE)
                 {
-                    m = new GMarkerGoogle(point, GMarkerGoogleType.blue_dot);
+                    m = new GMarkerGoogle(point, GMarkerGoogleType.pink_dot);
                     m.Tag = tag;
                 }
                 else if (type == MAVLink.MAV_MISSION_TYPE.RALLY)
