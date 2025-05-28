@@ -1338,8 +1338,8 @@ mc:Ignorable=""d""
                     if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
                     {
                         ctl.BackColor = BGColor;
+                        ctl.ForeColor = TextColor;
                     }
-                    ctl.ForeColor = TextColor;
                     CheckBox CHK = (CheckBox)ctl;
                     // CHK.FlatStyle = FlatStyle.Flat;
                 }
