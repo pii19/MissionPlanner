@@ -89,6 +89,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.tbRTLALT = new System.Windows.Forms.TextBox();
+            this.ParamPropo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbBody1
@@ -785,10 +786,19 @@
             this.tbRTLALT.Tag = "custom";
             this.tbRTLALT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbRTLALT_KeyDown);
             // 
+            // ParamPropo
+            // 
+            this.ParamPropo.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ParamPropo, "ParamPropo");
+            this.ParamPropo.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ParamPropo.Name = "ParamPropo";
+            this.ParamPropo.Tag = "custom";
+            // 
             // PreCheck
             // 
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
             resources.ApplyResources(this, "$this");
+            this.Controls.Add(this.ParamPropo);
             this.Controls.Add(this.tbRTLALT);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -915,5 +925,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbRTLALT;
+        private System.Windows.Forms.Label ParamPropo;
     }
 }

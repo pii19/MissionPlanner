@@ -31,6 +31,7 @@ namespace MissionPlanner.GCSViews
                 timer1.Enabled = true;
                 ParamRTLALT.Text = "";
                 tbRTLALT.Text = "";
+                ParamPropo.Text = "";
                 ParamMode.Text = "";
                 ParamBattVolt.Text = "";
                 ParamBattCharge.Text = "";
@@ -127,6 +128,20 @@ namespace MissionPlanner.GCSViews
                 ParamPitch.Text = cs.pitch.ToString("0.00");
                 ParamRoll.Text = cs.roll.ToString("0.00");
 
+                var propo = cs.ch12in;
+                if (cs.ch12in == 1400)
+                {
+                    ParamPropo.Text = "CONT1";
+                }
+                else if (cs.ch12in == 1555)
+                {
+                    ParamPropo.Text = "CONT2";
+                }
+                else
+                {
+                    ParamPropo.Text = "";
+                }
+
                 ParamMode.Text = cs.mode;
 
                 double[] cells = { cs.battery_cell1, cs.battery_cell2, cs.battery_cell3, cs.battery_cell4,
@@ -165,6 +180,7 @@ namespace MissionPlanner.GCSViews
             {
                 ParamRTLALT.Text = "";
                 tbRTLALT.Text = "";
+                ParamPropo.Text = "";
                 ParamMode.Text = "";
 
                 ParamBattVolt.Text = "";
