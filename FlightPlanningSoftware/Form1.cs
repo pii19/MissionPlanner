@@ -70,7 +70,7 @@ namespace FlightPlanningSoftware
             {
                 log.Info("eams_config error: maplast");
             }
-
+#if !FMS
             // fps_config.xml から fullscreen の設定を取得（キーがなければ true をデフォルトとする）
             string fsValue = Settings.Instance["fullscreen"];
             bool fullscreen = true; // デフォルトは true (フルスクリーン)
@@ -84,6 +84,7 @@ namespace FlightPlanningSoftware
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Maximized;
             }
+#endif
         }
 
         private void InitializeManagers()
@@ -104,7 +105,12 @@ namespace FlightPlanningSoftware
             // DRAG_THRESHOLD を Settings から取得（存在しなければ 5 を使用）
             dragThreshold = Settings.Instance.GetInt32("drag_threshold", 5);
         }
+#if FMS
+        public void AdjustLayout()
+        {
 
+        }
+#endif
         private void FlightPlanningSoftware_FormClosed(object sender, FormClosedEventArgs e)
         {
             Settings.Instance["maplast_lat"] = MainMap.Position.Lat.ToString();
@@ -116,18 +122,22 @@ namespace FlightPlanningSoftware
             Settings.Instance["drag_threshold"] = Settings.Instance.GetInt32("drag_threshold", 5).ToString();
             Settings.Instance["fence_offset"] = Settings.Instance.GetDouble("fence_offset", 10.0).ToString();
             Settings.Instance["map_provider"] = MainMap.MapProvider.ToString();
+#if !FMS
             Settings.Instance["fullscreen"] = (this.WindowState == FormWindowState.Maximized &&
                                        this.FormBorderStyle == FormBorderStyle.None) ? "true" : "false";
+#endif
             Settings.Instance.Save();
         }
 
         private void FlightPlanningSoftware_KeyDown(object sender, KeyEventArgs e)
         {
+#if !FMS
             // Esc キーが押されたらアプリを終了（フォームを閉じる）
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
+#endif
         }
 
         /// <summary>

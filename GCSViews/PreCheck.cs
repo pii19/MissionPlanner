@@ -6,12 +6,15 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using FlightPlanningSoftware;
+using System.Web.UI.WebControls;
 
 namespace MissionPlanner.GCSViews
 {
     public partial class PreCheck : MyUserControl, IActivate, IDeactivate
     {
         private bool CheckAll = false;
+        private FlightPlanningSoftware.Form1 mapBoxFrm;
 
         public int th_rtl_alt { get; set; } = 80;
 
@@ -73,6 +76,24 @@ namespace MissionPlanner.GCSViews
         {
             buttonOK.BackColor = Color.Black;
             buttonOK.ForeColor = Color.FromArgb(64, 64, 64);
+
+            using (mapBoxFrm = new FlightPlanningSoftware.Form1
+            {
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.CenterParent,
+                Text = "",
+                MaximizeBox = false,
+                MinimizeBox = false,
+                Width = 1280,
+                Height = 720,
+                TopMost = true,
+                AutoScaleMode = AutoScaleMode.None,
+            })
+            {
+
+            }
+
         }
 
         private void cb_CheckedChanged(object sender, EventArgs e)
@@ -238,12 +259,17 @@ namespace MissionPlanner.GCSViews
 
         private void buttonLoadPlan_Click(object sender, EventArgs e)
         {
-            ;
+            if (mapBoxFrm != null)
+            {
+            }
         }
 
         private void buttonDispMap_Click(object sender, EventArgs e)
         {
-            ;
+            if (mapBoxFrm != null)
+            {
+                DialogResult test = mapBoxFrm.ShowDialog();
+            }
         }
 
         private void tbRTLALT_KeyDown(object sender, KeyEventArgs e)
