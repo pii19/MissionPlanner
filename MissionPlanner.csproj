@@ -160,6 +160,7 @@
     <ProjectReference Include="ExtLibs\Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj" />
     <ProjectReference Include="ExtLibs\ZedGraph\ZedGraph.csproj" />
     <ProjectReference Include="ExtLibs\Zeroconf\Zeroconf\Zeroconf.csproj" />
+    <ProjectReference Include="FlightPlanningSoftware\FlightPlanningSoftware.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Accord.Imaging">
