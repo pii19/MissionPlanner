@@ -13,6 +13,12 @@ namespace MissionPlanner.GCSViews
     {
         private bool CheckAll = false;
 
+        public int th_rtl_alt { get; set; } = 80;
+
+        Color normal = Color.FromArgb(0, 176, 107);
+        Color caution = Color.FromArgb(246, 170, 0);
+        Color error = Color.FromArgb(255, 75, 0);
+
         public PreCheck()
         {
             InitializeComponent();
@@ -24,6 +30,9 @@ namespace MissionPlanner.GCSViews
             {
                 timer1.Enabled = true;
                 ParamRTLALT.Text = "";
+                tbRTLALT.Text = "";
+                ParamPropo.Text = "";
+                ParamMode.Text = "";
                 ParamBattVolt.Text = "";
                 ParamBattCharge.Text = "";
                 ParamBattTemp.Text = "";
@@ -119,6 +128,22 @@ namespace MissionPlanner.GCSViews
                 ParamPitch.Text = cs.pitch.ToString("0.00");
                 ParamRoll.Text = cs.roll.ToString("0.00");
 
+                var propo = cs.ch12in;
+                if (cs.ch12in == 1400)
+                {
+                    ParamPropo.Text = "CONT1";
+                }
+                else if (cs.ch12in == 1555)
+                {
+                    ParamPropo.Text = "CONT2";
+                }
+                else
+                {
+                    ParamPropo.Text = "";
+                }
+
+                ParamMode.Text = cs.mode;
+
                 double[] cells = { cs.battery_cell1, cs.battery_cell2, cs.battery_cell3, cs.battery_cell4,
                     cs.battery_cell5, cs.battery_cell6, cs.battery_cell7, cs.battery_cell8,
                     cs.battery_cell9, cs.battery_cell10, cs.battery_cell11, cs.battery_cell12
@@ -133,12 +158,31 @@ namespace MissionPlanner.GCSViews
                     string str = MainV2.comPort.MAV.param["RTL_ALT"].ToString();
                     if (int.TryParse(str, out value))
                     {
+                        str = ((int)(value / 100)).ToString();
                         ParamRTLALT.Text = str;
+                        if (!tbRTLALT.Focused)
+                        {
+                            tbRTLALT.Text = str;
+                        }
+
+                        if ((int)(value / 100) < th_rtl_alt)
+                        {
+                            tbRTLALT.ForeColor = error;
+                        }
+                        else
+                        {
+                            tbRTLALT.ForeColor = Color.White;
+                        }
                     }
                 }
             }
             else
             {
+                ParamRTLALT.Text = "";
+                tbRTLALT.Text = "";
+                ParamPropo.Text = "";
+                ParamMode.Text = "";
+
                 ParamBattVolt.Text = "";
                 ParamBattCharge.Text = "";
                 ParamBattTemp.Text = "";
@@ -148,7 +192,6 @@ namespace MissionPlanner.GCSViews
                 ParamGpsStatus.Text = "";
                 ParamPitch.Text = "";
                 ParamRoll.Text = "";
-                ParamRTLALT.Text = "";
             }
 
             cbConnect.Checked = MainV2.comPort.BaseStream.IsOpen;
@@ -200,6 +243,20 @@ namespace MissionPlanner.GCSViews
         private void buttonDispMap_Click(object sender, EventArgs e)
         {
             ;
+        }
+
+        private void tbRTLALT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int value = 0;
+                if (int.TryParse(tbRTLALT.Text, out value))
+                {
+                    value *= 100;
+                    MainV2.comPort.setParam("RTL_ALT", (double)value);
+                }
+                this.ActiveControl = null;
+            }
         }
     }
 }
