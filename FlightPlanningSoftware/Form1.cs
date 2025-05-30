@@ -50,6 +50,7 @@ namespace FlightPlanningSoftware
 
         private void FlightPlanningSoftware_Load(object sender, EventArgs e)
         {
+#if !FMS
             // Designer により各コントロールが生成された後に初期化
             InitializeManagers();
 
@@ -70,7 +71,7 @@ namespace FlightPlanningSoftware
             {
                 log.Info("eams_config error: maplast");
             }
-#if !FMS
+
             // fps_config.xml から fullscreen の設定を取得（キーがなければ true をデフォルトとする）
             string fsValue = Settings.Instance["fullscreen"];
             bool fullscreen = true; // デフォルトは true (フルスクリーン)
@@ -108,7 +109,33 @@ namespace FlightPlanningSoftware
 #if FMS
         public void AdjustLayout()
         {
+            splitContainerMain.SplitterDistance = 0;
+            //splitContainerVert.SplitterDistance = this.Height;
+            buttonFileLoad.Visible = false;
+            buttonFileSave.Visible = false;
+            pictureLogoArdu.Visible = false;
+            pictureLogoEAMS.Visible = false;
 
+            // Designer により各コントロールが生成された後に初期化
+            InitializeManagers();
+
+            // Settings からマップ位置とズームを読み込む
+            try
+            {
+                if (Settings.Instance["maplast_lat"] != null &&
+                    Math.Round(Settings.Instance.GetDouble("maplast_lat"), 1) != 0)
+                {
+                    MainMap.Position = new PointLatLng(
+                        Settings.Instance.GetDouble("maplast_lat"),
+                        Settings.Instance.GetDouble("maplast_lng"));
+                    var zoom = Settings.Instance.GetFloat("maplast_zoom");
+                    MainMap.Zoom = zoom;
+                }
+            }
+            catch
+            {
+                log.Info("eams_config error: maplast");
+            }
         }
 #endif
         private void FlightPlanningSoftware_FormClosed(object sender, FormClosedEventArgs e)

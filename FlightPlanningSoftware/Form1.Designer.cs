@@ -261,6 +261,7 @@
             // 
             this.splitContainerVert.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerVert.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerVert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainerVert.Name = "splitContainerVert";
             this.splitContainerVert.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -271,25 +272,29 @@
             // splitContainerVert.Panel2
             // 
             this.splitContainerVert.Panel2.Controls.Add(this.panelWPs);
-            this.splitContainerVert.Size = new System.Drawing.Size(1300, 681);
-            this.splitContainerVert.SplitterDistance = 400;
+            this.splitContainerVert.Size = new System.Drawing.Size(1733, 851);
+            this.splitContainerVert.SplitterDistance = 499;
+            this.splitContainerVert.SplitterWidth = 5;
             this.splitContainerVert.TabIndex = 0;
             // 
             // splitContainerMain
             // 
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainerMain.Name = "splitContainerMain";
             // 
             // splitContainerMain.Panel1
             // 
             this.splitContainerMain.Panel1.Controls.Add(this.panelButtons);
+            this.splitContainerMain.Panel1MinSize = 0;
             // 
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.panelMap);
-            this.splitContainerMain.Size = new System.Drawing.Size(1300, 400);
-            this.splitContainerMain.SplitterDistance = 400;
+            this.splitContainerMain.Size = new System.Drawing.Size(1733, 499);
+            this.splitContainerMain.SplitterDistance = 533;
+            this.splitContainerMain.SplitterWidth = 5;
             this.splitContainerMain.TabIndex = 1;
             // 
             // panelButtons
@@ -307,8 +312,9 @@
             this.panelButtons.Controls.Add(this.buttonRoundTrip);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelButtons.Location = new System.Drawing.Point(0, 0);
+            this.panelButtons.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(400, 400);
+            this.panelButtons.Size = new System.Drawing.Size(533, 499);
             this.panelButtons.TabIndex = 1;
             // 
             // buttonTakeoff
@@ -316,10 +322,10 @@
             this.buttonTakeoff.AutoSize = true;
             this.buttonTakeoff.BackColor = System.Drawing.Color.Transparent;
             this.buttonTakeoff.Image = global::FlightPlanningSoftware.Properties.Resources.home;
-            this.buttonTakeoff.Location = new System.Drawing.Point(20, 20);
-            this.buttonTakeoff.Margin = new System.Windows.Forms.Padding(20);
+            this.buttonTakeoff.Location = new System.Drawing.Point(27, 25);
+            this.buttonTakeoff.Margin = new System.Windows.Forms.Padding(27, 25, 27, 25);
             this.buttonTakeoff.Name = "buttonTakeoff";
-            this.buttonTakeoff.Size = new System.Drawing.Size(100, 100);
+            this.buttonTakeoff.Size = new System.Drawing.Size(133, 125);
             this.buttonTakeoff.TabIndex = 0;
             this.buttonTakeoff.Text = "離陸地点";
             this.buttonTakeoff.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -333,9 +339,10 @@
             this.buttonWaypoint.BackColor = System.Drawing.Color.Transparent;
             this.buttonWaypoint.Enabled = false;
             this.buttonWaypoint.Image = global::FlightPlanningSoftware.Properties.Resources.waypoint;
-            this.buttonWaypoint.Location = new System.Drawing.Point(147, 20);
+            this.buttonWaypoint.Location = new System.Drawing.Point(196, 25);
+            this.buttonWaypoint.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonWaypoint.Name = "buttonWaypoint";
-            this.buttonWaypoint.Size = new System.Drawing.Size(100, 100);
+            this.buttonWaypoint.Size = new System.Drawing.Size(133, 125);
             this.buttonWaypoint.TabIndex = 1;
             this.buttonWaypoint.Text = "ウェイポイント";
             this.buttonWaypoint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -349,9 +356,10 @@
             this.buttonLanding.BackColor = System.Drawing.Color.Transparent;
             this.buttonLanding.Enabled = false;
             this.buttonLanding.Image = global::FlightPlanningSoftware.Properties.Resources.landing;
-            this.buttonLanding.Location = new System.Drawing.Point(275, 20);
+            this.buttonLanding.Location = new System.Drawing.Point(367, 25);
+            this.buttonLanding.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLanding.Name = "buttonLanding";
-            this.buttonLanding.Size = new System.Drawing.Size(100, 100);
+            this.buttonLanding.Size = new System.Drawing.Size(133, 125);
             this.buttonLanding.TabIndex = 2;
             this.buttonLanding.Text = "着陸地点";
             this.buttonLanding.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -364,9 +372,10 @@
             this.buttonFence.BackColor = System.Drawing.Color.Transparent;
             this.buttonFence.Enabled = false;
             this.buttonFence.Image = global::FlightPlanningSoftware.Properties.Resources.fence;
-            this.buttonFence.Location = new System.Drawing.Point(20, 150);
+            this.buttonFence.Location = new System.Drawing.Point(27, 187);
+            this.buttonFence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFence.Name = "buttonFence";
-            this.buttonFence.Size = new System.Drawing.Size(100, 100);
+            this.buttonFence.Size = new System.Drawing.Size(133, 125);
             this.buttonFence.TabIndex = 3;
             this.buttonFence.Text = "フェンス";
             this.buttonFence.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -379,9 +388,10 @@
             this.buttonFenceInc.BackColor = System.Drawing.Color.Transparent;
             this.buttonFenceInc.Enabled = false;
             this.buttonFenceInc.Image = global::FlightPlanningSoftware.Properties.Resources.fence_inc;
-            this.buttonFenceInc.Location = new System.Drawing.Point(147, 150);
+            this.buttonFenceInc.Location = new System.Drawing.Point(196, 187);
+            this.buttonFenceInc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFenceInc.Name = "buttonFenceInc";
-            this.buttonFenceInc.Size = new System.Drawing.Size(100, 100);
+            this.buttonFenceInc.Size = new System.Drawing.Size(133, 125);
             this.buttonFenceInc.TabIndex = 4;
             this.buttonFenceInc.Text = "逸脱防止";
             this.buttonFenceInc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -394,9 +404,10 @@
             this.buttonFenceExc.BackColor = System.Drawing.Color.Transparent;
             this.buttonFenceExc.Enabled = false;
             this.buttonFenceExc.Image = global::FlightPlanningSoftware.Properties.Resources.fence_exc;
-            this.buttonFenceExc.Location = new System.Drawing.Point(275, 150);
+            this.buttonFenceExc.Location = new System.Drawing.Point(367, 187);
+            this.buttonFenceExc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFenceExc.Name = "buttonFenceExc";
-            this.buttonFenceExc.Size = new System.Drawing.Size(100, 100);
+            this.buttonFenceExc.Size = new System.Drawing.Size(133, 125);
             this.buttonFenceExc.TabIndex = 5;
             this.buttonFenceExc.Text = "進入禁止";
             this.buttonFenceExc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -409,9 +420,10 @@
             this.buttonEmergency.BackColor = System.Drawing.Color.Transparent;
             this.buttonEmergency.Enabled = false;
             this.buttonEmergency.Image = global::FlightPlanningSoftware.Properties.Resources.rally;
-            this.buttonEmergency.Location = new System.Drawing.Point(20, 280);
+            this.buttonEmergency.Location = new System.Drawing.Point(27, 349);
+            this.buttonEmergency.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonEmergency.Name = "buttonEmergency";
-            this.buttonEmergency.Size = new System.Drawing.Size(100, 100);
+            this.buttonEmergency.Size = new System.Drawing.Size(133, 125);
             this.buttonEmergency.TabIndex = 6;
             this.buttonEmergency.Text = "緊急着陸地点";
             this.buttonEmergency.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -424,9 +436,10 @@
             this.buttonBulkDelete.BackColor = System.Drawing.Color.Transparent;
             this.buttonBulkDelete.Enabled = false;
             this.buttonBulkDelete.Image = global::FlightPlanningSoftware.Properties.Resources.all_delete;
-            this.buttonBulkDelete.Location = new System.Drawing.Point(147, 280);
+            this.buttonBulkDelete.Location = new System.Drawing.Point(196, 349);
+            this.buttonBulkDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonBulkDelete.Name = "buttonBulkDelete";
-            this.buttonBulkDelete.Size = new System.Drawing.Size(100, 100);
+            this.buttonBulkDelete.Size = new System.Drawing.Size(133, 125);
             this.buttonBulkDelete.TabIndex = 7;
             this.buttonBulkDelete.Text = "一括削除";
             this.buttonBulkDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -439,9 +452,10 @@
             this.buttonRoundTrip.BackColor = System.Drawing.Color.Transparent;
             this.buttonRoundTrip.Enabled = false;
             this.buttonRoundTrip.Image = global::FlightPlanningSoftware.Properties.Resources.round_trip;
-            this.buttonRoundTrip.Location = new System.Drawing.Point(275, 280);
+            this.buttonRoundTrip.Location = new System.Drawing.Point(367, 349);
+            this.buttonRoundTrip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonRoundTrip.Name = "buttonRoundTrip";
-            this.buttonRoundTrip.Size = new System.Drawing.Size(100, 100);
+            this.buttonRoundTrip.Size = new System.Drawing.Size(133, 125);
             this.buttonRoundTrip.TabIndex = 8;
             this.buttonRoundTrip.Text = "往復";
             this.buttonRoundTrip.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -455,8 +469,9 @@
             this.panelMap.Controls.Add(this.MainMap);
             this.panelMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMap.Location = new System.Drawing.Point(0, 0);
+            this.panelMap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelMap.Name = "panelMap";
-            this.panelMap.Size = new System.Drawing.Size(896, 400);
+            this.panelMap.Size = new System.Drawing.Size(1195, 499);
             this.panelMap.TabIndex = 2;
             // 
             // MainMap
@@ -473,6 +488,7 @@
             this.MainMap.HoldInvalidation = false;
             this.MainMap.LevelsKeepInMemmory = 5;
             this.MainMap.Location = new System.Drawing.Point(0, 0);
+            this.MainMap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MainMap.MarkersEnabled = true;
             this.MainMap.MaxZoom = 24;
             this.MainMap.MinZoom = 0;
@@ -485,7 +501,7 @@
             this.MainMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.MainMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.MainMap.ShowTileGridLines = false;
-            this.MainMap.Size = new System.Drawing.Size(896, 400);
+            this.MainMap.Size = new System.Drawing.Size(1195, 499);
             this.MainMap.TabIndex = 0;
             this.MainMap.Zoom = 15D;
             this.MainMap.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainMap_MouseClick);
@@ -500,17 +516,19 @@
             this.panelZoomOverlay.Controls.Add(this.pictureBoxZoomIn);
             this.panelZoomOverlay.Controls.Add(this.pictureBoxZoomOut);
             this.panelZoomOverlay.Controls.Add(this.labelZoom);
-            this.panelZoomOverlay.Location = new System.Drawing.Point(838, 290);
+            this.panelZoomOverlay.Location = new System.Drawing.Point(1117, 361);
+            this.panelZoomOverlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelZoomOverlay.Name = "panelZoomOverlay";
-            this.panelZoomOverlay.Size = new System.Drawing.Size(47, 70);
+            this.panelZoomOverlay.Size = new System.Drawing.Size(63, 88);
             this.panelZoomOverlay.TabIndex = 2;
             // 
             // pictureBoxZoomIn
             // 
             this.pictureBoxZoomIn.Image = global::FlightPlanningSoftware.Properties.Resources.zoom_plus;
             this.pictureBoxZoomIn.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxZoomIn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBoxZoomIn.Name = "pictureBoxZoomIn";
-            this.pictureBoxZoomIn.Size = new System.Drawing.Size(47, 27);
+            this.pictureBoxZoomIn.Size = new System.Drawing.Size(63, 34);
             this.pictureBoxZoomIn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxZoomIn.TabIndex = 0;
             this.pictureBoxZoomIn.TabStop = false;
@@ -519,9 +537,10 @@
             // pictureBoxZoomOut
             // 
             this.pictureBoxZoomOut.Image = global::FlightPlanningSoftware.Properties.Resources.zoom_minus;
-            this.pictureBoxZoomOut.Location = new System.Drawing.Point(0, 26);
+            this.pictureBoxZoomOut.Location = new System.Drawing.Point(0, 32);
+            this.pictureBoxZoomOut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBoxZoomOut.Name = "pictureBoxZoomOut";
-            this.pictureBoxZoomOut.Size = new System.Drawing.Size(47, 28);
+            this.pictureBoxZoomOut.Size = new System.Drawing.Size(63, 35);
             this.pictureBoxZoomOut.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxZoomOut.TabIndex = 1;
             this.pictureBoxZoomOut.TabStop = false;
@@ -533,9 +552,10 @@
             this.labelZoom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.labelZoom.Font = new System.Drawing.Font("MS UI Gothic", 7F);
             this.labelZoom.ForeColor = System.Drawing.Color.White;
-            this.labelZoom.Location = new System.Drawing.Point(0, 57);
+            this.labelZoom.Location = new System.Drawing.Point(0, 72);
+            this.labelZoom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelZoom.Name = "labelZoom";
-            this.labelZoom.Size = new System.Drawing.Size(47, 13);
+            this.labelZoom.Size = new System.Drawing.Size(63, 16);
             this.labelZoom.TabIndex = 2;
             this.labelZoom.Text = "ズーム";
             this.labelZoom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -548,9 +568,10 @@
             this.panelOverlay.Controls.Add(this.checkBoxRoute);
             this.panelOverlay.Controls.Add(this.checkBoxFence);
             this.panelOverlay.Controls.Add(this.checkBoxEmergency);
-            this.panelOverlay.Location = new System.Drawing.Point(10, 310);
+            this.panelOverlay.Location = new System.Drawing.Point(13, 387);
+            this.panelOverlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelOverlay.Name = "panelOverlay";
-            this.panelOverlay.Size = new System.Drawing.Size(166, 60);
+            this.panelOverlay.Size = new System.Drawing.Size(221, 75);
             this.panelOverlay.TabIndex = 0;
             // 
             // labelDisplayItem
@@ -559,9 +580,10 @@
             this.labelDisplayItem.Dock = System.Windows.Forms.DockStyle.Left;
             this.labelDisplayItem.ForeColor = System.Drawing.Color.White;
             this.labelDisplayItem.Location = new System.Drawing.Point(0, 0);
+            this.labelDisplayItem.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDisplayItem.Name = "labelDisplayItem";
-            this.labelDisplayItem.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
-            this.labelDisplayItem.Size = new System.Drawing.Size(60, 60);
+            this.labelDisplayItem.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.labelDisplayItem.Size = new System.Drawing.Size(80, 75);
             this.labelDisplayItem.TabIndex = 0;
             this.labelDisplayItem.Text = "表示項目";
             this.labelDisplayItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -573,9 +595,10 @@
             this.checkBoxRoute.Checked = true;
             this.checkBoxRoute.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxRoute.ForeColor = System.Drawing.Color.White;
-            this.checkBoxRoute.Location = new System.Drawing.Point(60, 0);
+            this.checkBoxRoute.Location = new System.Drawing.Point(80, 0);
+            this.checkBoxRoute.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBoxRoute.Name = "checkBoxRoute";
-            this.checkBoxRoute.Size = new System.Drawing.Size(106, 24);
+            this.checkBoxRoute.Size = new System.Drawing.Size(141, 30);
             this.checkBoxRoute.TabIndex = 1;
             this.checkBoxRoute.Text = "飛行ルート";
             this.checkBoxRoute.UseVisualStyleBackColor = false;
@@ -588,9 +611,10 @@
             this.checkBoxFence.Checked = true;
             this.checkBoxFence.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxFence.ForeColor = System.Drawing.Color.White;
-            this.checkBoxFence.Location = new System.Drawing.Point(60, 20);
+            this.checkBoxFence.Location = new System.Drawing.Point(80, 25);
+            this.checkBoxFence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBoxFence.Name = "checkBoxFence";
-            this.checkBoxFence.Size = new System.Drawing.Size(106, 24);
+            this.checkBoxFence.Size = new System.Drawing.Size(141, 30);
             this.checkBoxFence.TabIndex = 2;
             this.checkBoxFence.Text = "フェンス";
             this.checkBoxFence.UseVisualStyleBackColor = false;
@@ -603,9 +627,10 @@
             this.checkBoxEmergency.Checked = true;
             this.checkBoxEmergency.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEmergency.ForeColor = System.Drawing.Color.White;
-            this.checkBoxEmergency.Location = new System.Drawing.Point(60, 40);
+            this.checkBoxEmergency.Location = new System.Drawing.Point(80, 50);
+            this.checkBoxEmergency.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBoxEmergency.Name = "checkBoxEmergency";
-            this.checkBoxEmergency.Size = new System.Drawing.Size(106, 24);
+            this.checkBoxEmergency.Size = new System.Drawing.Size(141, 30);
             this.checkBoxEmergency.TabIndex = 3;
             this.checkBoxEmergency.Text = "緊急着陸地点";
             this.checkBoxEmergency.UseVisualStyleBackColor = false;
@@ -616,9 +641,10 @@
             this.labelDistance.AutoSize = true;
             this.labelDistance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelDistance.ForeColor = System.Drawing.Color.White;
-            this.labelDistance.Location = new System.Drawing.Point(10, 10);
+            this.labelDistance.Location = new System.Drawing.Point(13, 12);
+            this.labelDistance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDistance.Name = "labelDistance";
-            this.labelDistance.Size = new System.Drawing.Size(0, 12);
+            this.labelDistance.Size = new System.Drawing.Size(0, 15);
             this.labelDistance.TabIndex = 1;
             // 
             // panelWPs
@@ -629,8 +655,9 @@
             this.panelWPs.Controls.Add(this.panelFooter);
             this.panelWPs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelWPs.Location = new System.Drawing.Point(0, 0);
+            this.panelWPs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelWPs.Name = "panelWPs";
-            this.panelWPs.Size = new System.Drawing.Size(1300, 277);
+            this.panelWPs.Size = new System.Drawing.Size(1733, 347);
             this.panelWPs.TabIndex = 0;
             // 
             // tableLayoutPanelWPs
@@ -648,10 +675,11 @@
             this.tableLayoutPanelWPs.Controls.Add(this.panelEmergencyContainer, 3, 0);
             this.tableLayoutPanelWPs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelWPs.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelWPs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanelWPs.Name = "tableLayoutPanelWPs";
             this.tableLayoutPanelWPs.RowCount = 1;
             this.tableLayoutPanelWPs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelWPs.Size = new System.Drawing.Size(1300, 217);
+            this.tableLayoutPanelWPs.Size = new System.Drawing.Size(1733, 272);
             this.tableLayoutPanelWPs.TabIndex = 0;
             // 
             // panelWPsContainer
@@ -660,9 +688,10 @@
             this.panelWPsContainer.Controls.Add(this.dataGridViewWPs);
             this.panelWPsContainer.Controls.Add(this.labelWPs);
             this.panelWPsContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelWPsContainer.Location = new System.Drawing.Point(4, 4);
+            this.panelWPsContainer.Location = new System.Drawing.Point(5, 5);
+            this.panelWPsContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelWPsContainer.Name = "panelWPsContainer";
-            this.panelWPsContainer.Size = new System.Drawing.Size(356, 209);
+            this.panelWPsContainer.Size = new System.Drawing.Size(475, 262);
             this.panelWPsContainer.TabIndex = 3;
             // 
             // dataGridViewWPs
@@ -699,7 +728,8 @@
             this.dataGridViewWPs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewWPs.EnableHeadersVisualStyles = false;
             this.dataGridViewWPs.GridColor = System.Drawing.Color.White;
-            this.dataGridViewWPs.Location = new System.Drawing.Point(0, 23);
+            this.dataGridViewWPs.Location = new System.Drawing.Point(0, 29);
+            this.dataGridViewWPs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewWPs.Name = "dataGridViewWPs";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Black;
@@ -710,7 +740,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewWPs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewWPs.RowHeadersWidth = 50;
-            this.dataGridViewWPs.Size = new System.Drawing.Size(356, 186);
+            this.dataGridViewWPs.Size = new System.Drawing.Size(475, 233);
             this.dataGridViewWPs.TabIndex = 0;
             this.dataGridViewWPs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWPs_CellContentClick);
             this.dataGridViewWPs.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridViewWPs_RowPostPaint);
@@ -783,9 +813,10 @@
             this.labelWPs.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelWPs.ForeColor = System.Drawing.Color.White;
             this.labelWPs.Location = new System.Drawing.Point(0, 0);
+            this.labelWPs.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelWPs.Name = "labelWPs";
-            this.labelWPs.Padding = new System.Windows.Forms.Padding(2, 1, 0, 0);
-            this.labelWPs.Size = new System.Drawing.Size(356, 23);
+            this.labelWPs.Padding = new System.Windows.Forms.Padding(3, 1, 0, 0);
+            this.labelWPs.Size = new System.Drawing.Size(475, 29);
             this.labelWPs.TabIndex = 1;
             this.labelWPs.Text = "ウェイポイント";
             this.labelWPs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -796,9 +827,10 @@
             this.panelFenceIncContainer.Controls.Add(this.dataGridViewFenceInc);
             this.panelFenceIncContainer.Controls.Add(this.labelFenceInc);
             this.panelFenceIncContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFenceIncContainer.Location = new System.Drawing.Point(367, 4);
+            this.panelFenceIncContainer.Location = new System.Drawing.Point(489, 5);
+            this.panelFenceIncContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelFenceIncContainer.Name = "panelFenceIncContainer";
-            this.panelFenceIncContainer.Size = new System.Drawing.Size(304, 209);
+            this.panelFenceIncContainer.Size = new System.Drawing.Size(406, 262);
             this.panelFenceIncContainer.TabIndex = 4;
             // 
             // dataGridViewFenceInc
@@ -835,7 +867,8 @@
             this.dataGridViewFenceInc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewFenceInc.EnableHeadersVisualStyles = false;
             this.dataGridViewFenceInc.GridColor = System.Drawing.Color.White;
-            this.dataGridViewFenceInc.Location = new System.Drawing.Point(0, 23);
+            this.dataGridViewFenceInc.Location = new System.Drawing.Point(0, 29);
+            this.dataGridViewFenceInc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewFenceInc.Name = "dataGridViewFenceInc";
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
@@ -846,10 +879,9 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewFenceInc.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewFenceInc.RowHeadersWidth = 50;
-            this.dataGridViewFenceInc.Size = new System.Drawing.Size(304, 186);
+            this.dataGridViewFenceInc.Size = new System.Drawing.Size(406, 233);
             this.dataGridViewFenceInc.TabIndex = 1;
             this.dataGridViewFenceInc.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
-            this.dataGridViewFenceInc.CellContentClick += dataGridViewFenceInc_CellContentClick;
             // 
             // colFenceIncCommand
             // 
@@ -919,9 +951,10 @@
             this.labelFenceInc.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelFenceInc.ForeColor = System.Drawing.Color.White;
             this.labelFenceInc.Location = new System.Drawing.Point(0, 0);
+            this.labelFenceInc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFenceInc.Name = "labelFenceInc";
-            this.labelFenceInc.Padding = new System.Windows.Forms.Padding(2, 5, 0, 0);
-            this.labelFenceInc.Size = new System.Drawing.Size(304, 23);
+            this.labelFenceInc.Padding = new System.Windows.Forms.Padding(3, 6, 0, 0);
+            this.labelFenceInc.Size = new System.Drawing.Size(406, 29);
             this.labelFenceInc.TabIndex = 2;
             this.labelFenceInc.Text = "逸脱防止フェンス";
             // 
@@ -931,9 +964,10 @@
             this.panelFenceExcContainer.Controls.Add(this.dataGridViewFenceExc);
             this.panelFenceExcContainer.Controls.Add(this.labelFenceExc);
             this.panelFenceExcContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFenceExcContainer.Location = new System.Drawing.Point(678, 4);
+            this.panelFenceExcContainer.Location = new System.Drawing.Point(904, 5);
+            this.panelFenceExcContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelFenceExcContainer.Name = "panelFenceExcContainer";
-            this.panelFenceExcContainer.Size = new System.Drawing.Size(304, 209);
+            this.panelFenceExcContainer.Size = new System.Drawing.Size(406, 262);
             this.panelFenceExcContainer.TabIndex = 4;
             // 
             // dataGridViewFenceExc
@@ -956,14 +990,14 @@
             this.dataGridViewFenceExc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewFenceExc.EnableHeadersVisualStyles = false;
             this.dataGridViewFenceExc.GridColor = System.Drawing.Color.White;
-            this.dataGridViewFenceExc.Location = new System.Drawing.Point(0, 23);
+            this.dataGridViewFenceExc.Location = new System.Drawing.Point(0, 29);
+            this.dataGridViewFenceExc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewFenceExc.Name = "dataGridViewFenceExc";
             this.dataGridViewFenceExc.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewFenceExc.RowHeadersWidth = 50;
-            this.dataGridViewFenceExc.Size = new System.Drawing.Size(304, 186);
+            this.dataGridViewFenceExc.Size = new System.Drawing.Size(406, 233);
             this.dataGridViewFenceExc.TabIndex = 1;
             this.dataGridViewFenceExc.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
-            this.dataGridViewFenceExc.CellContentClick += dataGridViewFenceExc_CellContentClick;
             // 
             // colFenceExcCommand
             // 
@@ -1033,9 +1067,10 @@
             this.labelFenceExc.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelFenceExc.ForeColor = System.Drawing.Color.White;
             this.labelFenceExc.Location = new System.Drawing.Point(0, 0);
+            this.labelFenceExc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFenceExc.Name = "labelFenceExc";
-            this.labelFenceExc.Padding = new System.Windows.Forms.Padding(2, 5, 0, 0);
-            this.labelFenceExc.Size = new System.Drawing.Size(304, 23);
+            this.labelFenceExc.Padding = new System.Windows.Forms.Padding(3, 6, 0, 0);
+            this.labelFenceExc.Size = new System.Drawing.Size(406, 29);
             this.labelFenceExc.TabIndex = 2;
             this.labelFenceExc.Text = "進入禁止フェンス";
             // 
@@ -1045,9 +1080,10 @@
             this.panelEmergencyContainer.Controls.Add(this.dataGridViewEmergency);
             this.panelEmergencyContainer.Controls.Add(this.labelEmergency);
             this.panelEmergencyContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEmergencyContainer.Location = new System.Drawing.Point(989, 4);
+            this.panelEmergencyContainer.Location = new System.Drawing.Point(1319, 5);
+            this.panelEmergencyContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelEmergencyContainer.Name = "panelEmergencyContainer";
-            this.panelEmergencyContainer.Size = new System.Drawing.Size(307, 209);
+            this.panelEmergencyContainer.Size = new System.Drawing.Size(409, 262);
             this.panelEmergencyContainer.TabIndex = 5;
             // 
             // dataGridViewEmergency
@@ -1084,7 +1120,8 @@
             this.dataGridViewEmergency.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewEmergency.EnableHeadersVisualStyles = false;
             this.dataGridViewEmergency.GridColor = System.Drawing.Color.White;
-            this.dataGridViewEmergency.Location = new System.Drawing.Point(0, 23);
+            this.dataGridViewEmergency.Location = new System.Drawing.Point(0, 29);
+            this.dataGridViewEmergency.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewEmergency.Name = "dataGridViewEmergency";
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.Black;
@@ -1095,10 +1132,9 @@
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewEmergency.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewEmergency.RowHeadersWidth = 50;
-            this.dataGridViewEmergency.Size = new System.Drawing.Size(307, 186);
+            this.dataGridViewEmergency.Size = new System.Drawing.Size(409, 233);
             this.dataGridViewEmergency.TabIndex = 2;
             this.dataGridViewEmergency.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
-            this.dataGridViewEmergency.CellContentClick += dataGridViewEmergency_CellContentClick;
             // 
             // colRallyCommand
             // 
@@ -1168,9 +1204,10 @@
             this.labelEmergency.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelEmergency.ForeColor = System.Drawing.Color.White;
             this.labelEmergency.Location = new System.Drawing.Point(0, 0);
+            this.labelEmergency.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEmergency.Name = "labelEmergency";
-            this.labelEmergency.Padding = new System.Windows.Forms.Padding(2, 6, 0, 0);
-            this.labelEmergency.Size = new System.Drawing.Size(307, 23);
+            this.labelEmergency.Padding = new System.Windows.Forms.Padding(3, 8, 0, 0);
+            this.labelEmergency.Size = new System.Drawing.Size(409, 29);
             this.labelEmergency.TabIndex = 3;
             this.labelEmergency.Text = "緊急着陸地点";
             // 
@@ -1180,9 +1217,10 @@
             this.panelFooter.Controls.Add(this.panelFooterContent);
             this.panelFooter.Controls.Add(this.labelSeparator);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelFooter.Location = new System.Drawing.Point(0, 217);
+            this.panelFooter.Location = new System.Drawing.Point(0, 272);
+            this.panelFooter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelFooter.Name = "panelFooter";
-            this.panelFooter.Size = new System.Drawing.Size(1300, 60);
+            this.panelFooter.Size = new System.Drawing.Size(1733, 75);
             this.panelFooter.TabIndex = 1;
             // 
             // panelFooterContent
@@ -1194,17 +1232,19 @@
             this.panelFooterContent.Controls.Add(this.pictureLogoArdu);
             this.panelFooterContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFooterContent.Location = new System.Drawing.Point(0, 2);
+            this.panelFooterContent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelFooterContent.Name = "panelFooterContent";
-            this.panelFooterContent.Size = new System.Drawing.Size(1300, 58);
+            this.panelFooterContent.Size = new System.Drawing.Size(1733, 73);
             this.panelFooterContent.TabIndex = 0;
             // 
             // buttonFileLoad
             // 
             this.buttonFileLoad.BackColor = System.Drawing.Color.DarkGreen;
             this.buttonFileLoad.ForeColor = System.Drawing.Color.White;
-            this.buttonFileLoad.Location = new System.Drawing.Point(20, 10);
+            this.buttonFileLoad.Location = new System.Drawing.Point(27, 12);
+            this.buttonFileLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFileLoad.Name = "buttonFileLoad";
-            this.buttonFileLoad.Size = new System.Drawing.Size(120, 40);
+            this.buttonFileLoad.Size = new System.Drawing.Size(160, 50);
             this.buttonFileLoad.TabIndex = 0;
             this.buttonFileLoad.Text = "ファイル読み込み";
             this.buttonFileLoad.UseVisualStyleBackColor = false;
@@ -1214,9 +1254,10 @@
             // 
             this.buttonFileSave.BackColor = System.Drawing.Color.DarkGreen;
             this.buttonFileSave.ForeColor = System.Drawing.Color.White;
-            this.buttonFileSave.Location = new System.Drawing.Point(160, 10);
+            this.buttonFileSave.Location = new System.Drawing.Point(213, 12);
+            this.buttonFileSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFileSave.Name = "buttonFileSave";
-            this.buttonFileSave.Size = new System.Drawing.Size(120, 40);
+            this.buttonFileSave.Size = new System.Drawing.Size(160, 50);
             this.buttonFileSave.TabIndex = 1;
             this.buttonFileSave.Text = "ファイルの保存";
             this.buttonFileSave.UseVisualStyleBackColor = false;
@@ -1226,9 +1267,10 @@
             // 
             this.pictureLogoEAMS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureLogoEAMS.Image = global::FlightPlanningSoftware.Properties.Resources.EAMS_logo;
-            this.pictureLogoEAMS.Location = new System.Drawing.Point(794, 15);
+            this.pictureLogoEAMS.Location = new System.Drawing.Point(1059, 19);
+            this.pictureLogoEAMS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureLogoEAMS.Name = "pictureLogoEAMS";
-            this.pictureLogoEAMS.Size = new System.Drawing.Size(250, 40);
+            this.pictureLogoEAMS.Size = new System.Drawing.Size(333, 50);
             this.pictureLogoEAMS.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureLogoEAMS.TabIndex = 2;
             this.pictureLogoEAMS.TabStop = false;
@@ -1237,9 +1279,10 @@
             // 
             this.pictureLogoArdu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureLogoArdu.Image = global::FlightPlanningSoftware.Properties.Resources._0d92fed790a3a70170e61a86db103f399a595c70;
-            this.pictureLogoArdu.Location = new System.Drawing.Point(1054, 17);
+            this.pictureLogoArdu.Location = new System.Drawing.Point(1405, 21);
+            this.pictureLogoArdu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureLogoArdu.Name = "pictureLogoArdu";
-            this.pictureLogoArdu.Size = new System.Drawing.Size(230, 36);
+            this.pictureLogoArdu.Size = new System.Drawing.Size(307, 45);
             this.pictureLogoArdu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureLogoArdu.TabIndex = 3;
             this.pictureLogoArdu.TabStop = false;
@@ -1249,18 +1292,20 @@
             this.labelSeparator.BackColor = System.Drawing.Color.White;
             this.labelSeparator.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelSeparator.Location = new System.Drawing.Point(0, 0);
+            this.labelSeparator.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSeparator.Name = "labelSeparator";
-            this.labelSeparator.Size = new System.Drawing.Size(1300, 2);
+            this.labelSeparator.Size = new System.Drawing.Size(1733, 2);
             this.labelSeparator.TabIndex = 1;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1300, 681);
+            this.ClientSize = new System.Drawing.Size(1733, 851);
             this.Controls.Add(this.splitContainerVert);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Flight Planning Software";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FlightPlanningSoftware_FormClosed);

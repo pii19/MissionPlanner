@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using FlightPlanningSoftware;
-using System.Web.UI.WebControls;
 
 namespace MissionPlanner.GCSViews
 {
@@ -77,7 +76,7 @@ namespace MissionPlanner.GCSViews
             buttonOK.BackColor = Color.Black;
             buttonOK.ForeColor = Color.FromArgb(64, 64, 64);
 
-            using (mapBoxFrm = new FlightPlanningSoftware.Form1
+            mapBoxFrm = new FlightPlanningSoftware.Form1
             {
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 ShowInTaskbar = false,
@@ -86,14 +85,11 @@ namespace MissionPlanner.GCSViews
                 MaximizeBox = false,
                 MinimizeBox = false,
                 Width = 1280,
-                Height = 720,
+                Height = 1000,
                 TopMost = true,
                 AutoScaleMode = AutoScaleMode.None,
-            })
-            {
-
-            }
-
+            };
+            mapBoxFrm.AdjustLayout();
         }
 
         private void cb_CheckedChanged(object sender, EventArgs e)
