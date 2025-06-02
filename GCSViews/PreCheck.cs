@@ -86,7 +86,7 @@ namespace MissionPlanner.GCSViews
                 MinimizeBox = false,
                 Width = 1280,
                 Height = 1000,
-                TopMost = true,
+                TopMost = false,
                 AutoScaleMode = AutoScaleMode.None,
             };
             mapBoxFrm.AdjustLayout();
@@ -255,14 +255,15 @@ namespace MissionPlanner.GCSViews
 
         private void buttonLoadPlan_Click(object sender, EventArgs e)
         {
-            if (mapBoxFrm != null)
+            if (mapBoxFrm != null && !mapBoxFrm.IsDisposed)
             {
+                mapBoxFrm.FileLoad();
             }
         }
 
         private void buttonDispMap_Click(object sender, EventArgs e)
         {
-            if (mapBoxFrm != null)
+            if (mapBoxFrm != null && !mapBoxFrm.IsDisposed)
             {
                 DialogResult test = mapBoxFrm.ShowDialog();
             }

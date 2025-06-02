@@ -40,12 +40,33 @@ namespace FlightPlanningSoftware
         private bool isHomePlaced = false;
         private bool isLandingPlaced = false;
         private bool isFenceIncPlaced = false;
-
+#if FMS
+        static Button closeButton = null;
+#endif
         public Form1()
         {
             InitializeComponent();
             log4net.Util.LogLog.InternalDebugging = true;
             log.Info("EAMS Planner loaded (constructor)");
+#if FMS
+            // add close button
+            closeButton = new Button
+            {
+                Text = "閉じる",
+                Width = 100,
+                Height = 50,
+                Top = 4,
+                Left = panelFooterContent.Width - (100 + 50),
+                Font = new Font("Yu Gothic UI", 18, FontStyle.Bold),
+                BackColor = Color.FromArgb(89, 89, 89),
+                Tag = "custom",
+            };
+            panelFooterContent.Controls.Add(closeButton);
+            closeButton.Click += (s, e) => 
+            {
+                this.Close();
+            };
+#endif
         }
 
         private void FlightPlanningSoftware_Load(object sender, EventArgs e)
@@ -1008,7 +1029,12 @@ namespace FlightPlanningSoftware
                 }
             }
         }
-
+#if FMS
+        public void FileLoad()
+        {
+            buttonFileLoad_Click(null, null);
+        }
+#endif
         private void buttonBulkDelete_Click(object sender, EventArgs e)
         {
             // 一括削除は離陸地点が配置されている場合にのみ有効
