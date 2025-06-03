@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using FlightPlanningSoftware;
+using System.Collections.Generic;
 
 namespace MissionPlanner.GCSViews
 {
@@ -259,6 +260,28 @@ namespace MissionPlanner.GCSViews
             {
                 mapBoxFrm.FileLoad();
             }
+
+            List<Locationwp> list;
+            //this.BeginInvoke((MethodInvoker)delegate
+            //{
+                // save WP data
+                list = mapBoxFrm.getWP();
+                MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.MISSION;
+                MainV2.instance.FlightPlanner.WPtoScreen(list);
+                MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
+
+                // save Fence data
+                list = mapBoxFrm.getFence();
+                MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.FENCE;
+                MainV2.instance.FlightPlanner.WPtoScreen(list);
+                MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
+
+                // save Rally data
+                list = mapBoxFrm.getRally();
+                MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.RALLY;
+                MainV2.instance.FlightPlanner.WPtoScreen(list);
+                MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
+            //});
         }
 
         private void buttonDispMap_Click(object sender, EventArgs e)

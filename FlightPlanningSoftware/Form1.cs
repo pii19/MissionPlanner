@@ -158,6 +158,26 @@ namespace FlightPlanningSoftware
                 log.Info("eams_config error: maplast");
             }
         }
+
+        public List<Locationwp> getWP()
+        {
+            return commandManagerWP.GetCommandList();
+        }
+
+        public List<Locationwp> getFence()
+        {
+            var inc = commandManagerFenceInc.GetCommandList();
+            var exc = commandManagerFenceExc.GetCommandList();
+
+            inc.AddRange(exc);
+
+            return inc;
+        }
+        public List<Locationwp> getRally()
+        {
+            return commandManagerEmergency.GetCommandList();
+        }
+
 #endif
         private void FlightPlanningSoftware_FormClosed(object sender, FormClosedEventArgs e)
         {
