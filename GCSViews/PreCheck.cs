@@ -262,8 +262,8 @@ namespace MissionPlanner.GCSViews
             }
 
             List<Locationwp> list;
-            //this.BeginInvoke((MethodInvoker)delegate
-            //{
+            this.BeginInvoke((MethodInvoker)delegate
+            {
                 // save WP data
                 list = mapBoxFrm.getWP();
                 MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.MISSION;
@@ -281,7 +281,7 @@ namespace MissionPlanner.GCSViews
                 MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.RALLY;
                 MainV2.instance.FlightPlanner.WPtoScreen(list);
                 MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
-            //});
+            });
         }
 
         private void buttonDispMap_Click(object sender, EventArgs e)
