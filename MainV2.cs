@@ -573,6 +573,7 @@ namespace MissionPlanner
         public GCSViews.FlightData FlightData;
 
         public GCSViews.FlightPlanner FlightPlanner;
+        public GCSViews.PreCheck PreCheck;
         GCSViews.SITL Simulation;
 
         private Form connectionStatsForm;
@@ -852,12 +853,14 @@ namespace MissionPlanner
                 //Configuration = new GCSViews.ConfigurationView.Setup();
                 log.Info("Create SIM");
                 Simulation = new GCSViews.SITL();
+                PreCheck = new GCSViews.PreCheck();
                 //Firmware = new GCSViews.Firmware();
                 //Terminal = new GCSViews.Terminal();
 
                 FlightData.Width = MyView.Width;
                 FlightPlanner.Width = MyView.Width;
                 Simulation.Width = MyView.Width;
+                PreCheck.Width = MyView.Width;
             }
             catch (ArgumentException e)
             {
@@ -2247,6 +2250,15 @@ namespace MissionPlanner
             {
             }
 
+            log.Info("closing precheck");
+            try
+            {
+                PreCheck.Dispose();
+            }
+            catch
+            {
+            }
+
             try
             {
                 if (comPort.BaseStream.IsOpen)
@@ -3269,7 +3281,7 @@ protected override void OnLoad(EventArgs e)
             MyView.AddScreen(new MainSwitcher.Screen("SWConfig", typeof(GCSViews.SoftwareConfig), false));
             MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
             MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
-            MyView.AddScreen(new MainSwitcher.Screen("PreCheck", typeof(GCSViews.PreCheck), false));
+            MyView.AddScreen(new MainSwitcher.Screen("PreCheck", PreCheck, true));
 
             try
             {

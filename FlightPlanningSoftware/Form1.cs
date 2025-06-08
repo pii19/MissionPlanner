@@ -1039,8 +1039,9 @@ namespace FlightPlanningSoftware
                         var fenceIncList = commandManagerFenceInc.GetCommandList();
                         isFenceIncPlaced = (fenceIncList.Count > 0);
                         buttonEmergency.Enabled = isFenceIncPlaced;
-
+#if !FMS
                         MessageBox.Show("フライトプランを読込しました。", "読込", MessageBoxButtons.OK, MessageBoxIcon.Information);
+#endif
                     }
                     catch (Exception ex)
                     {
@@ -1050,9 +1051,20 @@ namespace FlightPlanningSoftware
             }
         }
 #if FMS
-        public void FileLoad()
+        public bool FileLoad()
         {
             buttonFileLoad_Click(null, null);
+            var wp = commandManagerWP.GetCommandList();
+            var inc = commandManagerFenceInc.GetCommandList();
+            var emr = commandManagerEmergency.GetCommandList();
+            if (wp.Count > 0 && inc.Count > 0 && emr.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 #endif
         private void buttonBulkDelete_Click(object sender, EventArgs e)
