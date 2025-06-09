@@ -66,6 +66,12 @@ namespace FlightPlanningSoftware
             {
                 this.Close();
             };
+
+            // invisible DataGrid delete buttons
+            dataGridViewWPs.Columns["colWpDelete"].Visible = false;
+            dataGridViewFenceInc.Columns["colFenceIncDelete"].Visible = false;
+            dataGridViewFenceExc.Columns["colFenceExcDelete"].Visible = false;
+            dataGridViewEmergency.Columns["colRallyDelete"].Visible = false;
 #endif
         }
 
