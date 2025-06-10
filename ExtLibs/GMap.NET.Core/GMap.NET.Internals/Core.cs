@@ -77,9 +77,15 @@ namespace GMap.NET.Internals
         public int Width;
         public int Height;
 
+        public int pxRes2m;  // 2 meters
+        public int pxRes5m;  // 5 meters
+        public int pxRes20m;  // 20 meters
         public int pxRes100m;  // 100 meters
-        public int pxRes1000m;  // 1km  
+        public int pxRes200m;  // 200 meters
+        public int pxRes1000m;  // 1km
+        public int pxRes2000m;  // 1km
         public int pxRes10km; // 10km
+        public int pxRes20km; // 20km
         public int pxRes100km; // 100km
         public int pxRes1000km; // 1000km
         public int pxRes5000km; // 5000km
@@ -1196,9 +1202,15 @@ namespace GMap.NET.Internals
       void UpdateGroundResolution()
       {
          double rez = Provider.Projection.GetGroundResolution(Zoom, Position.Lat);
+         pxRes2m = (int)(2.0 / rez); // 2 meters
+         pxRes5m = (int)(5.0 / rez); // 5 meters
+         pxRes20m = (int)(20.0 / rez); // 20 meters
          pxRes100m = (int)(100.0 / rez); // 100 meters
-         pxRes1000m = (int)(1000.0 / rez); // 1km  
+         pxRes200m = (int)(200.0 / rez); // 200 meters
+         pxRes1000m = (int)(1000.0 / rez); // 1km
+         pxRes2000m = (int)(2000.0 / rez); // 2km
          pxRes10km = (int)(10000.0 / rez); // 10km
+         pxRes20km = (int)(20000.0 / rez); // 20km
          pxRes100km = (int)(100000.0 / rez); // 100km
          pxRes1000km = (int)(1000000.0 / rez); // 1000km
          pxRes5000km = (int)(5000000.0 / rez); // 5000km

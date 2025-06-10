@@ -6,12 +6,15 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using FlightPlanningSoftware;
+using System.Collections.Generic;
 
 namespace MissionPlanner.GCSViews
 {
     public partial class PreCheck : MyUserControl, IActivate, IDeactivate
     {
         private bool CheckAll = false;
+        private FlightPlanningSoftware.Form1 mapBoxFrm;
 
         public int th_rtl_alt { get; set; } = 80;
 
@@ -29,6 +32,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 timer1.Enabled = true;
+#if false
                 ParamRTLALT.Text = "";
                 tbRTLALT.Text = "";
                 ParamPropo.Text = "";
@@ -42,6 +46,7 @@ namespace MissionPlanner.GCSViews
                 ParamGpsStatus.Text = "";
                 ParamPitch.Text = "";
                 ParamRoll.Text = "";
+#endif
             }
             catch
             {
@@ -73,6 +78,21 @@ namespace MissionPlanner.GCSViews
         {
             buttonOK.BackColor = Color.Black;
             buttonOK.ForeColor = Color.FromArgb(64, 64, 64);
+
+            mapBoxFrm = new FlightPlanningSoftware.Form1
+            {
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.CenterParent,
+                Text = "",
+                MaximizeBox = false,
+                MinimizeBox = false,
+                Width = 1280,
+                Height = 1000,
+                TopMost = false,
+                AutoScaleMode = AutoScaleMode.None,
+            };
+            mapBoxFrm.AdjustLayout();
         }
 
         private void cb_CheckedChanged(object sender, EventArgs e)
@@ -237,12 +257,53 @@ namespace MissionPlanner.GCSViews
 
         private void buttonLoadPlan_Click(object sender, EventArgs e)
         {
-            ;
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                CustomMessageBox.Show("フライトプランを読み込む前に機体に接続してください。", "フライトプラン読み込み");
+                return;
+            }
+
+            if (mapBoxFrm != null && !mapBoxFrm.IsDisposed)
+            {
+                if (!mapBoxFrm.FileLoad())
+                {
+                    return;
+                }
+            }
+
+            // おまじない
+            // https://dobon.net/vb/bbs/log3-23/14296.html#google_vignette
+            var h = MainV2.instance.FlightPlanner.Handle;
+
+            MainV2.instance.FlightPlanner.updateHome();
+
+            List<Locationwp> list;
+
+            // save WP data
+            list = mapBoxFrm.getWP();
+            MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.MISSION;
+            MainV2.instance.FlightPlanner.WPtoScreen(list);
+            MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
+
+            // save Fence data
+            list = mapBoxFrm.getFence();
+            MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.FENCE;
+            MainV2.instance.FlightPlanner.WPtoScreen(list);
+            MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
+
+            // save Rally data
+            list = mapBoxFrm.getRally();
+            MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.RALLY;
+            MainV2.instance.FlightPlanner.WPtoScreen(list);
+            MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
         }
 
         private void buttonDispMap_Click(object sender, EventArgs e)
         {
-            ;
+            if (mapBoxFrm != null && !mapBoxFrm.IsDisposed)
+            {
+                DialogResult test = mapBoxFrm.ShowDialog();
+            }
         }
 
         private void tbRTLALT_KeyDown(object sender, KeyEventArgs e)

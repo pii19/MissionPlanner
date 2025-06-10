@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Remove="APMPlannerXplanes\**" />
     <Compile Remove="ExtLibs\**" />
+    <Compile Remove="FlightPlanningSoftware\**" />
     <Compile Remove="MissionPlannerTests\**" />
     <Compile Remove="Msi\**" />
     <Compile Remove="plugins\**" />
@@ -62,6 +63,7 @@
     <Compile Remove="wix\**" />
     <EmbeddedResource Remove="APMPlannerXplanes\**" />
     <EmbeddedResource Remove="ExtLibs\**" />
+    <EmbeddedResource Remove="FlightPlanningSoftware\**" />
     <EmbeddedResource Remove="MissionPlannerTests\**" />
     <EmbeddedResource Remove="Msi\**" />
     <EmbeddedResource Remove="plugins\**" />
@@ -71,6 +73,7 @@
     <EmbeddedResource Remove="wix\**" />
     <None Remove="APMPlannerXplanes\**" />
     <None Remove="ExtLibs\**" />
+    <None Remove="FlightPlanningSoftware\**" />
     <None Remove="MissionPlannerTests\**" />
     <None Remove="Msi\**" />
     <None Remove="plugins\**" />
@@ -157,6 +160,7 @@
     <ProjectReference Include="ExtLibs\Xamarin.Forms.Platform.WinForms\Xamarin.Forms.Platform.WinForms.csproj" />
     <ProjectReference Include="ExtLibs\ZedGraph\ZedGraph.csproj" />
     <ProjectReference Include="ExtLibs\Zeroconf\Zeroconf\Zeroconf.csproj" />
+    <ProjectReference Include="FlightPlanningSoftware\FlightPlanningSoftware.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Accord.Imaging">

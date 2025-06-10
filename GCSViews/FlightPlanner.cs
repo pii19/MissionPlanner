@@ -1345,7 +1345,7 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
-                Invoke((MethodInvoker) delegate
+                Invoke((MethodInvoker)delegate
                 {
                     try
                     {
@@ -5340,12 +5340,12 @@ namespace MissionPlanner.GCSViews
                     cellhome = Commands.Rows[0].Cells[Lat.Index] as DataGridViewTextBoxCell;
                     if (cellhome.Value != null)
                     {
-                        if (cellhome.Value.ToString() != TXT_homelat.Text && cellhome.Value.ToString() != "0")
+                        //if (cellhome.Value.ToString() != TXT_homelat.Text && cellhome.Value.ToString() != "0")
                         {
-                            var dr = CustomMessageBox.Show("Reset Home to loaded coords", "Reset Home Coords",
-                                MessageBoxButtons.YesNo);
+                            //var dr = CustomMessageBox.Show("Reset Home to loaded coords", "Reset Home Coords",
+                                //MessageBoxButtons.YesNo);
 
-                            if (dr == (int) DialogResult.Yes)
+                            //if (dr == (int) DialogResult.Yes)
                             {
                                 TXT_homelat.Text = (double.Parse(cellhome.Value.ToString())).ToString();
                                 cellhome = Commands.Rows[0].Cells[Lon.Index] as DataGridViewTextBoxCell;

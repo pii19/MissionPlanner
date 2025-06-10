@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Drawing.Imaging;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using MissionPlanner.Utilities;
@@ -14,11 +12,11 @@ namespace MissionPlanner.Maps
     {
         public float? Bearing;
 
-        static readonly System.Drawing.Size SizeSt = new System.Drawing.Size(Resources.marker_02.Width,
-            Resources.marker_02.Height);
+        // WP と同じサイズのマーカーアイコンを利用（元画像をベースにする）
+        static readonly Size SizeSt = new Size(Resources.marker_02.Width, Resources.marker_02.Height);
 
-        //static Bitmap localcache1 = Resources.shadow50;
-        static Bitmap localcache2 = Resources.marker_02;
+        // Resources.marker_02 をオレンジ色 (#F6AA00) に変換したビットマップ
+        static Bitmap localcache2 = CreateOrangeMarker();
 
         public int Alt { get; set; }
 
@@ -37,16 +35,43 @@ namespace MissionPlanner.Maps
             ToolTipText = "Rally Point" + "\nAlt: " + (int)(plla.Alt * altmultiplier);
         }
 
+        // Resources.marker_02 をオレンジ色に変換する（初期化時のみ実施）
+        private static Bitmap CreateOrangeMarker()
+        {
+            Bitmap original = Resources.marker_02;
+            Bitmap newBmp = new Bitmap(original.Width, original.Height, PixelFormat.Format32bppArgb);
+            Color orange = ColorTranslator.FromHtml("#F6AA00");
+
+            for (int x = 0; x < original.Width; x++)
+            {
+                for (int y = 0; y < original.Height; y++)
+                {
+                    Color pixel = original.GetPixel(x, y);
+                    // 透過部分以外はオレンジ色に変更（アルファはそのまま）
+                    if (pixel.A > 0)
+                    {
+                        Color newColor = Color.FromArgb(pixel.A, orange.R, orange.G, orange.B);
+                        newBmp.SetPixel(x, y, newColor);
+                    }
+                    else
+                    {
+                        newBmp.SetPixel(x, y, pixel);
+                    }
+                }
+            }
+            return newBmp;
+        }
+
         static readonly Point[] Arrow = new Point[]
-        {new Point(-7, 7), new Point(0, -22), new Point(7, 7), new Point(0, 2)};
+        {
+            new Point(-7, 7), new Point(0, -22), new Point(7, 7), new Point(0, 2)
+        };
 
         public override void OnRender(IGraphics g)
         {
 #if !PocketPC
             g.DrawImageUnscaled(localcache2, LocalPosition.X, LocalPosition.Y);
-
 #else
-    //    DrawImageUnscaled(g, Resources.shadow50, LocalPosition.X, LocalPosition.Y);
             DrawImageUnscaled(g, Resources.marker, LocalPosition.X, LocalPosition.Y);
 #endif
         }
