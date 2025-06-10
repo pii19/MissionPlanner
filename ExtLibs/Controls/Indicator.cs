@@ -65,7 +65,7 @@ namespace MissionPlanner.Controls
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
         public float gpshdop_crt { get; set; } = 1.0f;
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Settings")]
-        public float gpsstatus_warn { get; set; } = 4.0f;
+        public float gpsstatus_warn { get; set; } = 3.0f;
 
         Color normal = Color.FromArgb(0, 176, 107);
         Color caution = Color.FromArgb(246, 170, 0);
@@ -227,7 +227,7 @@ namespace MissionPlanner.Controls
             }
 
             // GNSS1
-            if (_satcount >= satcount_warn && _gpshdop < gpshdop_warn && _gpsstatus >= gpsstatus_warn)
+            if (_satcount >= satcount_warn && _gpshdop < gpshdop_warn)
             {
                 GNSS1.ForeColor = normal;
             }
@@ -246,7 +246,7 @@ namespace MissionPlanner.Controls
             }
 
             // GNSS2
-            if (_satcount2 >= satcount_warn && _gpshdop2 < gpshdop_warn && _gpsstatus2 >= gpsstatus_warn)
+            if (_satcount2 >= satcount_warn && _gpshdop2 < gpshdop_warn)
             {
                 GNSS2.ForeColor = normal;
             }
@@ -262,6 +262,20 @@ namespace MissionPlanner.Controls
             {
                 GNSS2.ForeColor = error;
                 mst = MasterStatus.Error;
+            }
+
+            // DGPS
+            if (_gpsstatus >= gpsstatus_warn && _gpsstatus2 >= gpsstatus_warn)
+            {
+                DGPS.ForeColor = normal;
+            }
+            else
+            {
+                DGPS.ForeColor = caution;
+                if (mst == MasterStatus.Normal)
+                {
+                    mst = MasterStatus.Caution;
+                }
             }
 
             // Master
