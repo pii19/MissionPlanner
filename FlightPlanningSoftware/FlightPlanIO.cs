@@ -195,7 +195,11 @@ namespace FlightPlanningSoftware
                         continue;
                     double lat = double.Parse(tokens[1], CultureInfo.InvariantCulture);
                     double lng = double.Parse(tokens[2], CultureInfo.InvariantCulture);
+#if FMS
+                    fenceIncManager.AddCommand(MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION, total, 0, 0, 0, lng, lat, 0);
+#else
                     fenceIncManager.AddCommand(MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION, i, total, 0, 0, lng, lat, 0);
+#endif
                 }
             }
 

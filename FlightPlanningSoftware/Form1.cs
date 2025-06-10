@@ -840,7 +840,11 @@ namespace FlightPlanningSoftware
             int total = polygon.Count;
             for (int i = 0; i < total; i++)
             {
+#if FMS
+                commandManagerFenceInc.AddCommand(MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION, total, 0, 0, 0, polygon[i].Lng, polygon[i].Lat, 0);
+#else
                 commandManagerFenceInc.AddCommand(MAV_CMD.FENCE_POLYGON_VERTEX_INCLUSION, i, total, 0, 0, polygon[i].Lng, polygon[i].Lat, 0);
+#endif
             }
         }
 

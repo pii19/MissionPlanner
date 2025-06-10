@@ -290,7 +290,6 @@ namespace MissionPlanner.GCSViews
             list = mapBoxFrm.getFence();
             MainV2.instance.FlightPlanner.cmb_missiontype.SelectedIndex = (int)MAVLink.MAV_MISSION_TYPE.FENCE;
             MainV2.instance.FlightPlanner.WPtoScreen(list);
-            return;
             MainV2.instance.FlightPlanner.BUT_write_Click(null, null);
 
             // save Rally data
