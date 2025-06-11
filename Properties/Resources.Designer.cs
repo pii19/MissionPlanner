@@ -1582,6 +1582,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap precheck0 {
+            get {
+                object obj = ResourceManager.GetObject("precheck0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap propo_on {
             get {
                 object obj = ResourceManager.GetObject("propo_on", resourceCulture);

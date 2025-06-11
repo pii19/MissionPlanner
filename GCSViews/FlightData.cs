@@ -6641,7 +6641,7 @@ namespace MissionPlanner.GCSViews
 
         private void buttonPreFlight_Click(object sender, EventArgs e)
         {
-            MainV2.instance.PreCheckOpen();
+            MainV2.instance.PreCheck0Open();
         }
 
         private void BUT_zoomIn_Click(object sender, EventArgs e)

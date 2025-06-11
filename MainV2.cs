@@ -574,6 +574,7 @@ namespace MissionPlanner
 
         public GCSViews.FlightPlanner FlightPlanner;
         public GCSViews.PreCheck PreCheck;
+        public GCSViews.PreCheck0 PreCheck0;
         GCSViews.SITL Simulation;
 
         private Form connectionStatsForm;
@@ -854,6 +855,7 @@ namespace MissionPlanner
                 log.Info("Create SIM");
                 Simulation = new GCSViews.SITL();
                 PreCheck = new GCSViews.PreCheck();
+                PreCheck0 = new GCSViews.PreCheck0();
                 //Firmware = new GCSViews.Firmware();
                 //Terminal = new GCSViews.Terminal();
 
@@ -861,6 +863,7 @@ namespace MissionPlanner
                 FlightPlanner.Width = MyView.Width;
                 Simulation.Width = MyView.Width;
                 PreCheck.Width = MyView.Width;
+                PreCheck0.Width = MyView.Width;
             }
             catch (ArgumentException e)
             {
@@ -2259,6 +2262,15 @@ namespace MissionPlanner
             {
             }
 
+            log.Info("closing precheck0");
+            try
+            {
+                PreCheck0.Dispose();
+            }
+            catch
+            {
+            }
+
             try
             {
                 if (comPort.BaseStream.IsOpen)
@@ -3282,6 +3294,7 @@ protected override void OnLoad(EventArgs e)
             MyView.AddScreen(new MainSwitcher.Screen("Simulation", Simulation, true));
             MyView.AddScreen(new MainSwitcher.Screen("Help", typeof(GCSViews.Help), false));
             MyView.AddScreen(new MainSwitcher.Screen("PreCheck", PreCheck, true));
+            MyView.AddScreen(new MainSwitcher.Screen("PreCheck0", PreCheck0, true));
 
             try
             {
@@ -4964,6 +4977,11 @@ protected override void OnLoad(EventArgs e)
         public void PreCheckOpen()
         {
             MyView.ShowScreen("PreCheck");
+        }
+
+        public void PreCheck0Open()
+        {
+            MyView.ShowScreen("PreCheck0");
         }
 
         public void FlightDataOpen()
