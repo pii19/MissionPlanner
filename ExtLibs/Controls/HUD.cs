@@ -3065,7 +3065,7 @@ namespace MissionPlanner.Controls
                         }
 
                         // gps2
-                        if (a == 1) gps = gps.Replace("GPS:", "GPS2:");
+                        if (a == 1) gps = gps.Replace("S/G BAS:", "S/G BAS2:");
                         // if nogps dont display
                         if (a >= 1 && _fix == 0)
                             continue;
