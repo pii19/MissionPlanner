@@ -22,8 +22,8 @@ namespace MissionPlanner.Controls
             VIBE.ForeColor = normal;
             EKF.ForeColor = normal;
             LINK.ForeColor = normal;
-            ATS.ForeColor = normal;
-            DGPS.ForeColor = normal;
+            PARA.ForeColor = normal;
+            SGBAS.ForeColor = normal;
             GNSS1.ForeColor = normal;
             CONT1.ForeColor = normal;
         }
@@ -264,14 +264,14 @@ namespace MissionPlanner.Controls
                 mst = MasterStatus.Error;
             }
 
-            // DGPS
+            // S/G BAS
             if (_gpsstatus >= gpsstatus_warn && _gpsstatus2 >= gpsstatus_warn)
             {
-                DGPS.ForeColor = normal;
+                SGBAS.ForeColor = normal;
             }
             else
             {
-                DGPS.ForeColor = caution;
+                SGBAS.ForeColor = caution;
                 if (mst == MasterStatus.Normal)
                 {
                     mst = MasterStatus.Caution;

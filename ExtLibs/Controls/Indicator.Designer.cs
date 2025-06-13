@@ -30,10 +30,10 @@
         {
             this.MOTOR = new System.Windows.Forms.Label();
             this.VIBE = new System.Windows.Forms.Label();
-            this.ATS = new System.Windows.Forms.Label();
+            this.PARA = new System.Windows.Forms.Label();
             this.BATTERY = new System.Windows.Forms.Label();
             this.CONT1 = new System.Windows.Forms.Label();
-            this.DGPS = new System.Windows.Forms.Label();
+            this.SGBAS = new System.Windows.Forms.Label();
             this.GNSS1 = new System.Windows.Forms.Label();
             this.EKF = new System.Windows.Forms.Label();
             this.CONT2 = new System.Windows.Forms.Label();
@@ -68,18 +68,18 @@
             this.VIBE.Text = "VIBE";
             this.VIBE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ATS
+            // PARA
             // 
-            this.ATS.BackColor = System.Drawing.SystemColors.ControlText;
-            this.ATS.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ATS.ForeColor = System.Drawing.Color.LimeGreen;
-            this.ATS.Location = new System.Drawing.Point(116, 53);
-            this.ATS.Name = "ATS";
-            this.ATS.Size = new System.Drawing.Size(109, 47);
-            this.ATS.TabIndex = 11;
-            this.ATS.Tag = "custom";
-            this.ATS.Text = "ATS";
-            this.ATS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PARA.BackColor = System.Drawing.SystemColors.ControlText;
+            this.PARA.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.PARA.ForeColor = System.Drawing.Color.LimeGreen;
+            this.PARA.Location = new System.Drawing.Point(116, 53);
+            this.PARA.Name = "PARA";
+            this.PARA.Size = new System.Drawing.Size(109, 47);
+            this.PARA.TabIndex = 11;
+            this.PARA.Tag = "custom";
+            this.PARA.Text = "PARA";
+            this.PARA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BATTERY
             // 
@@ -107,18 +107,18 @@
             this.CONT1.Text = "CONT1";
             this.CONT1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DGPS
+            // SGBAS
             // 
-            this.DGPS.BackColor = System.Drawing.SystemColors.ControlText;
-            this.DGPS.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.DGPS.ForeColor = System.Drawing.Color.LimeGreen;
-            this.DGPS.Location = new System.Drawing.Point(228, 53);
-            this.DGPS.Name = "DGPS";
-            this.DGPS.Size = new System.Drawing.Size(109, 47);
-            this.DGPS.TabIndex = 14;
-            this.DGPS.Tag = "custom";
-            this.DGPS.Text = "DGPS";
-            this.DGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SGBAS.BackColor = System.Drawing.SystemColors.ControlText;
+            this.SGBAS.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.SGBAS.ForeColor = System.Drawing.Color.LimeGreen;
+            this.SGBAS.Location = new System.Drawing.Point(228, 53);
+            this.SGBAS.Name = "SGBAS";
+            this.SGBAS.Size = new System.Drawing.Size(109, 47);
+            this.SGBAS.TabIndex = 14;
+            this.SGBAS.Tag = "custom";
+            this.SGBAS.Text = "S/G BAS";
+            this.SGBAS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // GNSS1
             // 
@@ -207,10 +207,10 @@
             this.Controls.Add(this.LINK);
             this.Controls.Add(this.GNSS2);
             this.Controls.Add(this.CONT1);
-            this.Controls.Add(this.DGPS);
+            this.Controls.Add(this.SGBAS);
             this.Controls.Add(this.GNSS1);
             this.Controls.Add(this.EKF);
-            this.Controls.Add(this.ATS);
+            this.Controls.Add(this.PARA);
             this.Controls.Add(this.BATTERY);
             this.Controls.Add(this.VIBE);
             this.Controls.Add(this.MOTOR);
@@ -225,10 +225,10 @@
         #endregion
         private System.Windows.Forms.Label MOTOR;
         private System.Windows.Forms.Label VIBE;
-        private System.Windows.Forms.Label ATS;
+        private System.Windows.Forms.Label PARA;
         private System.Windows.Forms.Label BATTERY;
         private System.Windows.Forms.Label CONT1;
-        private System.Windows.Forms.Label DGPS;
+        private System.Windows.Forms.Label SGBAS;
         private System.Windows.Forms.Label GNSS1;
         private System.Windows.Forms.Label EKF;
         private System.Windows.Forms.Label CONT2;
