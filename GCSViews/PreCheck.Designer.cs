@@ -30,38 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreCheck));
-            this.cbBody1 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.cbBody2 = new System.Windows.Forms.CheckBox();
-            this.cbBody3 = new System.Windows.Forms.CheckBox();
-            this.cbBody4 = new System.Windows.Forms.CheckBox();
-            this.cbBody5 = new System.Windows.Forms.CheckBox();
-            this.cbBody6 = new System.Windows.Forms.CheckBox();
-            this.cbBody7 = new System.Windows.Forms.CheckBox();
-            this.cbBody8 = new System.Windows.Forms.CheckBox();
-            this.cbBody9 = new System.Windows.Forms.CheckBox();
-            this.cbBody10 = new System.Windows.Forms.CheckBox();
             this.cbConnect = new System.Windows.Forms.CheckBox();
-            this.cbMotorTest = new System.Windows.Forms.CheckBox();
             this.cbPlan = new System.Windows.Forms.CheckBox();
             this.cbMap = new System.Windows.Forms.CheckBox();
             this.cbCamFront = new System.Windows.Forms.CheckBox();
             this.cbCamUnder = new System.Windows.Forms.CheckBox();
-            this.cbPropo = new System.Windows.Forms.CheckBox();
-            this.cbMode = new System.Windows.Forms.CheckBox();
-            this.cbParamRTLALT = new System.Windows.Forms.CheckBox();
-            this.cbParamBattVolt = new System.Windows.Forms.CheckBox();
-            this.cbParamSatCount2 = new System.Windows.Forms.CheckBox();
-            this.cbParamSatCount1 = new System.Windows.Forms.CheckBox();
-            this.cbParamBattCell = new System.Windows.Forms.CheckBox();
-            this.cbParamBattTemp = new System.Windows.Forms.CheckBox();
-            this.cbParamBattCharge = new System.Windows.Forms.CheckBox();
-            this.cbParamRoll = new System.Windows.Forms.CheckBox();
-            this.cbParamPitch = new System.Windows.Forms.CheckBox();
-            this.cbParamGpsStatus = new System.Windows.Forms.CheckBox();
+            this.cbRTLALT = new System.Windows.Forms.CheckBox();
+            this.cbBattVolt = new System.Windows.Forms.CheckBox();
+            this.cbSatCount2 = new System.Windows.Forms.CheckBox();
+            this.cbSatCount = new System.Windows.Forms.CheckBox();
+            this.cbBattCell = new System.Windows.Forms.CheckBox();
+            this.cbBattTemp = new System.Windows.Forms.CheckBox();
+            this.cbBattCharge = new System.Windows.Forms.CheckBox();
+            this.cbRoll = new System.Windows.Forms.CheckBox();
+            this.cbPitch = new System.Windows.Forms.CheckBox();
+            this.cbGpsStatus = new System.Windows.Forms.CheckBox();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ParamRTLALT = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -71,196 +55,50 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.ParamPitch = new System.Windows.Forms.Label();
-            this.ParamGpsStatus = new System.Windows.Forms.Label();
-            this.ParamSatCount2 = new System.Windows.Forms.Label();
-            this.ParamSatCount1 = new System.Windows.Forms.Label();
-            this.ParamBattCell = new System.Windows.Forms.Label();
-            this.ParamBattTemp = new System.Windows.Forms.Label();
-            this.ParamBattCharge = new System.Windows.Forms.Label();
-            this.ParamBattVolt = new System.Windows.Forms.Label();
-            this.ParamRoll = new System.Windows.Forms.Label();
+            this.lblPitch = new System.Windows.Forms.Label();
+            this.lblGpsStatus = new System.Windows.Forms.Label();
+            this.lblSatCount2 = new System.Windows.Forms.Label();
+            this.lblSatCount = new System.Windows.Forms.Label();
+            this.lblBattCell = new System.Windows.Forms.Label();
+            this.lblBattTemp = new System.Windows.Forms.Label();
+            this.lblBattCharge = new System.Windows.Forms.Label();
+            this.lblBattVolt = new System.Windows.Forms.Label();
+            this.lblRoll = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonConnect = new System.Windows.Forms.Button();
-            this.buttonMotorTest = new System.Windows.Forms.Button();
             this.buttonLoadPlan = new System.Windows.Forms.Button();
             this.buttonDispMap = new System.Windows.Forms.Button();
-            this.ParamMode = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.tbRTLALT = new System.Windows.Forms.TextBox();
-            this.ParamPropo = new System.Windows.Forms.Label();
+            this.lblBattCharge2 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cbBattCharge2 = new System.Windows.Forms.CheckBox();
+            this.lblBattVolt2 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbBattVolt2 = new System.Windows.Forms.CheckBox();
+            this.lblBattTemp2 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cbBattTemp2 = new System.Windows.Forms.CheckBox();
+            this.lblBattCell2 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cbBattCell2 = new System.Windows.Forms.CheckBox();
+            this.lblGpsHdop = new System.Windows.Forms.Label();
+            this.lblGpsHdop2 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cbGpsHdop = new System.Windows.Forms.CheckBox();
+            this.cbGpsHdop2 = new System.Windows.Forms.CheckBox();
+            this.lblGpsStatus2 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbGpsStatus2 = new System.Windows.Forms.CheckBox();
+            this.cbLink = new System.Windows.Forms.CheckBox();
+            this.lblLink = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // cbBody1
-            // 
-            resources.ApplyResources(this.cbBody1, "cbBody1");
-            this.cbBody1.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody1.FlatAppearance.BorderSize = 0;
-            this.cbBody1.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody1.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody1.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody1.Name = "cbBody1";
-            this.cbBody1.Tag = "custom";
-            this.cbBody1.UseVisualStyleBackColor = false;
-            this.cbBody1.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // checkBox1
-            // 
-            resources.ApplyResources(this.checkBox1, "checkBox1");
-            this.checkBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.FlatAppearance.BorderSize = 0;
-            this.checkBox1.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.checkBox1.ForeColor = System.Drawing.Color.LimeGreen;
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Tag = "custom";
-            this.checkBox1.UseVisualStyleBackColor = false;
-            // 
-            // cbBody2
-            // 
-            resources.ApplyResources(this.cbBody2, "cbBody2");
-            this.cbBody2.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody2.FlatAppearance.BorderSize = 0;
-            this.cbBody2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody2.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody2.Name = "cbBody2";
-            this.cbBody2.Tag = "custom";
-            this.cbBody2.UseVisualStyleBackColor = false;
-            this.cbBody2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody3
-            // 
-            resources.ApplyResources(this.cbBody3, "cbBody3");
-            this.cbBody3.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody3.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody3.FlatAppearance.BorderSize = 0;
-            this.cbBody3.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody3.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody3.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody3.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody3.Name = "cbBody3";
-            this.cbBody3.Tag = "custom";
-            this.cbBody3.UseVisualStyleBackColor = false;
-            this.cbBody3.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody4
-            // 
-            resources.ApplyResources(this.cbBody4, "cbBody4");
-            this.cbBody4.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody4.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody4.FlatAppearance.BorderSize = 0;
-            this.cbBody4.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody4.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody4.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody4.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody4.Name = "cbBody4";
-            this.cbBody4.Tag = "custom";
-            this.cbBody4.UseVisualStyleBackColor = false;
-            this.cbBody4.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody5
-            // 
-            resources.ApplyResources(this.cbBody5, "cbBody5");
-            this.cbBody5.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody5.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody5.FlatAppearance.BorderSize = 0;
-            this.cbBody5.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody5.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody5.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody5.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody5.Name = "cbBody5";
-            this.cbBody5.Tag = "custom";
-            this.cbBody5.UseVisualStyleBackColor = false;
-            this.cbBody5.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody6
-            // 
-            resources.ApplyResources(this.cbBody6, "cbBody6");
-            this.cbBody6.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody6.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody6.FlatAppearance.BorderSize = 0;
-            this.cbBody6.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody6.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody6.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody6.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody6.Name = "cbBody6";
-            this.cbBody6.Tag = "custom";
-            this.cbBody6.UseVisualStyleBackColor = false;
-            this.cbBody6.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody7
-            // 
-            resources.ApplyResources(this.cbBody7, "cbBody7");
-            this.cbBody7.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody7.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody7.FlatAppearance.BorderSize = 0;
-            this.cbBody7.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody7.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody7.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody7.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody7.Name = "cbBody7";
-            this.cbBody7.Tag = "custom";
-            this.cbBody7.UseVisualStyleBackColor = false;
-            this.cbBody7.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody8
-            // 
-            resources.ApplyResources(this.cbBody8, "cbBody8");
-            this.cbBody8.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody8.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody8.FlatAppearance.BorderSize = 0;
-            this.cbBody8.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody8.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody8.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody8.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody8.Name = "cbBody8";
-            this.cbBody8.Tag = "custom";
-            this.cbBody8.UseVisualStyleBackColor = false;
-            this.cbBody8.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody9
-            // 
-            resources.ApplyResources(this.cbBody9, "cbBody9");
-            this.cbBody9.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody9.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody9.FlatAppearance.BorderSize = 0;
-            this.cbBody9.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody9.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody9.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody9.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody9.Name = "cbBody9";
-            this.cbBody9.Tag = "custom";
-            this.cbBody9.UseVisualStyleBackColor = false;
-            this.cbBody9.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbBody10
-            // 
-            resources.ApplyResources(this.cbBody10, "cbBody10");
-            this.cbBody10.BackColor = System.Drawing.SystemColors.Control;
-            this.cbBody10.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbBody10.FlatAppearance.BorderSize = 0;
-            this.cbBody10.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody10.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody10.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbBody10.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbBody10.Name = "cbBody10";
-            this.cbBody10.Tag = "custom";
-            this.cbBody10.UseVisualStyleBackColor = false;
-            this.cbBody10.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
             // cbConnect
             // 
             resources.ApplyResources(this.cbConnect, "cbConnect");
+            this.cbConnect.AutoCheck = false;
             this.cbConnect.BackColor = System.Drawing.SystemColors.Control;
             this.cbConnect.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.cbConnect.FlatAppearance.BorderSize = 0;
@@ -273,24 +111,10 @@
             this.cbConnect.UseVisualStyleBackColor = false;
             this.cbConnect.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbMotorTest
-            // 
-            resources.ApplyResources(this.cbMotorTest, "cbMotorTest");
-            this.cbMotorTest.BackColor = System.Drawing.SystemColors.Control;
-            this.cbMotorTest.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbMotorTest.FlatAppearance.BorderSize = 0;
-            this.cbMotorTest.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbMotorTest.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbMotorTest.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbMotorTest.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbMotorTest.Name = "cbMotorTest";
-            this.cbMotorTest.Tag = "custom";
-            this.cbMotorTest.UseVisualStyleBackColor = false;
-            this.cbMotorTest.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
             // cbPlan
             // 
             resources.ApplyResources(this.cbPlan, "cbPlan");
+            this.cbPlan.AutoCheck = false;
             this.cbPlan.BackColor = System.Drawing.SystemColors.Control;
             this.cbPlan.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.cbPlan.FlatAppearance.BorderSize = 0;
@@ -306,6 +130,7 @@
             // cbMap
             // 
             resources.ApplyResources(this.cbMap, "cbMap");
+            this.cbMap.AutoCheck = false;
             this.cbMap.BackColor = System.Drawing.SystemColors.Control;
             this.cbMap.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
             this.cbMap.FlatAppearance.BorderSize = 0;
@@ -348,185 +173,155 @@
             this.cbCamUnder.UseVisualStyleBackColor = false;
             this.cbCamUnder.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbPropo
+            // cbRTLALT
             // 
-            resources.ApplyResources(this.cbPropo, "cbPropo");
-            this.cbPropo.BackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbPropo.FlatAppearance.BorderSize = 0;
-            this.cbPropo.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbPropo.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbPropo.Name = "cbPropo";
-            this.cbPropo.Tag = "custom";
-            this.cbPropo.UseVisualStyleBackColor = false;
-            this.cbPropo.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbRTLALT, "cbRTLALT");
+            this.cbRTLALT.BackColor = System.Drawing.SystemColors.Control;
+            this.cbRTLALT.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbRTLALT.FlatAppearance.BorderSize = 0;
+            this.cbRTLALT.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbRTLALT.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbRTLALT.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbRTLALT.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbRTLALT.Name = "cbRTLALT";
+            this.cbRTLALT.Tag = "custom";
+            this.cbRTLALT.UseVisualStyleBackColor = false;
+            this.cbRTLALT.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbMode
+            // cbBattVolt
             // 
-            resources.ApplyResources(this.cbMode, "cbMode");
-            this.cbMode.BackColor = System.Drawing.SystemColors.Control;
-            this.cbMode.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbMode.FlatAppearance.BorderSize = 0;
-            this.cbMode.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbMode.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbMode.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbMode.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbMode.Name = "cbMode";
-            this.cbMode.Tag = "custom";
-            this.cbMode.UseVisualStyleBackColor = false;
-            this.cbMode.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbBattVolt, "cbBattVolt");
+            this.cbBattVolt.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt.FlatAppearance.BorderSize = 0;
+            this.cbBattVolt.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattVolt.Name = "cbBattVolt";
+            this.cbBattVolt.Tag = "custom";
+            this.cbBattVolt.UseVisualStyleBackColor = false;
+            this.cbBattVolt.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamRTLALT
+            // cbSatCount2
             // 
-            resources.ApplyResources(this.cbParamRTLALT, "cbParamRTLALT");
-            this.cbParamRTLALT.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRTLALT.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamRTLALT.FlatAppearance.BorderSize = 0;
-            this.cbParamRTLALT.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRTLALT.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRTLALT.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRTLALT.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamRTLALT.Name = "cbParamRTLALT";
-            this.cbParamRTLALT.Tag = "custom";
-            this.cbParamRTLALT.UseVisualStyleBackColor = false;
-            this.cbParamRTLALT.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbSatCount2, "cbSatCount2");
+            this.cbSatCount2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount2.FlatAppearance.BorderSize = 0;
+            this.cbSatCount2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbSatCount2.Name = "cbSatCount2";
+            this.cbSatCount2.Tag = "custom";
+            this.cbSatCount2.UseVisualStyleBackColor = false;
+            this.cbSatCount2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamBattVolt
+            // cbSatCount
             // 
-            resources.ApplyResources(this.cbParamBattVolt, "cbParamBattVolt");
-            this.cbParamBattVolt.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattVolt.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattVolt.FlatAppearance.BorderSize = 0;
-            this.cbParamBattVolt.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattVolt.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattVolt.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattVolt.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamBattVolt.Name = "cbParamBattVolt";
-            this.cbParamBattVolt.Tag = "custom";
-            this.cbParamBattVolt.UseVisualStyleBackColor = false;
-            this.cbParamBattVolt.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbSatCount, "cbSatCount");
+            this.cbSatCount.BackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount.FlatAppearance.BorderSize = 0;
+            this.cbSatCount.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbSatCount.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbSatCount.Name = "cbSatCount";
+            this.cbSatCount.Tag = "custom";
+            this.cbSatCount.UseVisualStyleBackColor = false;
+            this.cbSatCount.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamSatCount2
+            // cbBattCell
             // 
-            resources.ApplyResources(this.cbParamSatCount2, "cbParamSatCount2");
-            this.cbParamSatCount2.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount2.FlatAppearance.BorderSize = 0;
-            this.cbParamSatCount2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount2.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamSatCount2.Name = "cbParamSatCount2";
-            this.cbParamSatCount2.Tag = "custom";
-            this.cbParamSatCount2.UseVisualStyleBackColor = false;
-            this.cbParamSatCount2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbBattCell, "cbBattCell");
+            this.cbBattCell.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell.FlatAppearance.BorderSize = 0;
+            this.cbBattCell.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattCell.Name = "cbBattCell";
+            this.cbBattCell.Tag = "custom";
+            this.cbBattCell.UseVisualStyleBackColor = false;
+            this.cbBattCell.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamSatCount1
+            // cbBattTemp
             // 
-            resources.ApplyResources(this.cbParamSatCount1, "cbParamSatCount1");
-            this.cbParamSatCount1.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount1.FlatAppearance.BorderSize = 0;
-            this.cbParamSatCount1.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount1.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamSatCount1.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamSatCount1.Name = "cbParamSatCount1";
-            this.cbParamSatCount1.Tag = "custom";
-            this.cbParamSatCount1.UseVisualStyleBackColor = false;
-            this.cbParamSatCount1.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbBattTemp, "cbBattTemp");
+            this.cbBattTemp.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp.FlatAppearance.BorderSize = 0;
+            this.cbBattTemp.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattTemp.Name = "cbBattTemp";
+            this.cbBattTemp.Tag = "custom";
+            this.cbBattTemp.UseVisualStyleBackColor = false;
+            this.cbBattTemp.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamBattCell
+            // cbBattCharge
             // 
-            resources.ApplyResources(this.cbParamBattCell, "cbParamBattCell");
-            this.cbParamBattCell.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCell.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCell.FlatAppearance.BorderSize = 0;
-            this.cbParamBattCell.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCell.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCell.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCell.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamBattCell.Name = "cbParamBattCell";
-            this.cbParamBattCell.Tag = "custom";
-            this.cbParamBattCell.UseVisualStyleBackColor = false;
-            this.cbParamBattCell.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbBattCharge, "cbBattCharge");
+            this.cbBattCharge.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge.FlatAppearance.BorderSize = 0;
+            this.cbBattCharge.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattCharge.Name = "cbBattCharge";
+            this.cbBattCharge.Tag = "custom";
+            this.cbBattCharge.UseVisualStyleBackColor = false;
+            this.cbBattCharge.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamBattTemp
+            // cbRoll
             // 
-            resources.ApplyResources(this.cbParamBattTemp, "cbParamBattTemp");
-            this.cbParamBattTemp.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattTemp.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattTemp.FlatAppearance.BorderSize = 0;
-            this.cbParamBattTemp.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattTemp.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattTemp.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattTemp.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamBattTemp.Name = "cbParamBattTemp";
-            this.cbParamBattTemp.Tag = "custom";
-            this.cbParamBattTemp.UseVisualStyleBackColor = false;
-            this.cbParamBattTemp.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbRoll, "cbRoll");
+            this.cbRoll.BackColor = System.Drawing.SystemColors.Control;
+            this.cbRoll.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbRoll.FlatAppearance.BorderSize = 0;
+            this.cbRoll.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbRoll.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbRoll.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbRoll.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbRoll.Name = "cbRoll";
+            this.cbRoll.Tag = "custom";
+            this.cbRoll.UseVisualStyleBackColor = false;
+            this.cbRoll.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamBattCharge
+            // cbPitch
             // 
-            resources.ApplyResources(this.cbParamBattCharge, "cbParamBattCharge");
-            this.cbParamBattCharge.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCharge.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCharge.FlatAppearance.BorderSize = 0;
-            this.cbParamBattCharge.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCharge.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCharge.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamBattCharge.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamBattCharge.Name = "cbParamBattCharge";
-            this.cbParamBattCharge.Tag = "custom";
-            this.cbParamBattCharge.UseVisualStyleBackColor = false;
-            this.cbParamBattCharge.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbPitch, "cbPitch");
+            this.cbPitch.BackColor = System.Drawing.SystemColors.Control;
+            this.cbPitch.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbPitch.FlatAppearance.BorderSize = 0;
+            this.cbPitch.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbPitch.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbPitch.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbPitch.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbPitch.Name = "cbPitch";
+            this.cbPitch.Tag = "custom";
+            this.cbPitch.UseVisualStyleBackColor = false;
+            this.cbPitch.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
-            // cbParamRoll
+            // cbGpsStatus
             // 
-            resources.ApplyResources(this.cbParamRoll, "cbParamRoll");
-            this.cbParamRoll.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRoll.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamRoll.FlatAppearance.BorderSize = 0;
-            this.cbParamRoll.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRoll.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRoll.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamRoll.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamRoll.Name = "cbParamRoll";
-            this.cbParamRoll.Tag = "custom";
-            this.cbParamRoll.UseVisualStyleBackColor = false;
-            this.cbParamRoll.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbParamPitch
-            // 
-            resources.ApplyResources(this.cbParamPitch, "cbParamPitch");
-            this.cbParamPitch.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamPitch.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamPitch.FlatAppearance.BorderSize = 0;
-            this.cbParamPitch.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamPitch.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamPitch.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamPitch.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamPitch.Name = "cbParamPitch";
-            this.cbParamPitch.Tag = "custom";
-            this.cbParamPitch.UseVisualStyleBackColor = false;
-            this.cbParamPitch.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
-            // 
-            // cbParamGpsStatus
-            // 
-            resources.ApplyResources(this.cbParamGpsStatus, "cbParamGpsStatus");
-            this.cbParamGpsStatus.BackColor = System.Drawing.SystemColors.Control;
-            this.cbParamGpsStatus.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
-            this.cbParamGpsStatus.FlatAppearance.BorderSize = 0;
-            this.cbParamGpsStatus.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamGpsStatus.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamGpsStatus.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
-            this.cbParamGpsStatus.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cbParamGpsStatus.Name = "cbParamGpsStatus";
-            this.cbParamGpsStatus.Tag = "custom";
-            this.cbParamGpsStatus.UseVisualStyleBackColor = false;
-            this.cbParamGpsStatus.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            resources.ApplyResources(this.cbGpsStatus, "cbGpsStatus");
+            this.cbGpsStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus.FlatAppearance.BorderSize = 0;
+            this.cbGpsStatus.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbGpsStatus.Name = "cbGpsStatus";
+            this.cbGpsStatus.Tag = "custom";
+            this.cbGpsStatus.UseVisualStyleBackColor = false;
+            this.cbGpsStatus.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
             // 
             // buttonOK
             // 
@@ -539,22 +334,6 @@
             this.buttonOK.Tag = "";
             this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label1.Name = "label1";
-            this.label1.Tag = "custom";
-            // 
-            // ParamRTLALT
-            // 
-            this.ParamRTLALT.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamRTLALT, "ParamRTLALT");
-            this.ParamRTLALT.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamRTLALT.Name = "ParamRTLALT";
-            this.ParamRTLALT.Tag = "custom";
             // 
             // label2
             // 
@@ -628,77 +407,77 @@
             this.label10.Name = "label10";
             this.label10.Tag = "custom";
             // 
-            // ParamPitch
+            // lblPitch
             // 
-            this.ParamPitch.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamPitch, "ParamPitch");
-            this.ParamPitch.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamPitch.Name = "ParamPitch";
-            this.ParamPitch.Tag = "custom";
+            this.lblPitch.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblPitch, "lblPitch");
+            this.lblPitch.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblPitch.Name = "lblPitch";
+            this.lblPitch.Tag = "custom";
             // 
-            // ParamGpsStatus
+            // lblGpsStatus
             // 
-            this.ParamGpsStatus.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamGpsStatus, "ParamGpsStatus");
-            this.ParamGpsStatus.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamGpsStatus.Name = "ParamGpsStatus";
-            this.ParamGpsStatus.Tag = "custom";
+            this.lblGpsStatus.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblGpsStatus, "lblGpsStatus");
+            this.lblGpsStatus.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblGpsStatus.Name = "lblGpsStatus";
+            this.lblGpsStatus.Tag = "custom";
             // 
-            // ParamSatCount2
+            // lblSatCount2
             // 
-            this.ParamSatCount2.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamSatCount2, "ParamSatCount2");
-            this.ParamSatCount2.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamSatCount2.Name = "ParamSatCount2";
-            this.ParamSatCount2.Tag = "custom";
+            this.lblSatCount2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblSatCount2, "lblSatCount2");
+            this.lblSatCount2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSatCount2.Name = "lblSatCount2";
+            this.lblSatCount2.Tag = "custom";
             // 
-            // ParamSatCount1
+            // lblSatCount
             // 
-            this.ParamSatCount1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamSatCount1, "ParamSatCount1");
-            this.ParamSatCount1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamSatCount1.Name = "ParamSatCount1";
-            this.ParamSatCount1.Tag = "custom";
+            this.lblSatCount.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblSatCount, "lblSatCount");
+            this.lblSatCount.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblSatCount.Name = "lblSatCount";
+            this.lblSatCount.Tag = "custom";
             // 
-            // ParamBattCell
+            // lblBattCell
             // 
-            this.ParamBattCell.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamBattCell, "ParamBattCell");
-            this.ParamBattCell.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamBattCell.Name = "ParamBattCell";
-            this.ParamBattCell.Tag = "custom";
+            this.lblBattCell.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattCell, "lblBattCell");
+            this.lblBattCell.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattCell.Name = "lblBattCell";
+            this.lblBattCell.Tag = "custom";
             // 
-            // ParamBattTemp
+            // lblBattTemp
             // 
-            this.ParamBattTemp.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamBattTemp, "ParamBattTemp");
-            this.ParamBattTemp.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamBattTemp.Name = "ParamBattTemp";
-            this.ParamBattTemp.Tag = "custom";
+            this.lblBattTemp.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattTemp, "lblBattTemp");
+            this.lblBattTemp.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattTemp.Name = "lblBattTemp";
+            this.lblBattTemp.Tag = "custom";
             // 
-            // ParamBattCharge
+            // lblBattCharge
             // 
-            this.ParamBattCharge.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamBattCharge, "ParamBattCharge");
-            this.ParamBattCharge.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamBattCharge.Name = "ParamBattCharge";
-            this.ParamBattCharge.Tag = "custom";
+            this.lblBattCharge.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattCharge, "lblBattCharge");
+            this.lblBattCharge.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattCharge.Name = "lblBattCharge";
+            this.lblBattCharge.Tag = "custom";
             // 
-            // ParamBattVolt
+            // lblBattVolt
             // 
-            this.ParamBattVolt.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamBattVolt, "ParamBattVolt");
-            this.ParamBattVolt.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamBattVolt.Name = "ParamBattVolt";
-            this.ParamBattVolt.Tag = "custom";
+            this.lblBattVolt.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattVolt, "lblBattVolt");
+            this.lblBattVolt.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattVolt.Name = "lblBattVolt";
+            this.lblBattVolt.Tag = "custom";
             // 
-            // ParamRoll
+            // lblRoll
             // 
-            this.ParamRoll.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamRoll, "ParamRoll");
-            this.ParamRoll.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamRoll.Name = "ParamRoll";
-            this.ParamRoll.Tag = "custom";
+            this.lblRoll.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblRoll, "lblRoll");
+            this.lblRoll.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblRoll.Name = "lblRoll";
+            this.lblRoll.Tag = "custom";
             // 
             // timer1
             // 
@@ -716,18 +495,6 @@
             this.buttonConnect.Tag = "";
             this.buttonConnect.UseVisualStyleBackColor = false;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
-            // 
-            // buttonMotorTest
-            // 
-            this.buttonMotorTest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
-            this.buttonMotorTest.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.buttonMotorTest, "buttonMotorTest");
-            this.buttonMotorTest.ForeColor = System.Drawing.Color.White;
-            this.buttonMotorTest.Name = "buttonMotorTest";
-            this.buttonMotorTest.TabStop = false;
-            this.buttonMotorTest.Tag = "";
-            this.buttonMotorTest.UseVisualStyleBackColor = false;
-            this.buttonMotorTest.Click += new System.EventHandler(this.buttonMotorTest_Click);
             // 
             // buttonLoadPlan
             // 
@@ -753,30 +520,6 @@
             this.buttonDispMap.UseVisualStyleBackColor = false;
             this.buttonDispMap.Click += new System.EventHandler(this.buttonDispMap_Click);
             // 
-            // ParamMode
-            // 
-            this.ParamMode.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamMode, "ParamMode");
-            this.ParamMode.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamMode.Name = "ParamMode";
-            this.ParamMode.Tag = "custom";
-            // 
-            // label12
-            // 
-            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label12.Name = "label12";
-            this.label12.Tag = "custom";
-            // 
-            // label13
-            // 
-            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(39)))), ((int)(((byte)(40)))));
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label13.Name = "label13";
-            this.label13.Tag = "custom";
-            // 
             // tbRTLALT
             // 
             this.tbRTLALT.BackColor = System.Drawing.SystemColors.Control;
@@ -786,36 +529,295 @@
             this.tbRTLALT.Tag = "custom";
             this.tbRTLALT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbRTLALT_KeyDown);
             // 
-            // ParamPropo
+            // lblBattCharge2
             // 
-            this.ParamPropo.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ParamPropo, "ParamPropo");
-            this.ParamPropo.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ParamPropo.Name = "ParamPropo";
-            this.ParamPropo.Tag = "custom";
+            this.lblBattCharge2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattCharge2, "lblBattCharge2");
+            this.lblBattCharge2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattCharge2.Name = "lblBattCharge2";
+            this.lblBattCharge2.Tag = "custom";
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label11.Name = "label11";
+            this.label11.Tag = "custom";
+            // 
+            // cbBattCharge2
+            // 
+            resources.ApplyResources(this.cbBattCharge2, "cbBattCharge2");
+            this.cbBattCharge2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge2.FlatAppearance.BorderSize = 0;
+            this.cbBattCharge2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCharge2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattCharge2.Name = "cbBattCharge2";
+            this.cbBattCharge2.Tag = "custom";
+            this.cbBattCharge2.UseVisualStyleBackColor = false;
+            this.cbBattCharge2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // lblBattVolt2
+            // 
+            this.lblBattVolt2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattVolt2, "lblBattVolt2");
+            this.lblBattVolt2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattVolt2.Name = "lblBattVolt2";
+            this.lblBattVolt2.Tag = "custom";
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label12.Name = "label12";
+            this.label12.Tag = "custom";
+            // 
+            // cbBattVolt2
+            // 
+            resources.ApplyResources(this.cbBattVolt2, "cbBattVolt2");
+            this.cbBattVolt2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt2.FlatAppearance.BorderSize = 0;
+            this.cbBattVolt2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattVolt2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattVolt2.Name = "cbBattVolt2";
+            this.cbBattVolt2.Tag = "custom";
+            this.cbBattVolt2.UseVisualStyleBackColor = false;
+            this.cbBattVolt2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // lblBattTemp2
+            // 
+            this.lblBattTemp2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattTemp2, "lblBattTemp2");
+            this.lblBattTemp2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattTemp2.Name = "lblBattTemp2";
+            this.lblBattTemp2.Tag = "custom";
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label14.Name = "label14";
+            this.label14.Tag = "custom";
+            // 
+            // cbBattTemp2
+            // 
+            resources.ApplyResources(this.cbBattTemp2, "cbBattTemp2");
+            this.cbBattTemp2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp2.FlatAppearance.BorderSize = 0;
+            this.cbBattTemp2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattTemp2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattTemp2.Name = "cbBattTemp2";
+            this.cbBattTemp2.Tag = "custom";
+            this.cbBattTemp2.UseVisualStyleBackColor = false;
+            this.cbBattTemp2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // lblBattCell2
+            // 
+            this.lblBattCell2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblBattCell2, "lblBattCell2");
+            this.lblBattCell2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblBattCell2.Name = "lblBattCell2";
+            this.lblBattCell2.Tag = "custom";
+            // 
+            // label16
+            // 
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label16.Name = "label16";
+            this.label16.Tag = "custom";
+            // 
+            // cbBattCell2
+            // 
+            resources.ApplyResources(this.cbBattCell2, "cbBattCell2");
+            this.cbBattCell2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell2.FlatAppearance.BorderSize = 0;
+            this.cbBattCell2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbBattCell2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbBattCell2.Name = "cbBattCell2";
+            this.cbBattCell2.Tag = "custom";
+            this.cbBattCell2.UseVisualStyleBackColor = false;
+            this.cbBattCell2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // lblGpsHdop
+            // 
+            this.lblGpsHdop.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblGpsHdop, "lblGpsHdop");
+            this.lblGpsHdop.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblGpsHdop.Name = "lblGpsHdop";
+            this.lblGpsHdop.Tag = "custom";
+            // 
+            // lblGpsHdop2
+            // 
+            this.lblGpsHdop2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblGpsHdop2, "lblGpsHdop2");
+            this.lblGpsHdop2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblGpsHdop2.Name = "lblGpsHdop2";
+            this.lblGpsHdop2.Tag = "custom";
+            // 
+            // label15
+            // 
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label15.Name = "label15";
+            this.label15.Tag = "custom";
+            // 
+            // label17
+            // 
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label17.Name = "label17";
+            this.label17.Tag = "custom";
+            // 
+            // cbGpsHdop
+            // 
+            resources.ApplyResources(this.cbGpsHdop, "cbGpsHdop");
+            this.cbGpsHdop.BackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop.FlatAppearance.BorderSize = 0;
+            this.cbGpsHdop.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbGpsHdop.Name = "cbGpsHdop";
+            this.cbGpsHdop.Tag = "custom";
+            this.cbGpsHdop.UseVisualStyleBackColor = false;
+            this.cbGpsHdop.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // cbGpsHdop2
+            // 
+            resources.ApplyResources(this.cbGpsHdop2, "cbGpsHdop2");
+            this.cbGpsHdop2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop2.FlatAppearance.BorderSize = 0;
+            this.cbGpsHdop2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsHdop2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbGpsHdop2.Name = "cbGpsHdop2";
+            this.cbGpsHdop2.Tag = "custom";
+            this.cbGpsHdop2.UseVisualStyleBackColor = false;
+            this.cbGpsHdop2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // lblGpsStatus2
+            // 
+            this.lblGpsStatus2.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblGpsStatus2, "lblGpsStatus2");
+            this.lblGpsStatus2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblGpsStatus2.Name = "lblGpsStatus2";
+            this.lblGpsStatus2.Tag = "custom";
+            // 
+            // label13
+            // 
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label13.Name = "label13";
+            this.label13.Tag = "custom";
+            // 
+            // cbGpsStatus2
+            // 
+            resources.ApplyResources(this.cbGpsStatus2, "cbGpsStatus2");
+            this.cbGpsStatus2.BackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus2.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus2.FlatAppearance.BorderSize = 0;
+            this.cbGpsStatus2.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus2.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus2.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbGpsStatus2.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbGpsStatus2.Name = "cbGpsStatus2";
+            this.cbGpsStatus2.Tag = "custom";
+            this.cbGpsStatus2.UseVisualStyleBackColor = false;
+            this.cbGpsStatus2.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // cbLink
+            // 
+            resources.ApplyResources(this.cbLink, "cbLink");
+            this.cbLink.BackColor = System.Drawing.SystemColors.Control;
+            this.cbLink.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
+            this.cbLink.FlatAppearance.BorderSize = 0;
+            this.cbLink.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.Control;
+            this.cbLink.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.Control;
+            this.cbLink.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.Control;
+            this.cbLink.ForeColor = System.Drawing.Color.LimeGreen;
+            this.cbLink.Name = "cbLink";
+            this.cbLink.Tag = "custom";
+            this.cbLink.UseVisualStyleBackColor = false;
+            this.cbLink.CheckedChanged += new System.EventHandler(this.cb_CheckedChanged);
+            // 
+            // lblLink
+            // 
+            this.lblLink.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.lblLink, "lblLink");
+            this.lblLink.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.lblLink.Name = "lblLink";
+            this.lblLink.Tag = "custom";
+            // 
+            // label18
+            // 
+            this.label18.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label18.Name = "label18";
+            this.label18.Tag = "custom";
             // 
             // PreCheck
             // 
-            this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.ParamPropo);
-            this.Controls.Add(this.tbRTLALT);
+            this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
+            this.Controls.Add(this.lblLink);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.cbLink);
+            this.Controls.Add(this.lblGpsStatus2);
             this.Controls.Add(this.label13);
+            this.Controls.Add(this.cbGpsStatus2);
+            this.Controls.Add(this.lblGpsHdop);
+            this.Controls.Add(this.lblGpsHdop2);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.cbGpsHdop);
+            this.Controls.Add(this.cbGpsHdop2);
+            this.Controls.Add(this.lblBattCell2);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.cbBattCell2);
+            this.Controls.Add(this.lblBattTemp2);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.cbBattTemp2);
+            this.Controls.Add(this.lblBattVolt2);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.ParamMode);
+            this.Controls.Add(this.cbBattVolt2);
+            this.Controls.Add(this.lblBattCharge2);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.cbBattCharge2);
+            this.Controls.Add(this.tbRTLALT);
             this.Controls.Add(this.buttonDispMap);
             this.Controls.Add(this.buttonLoadPlan);
-            this.Controls.Add(this.buttonMotorTest);
             this.Controls.Add(this.buttonConnect);
-            this.Controls.Add(this.ParamRoll);
-            this.Controls.Add(this.ParamBattVolt);
-            this.Controls.Add(this.ParamBattCharge);
-            this.Controls.Add(this.ParamBattTemp);
-            this.Controls.Add(this.ParamBattCell);
-            this.Controls.Add(this.ParamSatCount1);
-            this.Controls.Add(this.ParamSatCount2);
-            this.Controls.Add(this.ParamGpsStatus);
-            this.Controls.Add(this.ParamPitch);
+            this.Controls.Add(this.lblRoll);
+            this.Controls.Add(this.lblBattVolt);
+            this.Controls.Add(this.lblBattCharge);
+            this.Controls.Add(this.lblBattTemp);
+            this.Controls.Add(this.lblBattCell);
+            this.Controls.Add(this.lblSatCount);
+            this.Controls.Add(this.lblSatCount2);
+            this.Controls.Add(this.lblGpsStatus);
+            this.Controls.Add(this.lblPitch);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -825,38 +827,23 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.ParamRTLALT);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.cbParamGpsStatus);
-            this.Controls.Add(this.cbParamPitch);
-            this.Controls.Add(this.cbParamRoll);
-            this.Controls.Add(this.cbParamBattCharge);
-            this.Controls.Add(this.cbParamBattTemp);
-            this.Controls.Add(this.cbParamBattCell);
-            this.Controls.Add(this.cbParamSatCount1);
-            this.Controls.Add(this.cbParamSatCount2);
-            this.Controls.Add(this.cbParamBattVolt);
-            this.Controls.Add(this.cbParamRTLALT);
-            this.Controls.Add(this.cbMode);
-            this.Controls.Add(this.cbPropo);
+            this.Controls.Add(this.cbGpsStatus);
+            this.Controls.Add(this.cbPitch);
+            this.Controls.Add(this.cbRoll);
+            this.Controls.Add(this.cbBattCharge);
+            this.Controls.Add(this.cbBattTemp);
+            this.Controls.Add(this.cbBattCell);
+            this.Controls.Add(this.cbSatCount);
+            this.Controls.Add(this.cbSatCount2);
+            this.Controls.Add(this.cbBattVolt);
+            this.Controls.Add(this.cbRTLALT);
             this.Controls.Add(this.cbCamUnder);
             this.Controls.Add(this.cbCamFront);
             this.Controls.Add(this.cbMap);
             this.Controls.Add(this.cbPlan);
-            this.Controls.Add(this.cbMotorTest);
             this.Controls.Add(this.cbConnect);
-            this.Controls.Add(this.cbBody10);
-            this.Controls.Add(this.cbBody9);
-            this.Controls.Add(this.cbBody8);
-            this.Controls.Add(this.cbBody7);
-            this.Controls.Add(this.cbBody6);
-            this.Controls.Add(this.cbBody5);
-            this.Controls.Add(this.cbBody4);
-            this.Controls.Add(this.cbBody3);
-            this.Controls.Add(this.cbBody2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.cbBody1);
+            this.DoubleBuffered = true;
             this.Name = "PreCheck";
             this.Load += new System.EventHandler(this.PreCheck_Load);
             this.ResumeLayout(false);
@@ -865,39 +852,22 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox cbBody1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox cbBody2;
-        private System.Windows.Forms.CheckBox cbBody3;
-        private System.Windows.Forms.CheckBox cbBody4;
-        private System.Windows.Forms.CheckBox cbBody5;
-        private System.Windows.Forms.CheckBox cbBody6;
-        private System.Windows.Forms.CheckBox cbBody7;
-        private System.Windows.Forms.CheckBox cbBody8;
-        private System.Windows.Forms.CheckBox cbBody9;
-        private System.Windows.Forms.CheckBox cbBody10;
         private System.Windows.Forms.CheckBox cbConnect;
-        private System.Windows.Forms.CheckBox cbMotorTest;
         private System.Windows.Forms.CheckBox cbPlan;
         private System.Windows.Forms.CheckBox cbMap;
         private System.Windows.Forms.CheckBox cbCamFront;
         private System.Windows.Forms.CheckBox cbCamUnder;
-        private System.Windows.Forms.CheckBox cbPropo;
-        private System.Windows.Forms.CheckBox cbMode;
-        private System.Windows.Forms.CheckBox cbParamRTLALT;
-        private System.Windows.Forms.CheckBox cbParamBattVolt;
-        private System.Windows.Forms.CheckBox cbParamSatCount2;
-        private System.Windows.Forms.CheckBox cbParamSatCount1;
-        private System.Windows.Forms.CheckBox cbParamBattCell;
-        private System.Windows.Forms.CheckBox cbParamBattTemp;
-        private System.Windows.Forms.CheckBox cbParamBattCharge;
-        private System.Windows.Forms.CheckBox cbParamRoll;
-        private System.Windows.Forms.CheckBox cbParamPitch;
-        private System.Windows.Forms.CheckBox cbParamGpsStatus;
+        private System.Windows.Forms.CheckBox cbRTLALT;
+        private System.Windows.Forms.CheckBox cbBattVolt;
+        private System.Windows.Forms.CheckBox cbSatCount2;
+        private System.Windows.Forms.CheckBox cbSatCount;
+        private System.Windows.Forms.CheckBox cbBattCell;
+        private System.Windows.Forms.CheckBox cbBattTemp;
+        private System.Windows.Forms.CheckBox cbBattCharge;
+        private System.Windows.Forms.CheckBox cbRoll;
+        private System.Windows.Forms.CheckBox cbPitch;
+        private System.Windows.Forms.CheckBox cbGpsStatus;
         private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label ParamRTLALT;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -907,24 +877,43 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label ParamPitch;
-        private System.Windows.Forms.Label ParamGpsStatus;
-        private System.Windows.Forms.Label ParamSatCount2;
-        private System.Windows.Forms.Label ParamSatCount1;
-        private System.Windows.Forms.Label ParamBattCell;
-        private System.Windows.Forms.Label ParamBattTemp;
-        private System.Windows.Forms.Label ParamBattCharge;
-        private System.Windows.Forms.Label ParamBattVolt;
-        private System.Windows.Forms.Label ParamRoll;
+        private System.Windows.Forms.Label lblPitch;
+        private System.Windows.Forms.Label lblGpsStatus;
+        private System.Windows.Forms.Label lblSatCount2;
+        private System.Windows.Forms.Label lblSatCount;
+        private System.Windows.Forms.Label lblBattCell;
+        private System.Windows.Forms.Label lblBattTemp;
+        private System.Windows.Forms.Label lblBattCharge;
+        private System.Windows.Forms.Label lblBattVolt;
+        private System.Windows.Forms.Label lblRoll;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonConnect;
-        private System.Windows.Forms.Button buttonMotorTest;
         private System.Windows.Forms.Button buttonLoadPlan;
         private System.Windows.Forms.Button buttonDispMap;
-        private System.Windows.Forms.Label ParamMode;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbRTLALT;
-        private System.Windows.Forms.Label ParamPropo;
+        private System.Windows.Forms.Label lblBattCharge2;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.CheckBox cbBattCharge2;
+        private System.Windows.Forms.Label lblBattVolt2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox cbBattVolt2;
+        private System.Windows.Forms.Label lblBattTemp2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox cbBattTemp2;
+        private System.Windows.Forms.Label lblBattCell2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox cbBattCell2;
+        private System.Windows.Forms.Label lblGpsHdop;
+        private System.Windows.Forms.Label lblGpsHdop2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox cbGpsHdop;
+        private System.Windows.Forms.CheckBox cbGpsHdop2;
+        private System.Windows.Forms.Label lblGpsStatus2;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox cbGpsStatus2;
+        private System.Windows.Forms.CheckBox cbLink;
+        private System.Windows.Forms.Label lblLink;
+        private System.Windows.Forms.Label label18;
     }
 }
