@@ -818,6 +818,13 @@ namespace MissionPlanner.GCSViews
             this.indicator1.ekf_crt = 0.8F;
             this.indicator1.ekf_warn = 0.5F;
             this.indicator1.ekfstatus = 0F;
+            this.indicator1.gpshdop = 0F;
+            this.indicator1.gpshdop_crt = 1F;
+            this.indicator1.gpshdop_warn = 0.7F;
+            this.indicator1.gpshdop2 = 0F;
+            this.indicator1.gpsstatus = 0F;
+            this.indicator1.gpsstatus_warn = 3F;
+            this.indicator1.gpsstatus2 = 0F;
             this.indicator1.link_crt = 50F;
             this.indicator1.link_warn = 80F;
             this.indicator1.linkstatus = 0F;
@@ -826,6 +833,10 @@ namespace MissionPlanner.GCSViews
             this.indicator1.motor_warn = 30F;
             this.indicator1.motorstatus = MissionPlanner.Controls.MasterStatus.Normal;
             this.indicator1.Name = "indicator1";
+            this.indicator1.satcount = 0F;
+            this.indicator1.satcount_crt = 10F;
+            this.indicator1.satcount_warn = 15F;
+            this.indicator1.satcount2 = 0F;
             this.indicator1.vibe_crt = 60F;
             this.indicator1.vibe_warn = 30F;
             this.indicator1.vibestatus = 0F;
@@ -3001,7 +3012,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 0D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
