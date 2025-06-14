@@ -34,6 +34,7 @@ using TableLayoutPanelCellPosition = System.Windows.Forms.TableLayoutPanelCellPo
 using UnauthorizedAccessException = System.UnauthorizedAccessException;
 using static MissionPlanner.GCSViews.FlightPlanner;
 using static MAVLink;
+using static MissionPlanner.Utilities.Pelco;
 
 // written by michael oborne
 
@@ -2722,6 +2723,10 @@ namespace MissionPlanner.GCSViews
             buttonRTL.BackColor = Color.Black;
             buttonRTL.ForeColor = Color.FromArgb(64, 64, 64);
 
+            lblAlt.Text = "";
+            lblPress.Text = "";
+            tbTemp.Text = "0";
+
             try
             {
                 thisthread = new Thread(mainloop);
@@ -3626,14 +3631,39 @@ namespace MissionPlanner.GCSViews
                         }
                     });
 
-                    // battery warning.
-                    // Use speech settings only if the following parameters are not set
-                    // BATT_LOW_VOLT
-                    // BATT_LOW_MAH
-                    // BATT_CRT_VOLT
-                    // BATT_CRT_MAH
+                    // @eams update env display
+                    var press = MainV2.comPort.MAV.cs.press_abs;
 
-                    double warnvolt = 0;
+                    double dAlt = 0;
+                    if (press != 0 )
+                    {
+                        // based on https://keisan.casio.jp/exec/system/1257609530
+                        dAlt = ((Math.Pow(1013.25 / press, (1 / 5.255993f)) - 1) * (temp + 273.15)) / 0.0065;
+                    }
+
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        lblPress.Text = ((int)press).ToString() + " hPa";
+                        lblAlt.Text = ((int)dAlt).ToString() + " m";
+                        if (dAlt > 1750)
+                        {
+                            lblAlt.ForeColor = error;
+                        }
+                        else
+                        {
+                            lblAlt.ForeColor = normal;
+                        }
+
+                    });
+
+                    // battery warning.
+                        // Use speech settings only if the following parameters are not set
+                        // BATT_LOW_VOLT
+                        // BATT_LOW_MAH
+                        // BATT_CRT_VOLT
+                        // BATT_CRT_MAH
+
+                        double warnvolt = 0;
                     double warnpercent = 0;
                     double critvolt = 0;
                     double critpercent = 0;
@@ -6681,6 +6711,38 @@ namespace MissionPlanner.GCSViews
             }
             catch
             {
+            }
+        }
+
+        Color normal = Color.FromArgb(0, 176, 107);
+        Color caution = Color.FromArgb(246, 170, 0);
+        Color error = Color.FromArgb(255, 75, 0);
+        int temp = 0;
+
+        private void tbTemp_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tb = (sender as TextBox);
+            var str = tb.Text;
+
+            if (String.IsNullOrWhiteSpace(str))
+            {
+                tb.Text = "";
+                return;
+            }
+            int i;
+            if (!int.TryParse(str, out i))
+            {
+                tb.Text = "";
+                return;
+            }
+            temp = i;
+            if (i >= 0 && i <= 40)
+            {
+                tb.ForeColor = normal;
+            }
+            else
+            {
+                tb.ForeColor = error;
             }
         }
     }
