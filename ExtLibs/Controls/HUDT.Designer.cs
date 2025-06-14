@@ -273,7 +273,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: No GPS に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: No GPS に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS0 {
             get {
@@ -282,7 +282,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: No Fix に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: No Fix に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS1 {
             get {
@@ -291,7 +291,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: 2D Fix に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: 2D Fix に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS2 {
             get {
@@ -300,7 +300,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: 3D Fix に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: 3D Fix に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS3 {
             get {
@@ -309,7 +309,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: 3D dgps に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: 3D dgps に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS4 {
             get {
@@ -318,7 +318,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: rtk Float に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: rtk Float に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS5 {
             get {
@@ -327,7 +327,7 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
-        ///   GPS: rtk Fixed に類似しているローカライズされた文字列を検索します。
+        ///   S/G BAS: rtk Fixed に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GPS6 {
             get {

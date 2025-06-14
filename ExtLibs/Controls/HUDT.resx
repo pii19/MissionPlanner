@@ -177,25 +177,25 @@
     <value>Arial</value>
   </data>
   <data name="GPS0" xml:space="preserve">
-    <value>GPS: No GPS</value>
+    <value>S/G BAS: No GPS</value>
   </data>
   <data name="GPS1" xml:space="preserve">
-    <value>GPS: No Fix</value>
+    <value>S/G BAS: No Fix</value>
   </data>
   <data name="GPS2" xml:space="preserve">
-    <value>GPS: 2D Fix</value>
+    <value>S/G BAS: 2D Fix</value>
   </data>
   <data name="GPS3" xml:space="preserve">
-    <value>GPS: 3D Fix</value>
+    <value>S/G BAS: 3D Fix</value>
   </data>
   <data name="GPS4" xml:space="preserve">
-    <value>GPS: 3D dgps</value>
+    <value>S/G BAS: 3D dgps</value>
   </data>
   <data name="GPS5" xml:space="preserve">
-    <value>GPS: rtk Float</value>
+    <value>S/G BAS: rtk Float</value>
   </data>
   <data name="GPS6" xml:space="preserve">
-    <value>GPS: rtk Fixed</value>
+    <value>S/G BAS: rtk Fixed</value>
   </data>
   <data name="GS" xml:space="preserve">
     <value>GS </value>
