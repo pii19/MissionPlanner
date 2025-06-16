@@ -3615,7 +3615,7 @@ namespace MissionPlanner.GCSViews
                     var flags = MainV2.comPort.MAV.cs.ekfflags;
                     this.BeginInvoke((MethodInvoker)delegate
                     {
-                        if ( (flags == ekf_status_flags || flags == 831) && MainV2.comPort.BaseStream.IsOpen)
+                        if ( ((flags & ekf_status_flags) == ekf_status_flags) && MainV2.comPort.BaseStream.IsOpen)
                         {
                             buttonARM.BackColor = Color.FromArgb(0, 176, 107);
                             buttonARM.ForeColor = Color.White;
@@ -3628,6 +3628,22 @@ namespace MissionPlanner.GCSViews
                             buttonARM.ForeColor = Color.FromArgb(64, 64, 64);
                             buttonRTL.BackColor = Color.Black;
                             buttonRTL.ForeColor = Color.FromArgb(64, 64, 64);
+                        }
+                    });
+
+                    // @eams update precheck button display
+                    var armed = MainV2.comPort.MAV.cs.armed;
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (armed)
+                        {
+                            buttonPreFlight.Enabled = false;
+                            MainV2.instance.PreCheck0.ResetAll();
+                            MainV2.instance.PreCheck.ResetAll();
+                        }
+                        else
+                        {
+                            buttonPreFlight.Enabled = true;
                         }
                     });
 

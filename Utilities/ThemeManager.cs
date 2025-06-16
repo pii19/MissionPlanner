@@ -864,10 +864,13 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(TextBox))
                 {
-                    ctl.BackColor = ControlBGColor;
-                    ctl.ForeColor = TextColor;
-                    TextBox txt = (TextBox)ctl;
-                    txt.BorderStyle = BorderStyle.None;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
+                    {
+                        ctl.BackColor = ControlBGColor;
+                        ctl.ForeColor = TextColor;
+                        TextBox txt = (TextBox)ctl;
+                        txt.BorderStyle = BorderStyle.None;
+                    }
                 }
                 else if (ctl.GetType() == typeof(DomainUpDown))
                 {
@@ -1181,10 +1184,13 @@ mc:Ignorable=""d""
                 }
                 else if (ctl.GetType() == typeof(TextBox))
                 {
-                    ctl.BackColor = BGColorTextBox;             //sets the BG colour of text boxes to specified colour
-                    ctl.ForeColor = TextColor;
-                    TextBox txt = (TextBox)ctl;
-                    txt.BorderStyle = BorderStyle.None;
+                    if (!(ctl.Tag is string && (string)ctl.Tag == "custom"))
+                    {
+                        ctl.BackColor = BGColorTextBox;             //sets the BG colour of text boxes to specified colour
+                        ctl.ForeColor = TextColor;
+                        TextBox txt = (TextBox)ctl;
+                        txt.BorderStyle = BorderStyle.None;
+                    }
                 }
                 else if (ctl.GetType() == typeof(DomainUpDown))
                 {

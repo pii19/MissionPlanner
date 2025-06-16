@@ -93,6 +93,8 @@
             this.cbLink = new System.Windows.Forms.CheckBox();
             this.lblLink = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cbConnect
@@ -777,10 +779,34 @@
             this.label18.Name = "label18";
             this.label18.Tag = "custom";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Name = "button1";
+            this.button1.TabStop = false;
+            this.button1.Tag = "";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Name = "button2";
+            this.button2.TabStop = false;
+            this.button2.Tag = "";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
             // PreCheck
             // 
             resources.ApplyResources(this, "$this");
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblLink);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.cbLink);
@@ -915,5 +941,7 @@
         private System.Windows.Forms.CheckBox cbLink;
         private System.Windows.Forms.Label lblLink;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

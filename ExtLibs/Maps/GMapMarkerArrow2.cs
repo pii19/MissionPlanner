@@ -118,7 +118,7 @@ namespace MissionPlanner.Maps
             this.Sysid = sysid;
             Size = icon.Size;
             // for hitzone
-            Offset = new Point(-icon.Width / 2, -icon.Width / 2);
+            Offset = new Point(-icon.Width / 2, -icon.Height / 2);
         }
 
         public override void OnRender(IGraphics g)
@@ -171,7 +171,7 @@ namespace MissionPlanner.Maps
                 var cm = new System.Drawing.Imaging.ColorMatrix { Matrix33 = 0.39f };
                 ia.SetColorMatrix(cm, System.Drawing.Imaging.ColorMatrixFlag.Default, System.Drawing.Imaging.ColorAdjustType.Bitmap);
             }
-            g.DrawImage(icon, new Rectangle(-icon.Width / 2, -icon.Width / 2, icon.Width, icon.Height), 0, 0, icon.Width, icon.Height, GraphicsUnit.Pixel, ia);
+            g.DrawImage(icon, new Rectangle(-icon.Width / 2, -icon.Height / 2, icon.Width, icon.Height), 0, 0, icon.Width, icon.Height, GraphicsUnit.Pixel, ia);
 #else
             g.DrawImageUnscaled(icon, icon.Width / -2 + 2, icon.Height / -2);
 #endif

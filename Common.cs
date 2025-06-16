@@ -57,17 +57,6 @@ namespace MissionPlanner
                         itemq.IsActive = MAV == MainV2.comPort?.MAV;
                         return null;
                     }
-                    else if (item is GMapMarkerArrow2)
-                    {
-                        var itemq = (GMapMarkerArrow2)item;
-                        itemq.Position = portlocation;
-                        itemq.Heading = MAV.cs.yaw;
-                        itemq.Cog = MAV.cs.groundcourse;
-                        itemq.Target = MAV.cs.nav_bearing;
-                        itemq.Sysid = MAV.sysid;
-                        itemq.IsActive = MAV == MainV2.comPort?.MAV;
-                        return null;
-                    }
                     else if (item is GMapMarkerRover)
                     {
                         var itemr = (GMapMarkerRover)item;
@@ -77,6 +66,17 @@ namespace MissionPlanner
                         itemr.Target = MAV.cs.target_bearing;
                         itemr.Nav_bearing = MAV.cs.nav_bearing;
                         itemr.IsActive = MAV == MainV2.comPort?.MAV;
+                        return null;
+                    }
+                    else if (item is GMapMarkerArrow2)
+                    {
+                        var items = (GMapMarkerArrow2)item;
+                        items.Position = portlocation;
+                        items.Heading = MAV.cs.yaw;
+                        items.Cog = MAV.cs.groundcourse;
+                        items.Target = MAV.cs.nav_bearing;
+                        items.Sysid = MAV.sysid;
+                        items.IsActive = MAV == MainV2.comPort?.MAV;
                         return null;
                     }
                     else
