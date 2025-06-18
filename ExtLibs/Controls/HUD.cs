@@ -2802,6 +2802,10 @@ namespace MissionPlanner.Controls
                             scrollbg.Bottom + 5);
                     }
 #endif
+                    // relative alt
+                    drawstring("Relative " + ((int)_alt).ToString("0") + "m", font, fontsize, _whiteBrush, scrollbg.Left - 70,
+                        scrollbg.Bottom + 5);
+
                     // sonarrange
                     if (_sonarrange <= 30.0)
                     {
