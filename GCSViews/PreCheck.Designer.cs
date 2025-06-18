@@ -92,9 +92,10 @@
             this.cbGpsStatus2 = new System.Windows.Forms.CheckBox();
             this.cbLink = new System.Windows.Forms.CheckBox();
             this.lblLink = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbConnect
@@ -771,14 +772,6 @@
             this.lblLink.Name = "lblLink";
             this.lblLink.Tag = "custom";
             // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label18.Name = "label18";
-            this.label18.Tag = "custom";
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(107)))));
@@ -801,14 +794,31 @@
             this.button2.Tag = "";
             this.button2.UseVisualStyleBackColor = false;
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label1.Name = "label1";
+            this.label1.Tag = "custom";
+            // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label19.Name = "label19";
+            this.label19.Tag = "custom";
+            // 
             // PreCheck
             // 
             resources.ApplyResources(this, "$this");
             this.BackgroundImage = global::MissionPlanner.Properties.Resources.precheck;
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblLink);
-            this.Controls.Add(this.label18);
             this.Controls.Add(this.cbLink);
             this.Controls.Add(this.lblGpsStatus2);
             this.Controls.Add(this.label13);
@@ -940,8 +950,9 @@
         private System.Windows.Forms.CheckBox cbGpsStatus2;
         private System.Windows.Forms.CheckBox cbLink;
         private System.Windows.Forms.Label lblLink;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label19;
     }
 }
