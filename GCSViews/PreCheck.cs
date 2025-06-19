@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using FlightPlanningSoftware;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace MissionPlanner.GCSViews
 {
@@ -267,8 +268,56 @@ namespace MissionPlanner.GCSViews
             return max;
         }
 
+        // https://qiita.com/kiki0817/items/d95bc2cc0ed50b0104a0
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr FindWindow(
+           string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+        // ShowWindowAsync関数のパラメータに渡す定義値
+        private const int SW_RESTORE = 9;  // 画面を元の大きさに戻す
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool OpenIcon(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsIconic(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool BringWindowToTop(IntPtr hWnd);
+
+        // 外部プロセスのメイン・ウィンドウを起動するためのWin32 API
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
         private void buttonConnect_Click(object sender, EventArgs e)
         {
+            IntPtr hWnd = FindWindow(null, "SoftEther VPN クライアント接続マネージャ");
+            if (hWnd != IntPtr.Zero)
+            {
+                //最小化されていれば元に戻す
+                if (IsIconic(hWnd))
+                {
+                    ShowWindowAsync(hWnd, SW_RESTORE);
+                }
+                //最前面に表示する
+                SetForegroundWindow(hWnd);
+                BringWindowToTop(hWnd);
+            }
+
+            while (true)
+            {
+                if (IsIconic(hWnd))
+                {
+                    break;
+                }
+            }
+
             if (!MainV2.comPort.BaseStream.IsOpen)
             {
                 MainV2.instance.Connect();
