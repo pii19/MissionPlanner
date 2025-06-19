@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 using FlightPlanningSoftware;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace MissionPlanner.GCSViews
 {
@@ -267,11 +269,151 @@ namespace MissionPlanner.GCSViews
             return max;
         }
 
-        private void buttonConnect_Click(object sender, EventArgs e)
+        // https://qiita.com/kiki0817/items/d95bc2cc0ed50b0104a0
+        // https://dobon.net/vb/dotnet/process/appactivate.html
+        // https://qiita.com/tera1707/items/c6e2884d48248c8f3ba7
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr FindWindow(
+           string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
+        // ShowWindowAsync関数のパラメータに渡す定義値
+        private const int SW_RESTORE = 9;  // 画面を元の大きさに戻す
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool OpenIcon(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsIconic(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool BringWindowToTop(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetWindowPos(IntPtr hWnd,
+            int hWndInsertAfter, int x, int y, int cx, int cy, int uFlags);
+
+        private const int SWP_NOSIZE = 0x0001;
+        private const int SWP_NOMOVE = 0x0002;
+        private const int SWP_NOZORDER = 0x0004;
+        private const int SWP_SHOWWINDOW = 0x0040;
+        private const int SWP_ASYNCWINDOWPOS = 0x4000;
+        private const int HWND_TOP = 0;
+        private const int HWND_BOTTOM = 1;
+        private const int HWND_TOPMOST = -1;
+        private const int HWND_NOTOPMOST = -2;
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+
+        async private void buttonConnect_Click(object sender, EventArgs e)
         {
+            IntPtr hWnd = FindWindow(null, "SoftEther VPN クライアント接続マネージャ");
+            if (hWnd != IntPtr.Zero)
+            {
+                //最小化されていれば元に戻す
+                if (IsIconic(hWnd))
+                {
+                    ShowWindowAsync(hWnd, SW_RESTORE);
+                }
+                //最前面に表示する
+                //SetForegroundWindow(hWnd);
+                SetWindowPos(hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW | SWP_ASYNCWINDOWPOS);
+                BringWindowToTop(hWnd);
+
+                while (true)
+                {
+#if false
+                    if (IsIconic(hWnd))     //この方法に反応せず
+                    {
+                        break;
+                    }
+                    if (IsWindowInTasktray(hWnd, 0))    //タスクトレイにアイコンが残存するのでこの方法はNG
+                    {
+                        break;
+                    }
+#endif
+                    var h = GetForegroundWindow();
+                    if (h == MainV2.instance.Handle)
+                    {
+                        break;
+                    }
+                    await Task.Delay(10);
+                }
+            }
+
+            await Task.Delay(500);
             if (!MainV2.comPort.BaseStream.IsOpen)
             {
                 MainV2.instance.Connect();
+            }
+        }
+
+        // from Gemini Answer
+        [DllImport("shell32.dll", SetLastError = true)]
+        static extern bool Shell_NotifyIconGetRect(ref NOTIFYICONIDENTIFIER identifier, out RECT iconRect);
+
+        [DllImport("shell32.dll", SetLastError = true)]
+        static extern bool Shell_NotifyIconGetViewSize(ref NOTIFYICONIDENTIFIER identifier, out SIZE iconSize);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct NOTIFYICONIDENTIFIER
+        {
+            public int cbSize;
+            public IntPtr hWnd;
+            public uint uID;
+            public Guid guidItem;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SIZE
+        {
+            public int cx;
+            public int cy;
+        }
+
+        // タスクトレイに常駐しているかをチェックするメソッド
+        public static bool IsWindowInTasktray(IntPtr hWnd, uint uID)
+        {
+            NOTIFYICONIDENTIFIER identifier = new NOTIFYICONIDENTIFIER();
+            identifier.cbSize = Marshal.SizeOf(identifier);
+            identifier.hWnd = hWnd;
+            identifier.uID = uID;
+
+            RECT iconRect;
+            SIZE iconSize;
+
+            if (Shell_NotifyIconGetRect(ref identifier, out iconRect))
+            {
+                // アイコンの矩形が取得できれば、タスクトレイに存在するとみなす
+                return true;
+            }
+            else if (Shell_NotifyIconGetViewSize(ref identifier, out iconSize))
+            {
+                return true;
+            }
+            else
+            {
+                // エラーが発生した場合（アイコンが存在しない場合も含む）
+                return false;
             }
         }
 
