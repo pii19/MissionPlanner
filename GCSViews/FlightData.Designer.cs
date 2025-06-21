@@ -189,6 +189,10 @@ namespace MissionPlanner.GCSViews
             this.takeOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onOffCameraOverlapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jumpToTagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblDistRally = new System.Windows.Forms.Label();
+            this.lblDistGoal = new System.Windows.Forms.Label();
+            this.BUT_center = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblPress = new System.Windows.Forms.Label();
             this.lblAlt = new System.Windows.Forms.Label();
@@ -337,6 +341,7 @@ namespace MissionPlanner.GCSViews
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.contextMenuStripMap.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
@@ -2488,6 +2493,8 @@ namespace MissionPlanner.GCSViews
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.ContextMenuStrip = this.contextMenuStripMap;
+            this.splitContainer1.Panel1.Controls.Add(this.panel6);
+            this.splitContainer1.Panel1.Controls.Add(this.BUT_center);
             this.splitContainer1.Panel1.Controls.Add(this.panel4);
             this.splitContainer1.Panel1.Controls.Add(this.BUT_zoomOut);
             this.splitContainer1.Panel1.Controls.Add(this.BUT_zoomIn);
@@ -2643,6 +2650,40 @@ namespace MissionPlanner.GCSViews
             this.jumpToTagToolStripMenuItem.Name = "jumpToTagToolStripMenuItem";
             resources.ApplyResources(this.jumpToTagToolStripMenuItem, "jumpToTagToolStripMenuItem");
             this.jumpToTagToolStripMenuItem.Click += new System.EventHandler(this.jumpToTagToolStripMenuItem_Click);
+            // 
+            // panel6
+            // 
+            resources.ApplyResources(this.panel6, "panel6");
+            this.panel6.BackColor = System.Drawing.Color.Black;
+            this.panel6.BackgroundImage = global::MissionPlanner.Properties.Resources.distance;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.lblDistRally);
+            this.panel6.Controls.Add(this.lblDistGoal);
+            this.panel6.ForeColor = System.Drawing.SystemColors.Window;
+            this.panel6.Name = "panel6";
+            this.panel6.Tag = "custom";
+            // 
+            // lblDistRally
+            // 
+            resources.ApplyResources(this.lblDistRally, "lblDistRally");
+            this.lblDistRally.ForeColor = System.Drawing.Color.White;
+            this.lblDistRally.Name = "lblDistRally";
+            this.lblDistRally.Tag = "custom";
+            // 
+            // lblDistGoal
+            // 
+            resources.ApplyResources(this.lblDistGoal, "lblDistGoal");
+            this.lblDistGoal.ForeColor = System.Drawing.Color.White;
+            this.lblDistGoal.Name = "lblDistGoal";
+            this.lblDistGoal.Tag = "custom";
+            // 
+            // BUT_center
+            // 
+            resources.ApplyResources(this.BUT_center, "BUT_center");
+            this.BUT_center.BackgroundImage = global::MissionPlanner.Properties.Resources.centering;
+            this.BUT_center.Name = "BUT_center";
+            this.BUT_center.UseVisualStyleBackColor = true;
+            this.BUT_center.Click += new System.EventHandler(this.BUT_center_Click);
             // 
             // panel4
             // 
@@ -2802,7 +2843,7 @@ namespace MissionPlanner.GCSViews
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 720D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2877,7 +2918,7 @@ namespace MissionPlanner.GCSViews
             this.gMapControl1.PolygonsEnabled = true;
             this.gMapControl1.RetryLoadTile = 0;
             this.gMapControl1.RoutesEnabled = true;
-            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Fractional;
+            this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
             this.gMapControl1.Zoom = 3D;
@@ -3544,6 +3585,7 @@ namespace MissionPlanner.GCSViews
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.contextMenuStripMap.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -3837,5 +3879,9 @@ namespace MissionPlanner.GCSViews
         private TextBox tbTemp;
         private Label lblPress;
         private Label lblAlt;
+        private Button BUT_center;
+        private Panel panel6;
+        private Label lblDistRally;
+        private Label lblDistGoal;
     }
 }
