@@ -211,7 +211,7 @@ namespace MissionPlanner.GCSViews
                         }
                         else
                         {
-                            tbRTLALT.ForeColor = Color.White;
+                            tbRTLALT.ForeColor = Color.Black;
                         }
                     }
                 }
