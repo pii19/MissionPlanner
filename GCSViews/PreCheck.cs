@@ -469,6 +469,12 @@ namespace MissionPlanner.GCSViews
 
         private void buttonDispMap_Click(object sender, EventArgs e)
         {
+            if (!cbPlan.Checked)
+            {
+                CustomMessageBox.Show("地図表示の前にフライトプランを読み込んでください。", "地図表示");
+                return;
+            }
+
             if (mapBoxFrm != null && !mapBoxFrm.IsDisposed)
             {
                 DialogResult test = mapBoxFrm.ShowDialog();
