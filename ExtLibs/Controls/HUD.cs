@@ -325,6 +325,7 @@ namespace MissionPlanner.Controls
         private float _gpsfix2 = 0;
         private float _gpshdop2 = 0;
         private float _satcount2 = 0;
+        private uint _gpsprimary = 0;
         private float _disttowp = 0;
         private float _groundcourse = 0;
         private float _xtrack_error = 0;
@@ -724,6 +725,20 @@ namespace MissionPlanner.Controls
                 if (_satcount2 != value)
                 {
                     _satcount2 = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public uint gpsprimary
+        {
+            get { return _gpsprimary; }
+            set
+            {
+                if (_gpsprimary != value)
+                {
+                    _gpsprimary = value;
                     this.Invalidate();
                 }
             }
@@ -3101,14 +3116,28 @@ namespace MissionPlanner.Controls
                         a++;
                     }
 
+                    // 
+                    float sc = 0f;
+                    float gh = 0f;
+                    if (_gpsprimary == 0)
+                    {
+                        sc = _satcount;
+                        gh = _gpshdop;
+                    }
+                    else
+                    {
+                        sc = _satcount2;
+                        gh = _gpshdop2;
+                    }
+
                     // satcount
                     col = _normalBrush;
-                    if (_satcount < 15)
+                    if (sc < 15)
                         col = _cautionBrush;
-                    if (_satcount < 10)
+                    if (gh < 10)
                         col = _errorBrush;
 
-                    drawstring(_satcount.ToString("00"), font, fontsize, col,
+                    drawstring(sc.ToString("00"), font, fontsize, col,
                         50, scrollbg.Top - (int)(fontsize + 2 + 10) * 2);
 
                     // separater
@@ -3117,9 +3146,9 @@ namespace MissionPlanner.Controls
 
                     // hdop
                     col = _normalBrush;
-                    if (_gpshdop >= 0.7)
+                    if (gh >= 0.7)
                         col = _cautionBrush;
-                    if (_gpshdop >= 1.0)
+                    if (gh >= 1.0)
                         col = _errorBrush;
 
                     drawstring(_gpshdop.ToString("0.0"), font, fontsize, col,

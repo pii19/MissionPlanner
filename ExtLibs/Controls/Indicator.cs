@@ -82,6 +82,8 @@ namespace MissionPlanner.Controls
         float _gpshdop2 = 0.0f;
         float _gpsstatus = 0.0f;
         float _gpsstatus2 = 0.0f;
+        uint _gpsprimary = 0;
+        ushort _ekflane = 0;
         MasterStatus _masterstatus = MasterStatus.Normal;
 
 
@@ -115,6 +117,10 @@ namespace MissionPlanner.Controls
         public float gpsstatus { get { return _gpsstatus; } set { if (_gpsstatus == value) return; _gpsstatus = value; this.Invalidate(); } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float gpsstatus2 { get { return _gpsstatus2; } set { if (_gpsstatus2 == value) return; _gpsstatus2 = value; this.Invalidate(); } }
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public uint gpsprimary { get { return _gpsprimary; } set { if (_gpsprimary == value) return; _gpsprimary = value; this.Invalidate(); } }
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public ushort ekflane { get { return _ekflane; } set { if (_ekflane == value) return; _ekflane = value; this.Invalidate(); } }
 
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public MasterStatus masterstatus
@@ -229,7 +235,14 @@ namespace MissionPlanner.Controls
             // GNSS1
             if (_satcount >= satcount_warn && _gpshdop < gpshdop_warn)
             {
-                GNSS1.ForeColor = normal;
+                if (gpsprimary == 0)
+                {
+                    GNSS1.ForeColor = normal;
+                }
+                else
+                {
+                    GNSS1.ForeColor = Color.White;
+                }
             }
             else if (_satcount >= satcount_crt && _gpshdop < gpshdop_crt)
             {
@@ -248,7 +261,14 @@ namespace MissionPlanner.Controls
             // GNSS2
             if (_satcount2 >= satcount_warn && _gpshdop2 < gpshdop_warn)
             {
-                GNSS2.ForeColor = normal;
+                if (gpsprimary == 1)
+                {
+                    GNSS2.ForeColor = normal;
+                }
+                else
+                {
+                    GNSS2.ForeColor = Color.White;
+                }
             }
             else if (_satcount2 >= satcount_crt && _gpshdop2 < gpshdop_crt)
             {

@@ -411,6 +411,10 @@ namespace MissionPlanner
         [GroupText("Position")]
         public float gpshdg_acc { get; private set; }
 
+        [DisplayText("GPS Primary Instance")]
+        [GroupText("Position")]
+        public uint gpsprimary { get; private set; }
+
         [DisplayFieldName("gpsyaw.Field")]
         [DisplayText("GPS Yaw (deg)")]
         [GroupText("Position")]
@@ -1924,7 +1928,7 @@ namespace MissionPlanner
 
         [DisplayText("Error Type")][GroupText("Hardware")] public ushort errors_count2 { get; set; }
         [DisplayText("Error Type")][GroupText("Hardware")] public ushort errors_count3 { get; set; }
-
+        [DisplayText("EKF Lane No")][GroupText("Hardware")] public ushort ekflane { get; set; }
         [DisplayText("Error Count")][GroupText("Hardware")] public ushort errors_count4 { get; set; }
 
         [DisplayFieldName("hwvoltage.Field")]
@@ -2860,6 +2864,7 @@ namespace MissionPlanner
                             errors_count1 = sysstatus.errors_count1;
                             errors_count2 = sysstatus.errors_count2;
                             errors_count3 = sysstatus.errors_count3;
+                            ekflane = sysstatus.errors_count3;
                             errors_count4 = sysstatus.errors_count4;
 
                             sensors_enabled.Value = sysstatus.onboard_control_sensors_enabled;
@@ -3226,6 +3231,7 @@ namespace MissionPlanner
                                 gpsv_acc = gps.v_acc / 1000.0f;
                                 gpsvel_acc = gps.vel_acc / 1000.0f;
                                 gpshdg_acc = gps.hdg_acc / 1e5f;
+                                gpsprimary = gps.hdg_acc;
                                 gpsyaw = gps.yaw / 100.0f;
                             }
                             else
