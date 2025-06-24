@@ -110,6 +110,16 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap arrow {
+            get {
+                object obj = ResourceManager.GetObject("arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   AS  に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string AS {
@@ -541,6 +551,16 @@ namespace MissionPlanner.Controls {
         public static string W {
             get {
                 return ResourceManager.GetString("W", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap yaw_circle {
+            get {
+                object obj = ResourceManager.GetObject("yaw_circle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

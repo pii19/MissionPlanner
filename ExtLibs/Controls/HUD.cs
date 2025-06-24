@@ -24,6 +24,7 @@ using MathHelper = MissionPlanner.Utilities.MathHelper;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 using SkiaSharp.Views.Desktop;
 using SkiaSharp;
+using static MissionPlanner.Utilities.LTM;
 
 
 // Control written by Michael Oborne 2011
@@ -238,6 +239,7 @@ namespace MissionPlanner.Controls
         private readonly SolidBrush _normalBrush = new SolidBrush(Color.FromArgb(0, 176, 107));
         private readonly SolidBrush _cautionBrush = new SolidBrush(Color.FromArgb(246, 170, 0));
         private readonly SolidBrush _errorBrush = new SolidBrush(Color.FromArgb(255, 75, 0));
+        private Pen _normalPen = new Pen(Color.FromArgb(0, 176, 107), 1);
 
         static HUD()
         {
@@ -2441,6 +2443,42 @@ namespace MissionPlanner.Controls
 
                 }
                 //                Console.WriteLine("HUD 0 " + (DateTime.Now - starttime).TotalMilliseconds + " " + DateTime.Now.Millisecond);
+
+                // display yaw circle
+                var harfwidth = this.Width / 2;
+
+                // 描画座標の中心移動と回転行列適用
+                graphicsObject.ResetTransform();
+                graphicsObject.TranslateTransform(harfwidth, this.Height);  // 中心移動
+                graphicsObject.RotateTransform(-_heading); // 回転
+
+                graphicsObject.DrawImage(HUDT.yaw_circle, -HUDT.yaw_circle.Width / 2, - HUDT.yaw_circle.Height / 2,
+                    HUDT.yaw_circle.Width, HUDT.yaw_circle.Height);
+                //graphicsObject.DrawImage(HUDT.yaw_circle, harfwidth - HUDT.yaw_circle.Width / 2, this.Height - HUDT.yaw_circle.Height / 2,
+                //    HUDT.yaw_circle.Width, HUDT.yaw_circle.Height);
+                graphicsObject.ResetTransform();
+
+                // display line
+                graphicsObject.DrawLine(this._normalPen, halfwidth, this.Height - HUDT.yaw_circle.Height / 2, halfwidth, this.Height);
+
+                // display arrow
+                graphicsObject.DrawImage(HUDT.arrow, harfwidth - HUDT.arrow.Width / 2, this.Height - 130,
+                    HUDT.arrow.Width, HUDT.arrow.Height);
+
+                // display yaw text
+                string yawtext = _heading.ToString("f0") + "°";
+                var yawtextsize = calcsize(yawtext, fontsize + 10, _normalBrush);
+
+                drawstring(yawtext, font, fontsize + 10, _normalBrush, harfwidth - yawtextsize.Width / 2,
+                    this.Height - 165);
+#if false
+                RectangleF rect = new RectangleF(harfwidth - 50, this.Height - 150, 100, 50);
+                StringFormat stringFormat = new StringFormat()
+                {
+                    Alignment = StringAlignment.Center,
+                };
+                graphicsObject.DrawString("100°", this.Font, Brushes.Green, rect, stringFormat);
+#endif
 
                 // xtrack error
                 // center
