@@ -3172,10 +3172,10 @@ namespace MissionPlanner.Controls
                     col = _normalBrush;
                     if (sc < 15)
                         col = _cautionBrush;
-                    if (gh < 10)
+                    if (sc < 10)
                         col = _errorBrush;
 
-                    drawstring(sc.ToString("00"), font, fontsize, col,
+                    drawstring(sc.ToString("0"), font, fontsize, col,
                         50, scrollbg.Top - (int)(fontsize + 2 + 10) * 2);
 
                     // separater
