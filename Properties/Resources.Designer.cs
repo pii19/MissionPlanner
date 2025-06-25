@@ -533,6 +533,16 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        internal static System.Drawing.Bitmap centering {
+            get {
+                object obj = ResourceManager.GetObject("centering", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         internal static System.Drawing.Bitmap compass {
             get {
                 object obj = ResourceManager.GetObject("compass", resourceCulture);
@@ -626,6 +636,16 @@ namespace MissionPlanner.Properties {
         internal static System.Drawing.Bitmap dark_tuningconfig_icon {
             get {
                 object obj = ResourceManager.GetObject("dark_tuningconfig_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap distance {
+            get {
+                object obj = ResourceManager.GetObject("distance", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

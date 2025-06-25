@@ -250,6 +250,9 @@ namespace MissionPlanner.GCSViews
             //    dockContainer1.PreviewRenderer = new PreviewRenderer();
             //
             mymap = gMapControl1;
+            mymap.MapScaleInfoEnabled = true;
+            mymap.ScalePen = new Pen(Color.White, 2);
+            mymap.ScaleFont = new Font("Arial", 12, FontStyle.Bold);
             myhud = hud1;
             MainHcopy = MainH;
 
@@ -2726,6 +2729,8 @@ namespace MissionPlanner.GCSViews
             lblAlt.Text = "";
             lblPress.Text = "";
             tbTemp.Text = "0";
+            lblDistGoal.Text = "";
+            lblDistRally.Text = "";
 
             try
             {
@@ -3669,7 +3674,6 @@ namespace MissionPlanner.GCSViews
                         {
                             lblAlt.ForeColor = normal;
                         }
-
                     });
 
                     // battery warning.
@@ -3968,8 +3972,15 @@ namespace MissionPlanner.GCSViews
                                     travdist -= MainV2.comPort.MAV.cs.wp_dist;
 
                                     if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
-                                        distanceBar1.traveleddist = (float) travdist;
-
+                                    {
+                                        distanceBar1.traveleddist = (float)travdist;
+                                        // @eams update distance display
+                                        this.BeginInvoke((MethodInvoker)delegate
+                                        {
+                                            var dist = distanceBar1.totaldist - distanceBar1.traveleddist;
+                                            lblDistGoal.Text = ((int)dist).ToString() + " ma";
+                                        });
+                                    }
                                 }
                                 catch (Exception ex)
                                 {
@@ -6728,6 +6739,13 @@ namespace MissionPlanner.GCSViews
             catch
             {
             }
+        }
+
+        private void BUT_center_Click(object sender, EventArgs e)
+        {
+            PointLatLng currentloc = new PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
+            updateMapPosition(currentloc);
+
         }
 
         Color normal = Color.FromArgb(0, 176, 107);
