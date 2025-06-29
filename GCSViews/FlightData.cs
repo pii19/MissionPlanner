@@ -35,6 +35,8 @@ using UnauthorizedAccessException = System.UnauthorizedAccessException;
 using static MissionPlanner.GCSViews.FlightPlanner;
 using static MAVLink;
 using static MissionPlanner.Utilities.Pelco;
+using NetTopologySuite.Algorithm;
+using static MissionPlanner.Utilities.LTM;
 
 // written by michael oborne
 
@@ -949,8 +951,36 @@ namespace MissionPlanner.GCSViews
 
                 if (marker == null || marker.Position.Lat == 0 && marker.Position.Lng == 0)
                     return;
-
                 addMissionRouteMarker(marker);
+
+                var fovmarker = new GMapMarkerFov(MAV.cs.Location, MAV.cs.yaw, MAV.cs.campointc, marker);
+                addMissionRouteMarker(fovmarker);
+            });
+        }
+
+        private void addFovMarker(MAVState MAV)
+        {
+            this.BeginInvokeIfRequired(() =>
+            {
+                var existingmav = routes.Markers.Where((a) => a is GMapMarkerArrow2).ToArray();
+                if (existingmav.Count() > 0)
+                {
+                    PointLatLng portlocation = MAV.cs.Location;
+                    var itemmav = (GMapMarkerArrow2)existingmav.First();
+
+                    var existingfov = routes.Markers.Where((a) => a is GMapMarkerFov).ToArray();
+                    var itemfov = (GMapMarkerFov)existingfov.First();
+                    if (existingfov.Count() > 0)
+                    {
+                        itemfov.Position = portlocation;
+                        itemfov.Heading = MAV.cs.yaw;
+                    }
+                    else
+                    {
+                        var fovmarker = new GMapMarkerFov(MAV.cs.Location, MAV.cs.yaw, MAV.cs.campointc, itemmav);
+                        addMissionRouteMarker(fovmarker);
+                    }
+                }
             });
         }
 
@@ -4333,6 +4363,9 @@ namespace MissionPlanner.GCSViews
 
                             // Draw the active aircraft
                             addMAVMarker(MainV2.comPort.MAV);
+
+                            // @eams Draw fov
+                            addFovMarker(MainV2.comPort.MAV);
 
                             if (route.Points.Count == 0 || route.Points[route.Points.Count - 1].Lat != 0 &&
                                 (mapupdate.AddSeconds(3) < DateTime.Now) && CHK_autopan.Checked)
