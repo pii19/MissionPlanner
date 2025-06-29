@@ -593,6 +593,16 @@ namespace MissionPlanner.Maps {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap fov {
+            get {
+                object obj = ResourceManager.GetObject("fov", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap frames_06 {
             get {
                 object obj = ResourceManager.GetObject("frames_06", resourceCulture);

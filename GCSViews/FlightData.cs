@@ -35,6 +35,7 @@ using UnauthorizedAccessException = System.UnauthorizedAccessException;
 using static MissionPlanner.GCSViews.FlightPlanner;
 using static MAVLink;
 using static MissionPlanner.Utilities.Pelco;
+using NetTopologySuite.Algorithm;
 
 // written by michael oborne
 
@@ -949,8 +950,10 @@ namespace MissionPlanner.GCSViews
 
                 if (marker == null || marker.Position.Lat == 0 && marker.Position.Lng == 0)
                     return;
-
                 addMissionRouteMarker(marker);
+
+                var fovmarker = new GMapMarkerFov(MAV.cs.Location, MAV.cs.yaw, MAV.cs.campointc, marker);
+                addMissionRouteMarker(fovmarker);
             });
         }
 
