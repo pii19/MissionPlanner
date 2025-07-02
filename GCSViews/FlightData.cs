@@ -3977,11 +3977,24 @@ namespace MissionPlanner.GCSViews
                                 {
                                     distanceBar1.ClearWPDist();
 
-                                    var i = -1;
+                                    var i = 0;
                                     var travdist = 0.0;
+                                    var home2firstdist = 0.0;
+                                    PointLatLngAlt homep;
                                     if (wpOverlay.pointlist.Count > 0)
                                     {
                                         var lastplla = wpOverlay.pointlist.Where(a => a != null).FirstOrDefault();
+                                        if (MainV2.comPort.MAV.cs.HomeLocation.Lat != 0)
+                                        {
+                                            homep = MainV2.comPort.MAV.cs.HomeLocation;
+                                        }
+                                        else
+                                        {
+                                            homep = MainV2.comPort.MAV.cs.Location;
+                                        }
+                                        home2firstdist = homep.GetDistance(lastplla);
+                                        distanceBar1.AddWPDist((float)home2firstdist);
+
                                         foreach (var plla in wpOverlay.pointlist)
                                         {
                                             i++;
@@ -3996,9 +4009,14 @@ namespace MissionPlanner.GCSViews
                                             {
                                                 travdist += dist;
                                             }
+                                            lastplla = plla;
                                         }
                                     }
 
+                                    if (MainV2.comPort.MAV.cs.wpno > 1)
+                                    {
+                                        travdist += home2firstdist;
+                                    }
                                     travdist -= MainV2.comPort.MAV.cs.wp_dist;
 
                                     if (MainV2.comPort.MAV.cs.mode.ToUpper() == "AUTO")
@@ -4008,7 +4026,8 @@ namespace MissionPlanner.GCSViews
                                         this.BeginInvoke((MethodInvoker)delegate
                                         {
                                             var dist = distanceBar1.totaldist - distanceBar1.traveleddist;
-                                            lblDistGoal.Text = ((int)dist).ToString() + " ma";
+                                            lblDistGoal.Text = ((int)dist).ToString() + " m";
+                                            lblDistRally.Text = ((int)distanceBar1.traveleddist).ToString() + " m";
                                         });
                                     }
                                 }
