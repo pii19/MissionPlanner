@@ -1060,6 +1060,7 @@ namespace MissionPlanner.Controls
         private readonly SolidBrush _whiteBrush = new SolidBrush(Color.White);
         private readonly SolidBrush _redBrush = new SolidBrush(Color.Red);
         private readonly SolidBrush _orangeBrush = new SolidBrush(Color.Orange);
+        private readonly SolidBrush _pinkBrush = new SolidBrush(Color.FromArgb(0xff, 0x33, 0xcc));
 
         private static readonly SolidBrush SolidBrush = new SolidBrush(Color.FromArgb(0x55, 0xff, 0xff, 0xff));
 
@@ -2619,12 +2620,18 @@ namespace MissionPlanner.Controls
                         if (a == (long) _targetspeed && _targetspeed != 0)
                         {
                             this._greenPen.Width = 6;
-                            graphicsObject.DrawLine(this._greenPen, scrollbg.Left, scrollbg.Top - space * (a - start),
-                                scrollbg.Left + scrollbg.Width, scrollbg.Top - space * (a - start));
+                            var y = scrollbg.Top - space * (a - start);
+                            graphicsObject.DrawLine(this._greenPen, scrollbg.Left, y,
+                                scrollbg.Left + scrollbg.Width, y);
+
+                            // @eams display target speed marker
+                            graphicsObject.DrawImage(HUDT.speedmarker, scrollbg.Right - 3, (int)y,
+                                HUDT.speedmarker.Width, HUDT.speedmarker.Height);
                         }
 
                         if (a % 5 == 0)
                         {
+                            if (a < 0) continue; // @eams no display minus speed
                             //Console.WriteLine(a + " " + scrollbg.Right + " " + (scrollbg.Top - space * (a - start)) + " " + (scrollbg.Right - 20) + " " + (scrollbg.Top - space * (a - start)));
                             graphicsObject.DrawLine(this._whitePen, scrollbg.Right, scrollbg.Top - space * (a - start),
                                 scrollbg.Right - 10, scrollbg.Top - space * (a - start));
@@ -2632,6 +2639,11 @@ namespace MissionPlanner.Controls
                                 (float) (scrollbg.Top - space * (a - start) - 6 - fontoffset));
                         }
                     }
+
+                    // @eams display target speed text
+                    drawstring(String.Format("{0,5}", _targetspeed), font, fontsize, _pinkBrush, 0,
+                        (float)(scrollbg.Top - space * (end - start) - 20 - fontoffset));
+
 
                     graphicsObject.DrawPolygon(this._blackPen, arrow);
                     graphicsObject.FillPolygon(Brushes.Black, arrow);

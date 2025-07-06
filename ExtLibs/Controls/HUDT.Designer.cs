@@ -497,6 +497,16 @@ namespace MissionPlanner.Controls {
         }
         
         /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap speedmarker {
+            get {
+                object obj = ResourceManager.GetObject("speedmarker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   SW に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SW {
