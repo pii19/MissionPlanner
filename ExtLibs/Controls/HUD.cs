@@ -2625,7 +2625,7 @@ namespace MissionPlanner.Controls
                                 scrollbg.Left + scrollbg.Width, y);
 
                             // @eams display target speed marker
-                            graphicsObject.DrawImage(HUDT.speedmarker, scrollbg.Right - 3, (int)y,
+                            graphicsObject.DrawImage(HUDT.speedmarker, scrollbg.Right - 3, (int)y - HUDT.speedmarker.Height / 2,
                                 HUDT.speedmarker.Width, HUDT.speedmarker.Height);
                         }
 

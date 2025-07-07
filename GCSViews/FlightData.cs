@@ -3706,14 +3706,20 @@ namespace MissionPlanner.GCSViews
                         }
                     });
 
-                    // battery warning.
-                        // Use speech settings only if the following parameters are not set
-                        // BATT_LOW_VOLT
-                        // BATT_LOW_MAH
-                        // BATT_CRT_VOLT
-                        // BATT_CRT_MAH
+                    // @eams update targetspeed display on HUD
+                    if (MainV2.comPort.MAV.param.ContainsKey("WPNAV_SPEED"))
+                    {
+                        hud1.targetspeed = int.Parse(MainV2.comPort.MAV.param["WPNAV_SPEED"].ToString()) / 100;
+                    }
 
-                        double warnvolt = 0;
+                    // battery warning.
+                    // Use speech settings only if the following parameters are not set
+                    // BATT_LOW_VOLT
+                    // BATT_LOW_MAH
+                    // BATT_CRT_VOLT
+                    // BATT_CRT_MAH
+
+                    double warnvolt = 0;
                     double warnpercent = 0;
                     double critvolt = 0;
                     double critpercent = 0;
