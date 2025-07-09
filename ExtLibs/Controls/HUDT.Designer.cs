@@ -93,6 +93,16 @@ namespace MissionPlanner.Controls {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
+        public static System.Drawing.Bitmap altmarker {
+            get {
+                object obj = ResourceManager.GetObject("altmarker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
         public static System.Drawing.Bitmap antenna {
             get {
                 object obj = ResourceManager.GetObject("antenna", resourceCulture);

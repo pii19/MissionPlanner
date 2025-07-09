@@ -25,6 +25,7 @@ using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 using SkiaSharp.Views.Desktop;
 using SkiaSharp;
 using static MissionPlanner.Utilities.LTM;
+using static alglib;
 
 
 // Control written by Michael Oborne 2011
@@ -2619,11 +2620,12 @@ namespace MissionPlanner.Controls
                     {
                         if (a == (long) _targetspeed && _targetspeed != 0)
                         {
-                            this._greenPen.Width = 6;
                             var y = scrollbg.Top - space * (a - start);
+#if false
+                            this._greenPen.Width = 6;
                             graphicsObject.DrawLine(this._greenPen, scrollbg.Left, y,
                                 scrollbg.Left + scrollbg.Width, y);
-
+#endif
                             // @eams display target speed marker
                             graphicsObject.DrawImage(HUDT.speedmarker, scrollbg.Right - 3, (int)y - HUDT.speedmarker.Height / 2,
                                 HUDT.speedmarker.Width, HUDT.speedmarker.Height);
@@ -2641,8 +2643,8 @@ namespace MissionPlanner.Controls
                     }
 
                     // @eams display target speed text
-                    drawstring(String.Format("{0,5}", _targetspeed), font, fontsize, _pinkBrush, 0,
-                        (float)(scrollbg.Top - space * (end - start) - 20 - fontoffset));
+                    drawstring(String.Format("{0,5:F0}", _targetspeed), font, fontsize, _pinkBrush, 0,
+                        (float)(scrollbg.Top - space * (end - start) - 25 - fontoffset));
 
 
                     graphicsObject.DrawPolygon(this._blackPen, arrow);
@@ -2746,13 +2748,20 @@ namespace MissionPlanner.Controls
 
                     bool ground = false;
 
-                    for (long a = start; a <= (_alt + viewrange / 2); a += 1)
+                    long end = (long)(_alt + viewrange / 2);
+                    for (long a = start; a <= end; a += 1)
                     {
                         if (a == Math.Round(_targetalt) && _targetalt != 0)
                         {
+                            var y = scrollbg.Top - space * (a - start);
+#if false
                             this._greenPen.Width = 6;
-                            graphicsObject.DrawLine(this._greenPen, scrollbg.Left, scrollbg.Top - space * (a - start),
-                                scrollbg.Left + scrollbg.Width, scrollbg.Top - space * (a - start));
+                            graphicsObject.DrawLine(this._greenPen, scrollbg.Left, y,
+                                scrollbg.Left + scrollbg.Width, y);
+#endif
+                            // @eams display target alt marker
+                            graphicsObject.DrawImage(HUDT.altmarker, scrollbg.Left - 35, (int)y - HUDT.altmarker.Height / 2,
+                                HUDT.altmarker.Width, HUDT.altmarker.Height);
                         }
 
 
@@ -2775,6 +2784,11 @@ namespace MissionPlanner.Controls
                         }
 
                     }
+
+                    // @eams display target alt text
+                    drawstring(String.Format("{0,5:F0}", _targetalt), font, fontsize, _pinkBrush, scrollbg.Left,
+                        (float)(scrollbg.Top - space * (end - start) - 20 - fontoffset));
+
 
                     this._greenPen.Width = 4;
 
